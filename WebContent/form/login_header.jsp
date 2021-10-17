@@ -1,0 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<% request.setCharacterEncoding("UTF-8"); %>
+<% response.setContentType("text/html; charset=UTF-8"); %>
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	div a{
+		color:black;
+		font-weight: bold;
+		padding: 2px;
+		text-decoration: none;
+	}
+	.fd:hover{
+		color:skyblue;
+	}
+</style>
+</head>
+<body>
+	<div>
+		<br><br>
+		<h2><a href="">아이디 비밀번호 찾기</a></h2>
+		<br><br>
+		<a href="" class="fd">아이디 찾기</a>&nbsp;
+		<a href="" class="fd">비밀번호 찾기</a>
+		<hr>
+	</div>
+</body>
+</html>

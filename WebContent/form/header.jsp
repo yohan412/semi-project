@@ -65,7 +65,7 @@
 		<div id="header">
 			<div id="blank"></div>
 			<div id="logo">
-				<a href="#"><img src="./img/tmp.png" width="200px" height="60px" alt="내주변 헬스장"></a>
+				<a href="#"><img src="./img/tmp_image.png" width="200px" height="60px" alt="내주변 헬스장"></a>
 			</div>
 
 			<div id="login">

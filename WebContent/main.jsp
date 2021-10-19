@@ -16,7 +16,7 @@
 		justify-content:center;
 	}
 	#body{
-		background-image:url('img/tmpbackground.png');
+		background-image:url('img/tmp_background.png');
 		background-size:cover;
 		width:100%;
 		height:100%;
@@ -54,21 +54,21 @@
 	<div id="body">
 		<br><br>
         <div id="search">
-            <img src="img/tmp.png" width ="60px" height="60px"><input type="text" placeholder="ex)서울시 성북구" style="width:500px;height:60px;font-size:15px;">
+            <img src="img/tmp_image.png" width ="60px" height="60px"><input type="text" placeholder="ex)서울시 성북구" style="width:500px;height:60px;font-size:15px;">
         </div>
         <br><br>
         <div id="icon_nav">
         	<div class="icon_subnav">
-            	<a href=""><img src="img/tmp.png" ><br>스포츠 센터 목록</p></a>
+            	<a href=""><img src="img/tmp_image.png" ><br>스포츠 센터 목록</p></a>
             </div>
             <div class="icon_subnav">
-            	<a href=""><img src="img/tmp.png"><br>사업자 등록</a>
+            	<a href=""><img src="img/tmp_image.png"><br>사업자 등록</a>
             </div>
             <div class="icon_subnav">
-            	<a href=""><img src="img/tmp.png"><br>중고거래</a>
+            	<a href=""><img src="img/tmp_image.png"><br>중고거래</a>
             </div>
             <div class="icon_subnav">
-            	<a href=""><img src="img/tmp.png"><br>Q&A</a>
+            	<a href=""><img src="img/tmp_image.png"><br>Q&A</a>
             </div>
         </div>
         <br><br><br>

@@ -87,11 +87,11 @@ input[type=checkbox]:checked + .check-icon{
 	<br>
 	<div id="wrap">
 		<div id="map">
-			<img alt="map" src="img/tmp.png">
+			<img alt="map" src="img/tmp_image.png">
 		</div>
 		<br>
 		<div id="search">
-			<img alt="searchicon" src="img/tmp.png" width="60px" height="60px">
+			<img alt="searchicon" src="img/tmp_image.png" width="60px" height="60px">
 			<input type="text" placeholder="ex)서울시 성북구" style="width:500px;height:60px;font-size:15px;">
 		</div>
 		<br>
@@ -119,19 +119,19 @@ input[type=checkbox]:checked + .check-icon{
 			<table width="100%">
 				<col width="200px">
 				<tr>
-					<td><a href="#"><img src="img/tmp.png"></a></td>
+					<td><a href="#"><img src="img/tmp_image.png"></a></td>
 					<td><a href="#"><div class="center_brief">
 						<label class="checkbox-wrap"><input type="checkbox" name="wish_list" id="center_no1"><i class="check-icon"></i></label>
 					</div></a></td>
 				</tr>
 				<tr>
-					<td><a href="#"><img src="img/tmp.png"></a></td>
+					<td><a href="#"><img src="img/tmp_image.png"></a></td>
 					<td><a href="#"><div class="center_brief">
 						<label class="checkbox-wrap"><input type="checkbox" name="wish_list" id="center_no2"><i class="check-icon"></i></label>
 					</div></a></td>
 				</tr>
 				<tr>
-					<td><a href="#"><img src="img/tmp.png"></a></td>
+					<td><a href="#"><img src="img/tmp_image.png"></a></td>
 					<td><a href="#"><div class="center_brief">
 						<label class="checkbox-wrap"><input type="checkbox" name="wish_list" id="center_no3"><i class="check-icon"></i></label>
 					</div></a></td>

@@ -101,19 +101,19 @@ input[type=button]{
 			<table width="100%">
 				<col width="200px">
 				<tr>
-					<td><a href="#"><img src="img/tmp.png"></a></td>
+					<td><a href="#"><img src="img/tmp_image.png"></a></td>
 					<td><a href="#"><div class="used_brief">
 						<label class="checkbox-wrap"><input type="checkbox" name="wish_list" id="used_no1"><i class="check-icon"></i></label>
 					</div></a></td>
 				</tr>
 				<tr>
-					<td><a href="#"><img src="img/tmp.png"></a></td>
+					<td><a href="#"><img src="img/tmp_image.png"></a></td>
 					<td><a href="#"><div class="used_brief">
 						<label class="checkbox-wrap"><input type="checkbox" name="wish_list" id="used_no1"><i class="check-icon"></i></label>
 					</div></a></td>
 				</tr>
 				<tr>
-					<td><a href="#"><img src="img/tmp.png"></a></td>
+					<td><a href="#"><img src="img/tmp_image.png"></a></td>
 					<td><a href="#"><div class="used_brief">
 						<label class="checkbox-wrap"><input type="checkbox" name="wish_list" id="used_no1"><i class="check-icon"></i></label>
 					</div></a></td>

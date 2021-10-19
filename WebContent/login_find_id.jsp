@@ -14,10 +14,11 @@
 		width: 100%;
 	}
 	.button{
-		position: absolute;
+		position: relative;
 		top: 65%;
 		left:0;
 		text-align: center;
+		margin-bottom: 50px;
 	}
 	.button input{
 		width: 170px;
@@ -25,22 +26,11 @@
 		font-size: 20px;
 	}
 	.notice{
-		position: absolute;
-		top: 40%;
+		position: relative;
+		top: 50%;
 		left:0;
 		text-align: center;
-	}
-	header{
-		position:absolute;
-		left: 0;
-		top:0;
-		width: 100%;
-	}
-	footer{
-		position:absolute;
-		left: 0;
-		bottom:0;
-		width: 100%;
+		margin-top: 50px;
 	}
 </style>
 </head>

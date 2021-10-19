@@ -13,7 +13,7 @@
 	
 	.qna{
 		text-align: center;
-		position: absolute;
+		position: relative;
 		top:20%;
 		width:99%;
 		margin: 0 auto;
@@ -96,6 +96,7 @@
 			<input type="button" value="1대1 문의" class="qna_button">
 		</div>
 	</div>
+	<br><br>
 	<footer><%@ include file="form/footer.jsp" %></footer>
 </body>
 </html>

@@ -120,7 +120,7 @@ footer{
 		<div class="login">
 		
 			<div class="logo">
-				<img src="img\img1.png" width="300" height="60">
+				<img src="./img/tmp_image.png" width="300" height="60">
 			</div>
 			<div class="login_id">
 				<input type="text" name="user_id" placeholder="아이디">
@@ -141,8 +141,8 @@ footer{
 			</div>
 			
 			<div class="sns_login">
-				<a href=""><img src="img\img1.png" width="250" height="40px"></a>
-				<a href=""><img src="img\img1.png" width="250" height="40px"></a>
+				<a href=""><img src="./img/tmp_image.png" width="250" height="40px"></a>
+				<a href=""><img src="./img/tmp_image.png" width="250" height="40px"></a>
 			</div>
 		</div>
 		

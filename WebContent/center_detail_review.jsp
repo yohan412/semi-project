@@ -68,7 +68,7 @@
 			<div class="headline">
 				<a>닉네임</a> &nbsp;
 				<a>2020.02.02</a>
-				<img src="img\img1.png" width="100px" height="25px">
+				<img src="./img/tmp_image.png" width="100px" height="25px">
 			</div>
 				
 			<div class="content">
@@ -77,8 +77,8 @@
 			
 			<div class="recommend">
 				<a>도움이 되었나요?</a>
-				<img src="img\img1.png" width="30px" height="25px">
-				<img src="img\img1.png" width="30px" height="25px">
+				<img src="./img/tmp_image.png" width="30px" height="25px">
+				<img src="./img/tmp_image.png" width="30px" height="25px">
 			</div>
 		</div>
 	</div>

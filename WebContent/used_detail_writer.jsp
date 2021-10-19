@@ -139,11 +139,11 @@
 			
 			<div class="content">
 				<div class="map">
-					<img src="img\img1.png" width="500px" height="260px">
+					<img src="./img/tmp_image.png" width="500px" height="260px">
 				</div>
 				
 				<div class="pic">
-					<img src="img\img1.png" width="230px" height="230px">
+					<img src="./img/tmp_image.png" width="230px" height="230px">
 				</div>
 				
 				<div class="content_info">

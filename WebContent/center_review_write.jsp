@@ -98,7 +98,7 @@
 	
 	<div class="grade">
 		<a>별점:</a>
-		<img src="img\img1.png" width="100px" height="25px">
+		<img src="./img/tmp_image.png" width="100px" height="25px">
 	</div>
 	
 	<div class="content">

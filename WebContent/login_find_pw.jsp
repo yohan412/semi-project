@@ -10,38 +10,27 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+	div{
+		margin-top: 30px;
+		margin-bottom: 30px;
+	}
 	.notice{
-		position: absolute;
 		left: 0;
 		top: 30%;
 		width:100%;
 		text-align: center;
 	}
 	.text{
-		position: absolute;
 		left: 0;
 		top: 50%;
 		width:100%;
 		text-align: center;
 	}
 	.button{
-		position: absolute;
 		left: 0;
 		top: 70%;
 		width:100%;
 		text-align: center;
-	}
-	header{
-		position:absolute;
-		left: 0;
-		top:0;
-		width: 100%;
-	}
-	footer{
-		position:absolute;
-		left: 0;
-		bottom:0;
-		width: 100%;
 	}
 	.text input{
 		width:200px;

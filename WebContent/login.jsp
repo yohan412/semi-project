@@ -142,7 +142,7 @@ footer{
 			
 			<div class="sns_login">
 				<a href=""><img src="./img/tmp_image.png" width="250" height="40px"></a>
-				<a href=""><img src="./img/tmp_image.png" width="250" height="41px"></a>
+				<a href=""><img src="./img/tmp_image.png" width="250" height="40px"></a>
 			</div>
 		</div>
 		

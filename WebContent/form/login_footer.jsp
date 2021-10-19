@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 	div{
-		
+		width: 100%;
 	}
 	div h4{
 		color:black;

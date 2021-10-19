@@ -194,5 +194,6 @@
 			</table>
 		</form>
 	</div>
+	<footer><%@ include file = "form/footer.jsp" %></footer>
 </body>
 </html>

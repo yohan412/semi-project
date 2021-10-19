@@ -50,6 +50,7 @@
 </style>
 </head>
 <body>
+	<header><%@ include file="./form/header.jsp" %></header>	
 <h2 align="center">마이 페이지</h2>
 <div>
 	<hr size="1" width="500%">
@@ -88,5 +89,6 @@
 		</div>		
 	</form>
 </div>
+	<footer><%@ include file = "form/footer.jsp" %></footer>
 </body>
 </html>

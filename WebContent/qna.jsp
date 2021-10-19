@@ -10,14 +10,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	body{
-		width: 100%;
-	}
+	
 	.qna{
 		text-align: center;
 		position: absolute;
 		top:20%;
-		width:100%;
+		width:99%;
+		margin: 0 auto;
 		
 	}
 	.faq{
@@ -50,16 +49,6 @@
 		display: inline-block;
 		border : 1px solid black;
 	}
-	header{
-		position: absolute;
-		width : 100%;
-		top:0;
-	}
-	footer{
-		position :absolute;
-		width: 100%;
-		bottom: 0;
-	}
 	.qna_table{
 		margin: 10px;
 		width:480px;
@@ -72,6 +61,7 @@
 
 <body>
 	<header><%@ include file="form/header.jsp" %></header>
+	<br>
 	<div class="qna">
 		<div class="faq">
 			<table class="faq_type">

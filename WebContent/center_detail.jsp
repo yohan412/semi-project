@@ -112,7 +112,7 @@ a{
             <hr>
             <div class="top_cont">
                 <div class="img_part">
-                    <img src="./img/img.png">
+                    <img src="./img/tmp_image.png">
                 </div>
                 <div class="txt_part">
                     <p>서대문 헬스장 a</p>
@@ -163,11 +163,11 @@ a{
                     <h2 id="f">사진</h2>
                 </div>
                 <div class="img_line">
-                    <img src="./img/img.png">
-                    <img src="./img/img.png">
+                    <img src="./img/tmp_image.png">
+                    <img src="./img/tmp_image.png">
                     <br>
-                    <img src="./img/img.png">
-                    <img src="./img/img.png">
+                    <img src="./img/tmp_image.png">
+                    <img src="./img/tmp_image.png">
                 </div>
             </div>
         </div>

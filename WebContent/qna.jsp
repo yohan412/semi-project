@@ -85,7 +85,7 @@
 		<div class="qna_list">
 			<table class="qna_table" border="1">
 				<tr>
-					<th>NO.</th>
+					<th style="width:50px;">NO.</th>
 					<th>제목</th>
 					<th>답변상태</th>
 				</tr>

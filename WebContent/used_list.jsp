@@ -76,7 +76,7 @@ input[type=button]{
 	<br><br>
 	<div id="wrap">
 		<div id="search">
-            &nbsp;&nbsp;&nbsp;<img src="img/tmp.png" width ="40px" height="40px"><input type="text" placeholder="ex)서울시 성북구" style="width:50%;height:40px;font-size:12px;">
+            &nbsp;&nbsp;&nbsp;<img src="img/tmp_image.png" width ="40px" height="40px"><input type="text" placeholder="ex)서울시 성북구" style="width:50%;height:40px;font-size:12px;">
         	
         	&nbsp;센터종류&nbsp; <select name="center_category">
 				<option value="gym">헬스장</option>

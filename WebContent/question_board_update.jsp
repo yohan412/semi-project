@@ -30,6 +30,9 @@
 		display: flex;
   		justify-content: center;
 	}
+	#content{
+		resize:none;
+	}
 	#submit, #reset{
 		cursor:pointer;
 	}
@@ -57,7 +60,7 @@
 			<tr id="title">
 				<th>제 목</th>
 				<td>
-					<select id="category" style="width:80px;height:30px;">
+					<select id="category" style="width:50px;height:30px;">
 							<option value="cost">가격</option>
 							<option value="deal">거래</option>
 							<option value="center">시설</option>
@@ -68,7 +71,7 @@
 			</tr>
 			<tr id="content">
 				<th>내 용</th>
-				<td><textarea rows="15" cols="50" placeholder="문의내용을 입력해주세요"></textarea></td>
+				<td><textarea rows="15" cols="50" placeholder="문의내용을 입력해주세요" ></textarea></td>
 			</tr>
 			<tr id="photo">
 				<th>사진 첨부</th>

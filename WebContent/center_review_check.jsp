@@ -22,7 +22,6 @@
 	#wrap{
 		position: absolute;
 		width: 100%;
-		top: 20%;
 		margin: 0 auto;
 		text-align : center;
 }

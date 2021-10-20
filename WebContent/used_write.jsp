@@ -59,10 +59,10 @@ input[type=button], input[type=submit]{
 			<tr>
 				<th>글 머리</th>
 				<td>
-					<label><input type="radio" name="title_header" value="gym" checked>헬스</label>
-					<label><input type="radio" name="title_header" value="pilates">필라테스</label>
-					<label><input type="radio" name="title_header" value="yoga">요가</label>
-					<label><input type="radio" name="title_header" value="etc">기타</label>
+					<label><input type="checkbox" name="gym" value="gym" checked>헬스</label>
+					<label><input type="checkbox" name="pilates" value="pilates">필라테스</label>
+					<label><input type="checkbox" name="yoga" value="yoga">요가</label>
+					<label><input type="checkbox" name="etc" value="etc">기타</label>
 				</td>
 			</tr>
 			<tr>

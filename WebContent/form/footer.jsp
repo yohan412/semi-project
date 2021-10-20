@@ -16,6 +16,7 @@
 	height:50px;
 	bottom:0;
 	display:flex;
+	font-weight:bold;
 	align-items:center;
 	justify-content:center;
 }

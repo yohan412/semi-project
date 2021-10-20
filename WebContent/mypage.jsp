@@ -16,7 +16,7 @@
 .mylist{
 	margin-left : auto;
 	margin-right : auto;
-	line-height : 40px;
+	border-spacing : 40px;
 }
 #list{
 	vertical-align:top; 

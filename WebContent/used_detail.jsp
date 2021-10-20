@@ -28,12 +28,15 @@
 	display: flex;
 	position: absolute;
 	justify-content: center;
+	align-items: center;
 	flex-direction: column;
 	background: rgb(234, 234, 234);
+	width: 800px;
 }
 
 .headline{
 	margin: 15px;
+	width: 750px;
 }
 
 .title a{
@@ -41,12 +44,16 @@
 	font-size: 20px;
 }
 
+.title img{
+	padding-left: 400px;
+}
+
 .write_info a{
 	font-size: 12px;
 }
 
 .content{
-	width: 600px;
+	width: 700px;
 	height: 750px;
 	background: white;
 	margin: 20px;
@@ -99,6 +106,7 @@
 				<div class="title">
 					<a>[헬 스]</a>
 					<a>ㅇㅇ동 3개월 양도합니다</a>
+					<img src="./img/emt_heart.png" width="30px" height="30px">
 				</div>
 				
 				<div class="write_info">

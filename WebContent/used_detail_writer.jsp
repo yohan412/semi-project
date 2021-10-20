@@ -28,12 +28,15 @@
 	display: flex;
 	position: absolute;
 	justify-content: center;
+	align-items: center;
 	flex-direction: column;
 	background: rgb(234, 234, 234);
+	width: 800px;
 }
 
 .headline{
 	margin: 15px;
+	width: 750px;
 }
 
 .title a{
@@ -60,7 +63,7 @@
 }
 
 .content{
-	width: 600px;
+	width: 750px;
 	height: 750px;
 	background: white;
 	margin: 20px;

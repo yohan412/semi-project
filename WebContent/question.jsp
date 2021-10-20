@@ -38,7 +38,7 @@
 	}
 	.faq_list{
 		display: inline-block;
-		width : 300px;
+		width : 580px;
 		margin: 5px;
 	}
 	.faq_list tbody{
@@ -65,39 +65,34 @@
 	<br>
 	<div class="qna">
 		<div class="faq">
-			<table class="faq_type">
+			<table class="faq_type" style="overflow: auto; max-height: 280px;">
 				<tr>
 					<th>유형</th>	
 				</tr>
-				<div style="overflow: auto;">
-					<tr>
+				<tr>
 					
-					</tr>
-				</div>
+				</tr>
 			</table>
-			<table class="faq_list">
+			<table class="faq_list" style="overflow: auto; max-height: 280px;">
 				<tr>
 					<th>자주하는 질문 리스트</th>
 				</tr>
-				<div style="overflow: auto;">
-					<tr>
-					
-					</tr>			
-				</div>	
+				<tr>
+					<td></td>
+				</tr>
+								
 			</table>
 		</div>
 		<br>
 		<div class="qna_list">
-			<table class="qna_table" border="1">
+			<table class="qna_table" border="1" style="overflow: auto; max-height: 180px;">
 				<tr>
 					<th style="width:50px;">NO.</th>
 					<th>제목</th>
 					<th>답변상태</th>
 				</tr>
-				<div style="overflow: auto;">
-					<tr>
-					</tr>
-				</div>
+				<tr>
+				</tr>
 			</table>
 		</div>
 		<br>

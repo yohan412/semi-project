@@ -40,6 +40,7 @@ a{
 	flex-direction: column;
 	border: 1px solid grey;
 	border-radius: 30px;
+	text-align: center;
 
 }
 

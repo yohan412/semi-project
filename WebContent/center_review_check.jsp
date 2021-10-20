@@ -21,13 +21,12 @@
 <style type="text/css">
 	#wrap{
 		position: absolute;
-		width: 80%;
-		top: 20%;
+		width: 100%;
 		margin: 0 auto;
 		text-align : center;
 }
 	body{
-		width : 80%;
+		width : 100%;
 		text-align : center;		
 	}
 	h2{

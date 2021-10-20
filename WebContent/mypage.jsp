@@ -25,6 +25,11 @@
 	text-align:center;
 	letter-spacing : 15px;
 }
+td input[type="text"], input[type="email"], input[type="tel"] {
+	width: 450px; height: 30px;
+    font-size: 0.8rem;
+    border: 1px solid #d1d1d1;
+}
 </style>
 </head>
 <body>
@@ -36,23 +41,23 @@
 		<col width="150px"><col width="300px">
 		<tr>
 			<th>성명</th>
-			<td><input type="text" placeholder="이름을 작성해주세요." id="name" size="60"></td>
+			<td><input type="text" placeholder="이름을 작성해주세요." id="name"></td>
 		</tr>
 		<tr>
 			<th>아이디</th>
-			<td><input type="text" placeholder="ex)kh" id="id" size="60"></td>
+			<td><input type="text" placeholder="ex)kh" id="id"></td>
 		</tr>
 		<tr>
 			<th>전화번호</th>
-			<td><input type="tel" placeholder="전화번호를 입력해주세요" id="tel" size="60"></td>
+			<td><input type="tel" placeholder="전화번호를 입력해주세요" id="tel"></td>
 		</tr>
 		<tr>
 			<th>이메일</th>
-			<td><input type="email" placeholder="ex)kh@naver.com" id="email" size="60"></td>
+			<td><input type="email" placeholder="ex)kh@naver.com" id="email"></td>
 		</tr>
 		<tr>
 			<th>주소</th>
-			<td><input type="text" placeholder="주소를 입력해주세요" id="addr" size="60"></td>
+			<td><input type="text" placeholder="주소를 입력해주세요" id="addr"></td>
 		</tr>
 		<tr>
 			<th id="list">내가 쓴 글 목록</th>

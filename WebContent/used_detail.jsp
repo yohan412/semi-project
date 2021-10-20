@@ -70,6 +70,11 @@
 
 .content_info{
 	margin-top: 40px;
+	margin-left: 45%;
+}
+
+.content_info p{
+	text-align: left;
 }
 
 .regist{

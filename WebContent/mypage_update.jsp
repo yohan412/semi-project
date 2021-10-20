@@ -50,7 +50,7 @@
 </style>
 </head>
 <body>
-	<header><%@ include file="./form/header.jsp" %></header>	
+<header><%@ include file="./form/header.jsp" %></header>	
 <h2 align="center">마이 페이지</h2>
 <div>
 	<hr size="1" width="500%">
@@ -58,6 +58,7 @@
 <div id="wrap">
 	<form action="" method="post">
 		<table>
+		<col width="150px"><col width="300px">
 			<tr id="username">
 				<th>성 명</th>
 				<td><input type="text" placeholder="이름을 입력하세요" readonly="readonly"></td>

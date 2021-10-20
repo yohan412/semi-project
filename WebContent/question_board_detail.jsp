@@ -50,7 +50,7 @@
 			<tr id="title">
 				<th>제 목</th>
 				<td>
-					<select id="category" disabled="disabled" style="width:80px;height:30px;">
+					<select id="category" disabled="disabled" style="width:50px;height:30px;">
 							<option value="cost">가격</option>
 							<option value="deal">거래</option>
 							<option value="center">시설</option>
@@ -61,7 +61,7 @@
 			</tr>
 			<tr id="content">
 				<th>내 용</th>
-				<td><textarea rows="10" cols="60" placeholder="내용" readonly="readonly"></textarea></td>
+				<td><textarea rows="15" cols="50" placeholder="내용" readonly="readonly"></textarea></td>
 			</tr>
 		</table>
 		<br>
@@ -70,6 +70,6 @@
 		</div>		
 	</form>
 </div>
-		<footer><%@ include file = "form/footer.jsp" %></footer>
+<footer><%@ include file = "form/footer.jsp" %></footer>
 </body>
 </html>

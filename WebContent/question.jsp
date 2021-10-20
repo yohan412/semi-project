@@ -21,14 +21,14 @@
 	}
 	.faq{
 		display: inline-block;
-		width : 500px;
+		width : 800px;
 		height : 300px;
 		margin: 10px;
 		border : 1px solid black;
 	}
 	.faq_type{
 		display: inline-block;
-		width : 100px;
+		width : 200px;
 		margin: 5px;
 		text-align: center;
 		float: left;
@@ -45,17 +45,17 @@
 		display: inline-block;
 	}
 	.qna_list{
-		width : 500px;
+		width : 800px;
 		height : 200px;
 		display: inline-block;
 		border : 1px solid black;
 	}
 	.qna_table{
 		margin: 10px;
-		width:480px;
+		width:780px;
 	}
 	.qna_button{
-		display: in
+		
 	}
 </style>
 </head>
@@ -101,7 +101,7 @@
 			</table>
 		</div>
 		<br>
-		<div style="text-align: right; width: 500px; display: inline-block;">
+		<div style="text-align: right; width: 800px; display: inline-block;">
 			<input type="button" value="1대1 문의" class="qna_button">
 		</div>
 	</div>

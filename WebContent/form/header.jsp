@@ -43,8 +43,8 @@
 	margin-top:10px;
 	align: "center";
 	width: 100%;
-	height:30px;
-	background-color:gray;
+	height:40px;
+	background-color:black;
 	display: flex;
 	overflow: hidden;
 	justify-content:center;
@@ -58,6 +58,10 @@
 	width: 100px;
 	font-weight: bold;
 	text-align: center;
+}
+
+#nav .sub_menu a:hover{
+	color:skyblue;
 }
 </style>
 </head>

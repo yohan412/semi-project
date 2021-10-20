@@ -56,8 +56,10 @@
 
 </head>
 <body>
-	<img>
-	<br><br><br><br><br>
+	<div style="text-align: center; margin-top: 30px;">
+		<a href="#"><img src="./img/tmp_image.png" width="200px" height="60px" alt="내주변 헬스장"></a>
+	</div>
+	<br><br>
 	<hr>
 	<div id="wrap" align="center">
 		<form action="" method="post">

@@ -58,6 +58,9 @@
     <div id="wrap">
         <h2>사업장 등록</h2>
         <hr>
+        <br>
+        <br>
+        
          <form>
             <table>
                 <tr>

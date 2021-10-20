@@ -94,6 +94,8 @@
 	<div id="wrap">
     <h2>Review</h2>
     <hr>
+    <br>
+    <br>
     <form name="reviewcheck" class="reviewform" method="post" action="/save">
         <input type="hidden" name="rate" id="rate" value="0"/> 
         <div>

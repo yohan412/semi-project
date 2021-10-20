@@ -61,7 +61,7 @@
 			</tr>
 			<tr id="content">
 				<th>내 용</th>
-				<td><textarea rows="10" cols="60" placeholder="내용" readonly="readonly"></textarea></td>
+				<td><textarea rows="15" cols="50" placeholder="내용" readonly="readonly"></textarea></td>
 			</tr>
 		</table>
 		<br>

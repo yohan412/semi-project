@@ -68,7 +68,7 @@
 			</tr>
 			<tr id="content">
 				<th>내 용</th>
-				<td><textarea rows="10" cols="60" placeholder="내용을 입력하세요"></textarea></td>
+				<td><textarea rows="15" cols="50" placeholder="문의내용을 입력해주세요"></textarea></td>
 			</tr>
 			<tr id="photo">
 				<th>사진 첨부</th>

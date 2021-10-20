@@ -68,6 +68,7 @@
 	background: white;
 	margin: 20px;
 	text-align: center;
+	align-items: center;
 }
 
 .map{
@@ -78,8 +79,14 @@
 	margin-top: 40px;
 }
 
+
 .content_info{
 	margin-top: 40px;
+	margin-left: 45%;
+}
+
+.content_info p{
+	text-align: left;
 }
 
 .status{
@@ -156,6 +163,7 @@
 					<p>기간별 가격:</p>
 					<p>관련 정보:</p>
 				</div>
+				
 			</div>
 			
 			<div class="status">

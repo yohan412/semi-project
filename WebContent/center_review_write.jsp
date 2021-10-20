@@ -56,7 +56,10 @@
 
 .content textarea{
 	padding: 10px 10px;
-}
+	resize: none; 
+	overflow:auto; 
+	overflow-x:hidden; 
+} 
 
 .regist{
 	margin-top: 10px;

@@ -22,7 +22,6 @@
 	#wrap{
 		position: absolute;
 		width: 100%;
-		top: 20%;
 		margin: 0 auto;
 		text-align : center;
 }
@@ -42,7 +41,6 @@
 	textarea{
 		width : 50%;
 		float : center;
-		resize: none;
 	}
 	.REVIEW_WRITER{
 		text-align : left;
@@ -82,15 +80,7 @@
   		border-radius: 2%;
   		color: #2199e8;
   		display: inline-block;
-	}   
-	.feeling_b {
-  		background-color: #fff;
-  		border: 2px solid #2199e8;
-  		padding: 5% 5%;
-  		border-radius: 2%;
-  		color: #2199e8;
-  		display: inline-block;
-	}  
+	}     
 	.cmd{
 		display: inline-block;
 	}
@@ -130,12 +120,12 @@
 				<span class="review_help">리뷰가 도움이 되었나요?</span>
 				<div class="button-container like-container">
 			  	  <button class="feeling_a">
-			     	<i class="fa fa-thumbs-up" aria-hidden="true">Like</i>
+			     	 <i class="fa fa-heart-o"> Like</i>    
 			    </button>
 			  	</div>
 			  	<div class="button-container dislike-container">
-			    	<button class="feeling_b">
-			     		<i class="fa-thumbs-o-up"> Dislike</i>
+			    	<button class="feeling_a">
+			     		<i class="fa fa-heart"> Dislike</i>
 			    	</button>
 				</div>
 			</div>	

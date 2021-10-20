@@ -10,22 +10,24 @@
 <head>
 <meta charset="UTF-8">
 <title>내 주변 센터</title>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cf6a0311e8ff428c0d13bd95e775d7f3"></script>
+
 <style type="text/css">
 h1 {
 	text-align: center;
 }
 #wrap{
 	width:80%;
-	 margin: 0 auto;
-}
-#map {
+	margin: 0 auto;
 	text-align: center;
 }
-
-#map img {
+#map {
 	width: 600px;
 	height: 300px;
+	display:inline-block;
 }
+
 
 #search {
 	display: flex;
@@ -77,6 +79,7 @@ input[type=checkbox]:checked + .check-icon{
 	background-image:url('img/heart.png');
 }
 </style>
+
 </head>
 <body>
 	<header>
@@ -87,8 +90,17 @@ input[type=checkbox]:checked + .check-icon{
 	<br>
 	<div id="wrap">
 		<div id="map">
-			<img alt="map" src="img/tmp_image.png">
 		</div>
+		<!-- 지도부분 구현 -->
+<script type="text/javascript">
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(37.498095, 127.027610),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+</script>
 		<br>
 		<div id="search">
 			<img alt="searchicon" src="img/tmp_image.png" width="60px" height="60px">

@@ -45,7 +45,7 @@
 }
 
 .content{
-	margin-top: 25px;
+	margin-top: 15px;
 }
 
 .recommend{
@@ -58,6 +58,7 @@
 	font-size: 12px;
 	font-weight: bold;
 }
+
 
 </style>
 </head>

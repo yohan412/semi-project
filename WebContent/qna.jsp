@@ -31,6 +31,7 @@
 		width : 100px;
 		margin: 5px;
 		text-align: center;
+		float: left;
 	}
 	.faq_type tbody{
 		display: inline-block;
@@ -68,27 +69,35 @@
 				<tr>
 					<th>유형</th>	
 				</tr>
-				<tr>
-				
-				</tr>
+				<div style="overflow: auto;">
+					<tr>
+					
+					</tr>
+				</div>
 			</table>
 			<table class="faq_list">
 				<tr>
 					<th>자주하는 질문 리스트</th>
 				</tr>
-				<tr>
-				
-				</tr>			
+				<div style="overflow: auto;">
+					<tr>
+					
+					</tr>			
+				</div>	
 			</table>
 		</div>
 		<br>
 		<div class="qna_list">
 			<table class="qna_table" border="1">
 				<tr>
-					<th>NO.</th>
+					<th style="width:50px;">NO.</th>
 					<th>제목</th>
 					<th>답변상태</th>
 				</tr>
+				<div style="overflow: auto;">
+					<tr>
+					</tr>
+				</div>
 			</table>
 		</div>
 		<br>

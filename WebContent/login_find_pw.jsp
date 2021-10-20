@@ -19,6 +19,7 @@
 		top: 30%;
 		width:100%;
 		text-align: center;
+		margin-top: 100px;
 	}
 	.text{
 		left: 0;
@@ -31,6 +32,8 @@
 		top: 70%;
 		width:100%;
 		text-align: center;
+		margin-top:100px;
+		margin-bottom: 100px;
 	}
 	.text input{
 		width:200px;
@@ -40,6 +43,9 @@
 		width: 170px;
 		height: 40px;
 		font-size: 20px;
+	}
+	input{
+		margin: 5px;
 	}
 </style>
 </head>

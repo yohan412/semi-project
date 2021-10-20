@@ -18,7 +18,8 @@
 		top: 65%;
 		left:0;
 		text-align: center;
-		margin-bottom: 50px;
+		margin-top:80px;
+		margin-bottom: 100px;
 	}
 	.button input{
 		width: 170px;
@@ -30,7 +31,8 @@
 		top: 50%;
 		left:0;
 		text-align: center;
-		margin-top: 50px;
+		margin-top: 100px;
+		
 	}
 </style>
 </head>

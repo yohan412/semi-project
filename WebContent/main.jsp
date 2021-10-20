@@ -19,7 +19,7 @@
 		background-image:url('img/tmp_background.png');
 		background-size:cover;
 		width:100%;
-		height:100%;
+		height:80%;
 	}
 	#icon_nav{
 		display:flex;

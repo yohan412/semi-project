@@ -36,11 +36,16 @@ h1 {
 }
 
 #sorting {
+	display:flex;
+	justify-content: center;
 	font-size: 15px;
 	font-weight: bold;
 	text-align:center;
 }
-
+.sorting_sub{
+	width:180px;
+	height:30px;
+}
 #sorting select {
 	width: 100px;
 	height: 20px;
@@ -108,23 +113,27 @@ input[type=checkbox]:checked + .check-icon{
 		</div>
 		<br>
 		<div id="sorting">
+			<div class="sorting_sub">
 			센터종류&nbsp; <select name="center_category">
 				<option value="gym">헬스장</option>
 				<option value="yoga">요가</option>
 				<option value="pilates">필라테스</option>
 				<option value="crossfit">크로스핏</option>
 				<option value="etc">기타</option>
-			</select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			
+			</select>
+			</div>
+			<div class="sorting_sub">
 			가격&nbsp; <select name="price">
 				<option value="desc_price">가격 높은 순</option>
 				<option value="asc_price">가격 낮은 순</option>
-			</select> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			
+			</select>
+			</div>
+			<div class="sorting_sub">
 			평점&nbsp; <select name="rate">
 				<option value="desc_rate">평점 높은 순</option>
 				<option value="asc_rate">평점 낮은 순</option>
 			</select>
+			</div>
 		</div>
 		<br><br>
 		<div id="centerboard_list">

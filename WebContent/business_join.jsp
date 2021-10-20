@@ -4,6 +4,8 @@
 <% response.setContentType("text/html; charset=UTF-8"); %>
 <html>
 <head>
+<meta charset="UTF-8">
+
     <title>회원가입 화면</title>
     
     <style>
@@ -56,6 +58,9 @@
     <div id="wrap">
         <h2>사업장 등록</h2>
         <hr>
+        <br>
+        <br>
+        
          <form>
             <table>
                 <tr>

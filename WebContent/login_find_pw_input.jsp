@@ -20,7 +20,6 @@ body {
 	margin: 0;
 	height: 100%;
 	background: #f5f6f7;
-	font-family: Dotum, '돋움', Helvetica, sans-serif;
 }
 
 h5 {
@@ -39,7 +38,6 @@ h5 {
 	width: 460px;
 }
 
-/* 입력폼 */
 h3 {
 	margin: 19px 0 8px;
 	font-size: 14px;
@@ -67,9 +65,6 @@ h3 {
 	font-size: 15px;
 }
 
-input {
-	font-family: Dotum, '돋움', Helvetica, sans-serif;
-}
 
 
 #USER_BIRTH DATE_wrap {
@@ -330,5 +325,7 @@ select {
 		</div>
 
 	</div>
+	<footer><%@ include file = "form/footer.jsp" %></footer>
+	
 </body>
 </html>

@@ -13,7 +13,7 @@
     		text-align:center;
     	}
         #wrap{
-            width:80%;
+            width:100%;
             margin:auto;
             margin-left:auto; 
             margin-right:auto;

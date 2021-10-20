@@ -10,16 +10,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	div{
-		margin-top: 30px;
-		margin-bottom: 30px;
-	}
 	.notice{
 		left: 0;
 		top: 30%;
 		width:100%;
 		text-align: center;
-		margin-top: 100px;
+		margin-top: 70px;
+		margin-bottom: 50px;
 	}
 	.text{
 		left: 0;
@@ -32,8 +29,7 @@
 		top: 70%;
 		width:100%;
 		text-align: center;
-		margin-top:100px;
-		margin-bottom: 100px;
+		margin-bottom: 70px;
 	}
 	.text input{
 		width:200px;

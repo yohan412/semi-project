@@ -20,6 +20,10 @@
     	font-size: 0.8rem;
     	border: 1px solid #d1d1d1;
 	}
+	td input[type="file"]{
+		width: 350px; height: 30px;
+    	font-size: 0.8rem;
+	}
 	th {
     	margin: 10px 0 8px;
    		font-size: 1.0rem;
@@ -75,7 +79,7 @@
 			</tr>
 			<tr id="photo">
 				<th>사진 첨부</th>
-				<td align="left"><input type="button" value="파일 선택" onclick=""></td>
+				<td><input type="file" name="file" id="imageFileOpenInput" accept="image/*"></td>
 			</tr>
 		</table>
 		<br>
@@ -85,6 +89,6 @@
 		</div>		
 	</form>
 </div>
-		<footer><%@ include file = "form/footer.jsp" %></footer>
 </body>
+<footer><%@ include file = "form/footer.jsp" %></footer>
 </html>

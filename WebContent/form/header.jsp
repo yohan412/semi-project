@@ -74,12 +74,12 @@
 			</div>
 
 			<div id="login">
-				<button onclick="location.href='usercontroller?command=loginform'">로그인</button>
+				<button onclick="location.href='#'">로그인</button>
 				<button onclick="location.href='#'">회원가입</button>
 			</div>
 			<div id="logout">
 				<button onclick="location.href='#'">로그아웃</button>
-				<button onclick="location.href='#'">마이페이지</button>
+				<button onclick="location.href='<%= request.getContextPath() %> /mypage.me'">마이페이지</button>
 			</div>
 		</div>
 		<div id="nav">

@@ -83,21 +83,22 @@
 	<div id="body">
 		<br><br><br><br><br><br>
         <div id="search">
-            <img src="img/icon_search.png" width ="60px" height="60px"><input type="text" placeholder="     ex)서울시 성북구">
+            <img src="img/icon_search.png" width ="60px" height="60px" a href ="main.jsp">
+            <input type="text" placeholder="     ex)서울시 성북구">
         </div>
         <br><br><br>
         <div id="icon_nav">
         	<div class="icon_subnav">
-            	<a href=""><img src="img/icon_center.png" ><br>스포츠 센터 목록</p></a>
+            	<a href="center_list.jsp"><img src="img/icon_center.png" ><br>스포츠 센터 목록</p></a>
             </div>
             <div class="icon_subnav">
-            	<a href=""><img src="img/icon_business.png"><br>사업자 등록</a>
+            	<a href="join_business.jsp"><img src="img/icon_business.png"><br>사업자 등록</a>
             </div>
             <div class="icon_subnav">
-            	<a href=""><img src="img/icon_used.png"><br>중고거래</a>
+            	<a href="used_list.jsp"><img src="img/icon_used.png"><br>중고거래</a>
             </div>
             <div class="icon_subnav">
-            	<a href=""><img src="img/icon_qna.png"><br>Q&A</a>
+            	<a href="qna.jsp"><img src="img/icon_qna.png"><br>Q&A</a>
             </div>
         </div>
         <br><br><br>

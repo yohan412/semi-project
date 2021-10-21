@@ -23,7 +23,17 @@ public class UserController extends HttpServlet {
 		if(command.equals("loginform")) {
 			dispatch("login.jsp",request,response);
 		}else if(command.equals("idChk")) {
+			String myid=request.getParameter("id");
+			String res = dao.idChk(myid);
 			
+			boolean idnotused=true;
+			
+			//중복되는 경우가 있을경우
+			if(res!=null){ 
+				idnotused=false;
+			}
+			
+			response.sendRedirect("idchk.jsp?idnotused="+idnotused);
 		}
 	}
 	

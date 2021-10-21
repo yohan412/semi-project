@@ -53,7 +53,24 @@
 	}
 	
 </style>
-
+<script type="text/javascript">
+	function idChk() {
+		var doc = document.getElementsByName("myid")[0];
+		if(doc.value.trim()==""||doc.value==null){
+			alert("아이디를 입력해 주세요.");
+		}else{
+			var target = "usercontroller?command=idChk&id="+doc.value.trim();
+			open(target,"","width=200,height=200");
+		}
+	}
+	function idChkConfirm(){
+		var chk = document.getElementsByName("myid")[0].title;
+		if(chk=="n"){
+			alert("아이디 중복체크");
+			document.getElementsByName("myid")[0].focus();
+		}
+	}
+</script>
 </head>
 <body>
 	<div style="text-align: center; margin-top: 30px;">
@@ -67,8 +84,8 @@
 				<tr>
 					<th>I D</th>
 					<td width="100%">
-						<input type="text" id="id" placeholder="아이디를 입력하세요" required="required" autofocus>&nbsp;&nbsp;
-						<input type="button" id="id_chk" value="중복 확인" onclick="">
+						<input type="text" id="id" name="myid" title="n" placeholder="아이디를 입력하세요" required="required" autofocus>&nbsp;&nbsp;
+						<input type="button" id="id_chk" value="중복 확인" onclick="idChk()">
 					</td>
 				</tr>
 				<tr>
@@ -444,7 +461,7 @@
 				<div>
 				<tr>
 					<td colspan="10" style="text-align: center;">
-						<input type="submit" id="join" value="가 입 하 기"  style="width:300px;height:40px;"><br><br>
+						<input type="submit" id="join" value="가 입 하 기"  style="width:300px;height:40px;" onclick="idChkConfirm();"><br><br>
 						<input type="button" id="reset" value="취 소" onclick="" style="width:300px;height:40px;">
 					</td>
 				</tr>

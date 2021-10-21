@@ -22,6 +22,8 @@ public class UserController extends HttpServlet {
 		
 		if(command.equals("loginform")) {
 			dispatch("login.jsp",request,response);
+		}else if(command.equals("idChk")) {
+			
 		}
 	}
 	

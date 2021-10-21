@@ -142,8 +142,8 @@
 			
 		</div>
 		<div class="regist">
-				<input type="button" id="ask" value="문  의" onclick="">&nbsp;&nbsp;
-				<input type="button" id="list" value="목  록" onclick="">
+				<input type="button" id="ask" value="문  의" onclick="location.href='used_detatil.ask.jsp'">&nbsp;&nbsp;
+				<input type="button" id="list" value="목  록" onclick="location.href='used_list.jsp'">
 			</div>
 	</div>
 	

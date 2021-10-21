@@ -41,13 +41,16 @@ td input[type="text"], input[type="email"], input[type="tel"] {
     font-size: 0.8rem;
     border: 1px solid #d1d1d1;
 }
+function move(){
+	location.href= "/WebContent/mypage_update.jsp";
+}
 </style>
 </head>
 <body>
 <header><%@ include file="./form/header.jsp" %></header>
 	<h2 class="information">마이 페이지</h2>
 	<hr>
-	<form action ="" method="post">
+	<form action ="mypage_update.jsp" method="post">
 	<table class="mylist">
 		<col width="150px"><col width="300px">
 		<tr>
@@ -62,7 +65,7 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 			<th>전화번호</th>
 			<td>
 				<input type="tel" placeholder="전화번호를 입력해주세요" 
-				id="USER_PHONE" value="<%= USER_PHONE %>">
+				id="USER_PHONE" value="">
 					
 			</td>
 		</tr>
@@ -70,7 +73,7 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 			<th>이메일</th>
 			<td>
 				<input type="email" placeholder="ex)kh@naver.com" id="USER_EMAIL"
-				value="<%= USER_EMAIL %>">
+				value="">
 				
 			</td>
 		</tr>
@@ -78,7 +81,7 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 			<th>주소</th>
 			<td>
 				<input type="text" placeholder="주소를 입력해주세요" id="USER_ADDR"
-				value="<%= USER_ADDR %>"
+				value=""
 				>
 				
 				</td>
@@ -93,9 +96,9 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 		</tr>
 		<tr>
 			<td colspan="2" class="function">
-			<input type="submit" value="수정" onclick="location.href='<%=request.getContextPath() %>/myPage.me'">
-			<input type="button" value="탈퇴" onclick="">
-			<input type="button" value="취소" onclick="">
+			<input type="submit" value="수정" onclick="move">
+			<input type="button" value="탈퇴" onclick="move2">
+			<input type="button" value="취소" onclick="location.href='used_detail_writer.jsp'">
 			</td>
 		</tr>
 	</table>

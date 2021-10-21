@@ -116,8 +116,11 @@ input[type=button]{
 				</tr>
 				<tr>
 					<td><a href="#"><img src="img/tmp_image.png"></a></td>
-					<td><a href="#"><div class="used_brief">
-						<label class="checkbox-wrap"><input type="checkbox" name="wish_list" id="used_no1"><i class="check-icon"></i></label>
+					<td><a href=""><div class="used_brief">
+						<label class="checkbox-wrap">
+						<input type="checkbox" name="wish_list" id="used_no1">
+						<i class="check-icon"></i>
+						</label>
 					</div></a></td>
 				</tr>
 				<tr>
@@ -128,7 +131,7 @@ input[type=button]{
 				</tr>
 				<tr height="150px">
 					<td colspan="2" align="center">
-						<input type="button" onclick="location.href='#'" value="글쓰기">	
+						<input type="button" onclick="location.href='used_detail_writer.jsp'" value="글쓰기">	
 					</td>
 				</tr>
 			</table>

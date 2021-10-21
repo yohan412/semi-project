@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
 
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
+
 
 <!DOCTYPE html>
 <html>
@@ -48,6 +52,13 @@
 		border: 1px solid gray;
 		border-radius: 5px;
 	}
+	function move(){
+	location.href= "/WebContent/mypage.jsp";
+}
+	function move2(){
+	location.href= "/WebContent/mypage.jsp";
+	
+}
 </style>
 </head>
 <body>
@@ -60,34 +71,34 @@
 	<form action="" method="post">
 		<table>
 		<col width="150px"><col width="300px">
-			<tr id="username">
+			<tr id="user_name">
 				<th>성 명</th>
 				<td><input type="text" placeholder="이름을 입력하세요" "></td>
 			</tr>
 			<tr id="userid">
 				<th>아이디</th>
-				<td><input type="text" placeholder=" ex) kh" readonly="readonly"></td>
+				<td><input type="text" readonly></td>
 			</tr>
 			<tr id="userpwd">
 				<th>비밀번호</th>
 				<td><input type="password" placeholder="비밀번호를 입력하세요" autofocus></td>
 			</tr>
-			<tr id="phone">
+			<tr id="user_phone">
 				<th>전화번호</th>
 				<td><input type="text" placeholder="휴대 전화번호를 입력하세요"></td>
 			</tr>
-			<tr id="email">
+			<tr id="user_email">
 				<th>이메일</th>
 				<td><input type="text" placeholder=" ex) kh@naver.com"></td>
 			</tr>
-			<tr id="addr">
+			<tr id="user_addr">
 				<th>주소</th>
 				<td><input type="text" placeholder="주소를 입력하세요"></td>
 			</tr>
 		</table>
 		<div align="center">
-				<input type="submit" id="submit" value="수정 완료">
-				<input type="button" id="reset" value="취 소" onclick="">
+				<input type="submit" id="submit" value="수정 완료" onclick="move">
+				<input type="button" id="reset" value="취 소" onclick="move2">
 		</div>		
 	</form>
 </div>

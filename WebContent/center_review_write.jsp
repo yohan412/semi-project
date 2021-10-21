@@ -109,8 +109,8 @@
 	</div>
 	
 	<div class="regist">
-		<input type="submit" value="등 록" id="submit">&nbsp;&nbsp;
-		<input type="button" value="닫 기" id="close" onclick="">
+		<input type="submit" value="등 록" id="submit" onclick ="center_detail.jsp">&nbsp;&nbsp;
+		<input type="button" value="닫 기" id="close" onclick="location.href='center_detail.jsp'">
 	</div>
 	</div>
 	</div>

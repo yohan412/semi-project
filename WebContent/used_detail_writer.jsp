@@ -174,7 +174,7 @@
 		</div>
 		
 			<div class="back">
-				<input type="button" value="목  록" onclick="">
+				<input type="button" value="목  록" onclick="location.href='used_list.jsp'">
 			</div>
 	</div>
 	

@@ -97,7 +97,7 @@
 		</div>
 		<br>
 		<div style="text-align: right; width: 800px; display: inline-block;">
-			<input type="button" value="1대1 문의" class="qna_button">
+			<input type="button" value="1대1 문의" class="qna_button"  onclick="location.href='question_borad_update.jsp'">
 		</div>
 	</div>
 	<br><br>

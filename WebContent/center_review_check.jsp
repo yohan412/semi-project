@@ -132,9 +132,9 @@
         
         <br>
         <div class="cmd">
-            <input type="button" name="close" id="close" value="수정">
-            <input type="button" name="save" id="save" value="삭제">
-            <input type="button" name="save" id="save" value="닫기">    
+            <input type="button" name="close" id="close" value="수정" onclick ="location.href='center_review_write.jsp'">
+            <input type="button" name="save" id="save" value="삭제" onclick ="location.href='center_detail.jsp'">
+            <input type="button" name="save" id="save" value="닫기" onclick ="location.href='center_detail.jsp'">    
         </div>
         	<footer><%@ include file = "form/footer.jsp" %></footer>
         

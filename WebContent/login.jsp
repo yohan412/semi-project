@@ -117,7 +117,7 @@ footer{
 
 	<header></header>
 	
-	<form action="" method="post">
+	<form action="usercontroller?command=login" method="post">
 	<div class="wrap">
 		<div class="login">
 		

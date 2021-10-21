@@ -74,7 +74,7 @@
 			</div>
 
 			<div id="login">
-				<button onclick="location.href='#'">로그인</button>
+				<button onclick="location.href='usercontroller?command=loginform'">로그인</button>
 				<button onclick="location.href='#'">회원가입</button>
 			</div>
 			<div id="logout">

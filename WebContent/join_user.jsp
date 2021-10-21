@@ -75,12 +75,23 @@
                 if(data.buildingName !== '' && data.apartment === 'Y'){
                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
                 }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('zipcode').value = data.zonecode;
-                document.getElementById("").value = roadAddr;
+                document.getElementById("sample4_roadAddress").value = roadAddr;
                 document.getElementById("address1").value = data.jibunAddress;
                 
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress").value = '';
+                }
+
                 var guideTextBox = document.getElementById("guide");
                 // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
                 if(data.autoRoadAddress) {
@@ -229,7 +240,10 @@
 					</td>
 					<td>
 						<input type="text" id="address1" placeholder="주소를 입력하세요" readonly><br><br>
+						<span id="guide" style="color:#999;display:none"></span>
 						<input type="text" id="address2" size="45" placeholder="상세 주소를 입력하세요">
+						<input type="hidden" id="sample4_roadAddress" placeholder="도로명주소">
+						<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
 					</td>
 				</tr>
 				<tr class="phone">

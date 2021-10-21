@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<!--
+	Member m = (Member)session.getAttribute("loginUser");
+	
+	String USER_NAME = m.getUser_NAME();	
+	String USER_ID = m.getUser_ID();
+	String USER_PHONE = m.getUSER_PHONE() !=null ? m.getUSER_PHONE() : "";
+	String USER_EMAIL = m.getUSER_EMAIL() !=null ? m.getUSER_EMAIL() : "";
+	String USER_ADDR = m.getUSER_ADDR();
+%>    
+ddd-->
     
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
@@ -8,7 +19,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>우리동네 헬스장</title>
 <style type="text/css">
 .information{
 	text-align:center;
@@ -41,23 +52,36 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 		<col width="150px"><col width="300px">
 		<tr>
 			<th>성명</th>
-			<td><input type="text" placeholder="이름을 작성해주세요." id="name"></td>
+			<td><input type="text" id="USER_NAME" readonly></td>
 		</tr>
 		<tr>
 			<th>아이디</th>
-			<td><input type="text" placeholder="ex)kh" id="id"></td>
+			<td><input type="text" id="USER_ID" readonly></td>
 		</tr>
 		<tr>
 			<th>전화번호</th>
-			<td><input type="tel" placeholder="전화번호를 입력해주세요" id="tel"></td>
+			<td>
+				<input type="tel" placeholder="전화번호를 입력해주세요" 
+				id="USER_PHONE" value="<%= USER_PHONE %>">
+					
+			</td>
 		</tr>
 		<tr>
 			<th>이메일</th>
-			<td><input type="email" placeholder="ex)kh@naver.com" id="email"></td>
+			<td>
+				<input type="email" placeholder="ex)kh@naver.com" id="USER_EMAIL"
+				value="<%= USER_EMAIL %>">
+				
+			</td>
 		</tr>
 		<tr>
 			<th>주소</th>
-			<td><input type="text" placeholder="주소를 입력해주세요" id="addr"></td>
+			<td>
+				<input type="text" placeholder="주소를 입력해주세요" id="USER_ADDR"
+				value="<%= USER_ADDR %>"
+				>
+				
+				</td>
 		</tr>
 		<tr>
 			<th id="list">내가 쓴 글 목록</th>
@@ -69,7 +93,7 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 		</tr>
 		<tr>
 			<td colspan="2" class="function">
-			<input type="submit" value="수정">
+			<input type="submit" value="수정" onclick="location.href='<%=request.getContextPath() %>/myPage.me'">
 			<input type="button" value="탈퇴" onclick="">
 			<input type="button" value="취소" onclick="">
 			</td>

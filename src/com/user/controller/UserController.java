@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.user.dao.UserDao;
+
 @WebServlet("/usercontroller")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -19,6 +21,8 @@ public class UserController extends HttpServlet {
 		
 		String command = request.getParameter("command");
 		System.out.println("[ command : " + command + "]");
+		
+		UserDao dao = new UserDao();
 		
 		if(command.equals("loginform")) {
 			dispatch("login.jsp",request,response);

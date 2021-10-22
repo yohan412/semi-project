@@ -1,6 +1,7 @@
 package com.user.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.user.dao.UserDao;
+import com.user.dto.UserDto;
 
 @WebServlet("/usercontroller")
 public class UserController extends HttpServlet {
@@ -17,7 +20,7 @@ public class UserController extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html charset=UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		
 		String command = request.getParameter("command");
 		System.out.println("[ command : " + command + "]");
@@ -25,7 +28,7 @@ public class UserController extends HttpServlet {
 		UserDao dao = new UserDao();
 		
 		if(command.equals("loginform")) {
-			dispatch("login.jsp",request,response);
+			response.sendRedirect("login.jsp");
 		}else if(command.equals("idChk")) {
 			String myid=request.getParameter("id");
 			String res = dao.idChk(myid);
@@ -52,6 +55,46 @@ public class UserController extends HttpServlet {
 				dispatch("main.jsp",request,response);
 			
 			}
+		}else if(command.equals("insertuser")) {
+			String myid = request.getParameter("myid");
+			String mypw = request.getParameter("mypw");
+			String myname = request.getParameter("myname");
+			String myzip = request.getParameter("myzipcode");
+			String mygender = request.getParameter("mygender");
+			String myaddr = request.getParameter("myaddr1")+" "+request.getParameter("myaddr2");
+			String mybirth = request.getParameter("mybirthyy")+"/"+request.getParameter("mybirthmm")+"/"+request.getParameter("mybirthdd");
+			String myphone = request.getParameter("myphone");
+			String myemail = request.getParameter("myemail");
+			
+			UserDto dto = new UserDto();
+			dto.setUserid(myid);
+			dto.setUserpw(mypw);
+			dto.setUsername(myname);
+			dto.setUserzip(myzip);
+			dto.setUsergender(mygender);
+			dto.setUserbirthdate(mybirth);
+			dto.setUseraddr(myaddr);
+			dto.setUserphone(myphone);
+			dto.setUseremail(myemail);
+			
+			
+			int res = dao.insertUser(dto);
+			
+			//if(res>0){
+			//	alert("회원가입성공");
+			//	location.href="index.jsp";
+			//}else{
+				//alert("회원가입실패");
+				//location.href="logincontroller.jsp?command=registform";
+			//}
+			
+			if(res>0) {
+				jsResponse("회원 가입 성공", "usercontroller?command=loginform", response);
+			}else {
+				jsResponse("회원 가입 실패", "usercontroller?command=registform", response);
+			}
+		}else if(command.equals("registform")) {
+			response.sendRedirect("join_user.jsp");
 		}
 	}
 	
@@ -62,6 +105,13 @@ public class UserController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+	}
+	
+	private void jsResponse(String msg, String url,HttpServletResponse response) throws IOException {
+		String s = "<script type='text/javascript'>"+"alert('"+msg+"');"+"location.href='"+url+"';"+"</script>";
+		
+		PrintWriter out = response.getWriter();
+		out.print(s);
 	}
 
 }

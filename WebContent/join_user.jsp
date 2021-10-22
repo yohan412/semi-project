@@ -150,37 +150,33 @@
 				<tr>
 					<th>Password</th>
 					<td>
-						<input type="password" id="pw" size="20" placeholder="비밀번호를 입력하세요" required><br><br>
+						<input type="password" id="pw" name="mypw" size="20" placeholder="비밀번호를 입력하세요" required><br><br>
 						<input type="password" id="pw" size="20" placeholder="비밀번호 재확인" required>
 					</td>
 				</tr>
 				<tr>
 					<th>Name</th>
 					<td>
-						<input type="text" id="username" size="20" placeholder="이름을 입력하세요" required>&nbsp;&nbsp;
-						<select id="gender" style="width:80px;height:30px;">
+						<input type="text" id="username" name="myname" size="20" placeholder="이름을 입력하세요" required>&nbsp;&nbsp;
+						<select id="gender" name="mygender" style="width:80px;height:30px;">
 							<option value="men">남자</option>
 							<option value="women">여자</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<th>Nickname</th>
-					<td><input type="text" id="nickname" size="10" placeholder="닉네임을 입력하세요(선택)"></td>
-				</tr>
-				<tr>
 					<th>E-mail</th>
-					<td><input type="text" id="email" size="30" placeholder="이메일을 입력하세요" required></td>
+					<td><input type="text" id="email" size="30" name="myemail" placeholder="이메일을 입력하세요" required></td>
 				</tr>
 				<tr>
 				
 				<div id="birth">
 					<th>Year / Month / Day</th>
 					<td>
-						<input type="text" id="birth_yy" placeholder="년(4자)" maxlength="4" style="width:80px;height:30px;">
+						<input type="text" id="birth_yy" name="mybirthyy" placeholder="년(4자)" maxlength="4" style="width:80px;height:30px;">
 						
 						&nbsp;&nbsp;&nbsp;
-						<select id="birth_mm" style="width:80px;height:30px;">
+						<select id="birth_mm" name="mybirthmm" style="width:80px;height:30px;">
                             <option value="0" selected> 월 </option>
                             <option value="01" >1</option>
                             <option value="02" >2</option>
@@ -196,7 +192,7 @@
                             <option value="12" >12</option>
                         </select>
 						&nbsp;&nbsp;&nbsp;
-						<select id="birth_dd" style="width:80px;height:30px;">
+						<select id="birth_dd" name="mybirthdd" style="width:80px;height:30px;">
 							<option value="0" selected> 일 </option>
 							<option value="01" >1</option>
                             <option value="02" >2</option>
@@ -236,13 +232,13 @@
 				<tr>
 					<th>Address</th>
 					<td>
-						<input type="text" id="zipcode" size="7" placeholder="우편번호" readonly>&nbsp;&nbsp;
+						<input type="text" id="zipcode" name="myzipcode" size="7" placeholder="우편번호" readonly>&nbsp;&nbsp;
 						<input type="button" id="zip_chk" value="주소 검색" onclick="zipChk()">
 					</td>
 					<td>
-						<input type="text" id="address1" placeholder="주소를 입력하세요" readonly><br><br>
+						<input type="text" id="address1" name="myaddr1" placeholder="주소를 입력하세요" readonly><br><br>
 						<span id="guide" style="color:#999;display:none"></span>
-						<input type="text" id="address2" size="45" placeholder="상세 주소를 입력하세요">
+						<input type="text" id="address2" name="myaddr2" size="45" placeholder="상세 주소를 입력하세요">
 						<input type="hidden" id="sample4_roadAddress" placeholder="도로명주소">
 						<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
 					</td>
@@ -506,7 +502,7 @@
 						</select>
 					</td>
 					 <br>
-					<td><input type="text" placeholder="전화번호를 입력하세요" size="15" required></td>
+					<td><input type="text" name="myphone" placeholder="전화번호를 입력하세요" size="15" required></td>
 					<td></td><td></td>
 				</tr>
 				<tr>

@@ -42,6 +42,20 @@ public class UserDto {
 		this.userenabled = userenabled;
 		this.userwish = userwish;
 	}
+	
+	public UserDto(String userid, String userpw, String username, String usergender, String userbirthdate,
+			String useremail, String userphone, String userzip, String useraddr) {
+		super();
+		this.userid = userid;
+		this.userpw = userpw;
+		this.username = username;
+		this.usergender = usergender;
+		this.userbirthdate = userbirthdate;
+		this.useremail = useremail;
+		this.userphone = userphone;
+		this.userzip = userzip;
+		this.useraddr = useraddr;
+	}
 
 	public int getUserno() {
 		return userno;

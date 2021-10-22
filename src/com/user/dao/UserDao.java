@@ -92,4 +92,45 @@ public class UserDao {
 		return res;
 	}
 	
+	public int insertUser(UserDto dto) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res=0;
+		
+		String sql = "INSERT INTO USER_INFO VALUES(USER_NOSQ.NEXTVAL,?,?,?,?,?,?,?,?,?,'GU',SYSDATE,'N','')";
+		
+		try {
+			pstm=con.prepareStatement(sql);
+			pstm.setString(1, dto.getUserid());
+			pstm.setString(2, dto.getUserpw());
+			pstm.setString(3, dto.getUsername());
+			pstm.setString(4, (dto.getUsergender().equals("남자"))? "M":"F");
+			pstm.setString(5, dto.getUserbirthdate());
+			pstm.setString(6, dto.getUseremail());
+			pstm.setString(7, dto.getUserphone());
+			pstm.setString(8, dto.getUserzip());
+			pstm.setString(9, dto.getUseraddr());
+			System.out.println("03.query 준비: "+sql);
+			
+			res=pstm.executeUpdate();
+			System.out.println("04.query 실행 및 리턴");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		} catch (SQLException e) {
+			System.out.println("3/4단계 오류");
+			e.printStackTrace();
+		}finally {
+			close(pstm);
+			close(con);
+			System.out.println("05.db 종료");
+		}
+		
+		return res;
+	}
+	
 }

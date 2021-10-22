@@ -38,6 +38,20 @@ public class UserController extends HttpServlet {
 			}
 			
 			response.sendRedirect("idchk.jsp?idnotused="+idnotused);
+		}else if(command.equals("login")){
+			String user_id = request.getParameter("user_id");
+			String user_pw = request.getParameter("user_pw");
+			
+			UserDto dto = dao.login(user_id, user_pw);
+			
+			if(dto.getUserid() != null) {
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("dto", dto);
+				session.setMaxInactiveInterval(60*60);
+				dispatch("main.jsp",request,response);
+			
+			}
 		}
 	}
 	

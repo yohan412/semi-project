@@ -17,13 +17,13 @@ public class UserDao {
 		ResultSet rs = null;
 		UserDto res = new UserDto();
 		
-		String sql = " SELECT * FROM USER_IMFO WHERE USER_ID=? AND USER_PW=? AND USER_ENABLED=? ";
+		String sql = " SELECT * FROM USER_INFO WHERE USER_ID=? AND USER_PW=? AND USER_ENABLED=? ";
 		
 		try {
 			pstm = con.prepareStatement(sql);
 			pstm.setString(1, user_id);
 			pstm.setString(2, user_pw);
-			pstm.setString(3, "Y");
+			pstm.setString(3, "N");
 			System.out.println("03. query 준비 : " + sql);
 			
 			rs = pstm.executeQuery();
@@ -41,7 +41,9 @@ public class UserDao {
 				res.setUserzip(rs.getString(9));
 				res.setUseraddr(rs.getString(10));
 				res.setRole(rs.getString(11));
-				res.setUserenabled(rs.getString(12));
+				res.setReg(rs.getDate(12));
+				res.setUserenabled(rs.getString(13));
+				res.setUserwish(rs.getString(14));
 				
 			}
 			
@@ -52,10 +54,11 @@ public class UserDao {
 			close(rs);
 			close(pstm);
 			close(con);
-			System.out.println("05. db 종료 ");
+			System.out.println("05. db 종료\n ");
 		}
 		return res;
 	}
+
 	
 	public String idChk(String id) {
 		Connection con = getConnection();

@@ -18,7 +18,8 @@
 #header {
 	text-align:center;
 	justify-content:space-between;
-	height: 65px;
+	align-items: center;
+	height: 110px;
 	width: 100%;
 	display: flex;
 	overflow:hidden;
@@ -26,11 +27,11 @@
 
 #logo ,#blank{
 	dispaly: inline-block;
-	width: 200px;
-	height: 60px;
+	width: 239px;
+	height: 114px;
 }
 #login{
-	width: 200px;
+	width: 239px;
 	align-self:flex-end;
 	display:block;
 }
@@ -43,8 +44,8 @@
 	margin-top:10px;
 	align: "center";
 	width: 100%;
-	height:30px;
-	background-color:gray;
+	height:40px;
+	background-color:rgb(00,68,137);
 	display: flex;
 	overflow: hidden;
 	justify-content:center;
@@ -59,13 +60,17 @@
 	font-weight: bold;
 	text-align: center;
 }
+
+#nav .sub_menu a:hover{
+	color:skyblue;
+}
 </style>
 </head>
 <body>
 		<div id="header">
 			<div id="blank"></div>
 			<div id="logo">
-				<a href="#"><img src="./img/tmp.png" width="200px" height="60px" alt="내주변 헬스장"></a>
+				<a href="#"><img src="./img/logo.png" width="239px" height="114px" alt="우리동네 헬스장"></a>
 			</div>
 
 			<div id="login">

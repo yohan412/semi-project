@@ -138,7 +138,7 @@
 	<br><br>
 	<hr>
 	<div id="wrap" align="center">
-		<form action="" method="post">
+		<form action="usercontroller?command=insertuser" method="post">
 			<table align="center" method="post" cellpadding="3">
 				<tr>
 					<th>I D</th>
@@ -524,7 +524,7 @@
 				<tr>
 					<td colspan="10" style="text-align: center;">
 						<input type="submit" id="join" value="가 입 하 기"  style="width:300px;height:40px;" onclick="idChkConfirm();"><br><br>
-						<input type="button" id="reset" value="취 소" onclick="" style="width:300px;height:40px;">
+						<input type="button" id="reset" value="취 소" onclick="usercontroller?command=loginform" style="width:300px;height:40px;">
 					</td>
 				</tr>
 				</div>

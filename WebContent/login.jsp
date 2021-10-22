@@ -144,7 +144,7 @@ footer{
 			
 			<div class="sns_login">
 				<a href=""><img src="./img/login_kakao.png" width="250" height="40px"></a>
-				<a href=""><img src="./img/login_naver.png" width="250" height="40px"></a>
+				<a href="usercontroller?command=naver_login"><img src="./img/login_naver.png" width="250" height="40px"></a>
 			</div>
 		</div>
 		

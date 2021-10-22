@@ -95,6 +95,8 @@ public class UserController extends HttpServlet {
 			}
 		}else if(command.equals("registform")) {
 			response.sendRedirect("join_user.jsp");
+		}else if(command.equals("naver_login")) {
+			response.sendRedirect("naverlogin.jsp");
 		}
 	}
 	

@@ -55,11 +55,11 @@ function move(){
 		<col width="150px"><col width="300px">
 		<tr>
 			<th>성명</th>
-			<td><input type="text" id="USER_NAME" readonly></td>
+			<td><input type="text" id="USER_NAME" placeholder="이름을 입력해주세요"></td>
 		</tr>
 		<tr>
 			<th>아이디</th>
-			<td><input type="text" id="USER_ID" readonly></td>
+			<td><input type="text" id="USER_ID"></td>
 		</tr>
 		<tr>
 			<th>전화번호</th>
@@ -96,8 +96,8 @@ function move(){
 		</tr>
 		<tr>
 			<td colspan="2" class="function">
-			<input type="submit" value="수정" onclick="move">
-			<input type="button" value="탈퇴" onclick="move2">
+			<input type="submit" value="수정" onclick="javascript:window.location='mypage_update.jsp'">
+			<input type="button" value="탈퇴" onclick='location.href=\"delete?no=" + no + "\"'/>
 			<input type="button" value="취소" onclick="location.href='used_detail_writer.jsp'">
 			</td>
 		</tr>

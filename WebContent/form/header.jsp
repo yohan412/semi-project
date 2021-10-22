@@ -4,6 +4,7 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,12 +75,12 @@
 				<a href="main.jsp"><img src="./img/logo.png"  width="239px" height="114px" alt="우리동네 헬스장"></a>
 			</div>
 			<div id="login">
-				<button onclick="login.jsp">로그인</button>
+				<button onclick="location.href='login.jsp'">로그인</button>
 				<button onclick="location.href='join_user.jsp'">회원가입</button>
 			</div>
 			<div id="logout">
-				<button onclick="location.href='user_'">로그아웃</button>
-				<button onclick="move3">마이페이지</button>
+				<button onclick="#">로그아웃</button>
+				<button onclick="location.href='mypage.jsp'">마이페이지</button>
 			</div>
 		</div>
 		<div id="nav">

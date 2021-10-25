@@ -112,12 +112,69 @@ footer{
 }
 
 </style>
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script src="./js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+  function unlinkApp() {
+    Kakao.API.request({
+      url: '/v1/user/unlink',
+      success: function(res) {
+        alert('success: ' + JSON.stringify(res))
+      },
+      fail: function(err) {
+        alert('fail: ' + JSON.stringify(err))
+      },
+    })
+  }
+</script>
+<script type="text/javascript">
+Kakao.init('1b471de92ae8dad2d4bedd8c3a06ea59');
+console.log(Kakao.isInitialized());
+ 
+  Kakao.Auth.createLoginButton({
+    container: '#kakao-login-btn',
+    success: function(authObj) {
+      Kakao.API.request({
+        url: '/v2/user/me',
+        success: function(result) {
+          $('#result').append(result);
+          id = result.id
+          connected_at = result.connected_at
+          kakao_account = result.kakao_account
+          $('#result').append(kakao_account);
+          resultdiv="<h2>로그인 성공 !!"
+          resultdiv += '<h4>id: '+id+'<h4>'
+          resultdiv += '<h4>connected_at: '+connected_at+'<h4>'
+          email ="";
+          gender = "";
+          if(typeof kakao_account != 'undefined'){
+        	  email = kakao_account.email;
+        	  gender = kakao_account.gender;
+          }
+          resultdiv += '<h4>email: '+email+'<h4>'
+          resultdiv += '<h4>gender: '+gender+'<h4>'
+          $('#result').append(resultdiv);
+          
+        },
+        fail: function(error) {
+          alert(
+            'login success, but failed to request user information: ' +
+              JSON.stringify(error)
+          )
+        },
+      })
+    },
+    fail: function(err) {
+      alert('failed to login: ' + JSON.stringify(err))
+    },
+  })
+</script>
 </head>
 <body>
 
 	<header></header>
 	
-	<form action="" method="post">
+	<form action="usercontroller?command=login" method="post">
 	<div class="wrap">
 		<div class="login">
 		
@@ -143,7 +200,7 @@ footer{
 			</div>
 			
 			<div class="sns_login">
-				<a href=""><img src="./img/login_kakao.png" width="250" height="40px"></a>
+				<a id="kakao-login-btn" href="javascript:kakaoLogin();"><img src="./img/login_kakao.png" width="250" height="40px"></a>
 				<a href=""><img src="./img/login_naver.png" width="250" height="40px"></a>
 			</div>
 		</div>

@@ -27,9 +27,8 @@ public class UserController extends HttpServlet {
 		
 		UserDao dao = new UserDao();
 		
-		if(command.equals("loginform")) {
-			response.sendRedirect("login.jsp");
-		}else if(command.equals("idChk")) {
+		
+		if(command.equals("idChk")) {
 			String myid=request.getParameter("id");
 			String res = dao.idChk(myid);
 			

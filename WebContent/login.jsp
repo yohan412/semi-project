@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
+
+
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <style type="text/css">
 *{
 	margin: 0px;
@@ -200,8 +205,24 @@ console.log(Kakao.isInitialized());
 			</div>
 			
 			<div class="sns_login">
+<<<<<<< HEAD
 				<a id="kakao-login-btn" href="javascript:kakaoLogin();"><img src="./img/login_kakao.png" width="250" height="40px"></a>
 				<a href=""><img src="./img/login_naver.png" width="250" height="40px"></a>
+=======
+				<a href=""><img src="./img/login_kakao.png" width="250" height="40px"></a>
+				<%
+				    String clientId = "R52cjVAcV9TOlMU10ITC";//애플리케이션 클라이언트 아이디값";
+				    String redirectURI = URLEncoder.encode("YOUR_CALLBACK_URL", "UTF-8");
+				    SecureRandom random = new SecureRandom();
+				    String state = new BigInteger(130, random).toString();
+				    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+				    apiURL += "&client_id=" + clientId;
+				    apiURL += "&redirect_uri=" + redirectURI;
+				    apiURL += "&state=" + state;
+				    session.setAttribute("state", state);
+				 %>
+				<a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+>>>>>>> css_test
 			</div>
 		</div>
 		

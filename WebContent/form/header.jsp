@@ -96,6 +96,9 @@
 			<div class="sub_menu">
 				<a href="qna.jsp">Q&A</a>
 			</div>
+			<div class="sub_menu">
+				<a href="#">마이페이지</a>
+			</div>
 		</div>
 </body>
 </html>

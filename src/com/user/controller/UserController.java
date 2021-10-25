@@ -80,14 +80,6 @@ public class UserController extends HttpServlet {
 			
 			int res = dao.insertUser(dto);
 			
-			//if(res>0){
-			//	alert("회원가입성공");
-			//	location.href="index.jsp";
-			//}else{
-				//alert("회원가입실패");
-				//location.href="logincontroller.jsp?command=registform";
-			//}
-			
 			if(res>0) {
 				jsResponse("회원 가입 성공", "usercontroller?command=loginform", response);
 			}else {

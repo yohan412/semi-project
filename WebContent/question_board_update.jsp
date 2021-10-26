@@ -9,6 +9,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	function uploadFileAdded(){
+		
+}
+
+</script>
 <style type="text/css">
 	table{
 		text-align: center;
@@ -55,7 +62,9 @@
 <body>
 <h2 align="center">1 : 1 문의</h2>
 <div id="wrap">
-	<form action="" method="post">
+	<form action="update.do" method="post">
+		<input type="hidden" name="command" value="boardupdate">
+		<input type="hidden" name="askno" value="${dto.askno }" >
 		<table>
 			<tr id="title">
 				<th>제 목</th>
@@ -66,22 +75,22 @@
 							<option value="center">시설</option>
 							<option value="etc">기타</option>
 					</select>
-					<input type="text" placeholder="제목을 입력하세요" maxlength="30">
+					<input type="text" placeholder="제목을 입력하세요" maxlength="30" value="${dto.boardtitle }">
 				</td>
 			</tr>
 			<tr id="content">
 				<th>내 용</th>
-				<td><textarea rows="15" cols="50" placeholder="문의내용을 입력해주세요" ></textarea></td>
+				<td><textarea rows="15" cols="50" placeholder="문의내용을 입력해주세요" >${dto.boardcontent }</textarea></td>
 			</tr>
 			<tr id="photo">
 				<th>사진 첨부</th>
-				<td align="left"><input type="button" value="파일 선택" onclick=""></td>
+				<td align="left"><input type="file" value="파일 선택" onclick="" multiple/></td>
 			</tr>
 		</table>
 		<br>
 		<div align="center">
 				<input type="submit" id="submit" value="수정 완료">
-				<input type="button" id="reset" value="취 소" onclick="">
+				<input type="button" id="reset" value="취 소" onclick="location.href='update.do?command=detail&askno=${dto.askno}'">
 		</div>		
 	</form>
 </div>

@@ -13,6 +13,15 @@ public class CenterDto {
 	private String centercontent;
 	private Date centerreg;
 	
+	private int uskno;
+	private int usedno;
+	private String usktype;
+	private int uskgpno;
+	private int uskgpsq;
+	private String userid;
+	private String uskcontent;
+	private Date uskreg;
+	private String uskstatus;
 	
 	public CenterDto() {
 		super();
@@ -31,6 +40,16 @@ public class CenterDto {
 		this.centername = centername;
 		this.centercontent = centercontent;
 		this.centerreg = centerreg;
+		
+		this.uskno = uskno;
+		this.usedno = usedno;
+		this.usktype = usktype;
+		this.uskgpno = uskgpno;
+		this.uskgpsq = uskgpsq;
+		this.userid = userid;
+		this.uskcontent = uskcontent;
+		this.uskreg = uskreg;
+		this.uskstatus = uskstatus;
 	}
 
 
@@ -122,8 +141,96 @@ public class CenterDto {
 	public void setCenterreg(Date centerreg) {
 		this.centerreg = centerreg;
 	}
-	
-	
+
+
+	public int getUskno() {
+		return uskno;
+	}
+
+
+	public void setUskno(int uskno) {
+		this.uskno = uskno;
+	}
+
+
+	public int getUsedno() {
+		return usedno;
+	}
+
+
+	public void setUsedno(int usedno) {
+		this.usedno = usedno;
+	}
+
+
+	public String getUsktype() {
+		return usktype;
+	}
+
+
+	public void setUsktype(String usktype) {
+		this.usktype = usktype;
+	}
+
+
+	public int getUskgpno() {
+		return uskgpno;
+	}
+
+
+	public void setUskgpno(int uskgpno) {
+		this.uskgpno = uskgpno;
+	}
+
+
+	public int getUskgpsq() {
+		return uskgpsq;
+	}
+
+
+	public void setUskgpsq(int uskgpsq) {
+		this.uskgpsq = uskgpsq;
+	}
+
+
+	public String getUserid() {
+		return userid;
+	}
+
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+
+	public String getUskcontent() {
+		return uskcontent;
+	}
+
+
+	public void setUskcontent(String uskcontent) {
+		this.uskcontent = uskcontent;
+	}
+
+
+	public Date getUskreg() {
+		return uskreg;
+	}
+
+
+	public void setUskreg(Date uskreg) {
+		this.uskreg = uskreg;
+	}
+
+
+	public String getUskstatus() {
+		return uskstatus;
+	}
+
+
+	public void setUskstatus(String uskstatus) {
+		this.uskstatus = uskstatus;
+	}
 	
 	
 }

@@ -9,6 +9,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+</script>
 <style type="text/css">
 	table{
 		text-align: center;
@@ -48,25 +52,17 @@
 	<form action="" method="post">
 		<table>
 			<tr id="title">
-				<th>제 목</th>
-				<td>
-					<select id="category" disabled="disabled" style="width:50px;height:30px;">
-							<option value="cost">가격</option>
-							<option value="deal">거래</option>
-							<option value="center">시설</option>
-							<option value="etc">기타</option>
-					</select>
-					<input type="text" placeholder="제목" readonly="readonly">
-				</td>
+				<th>제 목</th>	
+					<td>${dto.boardtitle }<td>
 			</tr>
 			<tr id="content">
 				<th>내 용</th>
-				<td><textarea rows="15" cols="50" placeholder="내용" readonly="readonly"></textarea></td>
+				<td><textarea rows="15" cols="50" readonly="readonly">${dto.content }</textarea></td>
 			</tr>
 		</table>
 		<br>
 		<div align="center">
-				<input type="button" id="reset" value="닫 기" onclick="">
+				<input type="button" id="reset" value="닫 기" onclick="location.href='qna.jsp'">
 		</div>		
 	</form>
 </div>

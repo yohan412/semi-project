@@ -1,7 +1,9 @@
 package com.used.controller;
 
 import java.io.IOException;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.used.dao.UsedDao;
+import com.used.dto.UsedDto;
 
 @WebServlet("/usedcontroller")
 public class UsedController extends HttpServlet {
@@ -24,7 +27,11 @@ public class UsedController extends HttpServlet {
 		UsedDao dao = new UsedDao();
 		
 		if(command.equals("usedlist")) {
+			List<UsedDto> usedlist = dao.selectAll();
+			request.setAttribute("usedlist", usedlist);
 			
+			RequestDispatcher dispatch = request.getRequestDispatcher("used_list.jsp");
+			dispatch.forward(request, response);
 		}
 	}
 	

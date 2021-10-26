@@ -69,19 +69,27 @@
 </style>
 </head>
 <body>
+<% 
+	UserDto dto = (UserDto)session.getAttribute("dto");
+%>
 		<div id="header">
 			<div id="blank"></div>
 			<div id="logo" onclick ="img">
 				<a href="main.jsp"><img src="./img/logo.png"  width="239px" height="114px" alt="우리동네 헬스장"></a>
 			</div>
+			<c:if test="${dto==null }">
 			<div id="login">
 				<button onclick="location.href='login.jsp'">로그인</button>
 				<button onclick="location.href='join_user.jsp'">회원가입</button>
-			</div>
-			<div id="logout">
-				<button onclick="#">로그아웃</button>
+			</div>		
+			</c:if>
+			<c:if test="${dto !=null }">
+				<div id="logout">
+				<label>${dto.username }님(회원등급은 : ${dto.role }) 방문을 환영합니다.</label><br>
+				<button onclick="location.href='usercontroller?command=logout'">로그아웃</button>
 				<button onclick="location.href='mypage.jsp'">마이페이지</button>
-			</div>
+				</div>
+			</c:if>
 		</div>
 		<div id="nav">
 			<div class="sub_menu">
@@ -95,9 +103,6 @@
 			</div>
 			<div class="sub_menu">
 				<a href="qna.jsp">Q&A</a>
-			</div>
-			<div class="sub_menu">
-				<a href="#">마이페이지</a>
 			</div>
 		</div>
 </body>

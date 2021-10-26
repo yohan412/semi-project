@@ -51,9 +51,22 @@ public class UserController extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("dto", dto);
 				session.setMaxInactiveInterval(60*60);
-				dispatch("main.jsp",request,response);
+			
+				if(dto.getRole().equals("M")) {
+					dispatch("main.jsp",request,response);
+				}else if(dto.getRole().equals("BU")) {
+					dispatch("main.jsp",request,response);
+				}else if(dto.getRole().equals("DM")) {
+					dispatch("main.jsp",request,response);
+				}else if(dto.getRole().equals("GU")) {
+					dispatch("main.jsp",request,response);
+				}
+			
+			}else {
+				jsResponse("로그인 실패","main.jsp",response);
 			
 			}
+
 		}else if(command.equals("insertuser")) {
 			String myid = request.getParameter("myid");
 			String mypw = request.getParameter("mypw");
@@ -88,7 +101,13 @@ public class UserController extends HttpServlet {
 			response.sendRedirect("join_user.jsp");
 		}else if(command.equals("naver_login")) {
 			response.sendRedirect("naverlogin.jsp");
-		}
+		
+		}else if(command.equals("logout")) {
+		HttpSession session = request.getSession();
+		session.invalidate();
+		response.sendRedirect("main.jsp");
+		
+	}
 	}
 	
 	private void dispatch(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

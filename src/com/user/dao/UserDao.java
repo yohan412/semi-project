@@ -132,5 +132,76 @@ public class UserDao {
 		
 		return res;
 	}
+
+	public boolean delete(int userno) {
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		
+		String sql = " UPDATE USER_INFO SET USER_ENABLED = 'Y' WHERE USER_NO=? ";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setInt(1, userno);
+			System.out.println("03. query 준비 : " + sql);
+			
+			res = pstm.executeUpdate();
+			System.out.println("04. query 실행 및 리턴");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("3/4 단계 에러");
+			e.printStackTrace();
+		}finally {
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료\n");
+		}
+		return (res>0)?true:false;
+	}
+
+	public int update(MainDto dto) {
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		
+		String sql = " UPDATE USER_INFO SET USER_NAME=?, USER_ID=?, USER_PW=?, USER_PHONE=?, USER_EMAIL=?, USER_ADDR=? WHERE USER_NO=? ";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, dto.getUsername());
+			pstm.setString(2, dto.getUserid());
+			pstm.setString(3, dto.getUserpw());
+			pstm.setString(4, dto.getUserphone());
+			pstm.setString(5, dto.getUseremail());
+			pstm.setString(6, dto.getUseraddr());
+			pstm.setInt(7, dto.getUserno());
+			System.out.println("03. query 준비 : " + sql);
+			
+			res = pstm.executeUpdate();
+			System.out.println("04. query 실행 및 리턴");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("3/4 단계 에러");
+			e.printStackTrace();
+		}finally {
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료\n");
+		}
+		return res;
+	}
+
 	
 }

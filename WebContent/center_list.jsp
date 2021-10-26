@@ -16,16 +16,16 @@ response.setContentType("text/html; charset=UTF-8");
 <meta charset="UTF-8">
 <title>내 주변 센터</title>
 <!-- kakao map api + services 라이브러리 -->
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cf6a0311e8ff428c0d13bd95e775d7f3&libraries=services,clusterer"></script>
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cf6a0311e8ff428c0d13bd95e775d7f3&libraries=services,clusterer"></script>
+<script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script type="text/javascript">
 	
 	//map, centerlist 는 다른 함수에도 필요하여 전역변수로 선언
 	var map;
 	var centerlist;
+	//정렬을 하기 위해 임시로 저장해놓음
+	var boardlist;
 	
 	//지도 생성하는 과정
 	window.onload = function() {
@@ -87,7 +87,7 @@ response.setContentType("text/html; charset=UTF-8");
 		centerlist.push(tempCenter);
 		</c:forEach>
 		
-		makeCenterList(centerlist);
+		makeCenterList(centerlist,true);
 		//리콜함수로 주소값이 반환되기 때문에 index를 사용하여 centerlist 값에 접근
 		
 		
@@ -145,26 +145,35 @@ response.setContentType("text/html; charset=UTF-8");
 	}
 	
 	//센터리스트 요소를 만드는 함수
-	function makeCenterList(list){
+	function makeCenterList(list,reset_bl){
 		//tbody의 자식 요소 초기화
 		$("tbody").empty();
-		
+		if(reset_bl){
+			boardlist=list;
+		}
 		//list에 들어있는 center 정보 추가
 		for(var i = 0 ; i < list.length ; i++){
+			//center 정보중 pic가 null,공백 일 경우 default 이미지를 넣음
+			var imgtag;
+			if(!list[i].pic){
+				imgtag="<img src='img/center_default.png'>";
+			}else{
+				imgtag="<img src='"+list[i].pic+"'>"
+			}
 			$("tbody").append(
 				"<tr>"
 				+"<td>"
 				+"<a href='CenterController?command=centerdetail&centerno="+list[i].no+"'>"
-				+"<img src='img/tmp_image.png'></a></td>"
+				+imgtag+"</a></td>"
 				+"<td>"
-				+"<a href='CenterController?command=centerdetail&centerno="+list[i].no+"'>"
 				+"<div class='center_brief'>"
 				+"<label class='checkbox-wrap'><input type='checkbox' name='wish_list' id='center_no1'><i class='check-icon'></i></label>"
-				+"<span class='brief_name'>"+list[i].name+"</span>"+"<br>"
+				+"<a href='CenterController?command=centerdetail&centerno="+list[i].no+"'>"
+				+"<span class='brief_name'>"+list[i].name+"</span></a>"+"<br><hr>"
 				+"<span class='brief_addr'>&nbsp;&nbsp; 주소 : "+list[i].addr+"</span>"+"<br>"
 				+"<span class='brief_category'>&nbsp;&nbsp; 종류 : "+list[i].category+"</span>"+"<br>"
 				+"<span class='brief_price'>&nbsp;&nbsp; 가격 : "+list[i].price+"</span>"+"<br>"
-				+"</div></a></td>"
+				+"</div></td>"
 				+"</tr>"		
 			);
 		}
@@ -193,8 +202,7 @@ response.setContentType("text/html; charset=UTF-8");
 					map.panTo(moveLatLon);
 					
 					var nearCenterlist = nearCenterfinder(data.documents[0].y, data.documents[0].x);
-					
-					
+										
 					/*nearCenterlist.sort(function(a,b){
 						
 						if(a.distance>b.distance){
@@ -209,7 +217,7 @@ response.setContentType("text/html; charset=UTF-8");
 					//distance 기준으로 오름차순정렬(위의 코드 한줄로 표현)
 					nearCenterlist.sort((a,b) => a.distance-b.distance);
 					
-					makeCenterList(nearCenterlist);
+					makeCenterList(nearCenterlist,true);
 				},
 				error : function(e) {
 					console.log(e);
@@ -256,11 +264,61 @@ response.setContentType("text/html; charset=UTF-8");
 	    return degrees * Math.PI / 180;
 	};
 	
+	//카테고리로 리스트 정렬
+	function sort_by_category(){
+		var selectedVal = $("select[name=center_category]").val();
+		
+		var sortedlist= new Array();
+		
+		//카테고리에 해당하는 center만 sortedlist에 넣음
+		for(var i = 0 ; i <boardlist.length;i++){
+			if(selectedVal=="gym" && boardlist[i].category=="헬스장"){
+				sortedlist.push(boardlist[i]);
+				
+			}else if(selectedVal=="yoga" && boardlist[i].category=="요가"){
+				sortedlist.push(boardlist[i]);
+				
+			}else if(selectedVal=="pilates" && boardlist[i].category=="필라테스"){
+				sortedlist.push(boardlist[i]);
+				
+			}else if(selectedVal=="crossfit" && boardlist[i].category=="크로스핏"){
+				sortedlist.push(boardlist[i]);
+				
+			}else if(selectedVal=="etc" && boardlist[i].category=="기타"){
+				sortedlist.push(boardlist[i]);
+				
+			}
+		}		
+		//정렬된 리스트로 다시 만듬
+		makeCenterList(sortedlist,false);
+	}
+	
+	//가격으로 리스트 정렬
+	function sort_by_price(){
+		
+		var selectedVal = $("select[name=price]").val();
+		var tmplist = boardlist;
+		
+		if(selectedVal=="desc_price"){
+			tmplist.sort((a,b) => b.price-a.price);
+		}else{
+			tmplist.sort((a,b) => a.price-b.price);
+		}
+		
+		makeCenterList(tmplist,false);
+	}
 </script>
 
 
 
 <style type="text/css">
+/*눈누 원스토어 모바일POP체*/
+@font-face {
+    font-family: 'ONE-Mobile-POP';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 h1 {
 	text-align: center;
 }
@@ -317,14 +375,15 @@ tbody a {
 .center_brief {
 	width: 100%;
 	height: 200px;
+	padding:10px;
 	border: 1px solid black;
 	border-radius: 25px;
 	min-width: 600px;
 	text-align:left;
 }
 .center_brief .brief_name{
-	font-weight:bold;
-	font-size:20px;
+	font-family:'ONE-Mobile-POP';
+	font-size:28px;
 }
 
 /*찜 버튼 구현*/
@@ -332,7 +391,6 @@ tbody a {
 	cursor: pointer;
 	position: relative;
 	left: 95%;
-	top: 10px;
 }
 .checkbox-wrap .check-icon {
 	display: inline-block;
@@ -375,7 +433,7 @@ input[type=checkbox]:checked+.check-icon {
 		<br>
 		<div id="sorting">
 			<div class="sorting_sub">
-				센터종류&nbsp; <select name="center_category">
+				센터종류&nbsp; <select name="center_category" onchange="sort_by_category()">
 					<option value="gym">헬스장</option>
 					<option value="yoga">요가</option>
 					<option value="pilates">필라테스</option>
@@ -384,7 +442,7 @@ input[type=checkbox]:checked+.check-icon {
 				</select>
 			</div>
 			<div class="sorting_sub">
-				가격&nbsp; <select name="price">
+				가격&nbsp; <select name="price" onchange="sort_by_price()">
 					<option value="desc_price">가격 높은 순</option>
 					<option value="asc_price">가격 낮은 순</option>
 				</select>

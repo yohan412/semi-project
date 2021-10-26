@@ -140,15 +140,20 @@ select {
 	font-weight: 200;
 }
 </style>
+<script>
+
+</script>
 </head>
 <body>
 	<header><%@ include file="form/login_header.jsp"%></header>
+	
 	<div id="wrapper">
 		<h5>
-			가입시 입력하셨던 이메일 주소를 작성해주세요. <br> 입력하신 이메일 주소로 인증번호를 발송해 드립니다.
+			가입시 입력하셨던 이메일 주소를 작성해주세요. <br> 입력하신 이메일 주소로 임시암호를 발송해 드립니다.
 		</h5>
+		<form action="/sendMail/pw" id="findForm" method="post">
 		<div id="content">
-
+		
 			<div>
 				<h3 class="join_title">
 					<label for="USER-ID">ID</label>
@@ -290,12 +295,14 @@ select {
 				<br>
 				<div id="phone_wrap">
 					<div id="phone_certification">
+					 <form action="/message" method = "post">
 					 <span class="box"> 
-					 	<input type="text" id="dd" class="int" placeholder="인증번호 6자리">
+					 	<input type="text" id="dd" class="int" name = "number" placeholder="인증번호 6자리">
 						</span>
+					</form>
 					</div>
 					<div id="button1">
-						<input type="button" value="인증번호 받기"	class="button1">
+						<input type="button"  value="인증번호 받기"	class="button1">
 					</div>
 				</div>
 			</div>
@@ -323,8 +330,10 @@ select {
 
 
 		</div>
+			</form>
 
 	</div>
+	
 	<footer><%@ include file = "form/footer.jsp" %></footer>
 	
 </body>

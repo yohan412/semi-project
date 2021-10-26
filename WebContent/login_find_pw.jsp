@@ -44,10 +44,10 @@
 		margin: 5px;
 	}
 </style>
+
 </head>
 <body>
 	<header><%@ include file="form/login_header.jsp" %></header>
-	
 	<div class="notice">
 		<a>새로운 비밀번호를 작성해 주세요.</a>
 		<br><br>

@@ -96,7 +96,7 @@
             	<a href="join_business.jsp"><img src="img/icon_business.png"><br>사업자 등록</a>
             </div>
             <div class="icon_subnav">
-            	<a href="used_list.jsp"><img src="img/icon_used.png"><br>중고거래</a>
+            	<a href="usedcontroller?command=usedlist"><img src="img/icon_used.png"><br>중고거래</a>
             </div>
             <div class="icon_subnav">
             	<a href="qna.jsp"><img src="img/icon_qna.png"><br>Q&A</a>

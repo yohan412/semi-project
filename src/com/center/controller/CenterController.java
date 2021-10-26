@@ -1,6 +1,7 @@
 package com.center.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,7 +28,14 @@ public class CenterController extends HttpServlet {
 		
 		CenterDao dao = new CenterDao();
 		
-		if(command.equals("boardwrite")) {
+		if(command.equals("centerlist")) {
+			List<CenterDto> centerlist = dao.selectAll();
+			request.setAttribute("centerlist", centerlist);
+			
+			RequestDispatcher dispatch = request.getRequestDispatcher("center_list.jsp");
+			dispatch.forward(request, response);
+		}
+		else if(command.equals("boardwrite")) {
 			String usktype = request.getParameter("usktype");
 			String userid = request.getParameter("userid");
 			String uskcontent = request.getParameter("uskcontent");

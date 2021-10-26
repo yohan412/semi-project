@@ -90,7 +90,7 @@
         <br><br><br>
         <div id="icon_nav">
         	<div class="icon_subnav">
-            	<a href="center_list.jsp"><img src="img/icon_center.png" ><br>스포츠 센터 목록</p></a>
+            	<a href="CenterController?command=centerlist"><img src="img/icon_center.png" ><br>스포츠 센터 목록</p></a>
             </div>
             <div class="icon_subnav">
             	<a href="join_business.jsp"><img src="img/icon_business.png"><br>사업자 등록</a>

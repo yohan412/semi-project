@@ -85,7 +85,7 @@
 		</div>
 		<div id="nav">
 			<div class="sub_menu">
-				<a href="center_list.jsp">스포츠 센터</a>
+				<a href="CenterController?command=centerlist">스포츠 센터</a>
 			</div>
 			<div class="sub_menu">
 				<a href="join_business.jsp">사업장 등록</a>

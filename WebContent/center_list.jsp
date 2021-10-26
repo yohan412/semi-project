@@ -79,7 +79,7 @@ response.setContentType("text/html; charset=UTF-8");
 			this.name = name;
 		}
 
-		//Maincontroller 에서 보내준 centerlist의 값을 넣어줌
+		//CenterController 에서 보내준 centerlist의 값을 넣어줌
 		<c:forEach items="${centerlist}" var="center">
 		var tempCenter = 
 			new centerObj("${center.centerno}","${center.centeraddr}","${center.centerprice}",
@@ -154,10 +154,10 @@ response.setContentType("text/html; charset=UTF-8");
 			$("tbody").append(
 				"<tr>"
 				+"<td>"
-				+"<a href='centercontroller.do?command=centerdetail&centerno="+list[i].no+"'>"
+				+"<a href='CenterController?command=centerdetail&centerno="+list[i].no+"'>"
 				+"<img src='img/tmp_image.png'></a></td>"
 				+"<td>"
-				+"<a href='centercontroller.do?command=centerdetail&centerno="+list[i].no+"'>"
+				+"<a href='CenterController?command=centerdetail&centerno="+list[i].no+"'>"
 				+"<div class='center_brief'>"
 				+"<label class='checkbox-wrap'><input type='checkbox' name='wish_list' id='center_no1'><i class='check-icon'></i></label>"
 				+"<span class='brief_name'>"+list[i].name+"</span>"+"<br>"

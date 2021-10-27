@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<% request.setCharacterEncoding("UTF-8"); %>
+<% response.setContentType("text/html; charset=UTF-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,7 +110,7 @@ a{
 <div id="main">
         <div class="wrap">
             <div class="main_title">
-                <h2>서대문 헬스장A (가제)</h2>
+                <h2>${centerDto.centername }</h2>
             </div>
             <hr>
             <div class="top_cont">

@@ -34,6 +34,15 @@ public class CenterController extends HttpServlet {
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher("center_list.jsp");
 			dispatch.forward(request, response);
+			
+		} else if (command.equals("centerdetail")){
+			int centerno = Integer.parseInt(request.getParameter("centerno"));
+			CenterDto dto = dao.selectOne(centerno);
+			
+			request.setAttribute("centerDto", dto);
+			
+			RequestDispatcher dispatch = request.getRequestDispatcher("center_detail.jsp");
+			dispatch.forward(request, response);
 		}
 	}
 

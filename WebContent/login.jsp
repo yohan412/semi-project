@@ -217,7 +217,7 @@ console.log(Kakao.isInitialized());
 				    apiURL += "&state=" + state;
 				    session.setAttribute("state", state);
 				 %>
-				<a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+				<a href="<%=apiURL%>"><img src="./img/login_naver.png" width="250" height="40px"></a>
 
 			</div>
 		</div>

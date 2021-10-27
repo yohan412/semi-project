@@ -33,7 +33,7 @@
 	height: 114px;
 }
 
-#logout{
+#logout, #login{
 	width: 200px;
 	align-self:flex-end;
 }

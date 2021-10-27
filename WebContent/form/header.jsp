@@ -3,8 +3,8 @@
 
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
-
-
+<%@ page import = "com.user.dto.UserDto" %>
+<%@ taglib prefix ="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,15 +31,10 @@
 	width: 239px;
 	height: 114px;
 }
-#login{
-	width: 239px;
-	align-self:flex-end;
-	display:block;
-}
+
 #logout{
 	width: 200px;
 	align-self:flex-end;
-	display:none;
 }
 #nav {
 	margin-top:10px;
@@ -65,17 +60,17 @@
 #nav .sub_menu a:hover{
 	color:skyblue;
 }
-
 </style>
 </head>
 <body>
 <% 
 	UserDto dto = (UserDto)session.getAttribute("dto");
 %>
+
 		<div id="header">
 			<div id="blank"></div>
-			<div id="logo" onclick ="img">
-				<a href="main.jsp"><img src="./img/logo.png"  width="239px" height="114px" alt="우리동네 헬스장"></a>
+			<div id="logo" onclick="img">
+				<a href="main.jsp"><img src="./img/logo.png" width="239px" height="114px" alt="우리동네 헬스장"></a>
 			</div>
 			<c:if test="${dto==null }">
 			<div id="login">
@@ -99,7 +94,7 @@
 				<a href="join_business.jsp">사업장 등록</a>
 			</div>
 			<div class="sub_menu">
-				<a href="usedcontroller?command=usedlist">중고거래</a>
+				<a href="used_list.jsp">중고거래</a>
 			</div>
 			<div class="sub_menu">
 				<a href="qna.jsp">Q&A</a>

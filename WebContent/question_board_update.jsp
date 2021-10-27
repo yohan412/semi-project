@@ -70,7 +70,7 @@
 				<th>제 목</th>
 				<td>
 					<select id="category" style="width:50px;height:30px;">
-							<option value="cost">가격</option>
+							<option value="price">가격</option>
 							<option value="deal">거래</option>
 							<option value="center">시설</option>
 							<option value="etc">기타</option>

@@ -55,7 +55,7 @@ public class UsedaskDao extends JDBCTemplate{
 	}
 	
 			
-		public UsedaskDto selectone(int uskno) {
+		public UsedaskDto selectOne(int uskno) {
 			Connection con = getConnection();
 			PreparedStatement pstm = null;
 			ResultSet rs = null;
@@ -181,6 +181,36 @@ public class UsedaskDao extends JDBCTemplate{
 				System.out.println("05.db 종료\n");
 			}
 			
+			return res;
+		}
+		
+		public int delete(int uskno) {
+			Connection con = getConnection();
+			PreparedStatement pstm = null;
+			int res = 0;
+			
+			String sql = " DELETE FROM USED_ASK WHERE USK_NO=? ";
+			
+			try {
+				pstm=con.prepareStatement(sql);
+				pstm.setInt(1, uskno);
+				System.out.println("03.query 준비: " + sql);
+				
+				res = pstm.executeUpdate();
+				System.out.println("04.query 실행 및 리턴");
+				
+				if(res>0) {
+					commit(con);
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("3/4단계 에러");
+				e.printStackTrace();
+			}finally {
+				close(pstm);
+				close(con);
+				System.out.println("05.db 종료\n");
+			}
 			return res;
 		}
 

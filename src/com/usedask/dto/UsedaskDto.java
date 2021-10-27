@@ -13,10 +13,11 @@ public class UsedaskDto {
 	private String uskcontent;
 	private Date uskreg;
 	private String uskstatus;
+	
 	public UsedaskDto() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+	
 	public UsedaskDto(int uskno, int usedno, String usktype, int uskgpno, int uskgpsq, String userid, String usktitle,
 			String uskcontent, Date uskreg, String uskstatus) {
 		super();
@@ -31,6 +32,7 @@ public class UsedaskDto {
 		this.uskreg = uskreg;
 		this.uskstatus = uskstatus;
 	}
+	
 	public int getUskno() {
 		return uskno;
 	}

@@ -10,8 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.biz.dao.BizDao;
+import com.biz.dto.BizDto;
 import com.center.dao.CenterDao;
 import com.center.dto.CenterDto;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.user.dao.UserDao;
+import com.user.dto.UserDto;
 
 
 @WebServlet("/CenterController")
@@ -27,6 +33,8 @@ public class CenterController extends HttpServlet {
 		System.out.println("[command: "+command+"]");
 		
 		CenterDao dao = new CenterDao();
+		UserDao udao = new UserDao();
+		BizDao bdao = new BizDao();
 		
 		if(command.equals("centerlist")) {
 			List<CenterDto> centerlist = dao.selectAll();
@@ -34,7 +42,17 @@ public class CenterController extends HttpServlet {
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher("center_list.jsp");
 			dispatch.forward(request, response);
+		}else if(command.equals("business")) {
+			int userno = Integer.parseInt(request.getParameter("user_no"));
+			
+			UserDto dto = udao.selectOne(userno);
+			
+			request.setAttribute("dto", dto);
+			
+			RequestDispatcher dis = request.getRequestDispatcher("join_business.jsp");
+			dis.forward(request, response);
 		}else if(command.equals("join_biz")) {
+			int userno = Integer.parseInt(request.getParameter("userno"));
 			String usernm = request.getParameter("usernm");
 			String biznm = request.getParameter("biznm");
 			String bizaddr = request.getParameter("bizaddr");
@@ -43,9 +61,61 @@ public class CenterController extends HttpServlet {
 					+((request.getParameter("yoga")!=null)?","+request.getParameter("etc"):request.getParameter("etc"));
 			String price = request.getParameter("price");
 			String bizcontent = request.getParameter("bizcontent");
-			if(request.getParameter("bizpic")!=null) {
+			
+			String imgpath = ""; //이미지 경로 초기화
+			String imgname = ""; //이미지 이름 초기화
+			
+			String uploadpath = request.getRealPath("upload"); //upload파일에 실제 경로 설정
+			
+			try {
+				MultipartRequest multi = new MultipartRequest(request, uploadpath,10*1024*1024,"UTF-8",new DefaultFileRenamePolicy());
 				
-			}		
+				imgpath = multi.getFilesystemName("imgfile");
+				imgname = multi.getOriginalFileName("imgfile");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			if(imgname !=null && !imgname.equals("")) {
+				BizDto dto = new BizDto();
+				
+				dto.setUserno(userno);
+				dto.setUsernm(usernm);
+				dto.setBiznm(biznm);
+				dto.setBizaddr(bizaddr);
+				dto.setBizcategory(bizcategory);
+				dto.setBizprice(price);
+				dto.setBizcontent(bizcontent);
+				dto.setBizpic("upload/"+imgpath);
+				
+				int res = bdao.insert(dto);
+				
+				if(res>0) {
+					response.sendRedirect("main.jsp");
+				}else {
+					response.sendRedirect("join_business.jsp");
+				}
+			}else {
+				BizDto dto = new BizDto();
+				
+				dto.setUserno(userno);
+				dto.setUsernm(usernm);
+				dto.setBiznm(biznm);
+				dto.setBizaddr(bizaddr);
+				dto.setBizcategory(bizcategory);
+				dto.setBizprice(price);
+				dto.setBizcontent(bizcontent);
+				dto.setBizpic("");
+				
+				int res = bdao.insert(dto);
+				
+				if(res>0) {
+					response.sendRedirect("main.jsp");
+				}else {
+					response.sendRedirect("join_business.jsp");
+				}
+			}
+			
 		} else if (command.equals("centerdetail")){
 			int centerno = Integer.parseInt(request.getParameter("centerno"));
 			CenterDto dto = dao.selectOne(centerno);

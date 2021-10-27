@@ -30,6 +30,7 @@ public class CenterDto {
 		this.centercontent = centercontent;
 		this.centerreg = centerreg;
 	}
+	
 	public int getCenterno() {
 		return centerno;
 	}

@@ -107,7 +107,9 @@ public class UserController extends HttpServlet {
 		session.invalidate();
 		response.sendRedirect("main.jsp");
 		
-	}
+		}else if(command.equals("loginform")) {
+			response.sendRedirect("login.jsp");
+		}
 	}
 	
 	private void dispatch(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

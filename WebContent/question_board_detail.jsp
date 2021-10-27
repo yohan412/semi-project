@@ -57,7 +57,7 @@
 			</tr>
 			<tr id="content">
 				<th>내 용</th>
-				<td><textarea rows="15" cols="50" readonly="readonly">${dto.content }</textarea></td>
+				<td><textarea rows="15" cols="50" readonly="readonly">${dto.boardcontent }</textarea></td>
 			</tr>
 		</table>
 		<br>

@@ -19,6 +19,7 @@ public class CenterDto {
 	private int uskgpno;
 	private int uskgpsq;
 	private String userid;
+	private String usktitle;
 	private String uskcontent;
 	private Date uskreg;
 	private String uskstatus;
@@ -47,6 +48,7 @@ public class CenterDto {
 		this.uskgpno = uskgpno;
 		this.uskgpsq = uskgpsq;
 		this.userid = userid;
+		this.usktitle = usktitle;
 		this.uskcontent = uskcontent;
 		this.uskreg = uskreg;
 		this.uskstatus = uskstatus;
@@ -202,6 +204,14 @@ public class CenterDto {
 		this.userid = userid;
 	}
 
+	public String getUsktitle() {
+		return usktitle;
+	}
+	
+	
+	public void setUsktitle(String usktitle) {
+		this.usktitle = usktitle;
+	}
 
 	public String getUskcontent() {
 		return uskcontent;
@@ -231,6 +241,8 @@ public class CenterDto {
 	public void setUskstatus(String uskstatus) {
 		this.uskstatus = uskstatus;
 	}
+
+
 	
 	
 }

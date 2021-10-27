@@ -178,6 +178,8 @@ response.setContentType("text/html; charset=UTF-8");
 				+"</tr>"		
 			);
 		}
+		//테이블 페이징
+		tablePagenation();
 	}
 	
 	//입력한 값에따라 지도위치가 움직이고, 센터 리스트를 위치기준으로 변경
@@ -309,7 +311,7 @@ response.setContentType("text/html; charset=UTF-8");
 		makeCenterList(tmplist,false);
 	}
 	
-	$(function(){
+	function tablePagenation(){
 		/*
 		변수 생성
 		- rowsPerPage페이지당 보여줄 개수 20
@@ -319,19 +321,49 @@ response.setContentType("text/html; charset=UTF-8");
 		- pagenumbers
 		콘솔에서 pageCount 찍어보고
 		*/
+		$("#numbers").empty();
 		var rowsPerPage = 5,
 			rows = $('#centerboard_list tbody tr'),
 			rowsCount = rows.length
 			pageCount = Math.ceil(rowsCount/rowsPerPage),
 			numbers = $('#numbers');
 		
-		console.log(pageCount);
-		
 		/* 페이지네이션 li를 생성 반복문*/
 		for(var i = 0 ; i < pageCount;i++){
-			numbers.append('<li><a href="">'+i+'</a></li>');
+			numbers.append('<li><a href="">'+(i+1)+'</a></li>');
 		}
-	});
+		//#numbers li:first-child a
+		numbers.find('li:first-child a').addClass('active');
+		
+		//페이지네이션 함수 displayRows
+		function displayRows(idx){
+			
+			var start = (idx)*rowsPerPage;
+				end = start + rowsPerPage;
+				
+			rows.hide();
+			//해당하는 부분만 보여줌
+			rows.slice(start,end).show();
+		}
+		
+		displayRows(0);
+		//페이지네이션 클릭시 보여주기
+		/*
+			클릭한 그 a 태그의 active,
+			그 요소의 숫자를 dislplayRows의 매개변수로 지정
+		*/
+		numbers.find('li').click(function(e){
+			console.log("hi");
+			//a태그의 이벤트를 막음
+			e.preventDefault();
+			
+			numbers.find('li a').removeClass('active');
+			$(this).find('a').addClass('active');
+			var index = $(this).index();
+			console.log(index);
+			displayRows(index);
+		});
+	}
 </script>
 
 
@@ -411,6 +443,22 @@ tbody a {
 	font-size:28px;
 }
 
+#numbers{
+	list-style: none;
+}
+#numbers li{
+	display:inline-block;
+	margin-left:5px;
+	margin-right:5px;
+}
+#numbers li a {
+	text-decoration: none;
+	color:black;
+	font-weight:bold;
+}
+#numbers li a.active {
+	color:blue;
+}
 /*찜 버튼 구현*/
 .checkbox-wrap {
 	cursor: pointer;

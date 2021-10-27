@@ -23,6 +23,21 @@ public class UserDto {
 		super();
 	}
 
+	public UserDto(int userno, String userid, String userpw, String username, String useremail, String userphone,
+			String useraddr, String role, String userenabled, String userwish) {
+		super();
+		this.userno = userno;
+		this.userid = userid;
+		this.userpw = userpw;
+		this.username = username;
+		this.useremail = useremail;
+		this.userphone = userphone;
+		this.useraddr = useraddr;
+		this.role = role;
+		this.userenabled = userenabled;
+		this.userwish = userwish;
+	}
+	
 	public UserDto(int userno, String userid, String userpw, String username, String usergender, String userbirthdate,
 			String useremail, String userphone, String userzip, String useraddr, String role, Date reg,
 			String userenabled, String userwish) {

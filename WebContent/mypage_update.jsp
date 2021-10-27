@@ -4,6 +4,7 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
 <%@ page import = "com.user.dto.UserDto" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +52,7 @@
 </head>
 <body>
 <header><%@ include file="./form/header.jsp" %></header>	
-<h2 align="center">마이 페이지 수정</h2>
+<h2 align="center">마이 페이지</h2>
 <div>
 	<hr size="1" width="500%">
 </div>
@@ -71,7 +72,7 @@
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input type="password" name="password" value="<%=dto.getUserpw()%>"></td>
+				<td><input type="password" name="pw" value="<%=dto.getUserpw()%>"></td>
 			</tr>
 			<tr>
 				<th>전화번호</th>

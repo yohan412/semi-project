@@ -8,7 +8,7 @@ public class CenterDto {
 	private String centeraddr;
 	private String centerprice;
 	private String centercategory;
-	private int centergrade;
+	private double centergrade;
 	private String centerpic;
 	private String centercontent;
 	private Date centerreg;
@@ -18,7 +18,7 @@ public class CenterDto {
 		// TODO Auto-generated constructor stub
 	}
 	public CenterDto(int centerno, String centername, String centeraddr, String centerprice, String centercategory,
-			int centergrade, String centerpic, String centercontent, Date centerreg) {
+			double centergrade, String centerpic, String centercontent, Date centerreg) {
 		super();
 		this.centerno = centerno;
 		this.centername = centername;
@@ -61,10 +61,10 @@ public class CenterDto {
 	public void setCentercategory(String centercategory) {
 		this.centercategory = centercategory;
 	}
-	public int getCentergrade() {
+	public double getCentergrade() {
 		return centergrade;
 	}
-	public void setCentergrade(int centergrade) {
+	public void setCentergrade(double centergrade) {
 		this.centergrade = centergrade;
 	}
 	public String getCenterpic() {

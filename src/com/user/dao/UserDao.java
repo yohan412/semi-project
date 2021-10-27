@@ -166,7 +166,7 @@ public class UserDao {
 		return (res>0)?true:false;
 	}
 
-	public int update(MainDto dto) {
+	public int update(UserDto dto) {
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
 		int res = 0;
@@ -204,13 +204,18 @@ public class UserDao {
 		return res;
 	}
 	
+<<<<<<< HEAD
 	public UserDto selectOne(int userno) {
 		
+=======
+	public UserDto selectUser(int userno) {
+>>>>>>> d8b111baa556c5a3d69e69e0a3131418253c3897
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		UserDto res = new UserDto();
 		
+<<<<<<< HEAD
 		String sql ="SELECT * FROM USER_INFO WHERE USER_NO=?";
 		
 		try {
@@ -220,6 +225,17 @@ public class UserDao {
 			
 			rs=pstm.executeQuery();
 			System.out.println("04.query 실행 및 리턴");
+=======
+		String sql = " SELECT * FROM USER_INFO WHERE USER_NO = ? ";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setInt(1, userno);
+			System.out.println("03. query 준비 : " + sql);
+			
+			rs = pstm.executeQuery();
+			System.out.println("04. query 실행 및 리턴");
+>>>>>>> d8b111baa556c5a3d69e69e0a3131418253c3897
 			
 			while(rs.next()) {
 				res.setUserno(rs.getInt(1));
@@ -235,21 +251,35 @@ public class UserDao {
 				res.setRole(rs.getString(11));
 				res.setReg(rs.getDate(12));
 				res.setUserenabled(rs.getString(13));
+<<<<<<< HEAD
 				res.setUserwish(rs.getString(14));
 				
 			}
 		} catch (SQLException e) {
 			System.out.println("3/4단계 오류");
+=======
+				res.setUserwish(rs.getString(14));				
+			}
+		} catch (SQLException e) {
+			System.out.println("3/4 단계 에러");
+>>>>>>> d8b111baa556c5a3d69e69e0a3131418253c3897
 			e.printStackTrace();
 		}finally {
 			close(rs);
 			close(pstm);
 			close(con);
+<<<<<<< HEAD
 			System.out.println("05.db 종료");
 		}
 		
 		return res;
 	}
 
+=======
+			System.out.println("05. db 종료\n");
+		}
+		return res;
+	}
+>>>>>>> d8b111baa556c5a3d69e69e0a3131418253c3897
 	
 }

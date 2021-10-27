@@ -61,23 +61,23 @@
         <br>
         <br>
         
-         <form>
+         <form action="/CenterController?command=join_biz" method="post">
             <table>
                 <tr>
                     <td id="USER_NAME">아이디</td>
                     <td>
-						<input type="text" name="USER_NAME" id="USER_NAME" placeholder="사업자명을 작성해주세요">
+						<input type="text" name="usernm" id="USER_NAME" placeholder="사업자명을 작성해주세요">
                 </tr>
                 <tr>
                     <td id="BIZ_NAME">사업장명</td>
                     <td>
-					<input type="text" name="BIZ_NAME" placeholder="사업장명을 작성해주세요">
+					<input type="text" name="biznm" placeholder="사업장명을 작성해주세요">
                     </td>
                 </tr>
                 <tr>
                     <td id="BIZ_ADDRESS">주소</td>
                     <td>
-						<input type="text" name="BIZ_ADDRESS" placeholder="사업장 주소를 작성해주세요">
+						<input type="text" name="bizaddr" placeholder="사업장 주소를 작성해주세요">
                     </td>
                 </tr>
                 <tr>
@@ -86,39 +86,40 @@
 						<input type="checkbox" name="health" value="health">헬스
 						<input type="checkbox" name="pilates" value="pilates">필라테스
 						<input type="checkbox" name="yoga" value="yoga">요가
-						<input type="checkbox" name="health" value="health">기타      
+						<input type="checkbox" name="etc" value="etc">기타      
 		             </td>
                 </tr>
                 <tr>
                     <td>회원권 기간별 가격등록</td>
                     <td>
-						<input type="text" placeholder="기간별 가격을 등록해주세요.">
+						<input type="text" name="price" placeholder="기간별 가격을 등록해주세요.">
                     </td>
                 </tr>
                 <tr>
                     <td id="BIZ_CONTENT">기타</td>
                     <td>
-						<input type="text" name="BIZ_CONTENT" placeholder="기타사항을 압력해주세요">
+						<textarea name="bizcontent" placegolder="기타내용을 입력해주세요"></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td id="BIZ_PIC">사진첨부</td>
                     <td>
-                        <input type="file" name="BIZ_PIC">
+                        <input type="file" name="bizpic">
                     </td>
                 </tr>
              </table>
          
         
         	<div class = "button">
-					<input type="button" value="사업자 등록" class="button1">	
+					<input type="submit" value="사업자 등록" class="button1">	
 					<p>
 					<input type="button" value="취소" class="button2">
 			</div>
 		</form>
         
     </div>
-                	<footer><%@ include file = "form/footer.jsp" %></footer>
+    
+    <footer><%@ include file = "form/footer.jsp" %></footer>
     
 </body>
 </html>

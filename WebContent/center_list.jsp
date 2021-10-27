@@ -70,20 +70,21 @@ response.setContentType("text/html; charset=UTF-8");
 		//객체를 담기위한 배열
 		centerlist = new Array();
 		// center 객체
-		var centerObj = function(no,addr,price,category,pic,name) {
+		var centerObj = function(no,name,addr,price,category,pic,grade) {
 			this.no = no;
+			this.name = name;
 			this.addr = addr;
 			this.price = price;
 			this.category = category;
 			this.pic = pic;
-			this.name = name;
+			this.grade = grade;
 		}
 
 		//CenterController 에서 보내준 centerlist의 값을 넣어줌
 		<c:forEach items="${centerlist}" var="center">
 		var tempCenter = 
-			new centerObj("${center.centerno}","${center.centeraddr}","${center.centerprice}",
-					"${center.centercategory}","${center.centerpic}","${center.centername}");
+			new centerObj("${center.centerno}","${center.centername}","${center.centeraddr}","${center.centerprice}",
+					"${center.centercategory}","${center.centerpic}","${center.centergrade}");
 		centerlist.push(tempCenter);
 		</c:forEach>
 		
@@ -307,6 +308,30 @@ response.setContentType("text/html; charset=UTF-8");
 		
 		makeCenterList(tmplist,false);
 	}
+	
+	$(function(){
+		/*
+		변수 생성
+		- rowsPerPage페이지당 보여줄 개수 20
+		- rows 가로행 tr 
+		- rowsCount 개수 100
+		- pageCount 페이지네이션 개수 = 100/20
+		- pagenumbers
+		콘솔에서 pageCount 찍어보고
+		*/
+		var rowsPerPage = 5,
+			rows = $('#centerboard_list tbody tr'),
+			rowsCount = rows.length
+			pageCount = Math.ceil(rowsCount/rowsPerPage),
+			numbers = $('#numbers');
+		
+		console.log(pageCount);
+		
+		/* 페이지네이션 li를 생성 반복문*/
+		for(var i = 0 ; i < pageCount;i++){
+			numbers.append('<li><a href="">'+i+'</a></li>');
+		}
+	});
 </script>
 
 
@@ -462,6 +487,11 @@ input[type=checkbox]:checked+.check-icon {
 				<tbody>
 				</tbody>
 			</table>
+		</div>
+		<div class="pagination">
+			<ol id="numbers">
+			
+			</ol>
 		</div>
 	</div>
 	<footer>

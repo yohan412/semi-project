@@ -34,6 +34,26 @@ public class CenterController extends HttpServlet {
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher("center_list.jsp");
 			dispatch.forward(request, response);
+		}else if(command.equals("join_biz")) {
+			String usernm = request.getParameter("usernm");
+			String biznm = request.getParameter("biznm");
+			String bizaddr = request.getParameter("bizaddr");
+			String bizcategory = request.getParameter("health")+((request.getParameter("health")!=null)?","+request.getParameter("pilates"):request.getParameter("pilates"))
+					+((request.getParameter("pilates")!=null)?","+request.getParameter("yoga"):request.getParameter("yoga"))
+					+((request.getParameter("yoga")!=null)?","+request.getParameter("etc"):request.getParameter("etc"));
+			String price = request.getParameter("price");
+			String bizcontent = request.getParameter("bizcontent");
+			if(request.getParameter("bizpic")!=null) {
+				
+			}		
+		} else if (command.equals("centerdetail")){
+			int centerno = Integer.parseInt(request.getParameter("centerno"));
+			CenterDto dto = dao.selectOne(centerno);
+			
+			request.setAttribute("centerDto", dto);
+			
+			RequestDispatcher dispatch = request.getRequestDispatcher("center_detail.jsp");
+			dispatch.forward(request, response);
 		}
 	}
 

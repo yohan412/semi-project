@@ -90,7 +90,7 @@
 
 	<header><%@ include file="form\header.jsp" %></header>
 	
-	<form action="" method="post">
+	<form action="/CenterController?command=review_write" method="post">
 	<div class="wrap">
 	<div class="review">
 	<div class="review_title">
@@ -105,11 +105,12 @@
 	</div>
 	
 	<div class="content">
-		<textarea rows="17" cols="70" placeholder="후기를 작성해주세요."></textarea>
+		<input type="hidden" name="centerno" value=>
+		<textarea rows="17" cols="70" name="reviewcontent" placeholder="후기를 작성해주세요."></textarea>
 	</div>
 	
 	<div class="regist">
-		<input type="submit" value="등 록" id="submit" onclick ="center_detail.jsp">&nbsp;&nbsp;
+		<input type="submit" value="등 록" id="submit" >&nbsp;&nbsp;
 		<input type="button" value="닫 기" id="close" onclick="location.href='center_detail.jsp'">
 	</div>
 	</div>

@@ -3,6 +3,9 @@
     
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -110,16 +113,22 @@ a{
 <div id="main">
         <div class="wrap">
             <div class="main_title">
-                <h2>${centerDto.centername }</h2>
+                <h2>${centerDto.centername}</h2>
             </div>
             <hr>
             <div class="top_cont">
                 <div class="img_part">
-                    <img src="./img/tmp_image.png">
+                	<c:choose>
+                		<c:when test="${empty centerDto.centerpic}">
+                    		<img src="./img/center_default.png">
+                    	</c:when>
+                    	<c:otherwise>
+                    		<img src="./img/"+"${ centerDto.centerpic}")>
+                    	</c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="txt_part">
-                    <p>서대문 헬스장 a</p>
-                    <p>서울시 --구 --동 --로 16</p>
+                    <p>${centerDto.centeraddr}</p>
                 </div>
             </div>
             <hr>

@@ -34,7 +34,6 @@ public class CenterController extends HttpServlet {
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher("center_list.jsp");
 			dispatch.forward(request, response);
-<<<<<<< HEAD
 		}else if(command.equals("join_biz")) {
 			String usernm = request.getParameter("usernm");
 			String biznm = request.getParameter("biznm");
@@ -46,10 +45,7 @@ public class CenterController extends HttpServlet {
 			String bizcontent = request.getParameter("bizcontent");
 			if(request.getParameter("bizpic")!=null) {
 				
-			}
-			
-=======
-			
+			}		
 		} else if (command.equals("centerdetail")){
 			int centerno = Integer.parseInt(request.getParameter("centerno"));
 			CenterDto dto = dao.selectOne(centerno);
@@ -58,7 +54,6 @@ public class CenterController extends HttpServlet {
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher("center_detail.jsp");
 			dispatch.forward(request, response);
->>>>>>> 8cff38af2f675d2263963fc3a98bec30a0ffaabf
 		}
 	}
 

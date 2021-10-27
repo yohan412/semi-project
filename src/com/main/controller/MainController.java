@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.user.dao.UserDao;
 import com.user.dto.UserDto;
@@ -31,7 +32,6 @@ public class MainController extends HttpServlet {
 			
 		if(command.equals("updatestart")) {
 			int userno = Integer.parseInt(request.getParameter("userno"));
-			
 			dispatch("mypage_update.jsp",request,response);
 			
 		}else if(command.equals("update")) {
@@ -64,7 +64,8 @@ public class MainController extends HttpServlet {
 			int userno = Integer.parseInt(request.getParameter("userno"));
 		
 			UserDto dto = dao.selectUser(userno);
-			request.setAttribute("dto", dto);
+			HttpSession session = request.getSession();
+			session.setAttribute("dto",dto);
 			dispatch("main.jsp",request,response);
 
 		

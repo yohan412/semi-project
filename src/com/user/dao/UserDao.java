@@ -165,7 +165,7 @@ public class UserDao {
 		return (res>0)?true:false;
 	}
 
-	public int update(MainDto dto) {
+	public int update(UserDto dto) {
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
 		int res = 0;
@@ -202,6 +202,44 @@ public class UserDao {
 		}
 		return res;
 	}
-
+	
+	public UserDto selectUser(int userno) {
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		UserDto res = new UserDto();
+		
+		String sql = " SELECT * FROM USER_INFO WHERE USER_NO = ? ";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setInt(1, userno);
+			System.out.println("03. query 준비 : " + sql);
+			
+			rs = pstm.executeQuery();
+			System.out.println("04. query 실행 및 리턴");
+			
+			while(rs.next()) {
+				res.setUserno(rs.getInt(1));
+				res.setUserid(rs.getString(2));
+				res.setUserpw(rs.getString(3));
+				res.setUsername(rs.getString(4));
+				res.setUseremail(rs.getString(5));
+				res.setUserphone(rs.getString(6));
+				res.setUseraddr(rs.getString(7));
+				res.setRole(rs.getString(8));
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("3/4 단계 에러");
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료\n");
+		}
+		return res;
+	}
 	
 }

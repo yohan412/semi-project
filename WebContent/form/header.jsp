@@ -92,7 +92,7 @@
 				<a href="CenterController?command=centerlist">스포츠 센터</a>
 			</div>
 			<div class="sub_menu">
-				<a href="join_business.jsp">사업장 등록</a>
+				<a href="CenterController?command=business&user_no=${ dto.userno }">사업장 등록</a>
 			</div>
 			<div class="sub_menu">
 				<a href="used_list.jsp">중고거래</a>

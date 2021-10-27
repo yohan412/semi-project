@@ -61,12 +61,12 @@
         <br>
         <br>
         
-         <form action="/CenterController?command=join_biz" method="post">
+         <form action="/CenterController?command=join_biz&userno=${dto.userno }" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
-                    <td id="USER_NAME">아이디</td>
+                    <td id="USER_NAME">사업자명</td>
                     <td>
-						<input type="text" name="usernm" id="USER_NAME" placeholder="사업자명을 작성해주세요">
+						<input type="text" name="usernm" id="USER_NAME" value="${ dto.username }">
                 </tr>
                 <tr>
                     <td id="BIZ_NAME">사업장명</td>
@@ -104,7 +104,7 @@
                 <tr>
                     <td id="BIZ_PIC">사진첨부</td>
                     <td>
-                        <input type="file" name="bizpic">
+                        <input type="file" name="imgfile" accept=".jpg,.jpeg,.png,.gif" multiple="multiple">
                     </td>
                 </tr>
              </table>

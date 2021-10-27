@@ -203,13 +203,14 @@ public class UserDao {
 		return res;
 	}
 	
-	public UserDto selectUser(int userno) {
+	public UserDto selectOne(int userno) {
+		
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		UserDto res = new UserDto();
 		
-		String sql = " SELECT * FROM USER_INFO WHERE USER_NO = ? ";
+		String sql ="SELECT * FROM USER_INFO WHERE USER_NO=?";
 		
 		try {
 			pstm = con.prepareStatement(sql);
@@ -233,7 +234,8 @@ public class UserDao {
 				res.setRole(rs.getString(11));
 				res.setReg(rs.getDate(12));
 				res.setUserenabled(rs.getString(13));
-				res.setUserwish(rs.getString(14));				
+				res.setUserwish(rs.getString(14));
+				
 			}
 		} catch (SQLException e) {
 			System.out.println("3/4 단계 에러");
@@ -242,9 +244,11 @@ public class UserDao {
 			close(rs);
 			close(pstm);
 			close(con);
-			System.out.println("05. db 종료\n");
+			System.out.println("05.db 종료");
 		}
+		
 		return res;
 	}
+
 	
 }

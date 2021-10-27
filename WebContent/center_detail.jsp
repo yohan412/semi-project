@@ -11,6 +11,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript">
+
+</script>
+
 <style type ="text/css">
 header, section, article, aside, main, nav, footer{
     display: block;
@@ -18,8 +22,10 @@ header, section, article, aside, main, nav, footer{
 h1, p{
     margin: 0;
 }
-a{
+.information a{
     text-decoration: none;
+    color:black;
+    font-weight:bold;
 }
 #main{
     width: 80%;
@@ -53,58 +59,57 @@ a{
 }
 .information{
 	text-align : center;
-    word-spacing : 70px;
+    word-spacing : 60px;
 }
 #main .information a{
     margin: 0 15px;
 }
-#main .cont_part .title_txt{
-    width: 100%;
-    height: 100%;
+
+#center_intro,#center_info,#center_time,#center_program{
+	display:flex;
+	width:90%;
+	margin-left:5%;
 }
-#main .cont_part .title_txt .cont_txt{
-    height: 200px;
-} 
-#main .cont_part .title_txt .cont_txt h2{
-    display: inline-block;
-} 
-#main .cont_part .title_txt .cont_txt p{
-    display: inline-block;
-    margin-left: 150px;
-} 
-#main .postscript textarea{
-    margin-left: 150px;
-    width: 70%;
-    border: 1px solid black;
-    line-height: 10px;
-    font-size: 16px;
-    border-radius: 4px;
-    resize: none;
+.cont_head{
+	min-width:200px;
+	height:200px;
+	width:20%;
 }
-#main .img_cont{
-    margin-bottom: 50px;
+.cont_info{
+	width:80%;
+	padding:8px;
 }
-#main .img_cont .img_line{
-    margin-left: 200px;
+.img_cont, .review_cont{
+	width:90%;
+	margin-left:5%;
+	height: auto;
 }
-#main .img_cont .img_line img{
-    width: 200px;
-    height: 200px;
-    background-position: 50% 50%;
-    background-size: cover;
+.cont_images img{
+	width:300px;
+	height:200px;
 }
-.text{
+.review_content{
+	height:150px;
+	border: 1px solid black;
+	border-radius: 5px;
+	min-width:600px;
+	margin-top:10px;
+}
+.star-rating{
+	width:128px;
+	margin-left:20px;
+}
+.star-rating,.star-rating span{
 	display:inline-block;
+	height:24px;
+	overflow:hidden;
+	background:url("img/stars_empty.png") no-repeat;
 }
-.title{
-	display :inline-block;
-	vertical-align:top; 
-}
-.img_line{
-	display : inline-block;
-}
-.postscript{
-	margin-bottom : 80px;
+.star-rating span{
+	background:url("img/stars_filled.png") no-repeat;
+	background-position:left bottom;
+	line-height:0;
+	vertical-align:top;
 }
 </style>
 </head>
@@ -129,6 +134,11 @@ a{
                 </div>
                 <div class="txt_part">
                     <p>${centerDto.centeraddr}</p>
+                    <span>
+                    <span class="star-rating">
+                    	<span style="width:${centerDto.centergrade*20}%"></span>
+                    </span> (${centerDto.centergrade})
+                    </span>
                 </div>
             </div>
             <hr>
@@ -137,50 +147,67 @@ a{
                 <a href="#b">이용정보</a>
                 <a href="#c">운영시간</a>
                 <a href="#d">프로그램</a>
-                <a href="#e">이용후기</a>
-                <a href="#f">사진</a>
+                <a href="#e">사진</a>
+                <a href="#f">이용후기</a>
             </div>
-            <hr>
-            <div class="cont_part">
-                <div class="title_txt">
-                    <div class="cont_txt">
+            <hr><br><br>
+            <div class="text_cont">
+                <div id="center_intro">
+                    <div class="cont_head">
                         <h2 id="a">센터소개</h2>
-                        <p>센터가 ~~~~~</p>
                     </div>
-                    <div class="cont_txt">
-                        <h2 id="b">이용정보</h2>
-                        <p>3개월 가격은 000,000원 이며</p>
-                    </div>
-                    <div class="cont_txt">
-                        <h2 id="c">운영시간</h2>
-                        <p>09:00 ~ 22:00까지 운영하며 점심시간은 12:00~ 13:00</p>
-                    </div>
-                    <div class="cont_txt">
-                        <h2 id="d">프로그램</h2>
-                        <p>필라테스 교육~~~~~~~</p>
+                    <div class="cont_info">
                     </div>
                 </div>
-            </div>
-            <div class="postscript">
-                <div class="title">
-                    <h2 id="e">이용후기</h2>
+                <div id="center_info">
+                	<div class="cont_head">
+                		<h2 id="b">이용정보</h2>
+                	</div>
+                    <div class="cont_info">
+                    </div>
                 </div>
-                <div class="text">
-                <textarea name="text" id="text" placeholder="적어주세요" cols="50" rows="10"></textarea>
-                <textarea name="text" id="text" placeholder="적어주세요" cols="50" rows="10"></textarea>
- 				</div>           
+                <div id="center_time">
+                	<div class="cont_head">
+                		<h2 id="c">운영시간</h2>
+                	</div>
+                    <div class="cont_info">
+                    </div>
+                </div>
+                <div id="center_program">
+                	<div class="cont_head">
+                		<h2 id="d">프로그램</h2>
+                	</div>
+                    <div class="cont_info">
+                    </div>
+                </div>
             </div>
             <div class="img_cont">
-                <div class="title">
+                <div>
                     <h2 id="f">사진</h2>
                 </div>
-                <div class="img_line">
+                <div class="cont_images">
                     <img src="./img/tmp_image.png">
                     <img src="./img/tmp_image.png">
-                    <br>
                     <img src="./img/tmp_image.png">
                     <img src="./img/tmp_image.png">
                 </div>
+            </div>
+             <div class="review_cont">
+                <div>
+                    <h2 id="e">이용후기</h2>
+                </div>
+                <div id="review_list">
+                	<table width="100%">
+						<tbody>
+						<tr>
+						<div class="review_content"></div>
+						</tr>
+						<tr>
+						<div class="review_content"></div>
+						</tr>
+					</tbody>
+					</table>
+ 				</div>           
             </div>
         </div>
        </div>

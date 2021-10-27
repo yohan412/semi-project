@@ -64,7 +64,7 @@
 <div id="wrap">
 	<form action="update.do" method="post">
 		<input type="hidden" name="command" value="boardupdate">
-		<input type="hidden" name="askno" value="${dto.askno }" >
+		<input type="hidden" name="askno" value="${dto.uskno }" >
 		<table>
 			<tr id="title">
 				<th>제 목</th>
@@ -75,22 +75,22 @@
 							<option value="center">시설</option>
 							<option value="etc">기타</option>
 					</select>
-					<input type="text" placeholder="제목을 입력하세요" maxlength="30" value="${dto.boardtitle }">
+					<input type="text" placeholder="제목을 입력하세요" maxlength="30" value="${dto.usktitle }">
 				</td>
 			</tr>
 			<tr id="content">
 				<th>내 용</th>
-				<td><textarea rows="15" cols="50" placeholder="문의내용을 입력해주세요" >${dto.boardcontent }</textarea></td>
+				<td><textarea rows="15" cols="50" placeholder="문의내용을 입력해주세요" >${dto.uskcontent }</textarea></td>
 			</tr>
 			<tr id="photo">
 				<th>사진 첨부</th>
-				<td align="left"><input type="file" value="파일 선택" onclick="" multiple/></td>
+				<td align="left"><input type="file" value="파일 선택" multiple/></td>
 			</tr>
 		</table>
 		<br>
 		<div align="center">
 				<input type="submit" id="submit" value="수정 완료">
-				<input type="button" id="reset" value="취 소" onclick="location.href='update.do?command=detail&askno=${dto.askno}'">
+				<input type="button" id="reset" value="취 소" onclick="location.href='qna.jsp'">
 		</div>		
 	</form>
 </div>

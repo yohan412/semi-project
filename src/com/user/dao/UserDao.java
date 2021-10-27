@@ -224,11 +224,16 @@ public class UserDao {
 				res.setUserid(rs.getString(2));
 				res.setUserpw(rs.getString(3));
 				res.setUsername(rs.getString(4));
-				res.setUseremail(rs.getString(5));
-				res.setUserphone(rs.getString(6));
-				res.setUseraddr(rs.getString(7));
-				res.setRole(rs.getString(8));
-				
+				res.setUsergender(rs.getString(5));
+				res.setUserbirthdate(rs.getString(6));
+				res.setUseremail(rs.getString(7));
+				res.setUserphone(rs.getString(8));
+				res.setUserzip(rs.getString(9));
+				res.setUseraddr(rs.getString(10));
+				res.setRole(rs.getString(11));
+				res.setReg(rs.getDate(12));
+				res.setUserenabled(rs.getString(13));
+				res.setUserwish(rs.getString(14));				
 			}
 		} catch (SQLException e) {
 			System.out.println("3/4 단계 에러");

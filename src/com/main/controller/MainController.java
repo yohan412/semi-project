@@ -63,7 +63,7 @@ public class MainController extends HttpServlet {
 		}else if(command.equals("updateform")) {
 			int userno = Integer.parseInt(request.getParameter("userno"));
 		
-			UserDto dto = dao.selectUser(userno);
+			UserDto dto = dao.selectOne(userno);
 			HttpSession session = request.getSession();
 			session.setAttribute("dto",dto);
 			dispatch("main.jsp",request,response);

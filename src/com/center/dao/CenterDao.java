@@ -38,7 +38,7 @@ public class CenterDao extends JDBCTemplate{
 				tmp.setCenteraddr(rs.getString(3));
 				tmp.setCenterprice(rs.getString(4));
 				tmp.setCentercategory(rs.getString(5));
-				tmp.setCentergrade(rs.getInt(6));
+				tmp.setCentergrade(rs.getDouble(6));
 				tmp.setCenterpic(rs.getString(7));
 				tmp.setCentercontent(rs.getString(8));
 				tmp.setCenterreg(rs.getDate(9));
@@ -81,7 +81,7 @@ public class CenterDao extends JDBCTemplate{
 				res.setCenteraddr(rs.getString(3));
 				res.setCenterprice(rs.getString(4));
 				res.setCentercategory(rs.getString(5));
-				res.setCentergrade(rs.getInt(6));
+				res.setCentergrade(rs.getDouble(6));
 				res.setCenterpic(rs.getString(7));
 				res.setCentercontent(rs.getString(8));
 				res.setCenterreg(rs.getDate(9));

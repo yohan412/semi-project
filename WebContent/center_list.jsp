@@ -24,7 +24,8 @@ response.setContentType("text/html; charset=UTF-8");
 	//map, centerlist 는 다른 함수에도 필요하여 전역변수로 선언
 	var map;
 	var centerlist;
-	//정렬을 하기 위해 임시로 저장해놓음
+	
+	//실제로 CenterBoard에 표현되는 리스트들
 	var boardlist;
 	
 	//지도 생성하는 과정
@@ -149,6 +150,8 @@ response.setContentType("text/html; charset=UTF-8");
 	function makeCenterList(list,reset_bl){
 		//tbody의 자식 요소 초기화
 		$("tbody").empty();
+		
+		//boardlist 초기화 여부 판단
 		if(reset_bl){
 			boardlist=list;
 		}
@@ -174,6 +177,7 @@ response.setContentType("text/html; charset=UTF-8");
 				+"<span class='brief_addr'>&nbsp;&nbsp; 주소 : "+list[i].addr+"</span>"+"<br>"
 				+"<span class='brief_category'>&nbsp;&nbsp; 종류 : "+list[i].category+"</span>"+"<br>"
 				+"<span class='brief_price'>&nbsp;&nbsp; 가격 : "+list[i].price+"</span>"+"<br>"
+				+"<span class='brief_grade'>&nbsp;&nbsp; 평점 : "+list[i].grade+" 점</span>"+"<br>"
 				+"</div></td>"
 				+"</tr>"		
 			);
@@ -221,6 +225,9 @@ response.setContentType("text/html; charset=UTF-8");
 					nearCenterlist.sort((a,b) => a.distance-b.distance);
 					
 					makeCenterList(nearCenterlist,true);
+					
+					$("#search_result").empty();
+					$("#search_result").append("총 "+nearCenterlist.length+"개의 검색 결과가 있습니다.")
 				},
 				error : function(e) {
 					console.log(e);
@@ -275,7 +282,10 @@ response.setContentType("text/html; charset=UTF-8");
 		
 		//카테고리에 해당하는 center만 sortedlist에 넣음
 		for(var i = 0 ; i <boardlist.length;i++){
-			if(selectedVal=="gym" && boardlist[i].category=="헬스장"){
+			if(selectedVal=="all"){
+				sortedlist.push(boardlist[i]);
+			}
+			else if(selectedVal=="gym" && boardlist[i].category=="헬스장"){
 				sortedlist.push(boardlist[i]);
 				
 			}else if(selectedVal=="yoga" && boardlist[i].category=="요가"){
@@ -311,6 +321,19 @@ response.setContentType("text/html; charset=UTF-8");
 		makeCenterList(tmplist,false);
 	}
 	
+	function sort_by_grade(){
+		
+		var selectedVal = $("select[name=grade]").val();
+		var tmplist = boardlist;
+		
+		if(selectedVal=="desc_grade"){
+			tmplist.sort((a,b) => b.grade-a.grade);
+		}else{
+			tmplist.sort((a,b) => a.grade-b.grade);
+		}
+		
+		makeCenterList(tmplist,false);
+	}
 	function tablePagenation(){
 		/*
 		변수 생성
@@ -353,14 +376,12 @@ response.setContentType("text/html; charset=UTF-8");
 			그 요소의 숫자를 dislplayRows의 매개변수로 지정
 		*/
 		numbers.find('li').click(function(e){
-			console.log("hi");
 			//a태그의 이벤트를 막음
 			e.preventDefault();
 			
 			numbers.find('li a').removeClass('active');
 			$(this).find('a').addClass('active');
 			var index = $(this).index();
-			console.log(index);
 			displayRows(index);
 		});
 	}
@@ -443,6 +464,9 @@ tbody a {
 	font-size:28px;
 }
 
+#search_result{
+	color : blue;
+}
 #numbers{
 	list-style: none;
 }
@@ -507,6 +531,7 @@ input[type=checkbox]:checked+.check-icon {
 		<div id="sorting">
 			<div class="sorting_sub">
 				센터종류&nbsp; <select name="center_category" onchange="sort_by_category()">
+					<option value="all">전체</option>
 					<option value="gym">헬스장</option>
 					<option value="yoga">요가</option>
 					<option value="pilates">필라테스</option>
@@ -521,12 +546,14 @@ input[type=checkbox]:checked+.check-icon {
 				</select>
 			</div>
 			<div class="sorting_sub">
-				평점&nbsp; <select name="rate">
-					<option value="desc_rate">평점 높은 순</option>
-					<option value="asc_rate">평점 낮은 순</option>
+				평점&nbsp; <select name="grade" onchange="sort_by_grade()">
+					<option value="desc_grade">평점 높은 순</option>
+					<option value="asc_grade">평점 낮은 순</option>
 				</select>
 			</div>
 		</div>
+		<br>
+		<div id="search_result"></div>
 		<br>
 		<br>
 		<div id="centerboard_list">

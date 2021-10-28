@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 
-    <title>회원가입 화면</title>
+    <title>사업자 등록</title>
     
     <style>
     	div{
@@ -52,6 +52,10 @@
 			
 		}
     </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+    	
+    </script>
 </head>
 <body>
 	<header><%@ include file = "form/header.jsp" %></header>
@@ -61,7 +65,7 @@
         <br>
         <br>
         
-         <form action="/CenterController?command=join_biz&userno=${dto.userno }" method="post" enctype="multipart/form-data">
+         <form action="CenterController?command=join_biz&userno=${dto.userno }" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td id="USER_NAME">사업자명</td>

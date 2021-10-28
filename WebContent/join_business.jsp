@@ -71,6 +71,7 @@
                     <td id="USER_NAME">사업자명</td>
                     <td>
 						<input type="text" name="usernm" id="USER_NAME" value="${ dto.username }">
+					</td>
                 </tr>
                 <tr>
                     <td id="BIZ_NAME">사업장명</td>

@@ -1,6 +1,7 @@
 package com.center.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -9,10 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.catalina.core.ApplicationContext;
-import org.apache.tomcat.util.descriptor.web.ApplicationParameter;
-import org.apache.tomcat.util.net.ApplicationBufferHandler;
+import javax.servlet.http.HttpSession;
 
 import com.biz.dao.BizDao;
 import com.biz.dto.BizDto;
@@ -21,6 +19,7 @@ import com.center.dto.CenterDto;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.review.dao.ReviewDao;
+import com.review.dto.ReviewDto;
 import com.user.dao.UserDao;
 import com.user.dto.UserDto;
 
@@ -141,9 +140,13 @@ public class CenterController extends HttpServlet {
 		} else if (command.equals("centerdetail")){
 			int centerno = Integer.parseInt(request.getParameter("centerno"));
 			CenterDto dto = dao.selectOne(centerno);
+			List<ReviewDto> reviewList = rdao.selectAll(centerno);
 			
 			request.setAttribute("centerDto", dto);
-			
+			//리뷰 있는지 확인
+			if(reviewList !=null) {
+				request.setAttribute("reviewList", reviewList);
+			}
 			RequestDispatcher dispatch = request.getRequestDispatcher("center_detail.jsp");
 			dispatch.forward(request, response);
 			
@@ -156,7 +159,28 @@ public class CenterController extends HttpServlet {
 			dispatch.forward(request, response);
 		} else if(command.equals("review_write")) {
 			
+			HttpSession session = request.getSession();
+			UserDto loginUser = (UserDto)session.getAttribute("loginUser");
+			
+			ReviewDto rdto = new ReviewDto();
+			
 			int centerno = Integer.parseInt(request.getParameter("centerno"));
+			String writer = loginUser.getUserid();
+			double grade = Double.parseDouble(request.getParameter("star_range"));
+			String content = request.getParameter("reviewcontent");
+			
+			rdto.setCenterno(centerno);
+			rdto.setReviewwriter(writer);
+			rdto.setReviewgrade(grade);
+			rdto.setReviewcontent(content);
+			
+			int res = rdao.insert(rdto);
+			
+			if(res>0) {
+				jsResponse("리뷰가 등록되었습니다.","CenterController?command=centerdetail&centerno="+centerno,response);
+			} else {
+				jsResponse("리뷰등록이 실패하였습니다","CenterController?command=review_write_form&centerno="+centerno,response);
+			}
 		}
 	}
 
@@ -165,5 +189,13 @@ public class CenterController extends HttpServlet {
 
 		doGet(request, response);
 	}
-
+	
+	private void jsResponse(String msg,String url, HttpServletResponse response) throws IOException {
+		String s = "<script type='text/javascript'>"
+				+ "alert('"+msg+"');"
+				+ "location.href='"+url+"';"
+				+ "</script>";
+		PrintWriter out = response.getWriter();
+		out.print(s);
+	}
 }

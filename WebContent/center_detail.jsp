@@ -10,8 +10,53 @@
 <head>
 <meta charset="UTF-8">
 <title>${centerDto.centername} 상세페이지</title>
+<script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	
+	$(function(){
+		
+		var reviewlist = new Array();
+		// center 객체
+		var reviewObj = function(writer,grade,content,reg) {
+			this.writer = writer;
+			this.grade = grade;
+			this.content= content;
+			this.reg=reg;
+		}
+		
+		<c:if test="${!empty reviewList}">
+		//CenterController 에서 보내준 reviewlist의 값을 넣어줌
+			<c:forEach items="${reviewList}" var="review">
+			var tempReview = 
+				new reviewObj("${review.reviewwriter}","${review.reviewgrade}"
+					,"${review.reviewcontent}","${review.reviewreg}");
+			reviewlist.push(tempReview);
+			</c:forEach>
+		</c:if>
+		makeBoardList(reviewlist);
+	}); 
+	
+	function makeBoardList(list){
+		//tbody의 자식 요소 초기화
+		$("tbody").empty();
+		
+		//list에 들어있는 center 정보 추가
+		for(var i = 0 ; i < list.length ; i++){
+			
+			$("tbody").append(
+				"<tr><td>"
+				+"<div class='review_content'>"
+				+"<span class='review_writer'>&nbsp;&nbsp; 작성자 : "+list[i].writer+"</span></a>"+"<br><hr>"
+				+"<span class='review_grade'>&nbsp;&nbsp; " 
+				+"평점 : <span class='star-rating'><span style='width:"+(list[i].grade*20)+"%'></span>"
+                +"</span> ("+list[i].grade+")</span>"+"<br>"
+				+"<span class='review_contents'>&nbsp;&nbsp; 내용 : "+list[i].content+"</span>"+"<br>"
+				+"<span class='review_reg'>&nbsp;&nbsp; 등록일 : "+list[i].reg+"</span>"+"<br>"
+				+"</div></td>"
+				+"</tr>"		
+			);
+		}
+	}
 	function review_login_chk(){
 		if(${loginUser==null }){
 			if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
@@ -227,13 +272,7 @@ h1, p{
           
                 <div id="review_list">
                 	<table width="100%">
-						<tbody>
-						<tr>
-						<div class="review_content"></div>
-						</tr>
-						<tr>
-						<div class="review_content"></div>
-						</tr>
+					<tbody>
 					</tbody>
 					</table>
  				</div>           

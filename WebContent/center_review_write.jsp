@@ -127,8 +127,9 @@ input[name=star_range]{
 
 	<header><%@ include file="form\header.jsp" %></header>
 	
-	<form action="/CenterController?command=review_write" method="post">
+	<form action="CenterController?command=review_write" method="post">
 	<input type="hidden" name="centerno" value="${centerno}">
+	<input type="hidden" name="userid" value="${loginUser.userid}">
 	<div class="wrap">
 	<div class="review">
 	<div class="review_title">
@@ -146,7 +147,6 @@ input[name=star_range]{
 	</div>
 	
 	<div class="content">
-		<input type="hidden" name="centerno" value=>
 		<textarea id ="textarea_review" rows="17" name="reviewcontent" placeholder="후기를 작성해주세요."></textarea>
 	</div>
 	</div>	

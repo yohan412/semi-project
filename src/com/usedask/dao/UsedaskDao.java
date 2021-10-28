@@ -100,16 +100,19 @@ public class UsedaskDao extends JDBCTemplate{
 			int res = 0;
 			
 			String sql = " INSERT INTO USED_ASK "+ 
-							" VALUES(USK_NOSQ.NEXTVAL, USED_NOSQ.NEXTVAL, ?, USK_GPNOSQ.NEXTVAL, USK_GPSQ.NEXTVAL, ?, ?, SYSDATE, ?) ";
+							" VALUES(USK_NOSQ.NEXTVAL,?,?,?,?,?,?,SYSDATE,?,? ) ";
 					
-			System.out.println("03.query 준비 : " + sql);
-			
 			try {
 				pstm = con.prepareStatement(sql);
-				pstm.setString(1, dto.getUsktype());
-				pstm.setString(2, dto.getUserid());
-				pstm.setString(3, dto.getUskcontent());
-				pstm.setString(4, dto.getUskstatus());
+				
+				pstm.setInt(1, dto.getUsedno());
+				pstm.setString(2, dto.getUsktype());
+				pstm.setInt(3, dto.getUskgpno());
+				pstm.setInt(4, dto.getUskgpsq());
+				pstm.setString(5, dto.getUserid());
+				pstm.setString(6, dto.getUskcontent());
+				pstm.setString(7, dto.getUskstatus());
+				pstm.setString(8, dto.getUskpic());
 				System.out.println("03.query 준비: " + sql);
 				
 				res = pstm.executeUpdate();
@@ -152,15 +155,19 @@ public class UsedaskDao extends JDBCTemplate{
 				CONSTRAINT FK_USER_ID4 FOREIGN KEY(USER_ID) REFERENCES USER_INFO(USER_ID)
 			);
 			 * */
-			String sql = " UPDATE USED_ASK SET USK_NO.NEXTVAL, USED_NO.NEXTVAL, USK_TYPE=?, USK_GPNO.NEXTVAL, USK_GPSQ.NEXTVAL, USER_ID=?, USK_CONTENT=?, SYSDATE, USK_STATUS=? WHERE USKNO=? ";
+			String sql = " UPDATE USED_ASK SET USK_NO.NEXTVAL,?,?,?,?,?,?,SYSDATE,?,? WHERE USKNO=? ";
 			
 			try {
 				pstm = con.prepareStatement(sql);
-				pstm.setString(1, dto.getUsktype());
-				pstm.setString(2, dto.getUserid());
-				pstm.setString(3, dto.getUskcontent());
-				pstm.setString(4, dto.getUskstatus());
-				pstm.setInt(5, dto.getUskno());
+				pstm.setInt(1, dto.getUsedno());
+				pstm.setString(2, dto.getUsktype());
+				pstm.setInt(3, dto.getUskgpno());
+				pstm.setInt(4, dto.getUskgpsq());
+				pstm.setString(5, dto.getUserid());
+				pstm.setString(6, dto.getUskcontent());
+				pstm.setString(7, dto.getUskstatus());
+				pstm.setString(8, dto.getUskpic());
+				pstm.setInt(9, dto.getUskno());
 				System.out.println("03.query 준비: " + sql);
 				
 				res = pstm.executeUpdate();

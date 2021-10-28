@@ -13,13 +13,14 @@ public class UsedaskDto {
 	private String uskcontent;
 	private Date uskreg;
 	private String uskstatus;
+	private String uskpic;
 	
 	public UsedaskDto() {
 		super();
 	}
 	
 	public UsedaskDto(int uskno, int usedno, String usktype, int uskgpno, int uskgpsq, String userid, String usktitle,
-			String uskcontent, Date uskreg, String uskstatus) {
+			String uskcontent, Date uskreg, String uskstatus, String uskpic) {
 		super();
 		this.uskno = uskno;
 		this.usedno = usedno;
@@ -31,6 +32,7 @@ public class UsedaskDto {
 		this.uskcontent = uskcontent;
 		this.uskreg = uskreg;
 		this.uskstatus = uskstatus;
+		this.uskpic = uskpic;
 	}
 	
 	public int getUskno() {
@@ -92,6 +94,14 @@ public class UsedaskDto {
 	}
 	public void setUskstatus(String uskstatus) {
 		this.uskstatus = uskstatus;
+	}
+
+	public String getUskpic() {
+		return uskpic;
+	}
+
+	public void setUskpic(String uskpic) {
+		this.uskpic = uskpic;
 	}
 	
 	

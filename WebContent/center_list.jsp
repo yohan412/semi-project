@@ -15,7 +15,7 @@ response.setContentType("text/html; charset=UTF-8");
 <head>
 <meta charset="UTF-8">
 <title>내 주변 센터</title>
-<!-- kakao map api + services 라이브러리 -->
+<!-- kakao map api + services,clusterer 라이브러리 -->
 <script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cf6a0311e8ff428c0d13bd95e775d7f3&libraries=services,clusterer"></script>
 <script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -177,7 +177,9 @@ response.setContentType("text/html; charset=UTF-8");
 				+"<span class='brief_addr'>&nbsp;&nbsp; 주소 : "+list[i].addr+"</span>"+"<br>"
 				+"<span class='brief_category'>&nbsp;&nbsp; 종류 : "+list[i].category+"</span>"+"<br>"
 				+"<span class='brief_price'>&nbsp;&nbsp; 가격 : "+list[i].price+"</span>"+"<br>"
-				+"<span class='brief_grade'>&nbsp;&nbsp; 평점 : "+list[i].grade+" 점</span>"+"<br>"
+				+"<span class='brief_grade'>&nbsp;&nbsp; " 
+				+"평점 : <span class='star-rating'><span style='width:"+(list[i].grade*20)+"%'></span>"
+                +"</span> ("+list[i].grade+")</span>"+"<br>"
 				+"</div></td>"
 				+"</tr>"		
 			);
@@ -459,6 +461,10 @@ tbody a {
 	min-width: 600px;
 	text-align:left;
 }
+.center_brief > span{
+	margin-top:10px;
+	font-weight:bold;
+}
 .center_brief .brief_name{
 	font-family:'ONE-Mobile-POP';
 	font-size:28px;
@@ -508,6 +514,23 @@ tbody a {
 
 input[type=checkbox]:checked+.check-icon {
 	background-image: url('img/heart.png');
+}
+
+/*평점 구현*/
+.star-rating{
+	width:128px;
+}
+.star-rating,.star-rating span{
+	display:inline-block;
+	height:24px;
+	overflow:hidden;
+	background:url("img/stars_empty.png") no-repeat;
+}
+.star-rating span{
+	background:url("img/stars_filled.png") no-repeat;
+	background-position:left bottom;
+	line-height:0;
+	vertical-align:top;
 }
 </style>
 

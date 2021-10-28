@@ -16,6 +16,7 @@ import com.center.dao.CenterDao;
 import com.center.dto.CenterDto;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.review.dao.ReviewDao;
 import com.user.dao.UserDao;
 import com.user.dto.UserDto;
 
@@ -35,6 +36,7 @@ public class CenterController extends HttpServlet {
 		CenterDao dao = new CenterDao();
 		UserDao udao = new UserDao();
 		BizDao bdao = new BizDao();
+		ReviewDao rdao = new ReviewDao();
 		
 		if(command.equals("centerlist")) {
 			List<CenterDto> centerlist = dao.selectAll();
@@ -140,6 +142,17 @@ public class CenterController extends HttpServlet {
 			
 			RequestDispatcher dispatch = request.getRequestDispatcher("center_detail.jsp");
 			dispatch.forward(request, response);
+			
+		} else if(command.equals("review_write_form")) {
+			
+			int centerno = Integer.parseInt(request.getParameter("centerno"));
+			
+			request.setAttribute("centerno", centerno);
+			RequestDispatcher dispatch = request.getRequestDispatcher("center_review_write.jsp");
+			dispatch.forward(request, response);
+		} else if(command.equals("review_write")) {
+			
+			int centerno = Integer.parseInt(request.getParameter("centerno"));
 		}
 	}
 

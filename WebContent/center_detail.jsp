@@ -5,14 +5,25 @@
 <% response.setContentType("text/html; charset=UTF-8"); %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${centerDto.centername} 상세페이지</title>
 <script type="text/javascript">
-
+	
+	function review_login_chk(){
+		if(${loginUser==null }){
+			if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
+				location.href="login.jsp"
+			}else{
+				
+			}
+		} else{
+			//로그인 상태라면 컨르롤러에 작업 요청
+			location.href='CenterController?command=review_write_form&centerno=${centerDto.centerno}'
+		}
+	}
 </script>
 
 <style type ="text/css">
@@ -95,9 +106,10 @@ h1, p{
 	min-width:600px;
 	margin-top:10px;
 }
+/*별점 구현*/
 .star-rating{
 	width:128px;
-	margin-left:20px;
+	margin-left:5px;
 }
 .star-rating,.star-rating span{
 	display:inline-block;
@@ -110,6 +122,19 @@ h1, p{
 	background-position:left bottom;
 	line-height:0;
 	vertical-align:top;
+}
+.txt_part{
+	font-size:18px;
+}
+#review_header{
+	display:flex;
+	justify-content:space-between;
+}
+#review_header button{
+	height:30px;
+}
+#review_button{
+	align-self:flex-end;
 }
 </style>
 </head>
@@ -134,7 +159,7 @@ h1, p{
                 </div>
                 <div class="txt_part">
                     <p>${centerDto.centeraddr}</p>
-                    <span>
+                    평점 : <span>
                     <span class="star-rating">
                     	<span style="width:${centerDto.centergrade*20}%"></span>
                     </span> (${centerDto.centergrade})
@@ -193,9 +218,13 @@ h1, p{
                 </div>
             </div>
              <div class="review_cont">
-                <div>
+                <div id="review_header">
                     <h2 id="e">이용후기</h2>
+                    <div id="review_button">
+                    	<button type="button" onclick="review_login_chk()">리뷰작성</button>
+                    </div>
                 </div>
+          
                 <div id="review_list">
                 	<table width="100%">
 						<tbody>

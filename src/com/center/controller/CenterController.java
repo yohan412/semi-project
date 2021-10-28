@@ -66,8 +66,8 @@ public class CenterController extends HttpServlet {
 			String price = "";
 			String bizcontent = ""; //초기화
 			
-			String imgpath = ""; //이미지 경로 초기화
-			String imgname = ""; //이미지 이름 초기화
+			String[] imgpath = {""}; //이미지 경로 초기화
+			String[] imgname = {""}; //이미지 이름 초기화
 			
 			String uploadpath = request.getRealPath("upload"); //upload파일에 실제 경로 설정
 			
@@ -76,8 +76,16 @@ public class CenterController extends HttpServlet {
 			try {
 				MultipartRequest multi = new MultipartRequest(request, uploadpath,10*1024*1024,"UTF-8",new DefaultFileRenamePolicy());
 				
-				imgpath = multi.getFilesystemName("imgfile");
-				imgname = multi.getOriginalFileName("imgfile");
+				//imgpath = multi.getFilesystemName("imgfile");
+				//System.out.println(imgpath);
+				
+				//imgname = multi.getOriginalFileName("imgfile");
+				
+				for(int i=0; i<multi.getFilesystemName("imgfile").length(); i++) {
+					imgpath[i]=multi.getFilesystemName("imgfile");
+					imgname[i] = multi.getOriginalFileName("imgfile");
+				}
+					System.out.println(imgpath);
 				
 				
 				userno = Integer.parseInt(multi.getParameter("userno"));

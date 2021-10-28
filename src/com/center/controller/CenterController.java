@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.core.ApplicationContext;
+import org.apache.tomcat.util.descriptor.web.ApplicationParameter;
+import org.apache.tomcat.util.net.ApplicationBufferHandler;
+
 import com.biz.dao.BizDao;
 import com.biz.dto.BizDto;
 import com.center.dao.CenterDao;
@@ -52,26 +56,42 @@ public class CenterController extends HttpServlet {
 			RequestDispatcher dis = request.getRequestDispatcher("join_business.jsp");
 			dis.forward(request, response);
 		}else if(command.equals("join_biz")) {
-			int userno = Integer.parseInt(request.getParameter("userno"));
-			String usernm = request.getParameter("usernm");
-			String biznm = request.getParameter("biznm");
-			String bizaddr = request.getParameter("bizaddr");
-			String bizcategory = request.getParameter("health")+((request.getParameter("health")!=null)?","+request.getParameter("pilates"):request.getParameter("pilates"))
-					+((request.getParameter("pilates")!=null)?","+request.getParameter("yoga"):request.getParameter("yoga"))
-					+((request.getParameter("yoga")!=null)?","+request.getParameter("etc"):request.getParameter("etc"));
-			String price = request.getParameter("price");
-			String bizcontent = request.getParameter("bizcontent");
+			
+			int userno = 0;
+			String usernm = "";
+			String biznm = "";
+			String bizaddr = "";
+			String bizcategory = "";
+			String price = "";
+			String bizcontent = ""; //초기화
 			
 			String imgpath = ""; //이미지 경로 초기화
 			String imgname = ""; //이미지 이름 초기화
 			
 			String uploadpath = request.getRealPath("upload"); //upload파일에 실제 경로 설정
 			
+			System.out.println(uploadpath); //경로확인용
+			
 			try {
 				MultipartRequest multi = new MultipartRequest(request, uploadpath,10*1024*1024,"UTF-8",new DefaultFileRenamePolicy());
 				
 				imgpath = multi.getFilesystemName("imgfile");
 				imgname = multi.getOriginalFileName("imgfile");
+				
+				
+				userno = Integer.parseInt(multi.getParameter("userno"));
+				usernm = multi.getParameter("usernm");
+				biznm = multi.getParameter("biznm");
+				bizaddr = multi.getParameter("bizaddr");
+				bizcategory = multi.getParameter("health")+((multi.getParameter("health")!=null)?","+multi.getParameter("pilates"):multi.getParameter("pilates"))
+						+((multi.getParameter("pilates")!=null)?","+multi.getParameter("yoga"):multi.getParameter("yoga"))
+						+((multi.getParameter("yoga")!=null)?","+multi.getParameter("etc"):multi.getParameter("etc"));
+				price = multi.getParameter("price");
+				bizcontent = multi.getParameter("bizcontent");
+				
+				System.out.println(userno+usernm+biznm+bizaddr+bizcategory); //값 확인용 나중에 지움
+				
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -86,7 +106,7 @@ public class CenterController extends HttpServlet {
 				dto.setBizcategory(bizcategory);
 				dto.setBizprice(price);
 				dto.setBizcontent(bizcontent);
-				dto.setBizpic("upload/"+imgpath);
+				dto.setBizpic(uploadpath+imgpath);
 				
 				int res = bdao.insert(dto);
 				

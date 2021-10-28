@@ -6,11 +6,56 @@ request.setCharacterEncoding("UTF-8");
 <%
 response.setContentType("text/html; charset=UTF-8");
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>우리동네 헬스장</title>
+<script>
+$('#sendUSER_PHONE').click(function(){    // 'sendUSER_PHONE'라는 id를 가진 버튼 클릭 시 실행.
+    let phoneNumber = $('#inputUSER_PHONE').val();
+    Swal.fire('인증번호 발송 완료!')
+    
+    $.ajax({
+        type: "GET",
+        url: "/check/sendSMS",
+        data: {
+            "USER_PHONE" : phoneNumber
+        },
+        success: function(res){
+            $('#checkBtn').click(function(){
+                if($.trim(res)
+                		==$('#inputCertifiedNumber').val()){
+                    Swal.fire(
+                        '인증성공!',
+                        '휴대폰 인증이 정상적으로 완료되었습니다.',
+                        'success'
+                    )
+
+                    $.ajax({
+                        type: "GET", // HTTP method type(GET, POST) 형식이다.
+                        url: "", // 컨트롤러에서 대기중인 URL 주소이다. //여기에 뭘써야 하는데 모르겠음 ㅠㅠ
+                        data: {	// Json 형식의 데이터이다.
+                            "USER_PHONE" : $('#inputPhoneNumber').val()
+                        }
+                    })
+                    document.location.href="";
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: '인증오류',
+                        text: '인증번호가 올바르지 않습니다!',
+                        footer: '<a href="WebContent/login.jsp">다음에 인증하기</a>'
+                    })
+                }
+            })
+
+
+        }
+    })
+});
+</script>
 <style type="text/css">
 html {
 	height: 100%;
@@ -129,7 +174,16 @@ select {
 	font-size:13px;
 	width: 100%;	
 }
-#button2 {
+.button2 {
+	background-color: gray;
+	color: white;
+	border: 3px solid white;
+	padding: 18px 0 15px;
+	
+	font-size:13px;
+	width: 100%;	
+}
+#button4 {
 	width: 100%;
 	padding: 21px 0 17px;
 	border: 0;
@@ -140,8 +194,7 @@ select {
 	font-weight: 200;
 }
 </style>
-<script>
-
+<script type="text/javascript" src="WebContent/js/findinfo.js">
 </script>
 </head>
 <body>
@@ -151,16 +204,16 @@ select {
 		<h5>
 			가입시 입력하셨던 이메일 주소를 작성해주세요. <br> 입력하신 이메일 주소로 임시암호를 발송해 드립니다.
 		</h5>
-		<form action="/sendMail/pw" id="findForm" method="post">
+	<form action="/message" method="post">
 		<div id="content">
 		
 			<div>
 				<h3 class="join_title">
-					<label for="USER-ID">ID</label>
+					<label for="USER_ID">ID</label>
 				</h3>
 				<span class="box int_USER-ID"> 
-				<input type="text" id="id"
-					class="int" maxlength="20" placeholder="아이디를 입력하세요">
+				<input type="text" id="id" name="USER_ID"
+					class="int"  maxlength="20" > 
 				</span>
 			</div>
 
@@ -230,7 +283,6 @@ select {
 						</select>
 						</span>
 					</div>
-
 					<div id="bir_dd">
 						<span class="box"> <select id="dd" class="sel">
 								<option value="00">일</option>
@@ -272,6 +324,7 @@ select {
 				</div>
 			</div>
 			<br>
+			
 			<br>
 			<div>
 				<h3 class="USER_PHONE">
@@ -288,29 +341,31 @@ select {
 				</select>
 				</span>
 				<br>
-				
-				<span class="box"> <input type="text" id="dd" class="int"
+			
+				<span class="box">
+				 <input type="text" id="dd" class="int"
 					placeholder="전화번호 입력">
 				</span> 
 				<br>
 				<div id="phone_wrap">
 					<div id="phone_certification">
-					 <form action="/message" method = "post">
-					 <span class="box"> 
-					 	<input type="text" id="dd" class="int" name = "number" placeholder="인증번호 6자리">
-						</span>
+							<button type="submit"id = "sendUSER_PHONE"class="button1">번호확인</button>  
+					<br>
+					 	<input type="text" id="inputUSER_PHONE" class="int" name = "USER_PHONE" placeholder="인증번호 6자리 입력">
 					</form>
 					</div>
-					<div id="button1">
-						<input type="button"  value="인증번호 받기"	class="button1">
-					</div>
+					
 				</div>
+				
 			</div>
-
+			<br>
+					<div id="button2">
+						<input type="button" id = "checkBtn" value="확인"	class="button2">
+					</div>
 			<br>
 			<br>
-
 			<div>
+			
 				<h3 class="join_title">
 					<label for="USER_EMAIL">E-Mail</label>
 				</h3>
@@ -322,19 +377,18 @@ select {
 			<br>
 			<br>
 			<div class="btn_area">
-				<button type="button" id="button2">
-					<span>확인</span>
-				</button>
+				 <input type ="button" id="button4" value = "확인" 
+				onClick="location.href='login_find_pw_tjdrhd.jsp'");"> 
+						 <!-- 임시암호 보여지는 화면 -->
 			</div>
 
 
 
 		</div>
-			</form>
 
 	</div>
 	
-	<footer><%@ include file = "form/footer.jsp" %></footer>
+		<footer><%@ include file = "form/footer.jsp" %></footer>
 	
 </body>
 </html>

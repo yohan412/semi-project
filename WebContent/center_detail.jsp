@@ -23,8 +23,8 @@
 			this.content= content;
 			this.reg=reg;
 		}
-		
-		<c:if test="${!empty reviewList}">
+		<c:choose>
+		<c:when test="${!empty reviewList}">
 		//CenterController 에서 보내준 reviewlist의 값을 넣어줌
 			<c:forEach items="${reviewList}" var="review">
 			var tempReview = 
@@ -32,10 +32,11 @@
 					,"${review.reviewcontent}","${review.reviewreg}");
 			reviewlist.push(tempReview);
 			</c:forEach>
-		</c:if>
-		makeBoardList(reviewlist);
-	}); 
-	
+
+			makeBoardList(reviewlist);
+		</c:when>
+		</c:choose>
+	});
 	function makeBoardList(list){
 		//tbody의 자식 요소 초기화
 		$("tbody").empty();
@@ -144,12 +145,16 @@ h1, p{
 	width:300px;
 	height:200px;
 }
-.review_content{
+.review_content,.empty_review{
 	height:150px;
 	border: 1px solid black;
 	border-radius: 5px;
 	min-width:600px;
 	margin-top:10px;
+}
+.empty_review{
+	line-height:150px;
+	text-align:center;
 }
 /*별점 구현*/
 .star-rating{
@@ -273,6 +278,11 @@ h1, p{
                 <div id="review_list">
                 	<table width="100%">
 					<tbody>
+					<tr><td>
+					<div class="empty_review">
+						<p>아직 등록된 리뷰가 없습니다.</p>
+					</div>
+					</td></tr>
 					</tbody>
 					</table>
  				</div>           

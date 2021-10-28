@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.core.ApplicationContext;
+import org.apache.tomcat.util.descriptor.web.ApplicationParameter;
+import org.apache.tomcat.util.net.ApplicationBufferHandler;
+
 import com.biz.dao.BizDao;
 import com.biz.dto.BizDto;
 import com.center.dao.CenterDao;
@@ -66,7 +70,7 @@ public class CenterController extends HttpServlet {
 			String imgpath = ""; //이미지 경로 초기화
 			String imgname = ""; //이미지 이름 초기화
 			
-			String uploadpath = request.getSession().getServletContext().getRealPath("upload"); //upload파일에 실제 경로 설정
+			String uploadpath = request.getRealPath("upload"); //upload파일에 실제 경로 설정
 			
 			System.out.println(uploadpath); //경로확인용
 			
@@ -104,7 +108,7 @@ public class CenterController extends HttpServlet {
 				dto.setBizcategory(bizcategory);
 				dto.setBizprice(price);
 				dto.setBizcontent(bizcontent);
-				dto.setBizpic("upload/"+imgpath);
+				dto.setBizpic(uploadpath+imgpath);
 				
 				int res = bdao.insert(dto);
 				

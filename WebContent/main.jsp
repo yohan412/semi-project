@@ -75,13 +75,16 @@
 	}
 </style>
 <script type="text/javascript">
-	function enrollment(){
-		if(confirm("팝업 확인 취소")){
-			location.href="login.jsp";
-		}else{
-			location.href="main.jsp;"
-		}
-}
+	 function enrollment(){
+       if(${loginUser==null}){
+        	if(confirm("로그인이 필요한 페이지입니다.\n 로그인 하시겠습니까?")){
+        		location.href="login.jsp";
+        	}else{
+        	}
+       } else{	
+    	   location.href="join_business.jsp";
+        		}
+       }
 </script>
 </head>
 <body>

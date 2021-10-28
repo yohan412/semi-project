@@ -40,23 +40,23 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 		<col width="150px"><col width="300px">
 		<tr>
 			<th>성명</th>
-			<td><input type="text" value="<%=dto.getUsername() %>" readonly></td>
+			<td><input type="text" value="<%=loginUser.getUsername() %>" readonly></td>
 		</tr>
 		<tr>
 			<th>아이디</th>
-			<td><input type="text" value="<%=dto.getUserid() %>" readonly></td>
+			<td><input type="text" value="<%=loginUser.getUserid() %>" readonly></td>
 		</tr>
 		<tr>
 			<th>전화번호</th>
-			<td><input type="tel" value="<%=dto.getUserphone() %>" readonly></td>
+			<td><input type="tel" value="<%=loginUser.getUserphone() %>" readonly></td>
 		</tr>
 		<tr>
 			<th>이메일</th>
-			<td><input type="email" value="<%=dto.getUseremail() %>" readonly></td>
+			<td><input type="email" value="<%=loginUser.getUseremail() %>" readonly></td>
 		</tr>
 		<tr>
 			<th>주소</th>
-			<td><input type="text" value="<%=dto.getUseraddr() %>" readonly></td>
+			<td><input type="text" value="<%=loginUser.getUseraddr() %>" readonly></td>
 		</tr>
 		<tr>
 			<th id="list">내가 쓴 글 목록</th>
@@ -68,8 +68,8 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 		</tr>
 		<tr>
 			<td colspan="2" class="function">
-			<input type="button" value="수정" onclick="location.href='MainController?command=updatestart&userno=<%=dto.getUserno()%>'">
-			<input type="button" value="탈퇴" onclick="location.href='MainController?command=delete&userno=<%=dto.getUserno()%>'">
+			<input type="button" value="수정" onclick="location.href='MainController?command=updatestart&userno=<%=loginUser.getUserno()%>'">
+			<input type="button" value="탈퇴" onclick="location.href='MainController?command=delete&userno=<%=loginUser.getUserno()%>'">
 			<input type="button" value="취소" onclick="location.href='main.jsp'">
 			</td>
 		</tr>

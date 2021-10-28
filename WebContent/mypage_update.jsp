@@ -59,32 +59,32 @@
 <div id="wrap">
 	<form action="MainController" method="post">
 	<input type="hidden" name="command" value="update">
-	<input type="hidden" name="userno" value="<%=dto.getUserno() %>">
+	<input type="hidden" name="userno" value="<%=loginUser.getUserno() %>">
 		<table>
 		<col width="150px"><col width="300px">
 			<tr>
 				<th>성 명</th>
-				<td><input type="text" name="name" autofocus value="<%=dto.getUsername()%>"></td>
+				<td><input type="text" name="name" autofocus value="<%=loginUser.getUsername()%>"></td>
 			</tr>
 			<tr>
 				<th>아이디</th>
-				<td><input type="text" name="id" value="<%=dto.getUserid()%>"></td>
+				<td><input type="text" name="id" value="<%=loginUser.getUserid()%>"></td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input type="password" name="pw" value="<%=dto.getUserpw()%>"></td>
+				<td><input type="password" name="pw" value="<%=loginUser.getUserpw()%>"></td>
 			</tr>
 			<tr>
 				<th>전화번호</th>
-				<td><input type="text" name="phone" value="<%=dto.getUserphone()%>"></td>
+				<td><input type="text" name="phone" value="<%=loginUser.getUserphone()%>"></td>
 			</tr>
 			<tr>
 				<th>이메일</th>
-				<td><input type="text" name="email" value="<%=dto.getUseremail()%>"></td>
+				<td><input type="text" name="email" value="<%=loginUser.getUseremail()%>"></td>
 			</tr>
 			<tr>
 				<th>주소</th>
-				<td><input type="text" name="addr" value="<%=dto.getUseraddr()%>"></td>
+				<td><input type="text" name="addr" value="<%=loginUser.getUseraddr()%>"></td>
 			</tr>
 		</table>
 		<div align="center">

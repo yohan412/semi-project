@@ -84,7 +84,7 @@
 			</tr>
 			<tr id="photo">
 				<th>사진 첨부</th>
-				<td align="left"><input type="file" value="파일 선택" multiple/></td>
+				<td align="left"><input type="file" value="파일 선택" accept=".jpg,.jpeg,.png,.gif" multiple="multiple"></td>
 			</tr>
 		</table>
 		<br>

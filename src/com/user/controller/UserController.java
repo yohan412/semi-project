@@ -44,21 +44,21 @@ public class UserController extends HttpServlet {
 			String user_id = request.getParameter("user_id");
 			String user_pw = request.getParameter("user_pw");
 			
-			UserDto dto = dao.login(user_id, user_pw);
+			UserDto loginUser = dao.login(user_id, user_pw);
 			
-			if(dto.getUserid() != null) {
+			if(loginUser.getUserid() != null) {
 				
 				HttpSession session = request.getSession();
-				session.setAttribute("dto", dto);
+				session.setAttribute("loginUser", loginUser);
 				session.setMaxInactiveInterval(60*60);
 			
-				if(dto.getRole().equals("M")) {
+				if(loginUser.getRole().equals("M")) {
 					dispatch("main.jsp",request,response);
-				}else if(dto.getRole().equals("BU")) {
+				}else if(loginUser.getRole().equals("BU")) {
 					dispatch("main.jsp",request,response);
-				}else if(dto.getRole().equals("DM")) {
+				}else if(loginUser.getRole().equals("DM")) {
 					dispatch("main.jsp",request,response);
-				}else if(dto.getRole().equals("GU")) {
+				}else if(loginUser.getRole().equals("GU")) {
 					dispatch("main.jsp",request,response);
 				}
 			

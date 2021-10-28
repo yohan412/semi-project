@@ -74,6 +74,15 @@
 		color:white;
 	}
 </style>
+<script type="text/javascript">
+	function enrollment(){
+		if(confirm("팝업 확인 취소")){
+			location.href="login.jsp";
+		}else{
+			location.href="main.jsp;"
+		}
+}
+</script>
 </head>
 <body>
 	<header>
@@ -93,7 +102,7 @@
             	<a href="CenterController?command=centerlist"><img src="img/icon_center.png" ><br>스포츠 센터 목록</p></a>
             </div>
             <div class="icon_subnav">
-            	<a href="join_business.jsp"><img src="img/icon_business.png"><br>사업자 등록</a>
+            	<a href="#" onclick="javascript:enrollment();"><img src="img/icon_business.png"><br>사업자 등록</a>
             </div>
             <div class="icon_subnav">
             	<a href="usedcontroller?command=usedlist"><img src="img/icon_used.png"><br>중고거래</a>

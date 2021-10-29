@@ -19,7 +19,7 @@ public class QnaDao extends JDBCTemplate{
 			ResultSet rs = null;
 			List<QnaDto> res = new ArrayList<QnaDto>();
 			
-			String sql = " SELECT * FROM USED_ASK ORDER BY USK_NO DESC ";
+			String sql = " SELECT * FROM QNA ORDER BY QA_NO DESC ";
 			
 			try {
 				pstm = con.prepareStatement(sql);
@@ -29,15 +29,17 @@ public class QnaDao extends JDBCTemplate{
 				System.out.println("04.query 실행 및 리턴");
 				while(rs.next()) {
 					QnaDto dto = new QnaDto();
-					dto.setUskno(rs.getInt(1));
-					dto.setUsedno(rs.getInt(2));
-					dto.setUsktype(rs.getString(3));
-					dto.setUskgpno(rs.getInt(4));
-					dto.setUskgpsq(rs.getInt(5));
-					dto.setUserid(rs.getString(6));
-					dto.setUskcontent(rs.getString(7));
-					dto.setUskreg(rs.getDate(8));
-					dto.setUskstatus(rs.getString(9));
+					dto.setQano(rs.getInt(1));
+					dto.setQagpno(rs.getInt(2));
+					dto.setQagpsq(rs.getInt(3));
+					dto.setUserid(rs.getString(4));
+					dto.setUserno(rs.getInt(5));
+					dto.setQatype(rs.getString(6));
+					dto.setQatitle(rs.getString(7));
+					dto.setQacontent(rs.getString(8));
+					dto.setQafaq(rs.getString(9));
+					dto.setQareg(rs.getDate(10));
+					dto.setQastatus(rs.getString(11));
 					
 					res.add(dto);
 				}
@@ -55,32 +57,34 @@ public class QnaDao extends JDBCTemplate{
 		}
 		
 				
-			public QnaDto selectOne(int uskno) {
+			public QnaDto selectOne(int qano) {
 				Connection con = getConnection();
 				PreparedStatement pstm = null;
 				ResultSet rs = null;
 				QnaDto res = new QnaDto();
 				
-				String sql = " SELECT * FROM USED_ASK WHERE USK_NO=? ";
+				String sql = " SELECT * FROM QNA WHERE QA_NO=? ";
 				
 				try {
 					pstm = con.prepareStatement(sql);
-					pstm.setInt(1, uskno);
+					pstm.setInt(1, qano);
 					System.out.println("03.query 준비: " + sql);
 
 					rs = pstm.executeQuery();
 					System.out.println("04.query 실행 및 리턴");
 					
 					while(rs.next()) {
-						res.setUskno(rs.getInt(1));
-						res.setUsedno(rs.getInt(2));
-						res.setUsktype(rs.getString(3));
-						res.setUskgpno(rs.getInt(4));
-						res.setUskgpsq(rs.getInt(5));
-						res.setUserid(rs.getString(6));
-						res.setUskcontent(rs.getString(7));
-						res.setUskreg(rs.getDate(8));
-						res.setUskstatus(rs.getString(9));
+						res.setQano(rs.getInt(1));
+						res.setQagpno(rs.getInt(2));
+						res.setQagpsq(rs.getInt(3));
+						res.setUserid(rs.getString(4));
+						res.setUserno(rs.getInt(5));
+						res.setQatype(rs.getString(6));
+						res.setQatitle(rs.getString(7));
+						res.setQacontent(rs.getString(8));
+						res.setQafaq(rs.getString(9));
+						res.setQareg(rs.getDate(10));
+						res.setQastatus(rs.getString(11));
 					}
 					
 				} catch (SQLException e) {
@@ -99,20 +103,21 @@ public class QnaDao extends JDBCTemplate{
 				PreparedStatement pstm = null;
 				int res = 0;
 				
-				String sql = " INSERT INTO USED_ASK "+ 
-								" VALUES(USK_NOSQ.NEXTVAL,?,?,?,?,?,?,SYSDATE,?,? ) ";
+				String sql = " INSERT INTO QNA "+ 
+								" VALUES(QA_NOSQ.NEXTVAL,?,?,?,?,?,?,?.?,SYSDATE,? ) ";
 						
 				try {
 					pstm = con.prepareStatement(sql);
 					
-					pstm.setInt(1, dto.getUsedno());
-					pstm.setString(2, dto.getUsktype());
-					pstm.setInt(3, dto.getUskgpno());
-					pstm.setInt(4, dto.getUskgpsq());
-					pstm.setString(5, dto.getUserid());
-					pstm.setString(6, dto.getUskcontent());
-					pstm.setString(7, dto.getUskstatus());
-					pstm.setString(8, dto.getUskpic());
+					pstm.setInt(1, dto.getQagpno());
+					pstm.setInt(2, dto.getQagpsq());
+					pstm.setString(3, dto.getUserid());
+					pstm.setInt(4, dto.getUserno());
+					pstm.setString(5, dto.getQatype());
+					pstm.setString(6,dto.getQatitle());
+					pstm.setString(7, dto.getQacontent());
+					pstm.setString(8, dto.getQafaq());
+					pstm.setString(9, dto.getQastatus());
 					System.out.println("03.query 준비: " + sql);
 					
 					res = pstm.executeUpdate();
@@ -139,35 +144,22 @@ public class QnaDao extends JDBCTemplate{
 				Connection con = getConnection();
 				PreparedStatement pstm = null;
 				int res = 0;
-				
-				/*
-				 CREATE TABLE USED_ASK(
-					USK_NO NUMBER PRIMARY KEY,
-					USED_NO NUMBER NOT NULL,
-					USK_TYPE VARCHAR2(50) NOT NULL,
-					USK_GPNO NUMBER NOT NULL,
-					USK_GPSQ NUMBER NOT NULL,
-					USER_ID VARCHAR2(500) NOT NULL,
-					USK_CONTENT VARCHAR2(4000) NOT NULL,
-					USK_REG DATE NOT NULL,
-					USK_STATUS VARCHAR2(2) DEFAULT 'N' CHECK(USK_STATUS IN('Y','N')),
-					CONSTRAINT FK_USED_NO FOREIGN KEY(USED_NO) REFERENCES USED_BOARD(USED_NO),
-					CONSTRAINT FK_USER_ID4 FOREIGN KEY(USER_ID) REFERENCES USER_INFO(USER_ID)
-				);
-				 * */
-				String sql = " UPDATE USED_ASK SET USK_NO.NEXTVAL,?,?,?,?,?,?,SYSDATE,?,? WHERE USKNO=? ";
+
+				String sql = " UPDATE QNA SET QA_NO.NEXTVAL,?,?,?,?,?,?,?,?,SYSDATE,? WHERE QA_NO=? ";
 				
 				try {
 					pstm = con.prepareStatement(sql);
-					pstm.setInt(1, dto.getUsedno());
-					pstm.setString(2, dto.getUsktype());
-					pstm.setInt(3, dto.getUskgpno());
-					pstm.setInt(4, dto.getUskgpsq());
-					pstm.setString(5, dto.getUserid());
-					pstm.setString(6, dto.getUskcontent());
-					pstm.setString(7, dto.getUskstatus());
-					pstm.setString(8, dto.getUskpic());
-					pstm.setInt(9, dto.getUskno());
+					pstm.setInt(1, dto.getQagpno());
+					pstm.setInt(2, dto.getQagpsq());
+					pstm.setString(3, dto.getUserid());
+					pstm.setInt(4, dto.getUserno());
+					pstm.setString(5, dto.getQatype());
+					pstm.setString(6,dto.getQatitle());
+					pstm.setString(7, dto.getQacontent());
+					pstm.setString(8, dto.getQafaq());
+					pstm.setString(9, dto.getQastatus());
+					
+					pstm.setInt(10, dto.getQano());
 					System.out.println("03.query 준비: " + sql);
 					
 					res = pstm.executeUpdate();
@@ -196,7 +188,7 @@ public class QnaDao extends JDBCTemplate{
 				PreparedStatement pstm = null;
 				int res = 0;
 				
-				String sql = " DELETE FROM USED_ASK WHERE USK_NO=? ";
+				String sql = " DELETE FROM QNA WHERE QA_NO=? ";
 				
 				try {
 					pstm=con.prepareStatement(sql);

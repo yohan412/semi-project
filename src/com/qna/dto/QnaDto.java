@@ -4,102 +4,124 @@ import java.util.Date;
 
 
 public class QnaDto {
-	private int uskno;
-	private int usedno;
-	private String usktype;
-	private int uskgpno;	
-	private int uskgpsq;
+	private int qano;
+	private int qagpno;
+	private int qagpsq;
 	private String userid;
-	private String usktitle;
-	private String uskcontent;
-	private Date uskreg;
-	private String uskstatus;
-	private String uskpic;
+	private int userno;
+	private String qatype;
+	private String qatitle;	
+	private String qacontent;
+	private String qafaq;
+	private Date qareg;
+	private String qastatus;
 		
 	public QnaDto() {
 		super();
 	}
-		
-	public QnaDto(int uskno, int usedno, String usktype, int uskgpno, int uskgpsq, String userid, String usktitle,
-			String uskcontent, Date uskreg, String uskstatus, String uskpic) {
+
+	public QnaDto(int qano, int qagpno, int qagpsq, String userid, int userno, String qatype, String qatitle,
+			String qacontent, String qafaq, Date qareg, String qastatus) {
 		super();
-		this.uskno = uskno;
-		this.usedno = usedno;
-		this.usktype = usktype;
-		this.uskgpno = uskgpno;
-		this.uskgpsq = uskgpsq;
+		this.qano = qano;
+		this.qagpno = qagpno;
+		this.qagpsq = qagpsq;
 		this.userid = userid;
-		this.usktitle = usktitle;
-		this.uskcontent = uskcontent;
-		this.uskreg = uskreg;
-		this.uskstatus = uskstatus;
-		this.uskpic = uskpic;
+		this.userno = userno;
+		this.qatype = qatype;
+		this.qatitle = qatitle;
+		this.qacontent = qacontent;
+		this.qafaq = qafaq;
+		this.qareg = qareg;
+		this.qastatus = qastatus;
 	}
-		
-	public int getUskno() {
-		return uskno;
+
+	public int getQano() {
+		return qano;
 	}
-	public void setUskno(int uskno) {
-		this.uskno = uskno;
+
+	public void setQano(int qano) {
+		this.qano = qano;
 	}
-	public int getUsedno() {
-		return usedno;
+
+	public int getQagpno() {
+		return qagpno;
 	}
-	public void setUsedno(int usedno) {
-		this.usedno = usedno;
+
+	public void setQagpno(int qagpno) {
+		this.qagpno = qagpno;
 	}
-	public String getUsktype() {
-		return usktype;
+
+	public int getQagpsq() {
+		return qagpsq;
 	}
-	public void setUsktype(String usktype) {
-		this.usktype = usktype;
+
+	public void setQagpsq(int qagpsq) {
+		this.qagpsq = qagpsq;
 	}
-	public int getUskgpno() {
-		return uskgpno;
-	}
-	public void setUskgpno(int uskgpno) {
-		this.uskgpno = uskgpno;
-	}
-	public int getUskgpsq() {
-		return uskgpsq;
-	}
-	public void setUskgpsq(int uskgpsq) {
-		this.uskgpsq = uskgpsq;
-	}
+
 	public String getUserid() {
 		return userid;
 	}
+
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
-	public String getUsktitle() {
-		return usktitle;
+
+	public int getUserno() {
+		return userno;
 	}
-	public void setUsktitle(String usktitle) {
-		this.usktitle = usktitle;
+
+	public void setUserno(int userno) {
+		this.userno = userno;
 	}
-	public String getUskcontent() {
-		return uskcontent;	
+
+	public String getQatype() {
+		return qatype;
 	}
-	public void setUskcontent(String uskcontent) {
-		this.uskcontent = uskcontent;
+
+	public void setQatype(String qatype) {
+		this.qatype = qatype;
 	}
-	public Date getUskreg() {
-		return uskreg;
+
+	public String getQatitle() {
+		return qatitle;
 	}
-	public void setUskreg(Date uskreg) {
-		this.uskreg = uskreg;
+
+	public void setQatitle(String qatitle) {
+		this.qatitle = qatitle;
 	}
-	public String getUskstatus() {
-		return uskstatus;
+
+	public String getQacontent() {
+		return qacontent;
 	}
-	public void setUskstatus(String uskstatus) {
-		this.uskstatus = uskstatus;
+
+	public void setQacontent(String qacontent) {
+		this.qacontent = qacontent;
 	}
-	public String getUskpic() {
-		return uskpic;
+
+	public String getQafaq() {
+		return qafaq;
 	}
-	public void setUskpic(String uskpic) {
-		this.uskpic = uskpic;
+
+	public void setQafaq(String qafaq) {
+		this.qafaq = qafaq;
 	}
-}
+
+	public Date getQareg() {
+		return qareg;
+	}
+
+	public void setQareg(Date qareg) {
+		this.qareg = qareg;
+	}
+
+	public String getQastatus() {
+		return qastatus;
+	}
+
+	public void setQastatus(String qastatus) {
+		this.qastatus = qastatus;
+	}
+
+}	

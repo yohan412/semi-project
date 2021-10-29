@@ -52,16 +52,16 @@ public class ReviewDao extends JDBCTemplate{
 		return res;
 	}
 	
-	public int insert (ReviewDto dto , int centerno) {
+	public int insert (ReviewDto dto) {
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
 		int res=0;
 		
-		String sql = "INSERT INRO REVIEW VALUES(REVIEW_NOSQ.NEXTVAL,?,?,?,?,SYSDATE)";
+		String sql = "INSERT INTO REVIEW VALUES(REVIEW_NOSQ.NEXTVAL,?,?,?,?,SYSDATE)";
 		
 		try {
 			pstm=con.prepareStatement(sql);
-			pstm.setInt(1, centerno);
+			pstm.setInt(1, dto.getCenterno());
 			pstm.setString(2, dto.getReviewwriter());
 			pstm.setDouble(3, dto.getReviewgrade());
 			pstm.setString(4, dto.getReviewcontent());

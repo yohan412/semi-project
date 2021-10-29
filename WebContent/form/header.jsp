@@ -65,7 +65,7 @@
 </head>
 <body>
 <% 
-	UserDto dto = (UserDto)session.getAttribute("dto");
+	UserDto loginUser = (UserDto)session.getAttribute("loginUser");
 %>
 
 		<div id="header">
@@ -73,15 +73,15 @@
 			<div id="logo" onclick="img">
 				<a href="main.jsp"><img src="./img/logo.png" width="239px" height="114px" alt="우리동네 헬스장"></a>
 			</div>
-			<c:if test="${dto==null }">
+			<c:if test="${loginUser==null }">
 			<div id="login">
 				<button onclick="location.href='login.jsp'">로그인</button>
 				<button onclick="location.href='join_user.jsp'">회원가입</button>
 			</div>		
 			</c:if>
-			<c:if test="${dto !=null }">
+			<c:if test="${loginUser !=null }">
 				<div id="logout">
-				<label>${dto.username }님(회원등급은 : ${dto.role }) 방문을 환영합니다.</label><br>
+				<label>${loginUser.username }님(회원등급은 : ${loginUser.role }) 방문을 환영합니다.</label><br>
 				<button onclick="location.href='usercontroller?command=logout'">로그아웃</button>
 				<button onclick="location.href='mypage.jsp'">마이페이지</button>
 				</div>

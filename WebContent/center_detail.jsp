@@ -5,14 +5,71 @@
 <% response.setContentType("text/html; charset=UTF-8"); %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${centerDto.centername} 상세페이지</title>
+<script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+	
+	$(function(){
+		
+		var reviewlist = new Array();
+		// center 객체
+		var reviewObj = function(writer,grade,content,reg) {
+			this.writer = writer;
+			this.grade = grade;
+			this.content= content;
+			this.reg=reg;
+		}
+		<c:choose>
+		<c:when test="${!empty reviewList}">
+		//CenterController 에서 보내준 reviewlist의 값을 넣어줌
+			<c:forEach items="${reviewList}" var="review">
+			var tempReview = 
+				new reviewObj("${review.reviewwriter}","${review.reviewgrade}"
+					,"${review.reviewcontent}","${review.reviewreg}");
+			reviewlist.push(tempReview);
+			</c:forEach>
 
+			makeBoardList(reviewlist);
+		</c:when>
+		</c:choose>
+	});
+	function makeBoardList(list){
+		//tbody의 자식 요소 초기화
+		$("tbody").empty();
+		
+		//list에 들어있는 center 정보 추가
+		for(var i = 0 ; i < list.length ; i++){
+			
+			$("tbody").append(
+				"<tr><td>"
+				+"<div class='review_content'>"
+				+"<span class='review_writer'>&nbsp;&nbsp; 작성자 : "+list[i].writer+"</span></a>"+"<br><hr>"
+				+"<span class='review_grade'>&nbsp;&nbsp; " 
+				+"평점 : <span class='star-rating'><span style='width:"+(list[i].grade*20)+"%'></span>"
+                +"</span> ("+list[i].grade+")</span>"+"<br>"
+				+"<span class='review_contents'>&nbsp;&nbsp; 내용 : "+list[i].content+"</span>"+"<br>"
+				+"<span class='review_reg'>&nbsp;&nbsp; 등록일 : "+list[i].reg+"</span>"+"<br>"
+				+"</div></td>"
+				+"</tr>"		
+			);
+		}
+	}
+	function review_login_chk(){
+		if(${loginUser==null }){
+			if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
+				location.href="login.jsp"
+			}else{
+				
+			}
+		} else{
+			//로그인 상태라면 컨르롤러에 작업 요청
+			location.href='CenterController?command=review_write_form&centerno=${centerDto.centerno}'
+		}
+	}
 </script>
 
 <style type ="text/css">
@@ -88,16 +145,21 @@ h1, p{
 	width:300px;
 	height:200px;
 }
-.review_content{
+.review_content,.empty_review{
 	height:150px;
 	border: 1px solid black;
 	border-radius: 5px;
 	min-width:600px;
 	margin-top:10px;
 }
+.empty_review{
+	line-height:150px;
+	text-align:center;
+}
+/*별점 구현*/
 .star-rating{
 	width:128px;
-	margin-left:20px;
+	margin-left:5px;
 }
 .star-rating,.star-rating span{
 	display:inline-block;
@@ -110,6 +172,19 @@ h1, p{
 	background-position:left bottom;
 	line-height:0;
 	vertical-align:top;
+}
+.txt_part{
+	font-size:18px;
+}
+#review_header{
+	display:flex;
+	justify-content:space-between;
+}
+#review_header button{
+	height:30px;
+}
+#review_button{
+	align-self:flex-end;
 }
 </style>
 </head>
@@ -134,7 +209,7 @@ h1, p{
                 </div>
                 <div class="txt_part">
                     <p>${centerDto.centeraddr}</p>
-                    <span>
+                    평점 : <span>
                     <span class="star-rating">
                     	<span style="width:${centerDto.centergrade*20}%"></span>
                     </span> (${centerDto.centergrade})
@@ -193,18 +268,21 @@ h1, p{
                 </div>
             </div>
              <div class="review_cont">
-                <div>
+                <div id="review_header">
                     <h2 id="e">이용후기</h2>
+                    <div id="review_button">
+                    	<button type="button" onclick="review_login_chk()">리뷰작성</button>
+                    </div>
                 </div>
+          
                 <div id="review_list">
                 	<table width="100%">
-						<tbody>
-						<tr>
-						<div class="review_content"></div>
-						</tr>
-						<tr>
-						<div class="review_content"></div>
-						</tr>
+					<tbody>
+					<tr><td>
+					<div class="empty_review">
+						<p>아직 등록된 리뷰가 없습니다.</p>
+					</div>
+					</td></tr>
 					</tbody>
 					</table>
  				</div>           

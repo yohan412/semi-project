@@ -1,6 +1,7 @@
 package com.center.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.biz.dao.BizDao;
 import com.biz.dto.BizDto;
@@ -16,6 +18,8 @@ import com.center.dao.CenterDao;
 import com.center.dto.CenterDto;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.review.dao.ReviewDao;
+import com.review.dto.ReviewDto;
 import com.user.dao.UserDao;
 import com.user.dto.UserDto;
 
@@ -35,6 +39,7 @@ public class CenterController extends HttpServlet {
 		CenterDao dao = new CenterDao();
 		UserDao udao = new UserDao();
 		BizDao bdao = new BizDao();
+		ReviewDao rdao = new ReviewDao();
 		
 		if(command.equals("centerlist")) {
 			List<CenterDto> centerlist = dao.selectAll();
@@ -61,18 +66,26 @@ public class CenterController extends HttpServlet {
 			String price = "";
 			String bizcontent = ""; //초기화
 			
-			String imgpath = ""; //이미지 경로 초기화
-			String imgname = ""; //이미지 이름 초기화
+			String[] imgpath = {""}; //이미지 경로 초기화
+			String[] imgname = {""}; //이미지 이름 초기화
 			
-			String uploadpath = request.getSession().getServletContext().getRealPath("upload"); //upload파일에 실제 경로 설정
+			String uploadpath = request.getRealPath("upload"); //upload파일에 실제 경로 설정
 			
 			System.out.println(uploadpath); //경로확인용
 			
 			try {
 				MultipartRequest multi = new MultipartRequest(request, uploadpath,10*1024*1024,"UTF-8",new DefaultFileRenamePolicy());
 				
-				imgpath = multi.getFilesystemName("imgfile");
-				imgname = multi.getOriginalFileName("imgfile");
+				//imgpath = multi.getFilesystemName("imgfile");
+				//System.out.println(imgpath);
+				
+				//imgname = multi.getOriginalFileName("imgfile");
+				
+				for(int i=0; i<multi.getFilesystemName("imgfile").length(); i++) {
+					imgpath[i]=multi.getFilesystemName("imgfile");
+					imgname[i] = multi.getOriginalFileName("imgfile");
+				}
+					System.out.println(imgpath);
 				
 				
 				userno = Integer.parseInt(multi.getParameter("userno"));
@@ -102,7 +115,7 @@ public class CenterController extends HttpServlet {
 				dto.setBizcategory(bizcategory);
 				dto.setBizprice(price);
 				dto.setBizcontent(bizcontent);
-				dto.setBizpic("upload/"+imgpath);
+				dto.setBizpic(uploadpath+imgpath);
 				
 				int res = bdao.insert(dto);
 				
@@ -135,11 +148,47 @@ public class CenterController extends HttpServlet {
 		} else if (command.equals("centerdetail")){
 			int centerno = Integer.parseInt(request.getParameter("centerno"));
 			CenterDto dto = dao.selectOne(centerno);
+			List<ReviewDto> reviewList = rdao.selectAll(centerno);
 			
 			request.setAttribute("centerDto", dto);
-			
+			//리뷰 있는지 확인
+			if(reviewList !=null) {
+				request.setAttribute("reviewList", reviewList);
+			}
 			RequestDispatcher dispatch = request.getRequestDispatcher("center_detail.jsp");
 			dispatch.forward(request, response);
+			
+		} else if(command.equals("review_write_form")) {
+			
+			int centerno = Integer.parseInt(request.getParameter("centerno"));
+			
+			request.setAttribute("centerno", centerno);
+			RequestDispatcher dispatch = request.getRequestDispatcher("center_review_write.jsp");
+			dispatch.forward(request, response);
+		} else if(command.equals("review_write")) {
+			
+			HttpSession session = request.getSession();
+			UserDto loginUser = (UserDto)session.getAttribute("loginUser");
+			
+			ReviewDto rdto = new ReviewDto();
+			
+			int centerno = Integer.parseInt(request.getParameter("centerno"));
+			String writer = loginUser.getUserid();
+			double grade = Double.parseDouble(request.getParameter("star_range"));
+			String content = request.getParameter("reviewcontent");
+			
+			rdto.setCenterno(centerno);
+			rdto.setReviewwriter(writer);
+			rdto.setReviewgrade(grade);
+			rdto.setReviewcontent(content);
+			
+			int res = rdao.insert(rdto);
+			
+			if(res>0) {
+				jsResponse("리뷰가 등록되었습니다.","CenterController?command=centerdetail&centerno="+centerno,response);
+			} else {
+				jsResponse("리뷰등록이 실패하였습니다","CenterController?command=review_write_form&centerno="+centerno,response);
+			}
 		}
 	}
 
@@ -148,5 +197,13 @@ public class CenterController extends HttpServlet {
 
 		doGet(request, response);
 	}
-
+	
+	private void jsResponse(String msg,String url, HttpServletResponse response) throws IOException {
+		String s = "<script type='text/javascript'>"
+				+ "alert('"+msg+"');"
+				+ "location.href='"+url+"';"
+				+ "</script>";
+		PrintWriter out = response.getWriter();
+		out.print(s);
+	}
 }

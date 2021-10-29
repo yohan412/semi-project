@@ -7,7 +7,6 @@ public class BizDto {
 	private String biznm;
 	private String bizaddr;
 	private String bizcategory;
-	private String bizprice;
 	private String bizcontent;
 	private String bizpic;
 	public BizDto() {
@@ -16,7 +15,7 @@ public class BizDto {
 	}
 	
 	public BizDto(int bizno, int userno, String usernm, String biznm, String bizaddr, String bizcategory,
-			String bizprice, String bizcontent, String bizpic) {
+			String bizcontent, String bizpic) {
 		super();
 		this.bizno = bizno;
 		this.userno = userno;
@@ -24,20 +23,18 @@ public class BizDto {
 		this.biznm = biznm;
 		this.bizaddr = bizaddr;
 		this.bizcategory = bizcategory;
-		this.bizprice = bizprice;
 		this.bizcontent = bizcontent;
 		this.bizpic = bizpic;
 	}
 	
 	public BizDto(int userno,String usernm, String biznm, String bizaddr, String bizcategory,
-			String bizprice, String bizcontent, String bizpic) {
+			String bizcontent, String bizpic) {
 		super();
 		this.userno = userno;
 		this.usernm = usernm;
 		this.biznm = biznm;
 		this.bizaddr = bizaddr;
 		this.bizcategory = bizcategory;
-		this.bizprice = bizprice;
 		this.bizcontent = bizcontent;
 		this.bizpic = bizpic;
 	}
@@ -77,12 +74,6 @@ public class BizDto {
 	}
 	public void setBizcategory(String bizcategory) {
 		this.bizcategory = bizcategory;
-	}
-	public String getBizprice() {
-		return bizprice;
-	}
-	public void setBizprice(String bizprice) {
-		this.bizprice = bizprice;
 	}
 	public String getBizcontent() {
 		return bizcontent;

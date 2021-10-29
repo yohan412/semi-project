@@ -1,7 +1,6 @@
 package com.used.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,13 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.biz.dto.BizDto;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.used.dao.UsedDao;
 import com.used.dto.UsedDto;
-import com.usedask.dao.UsedaskDao;
-import com.usedask.dto.UsedaskDto;
 
 @WebServlet("/usedcontroller")
 public class UsedController extends HttpServlet {
@@ -30,6 +24,15 @@ public class UsedController extends HttpServlet {
 		String command= request.getParameter("command");
 		System.out.println("[command: "+command+"]");
 		
+		UsedDao usedDao = new UsedDao();
+		
+		if(command.equals("usedlist")) {
+			
+			List<UsedDto> usedList = usedDao.selectAll();
+			
+			request.setAttribute("usedList", usedList);
+			dispatch("used_list.jsp",request,response);
+		}
 		
 	}
 	

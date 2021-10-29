@@ -32,8 +32,18 @@ public class UsedController extends HttpServlet {
 			
 			request.setAttribute("usedList", usedList);
 			dispatch("used_list.jsp",request,response);
+			
 		}
-		
+		else if(command.equals("useddetail")) {
+			
+			int usedno = Integer.parseInt(request.getParameter("usedno"));
+			
+			UsedDto usedDto = usedDao.selectOne(usedno);
+			
+			request.setAttribute("usedDto", usedDto);
+			dispatch("used_detail.jsp",request,response);
+			
+		}
 	}
 	
 	private void dispatch(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

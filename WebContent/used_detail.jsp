@@ -4,6 +4,7 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +40,7 @@
 	width: 750px;
 }
 
-.title a{
+.title span{
 	font-weight: bold;
 	font-size: 20px;
 }
@@ -60,17 +61,27 @@
 	text-align: center;
 }
 
-.map{
+#map{
+	display:inline-block;
 	margin-top: 40px;
+	width:500px;
+	height:260px;
 }
 
 .pic{
+	display:inline-block;
 	margin-top: 40px;
+	width:500px;
+	text-align:left;
 }
-
+.pic img{
+	width:150px;
+	height:100px;
+}
 .content_info{
+	display:inline-block;
 	margin-top: 40px;
-	margin-left: 45%;
+	width:500px;
 }
 
 .content_info p{
@@ -98,8 +109,76 @@
 	background: grey;
 	color: white;
 }
-
+/*찜 버튼 구현 시작*/
+.checkbox-wrap{
+	cursor:pointer;
+	position: relative;
+	left: 60%;
+}
+.checkbox-wrap .check-icon  { 
+	display: inline-block; 
+	width: 30px; height: 30px; 
+	background: url('img/emt_heart.png') left center no-repeat; 
+	vertical-align: middle; 
+	transition-duration: .3s; }	
+.checkbox-wrap input[type=checkbox]{display:none;}
+.checkbox-wrap input[type=checkbox]:disalbed + .check-icon{
+	background-image:url('img/emt_heart.png');
+}
+input[type=checkbox]:checked + .check-icon{
+	background-image:url('img/heart.png');
+}
+/*찜 버튼 구현 끝*/
 </style>
+<script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cf6a0311e8ff428c0d13bd95e775d7f3&libraries=services"></script>
+<script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript">
+
+	$(function(){
+		
+		var centerAddr = "${usedDto.usedaddr}";
+		
+		
+		// 주소-좌표 변환 객체를 생성	
+		var geocoder = new kakao.maps.services.Geocoder();
+		
+		//주소 검색하여 주소를 좌표로 변환
+		geocoder.addressSearch(centerAddr,function(result, status) {
+
+			// 정상적으로 검색이 완료됐으면 
+			if (status === kakao.maps.services.Status.OK) {
+				
+				var container = document.getElementById('map'); //지도를 표시할 div
+				var options = {
+					center : new kakao.maps.LatLng(result[0].y, result[0].x), //지도의 중심 좌표
+					level : 4
+				//지도 확대 레벨
+				};
+				//지도 생성
+				map = new kakao.maps.Map(container, options);
+
+				var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+				//마커로 표시
+				var marker = new kakao.maps.Marker({
+					map : map,
+					position : coords
+				});
+				
+				// 인포윈도우로 장소에 대한 설명을 표시
+				var infowindow = new kakao.maps.InfoWindow(
+					{
+						content : '<div style="width:150px;text-align:center;padding:6px 0;">'
+								+ "${usedDto.usedcenternm}"
+								+ '</div>',
+						position : coords
+					});
+				infowindow.open(map, marker);
+			}
+			
+		});
+	});
+</script>
 </head>
 <body>
 
@@ -109,36 +188,36 @@
 		<div class="used_detail">
 			<div class="headline">
 				<div class="title">
-					<a>[헬 스]</a>
-					<a>ㅇㅇ동 3개월 양도합니다</a>
-					<img src="./img/emt_heart.png" width="30px" height="30px">
+					<span>[${usedDto.usedcategory}]</span>
+					<span>${usedDto.usedtitle}</span>
+					<label class='checkbox-wrap'><input type='checkbox' name='wish_list' id='center_no1'><i class='check-icon'></i></label>
 				</div>
 				
 				<div class="write_info">
-					<a>작성자</a>
-					<a>2020.02.02</a>
+					<a>${usedDto.userid}</a>
+					<a>${usedDto.usedreg}</a>
 				</div>
 				<br><hr>
 			</div>
 			
 			<div class="content">
-				<div class="map">
-					<img src="./img/tmp_image.png" width="500px" height="260px">
-				</div>
-				
-				<div class="pic">
-					<img src="./img/tmp_image.png" width="230px" height="230px">
+				<div id="map">					
 				</div>
 				
 				<div class="content_info">
-					<p>가격:</p>
-					<p>사업장명:</p>
-					<p>주소:</p>
-					<p>기간별 가격:</p>
-					<p>관련 정보:</p>
+					<p>가격:${usedDto.usedprice}</p>
+					<p>사업장명:${usedDto.usedcenternm}</p>
+					<p>주소:${usedDto.usedaddr}</p>
+					<p>관련 정보:${usedDto.usedcontent}</p>
 				</div>
-			</div>
-			
+				
+				<div class="pic">
+					<img src="./img/tmp_image.png">
+					<img src="./img/tmp_image.png">
+					<img src="./img/tmp_image.png">
+				</div>
+				
+			</div>			
 			
 		</div>
 		<div class="regist">

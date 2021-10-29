@@ -31,6 +31,7 @@ public class UsedController extends HttpServlet {
 		System.out.println("[command: "+command+"]");
 		
 		UsedaskDao udao = new UsedaskDao();
+		UsedDao usedDao = new UsedDao();
 		
 		if(command.equals("boardlist")) {
 			List<UsedaskDto> boardlist = udao.selectAll();
@@ -113,6 +114,12 @@ public class UsedController extends HttpServlet {
 					response.sendRedirect("question_board_update.jsp");
 				}
 			}
+		} else if(command.equals("usedlist")) {
+			
+			List<UsedDto> usedList = usedDao.selectAll();
+			
+			request.setAttribute("usedList", usedList);
+			dispatch("used_list.jsp",request,response);
 		}
 		
 	}

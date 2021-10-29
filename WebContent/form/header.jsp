@@ -95,7 +95,7 @@
 				<a href="CenterController?command=business&user_no=${ dto.userno }">사업장 등록</a>
 			</div>
 			<div class="sub_menu">
-				<a href="used_list.jsp">중고거래</a>
+				<a href="usedcontroller?command=usedlist">중고거래</a>
 			</div>
 			<div class="sub_menu">
 				<a href="qna.jsp">Q&A</a>

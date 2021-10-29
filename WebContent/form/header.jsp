@@ -75,8 +75,8 @@
 			</div>
 			<c:if test="${loginUser==null }">
 			<div id="login">
-				<button onclick="location.href='login.jsp'">로그인</button>
-				<button onclick="location.href='join_user.jsp'">회원가입</button>
+				<button onclick="location.href='usercontroller?command=loginform'">로그인</button>
+				<button onclick="location.href='usercontroller?command=registform'">회원가입</button>
 			</div>		
 			</c:if>
 			<c:if test="${loginUser !=null }">

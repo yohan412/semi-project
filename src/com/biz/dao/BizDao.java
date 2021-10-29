@@ -16,7 +16,7 @@ public class BizDao extends JDBCTemplate{
 		PreparedStatement pstm = null;
 		int res = 0;
 		
-		String sql = "INSERT INTO BUSINESS VALUES(BIZ_NOSQ.NEXTVAL,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO BUSINESS VALUES(BIZ_NOSQ.NEXTVAL,?,?,?,?,?,?,?)";
 		
 		try {
 			pstm=con.prepareStatement(sql);
@@ -26,9 +26,8 @@ public class BizDao extends JDBCTemplate{
 			pstm.setString(3, dto.getBiznm());
 			pstm.setString(4, dto.getBizaddr());
 			pstm.setString(5, dto.getBizcategory());
-			pstm.setString(6, dto.getBizprice());
-			pstm.setString(7, dto.getBizcontent());
-			pstm.setString(8, dto.getBizpic());
+			pstm.setString(6, dto.getBizcontent());
+			pstm.setString(7, dto.getBizpic());
 			System.out.println("03.query 준비: "+sql);
 			
 			res=pstm.executeUpdate();

@@ -63,7 +63,6 @@ public class CenterController extends HttpServlet {
 			String biznm = "";
 			String bizaddr = "";
 			String bizcategory = "";
-			String price = "";
 			String bizcontent = ""; //초기화
 			
 			String imgpath = ""; //이미지 경로 초기화
@@ -83,11 +82,11 @@ public class CenterController extends HttpServlet {
 				usernm = multi.getParameter("usernm");
 				biznm = multi.getParameter("biznm");
 				bizaddr = multi.getParameter("bizaddr");
-				bizcategory = (multi.getParameter("health")==null)? "":"health"
-								+((multi.getParameter("pilates")==null)? "":((multi.getParameter("health")==null)? "":",")+"pilates")
-								+((multi.getParameter("yoga")==null)? "":((multi.getParameter("pilates")==null)? "":",")+"yoga")
-								+((multi.getParameter("health")==null)? "":((multi.getParameter("yoga")==null)? "":",")+"etc");
-				price = multi.getParameter("price");
+				bizcategory = String.join(",", multi.getParameter("health"),
+												multi.getParameter("pilates"),
+												multi.getParameter("yoga"),
+												multi.getParameter("etc"));
+			
 				bizcontent = multi.getParameter("bizcontent");
 				
 				System.out.println(userno+usernm+biznm+bizaddr+bizcategory); //값 확인용 나중에 지움
@@ -105,7 +104,6 @@ public class CenterController extends HttpServlet {
 				dto.setBiznm(biznm);
 				dto.setBizaddr(bizaddr);
 				dto.setBizcategory(bizcategory);
-				dto.setBizprice(price);
 				dto.setBizcontent(bizcontent);
 				dto.setBizpic(uploadpath+imgpath);
 				
@@ -124,7 +122,6 @@ public class CenterController extends HttpServlet {
 				dto.setBiznm(biznm);
 				dto.setBizaddr(bizaddr);
 				dto.setBizcategory(bizcategory);
-				dto.setBizprice(price);
 				dto.setBizcontent(bizcontent);
 				dto.setBizpic("");
 				

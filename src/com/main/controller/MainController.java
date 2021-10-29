@@ -3,6 +3,7 @@ package com.main.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.qna.dao.QnaDao;
 import com.user.dao.UserDao;
 import com.user.dto.UserDto;
 
@@ -25,6 +29,7 @@ public class MainController extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		UserDao dao = new UserDao();
+		QnaDao udao = new QnaDao();
 
 		String command = request.getParameter("command");
 		System.out.println("[command : " + command + "]");
@@ -79,7 +84,6 @@ public class MainController extends HttpServlet {
 			}else {
 				jsResponse("회원 탈퇴 실패","MainController?command=update",response);
 			}
-			
 			
 		}
 	}

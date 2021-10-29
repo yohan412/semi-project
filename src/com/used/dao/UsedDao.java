@@ -12,7 +12,6 @@ import com.used.dto.UsedDto;
 import common.JDBCTemplate;
 
 public class UsedDao extends JDBCTemplate{
-	
 	public List<UsedDto> selectAll(){
 		Connection con = getConnection();
 		PreparedStatement pstm = null;

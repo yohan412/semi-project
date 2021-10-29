@@ -3,6 +3,7 @@ package com.main.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.qna.dao.QnaDao;
+import com.qna.dto.QnaDto;
 import com.user.dao.UserDao;
 import com.user.dto.UserDto;
 
@@ -25,6 +30,7 @@ public class MainController extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		UserDao dao = new UserDao();
+		QnaDao udao = new QnaDao();
 
 		String command = request.getParameter("command");
 		System.out.println("[command : " + command + "]");
@@ -60,27 +66,44 @@ public class MainController extends HttpServlet {
 				jsResponse("회원 수정 실패","MainController?command=update",response);
 			}
 			
+		}else if(command.equals("detail")) {
+			int qano = Integer.parseInt(request.getParameter("qano"));
+			
+			QnaDto dto = udao.selectOne(qano);
+			
+			request.setAttribute("dto", dto);
+			RequestDispatcher dis = request.getRequestDispatcher("question_board_detail");
+			dis.forward(request, response);
+		
 		}else if(command.equals("updateform")) {
-			int userno = Integer.parseInt(request.getParameter("userno"));
-		
-			UserDto dto = dao.selectOne(userno);
-			HttpSession session = request.getSession();
-			session.setAttribute("dto",dto);
-			dispatch("main.jsp",request,response);
-
-		
-		}else if(command.equals("delete")) {
-			int userno = Integer.parseInt(request.getParameter("userno"));
+			response.sendRedirect("question_board_update.jsp");
+		}else if(command.equals("boardupdate")) {
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			//String photo = request.getParameter("photo");
 			
-			boolean res = dao.delete(userno);
+			QnaDto dto = new QnaDto();
+			dto.setQatitle(title);
+			dto.setQacontent(content);
+			//dto.setQapic(photo);
 			
-			if(res) {
-				jsResponse("회원 탈퇴 성공","usercontroller?command=logout",response);
+			int res = udao.insert(dto);
+			if(res>0) {
+				dispatch("update.do?command=qna",request,response);
 			}else {
-				jsResponse("회원 탈퇴 실패","MainController?command=update",response);
+				dispatch("update.do?command=updateform",request,response);
 			}
+		}else if(command.equals("delete")) {
+			int qano = Integer.parseInt(request.getParameter("qano"));
 			
+			int res = udao.delete(qano);
 			
+			// 성공 시 qna 페이지로 이동, 실패 시 상세페이지로 이동
+			if(res>0) {
+				dispatch("update.do?command=qna", request, response);
+			}else {
+				dispatch("update.do?command=detail&qano="+qano, request, response);
+			}
 		}
 	}
 

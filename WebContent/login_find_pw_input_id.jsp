@@ -12,50 +12,6 @@ response.setContentType("text/html; charset=UTF-8");
 <head>
 <meta charset="UTF-8">
 <title>우리동네 헬스장</title>
-<script>
-$('#sendUSER_PHONE').click(function(){    // 'sendUSER_PHONE'라는 id를 가진 버튼 클릭 시 실행.
-    let phoneNumber = $('#inputUSER_PHONE').val();
-    Swal.fire('인증번호 발송 완료!')
-    
-    $.ajax({
-        type: "GET",
-        url: "/check/sendSMS",
-        data: {
-            "USER_PHONE" : phoneNumber
-        },
-        success: function(res){
-            $('#checkBtn').click(function(){
-                if($.trim(res)
-                		==$('#inputCertifiedNumber').val()){
-                    Swal.fire(
-                        '인증성공!',
-                        '휴대폰 인증이 정상적으로 완료되었습니다.',
-                        'success'
-                    )
-
-                    $.ajax({
-                        type: "GET", // HTTP method type(GET, POST) 형식이다.
-                        url: "", // 컨트롤러에서 대기중인 URL 주소이다. //여기에 뭘써야 하는데 모르겠음 ㅠㅠ
-                        data: {	// Json 형식의 데이터이다.
-                            "USER_PHONE" : $('#inputPhoneNumber').val()
-                        }
-                    })
-                    document.location.href="";
-                }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: '인증오류',
-                        text: '인증번호가 올바르지 않습니다!',
-                        footer: '<a href="WebContent/login.jsp">다음에 인증하기</a>'
-                    })
-                }
-            })
-
-
-        }
-    })
-});
-</script>
 <style type="text/css">
 html {
 	height: 100%;
@@ -109,44 +65,6 @@ h3 {
 	background: #fff;
 	font-size: 15px;
 }
-
-
-
-#USER_BIRTH DATE_wrap {
-	display: table;
-	width: 100%;
-}
-
-#bir_yy {
-	display: table-cell;
-	width: 147px;
-}
-
-#bir_mm {
-	display: table-cell;
-	width: 147px;
-}
-
-#bir_dd {
-	display: table-cell;
-	width: 147px;
-}
-
-#bir_mm, #bir_dd {
-	padding-left: 2%;
-}
-
-#phone_wrap {
-	display: table;
-	width: 100%;
-}
-
-#phone_certification {
-	display: table-cell;
-	width: 70%;
-}
-
-
 select {
 	width: 100%;
 	height: 29px;
@@ -161,29 +79,7 @@ select {
 	font-family: Dotum, '돋움', Helvetica, sans-serif;
 	background-size: 20px 8px;
 }
-
-.btn_area {
-	margin: 30px 0 91px;
-}
-.button1 {
-	background-color: gray;
-	color: white;
-	border: 3px solid white;
-	padding: 18px 0 15px;
-	
-	font-size:13px;
-	width: 100%;	
-}
-.button2 {
-	background-color: gray;
-	color: white;
-	border: 3px solid white;
-	padding: 18px 0 15px;
-	
-	font-size:13px;
-	width: 100%;	
-}
-#button4 {
+#button {
 	width: 100%;
 	padding: 21px 0 17px;
 	border: 0;
@@ -194,17 +90,28 @@ select {
 	font-weight: 200;
 }
 </style>
-<script type="text/javascript" src="WebContent/js/findinfo.js">
-</script>
+<script type="text/javascript">
+	function CheckForm(){
+	var id= get.ElementById("txtUser_ID");
+	if(id.value =="" || !(id.value.length >=3 && id.value.length <=12)){ 
+		
+	}alert("아이디를 똑바로 입력하세요");
+	id.focus(); //id가 id인 태그에 커서 깜빡거리는 포커스 주기
+	return false; //현재 submit이벤트를 중지하는 개념(즉, 전송을 막는다->페이지안넘김)
+	}else{ //아이디와 비밀번호를 잘 입력받았다면
+
+		document.FormLogin.onsubmit; //form안에 있는 데이터를 action속성의 주소로 전송
+		}
+	</script>
 </head>
 <body>
 	<header><%@ include file="form/login_header.jsp"%></header>
 	
 	<div id="wrapper">
 		<h5>
-			가입시 입력하셨던 이메일 주소를 작성해주세요. <br> 입력하신 이메일 주소로 임시암호를 발송해 드립니다.
+			Step1. ID와 생년월일을 입력해주세요. <br>
 		</h5>
-	<form action="/message" method="post">
+	<form name="find_pw_id" action="login_find_pw_input_phone.jsp" id="form_login" method="post" onsubmit="CheckForm();">
 		<div id="content">
 		
 			<div>
@@ -212,8 +119,7 @@ select {
 					<label for="USER_ID">ID</label>
 				</h3>
 				<span class="box int_USER-ID"> 
-				<input type="text" id="id" name="USER_ID"
-					class="int"  maxlength="20" > 
+				<input type="text" name="USER_ID" maxlength="20" required> 
 				</span>
 			</div>
 
@@ -321,69 +227,16 @@ select {
 						</span>
 					</div>
 
+			</form>
 				</div>
-			</div>
-			<br>
-			
-			<br>
-			<div>
-				<h3 class="USER_PHONE">
-					<label for="USER_PHONE">휴대전화번호</label>
-				</h3>
-				<span class="box"> 
-				
-				<select id="phone_contury"	class="sel">
-						<option value="00">대한민국 +82</option>
-						<option value="01">미국 +1</option>
-						<option value="02">독일 +49</option>
-						<option value="03">호주 +61</option>
-						<option value="04">영국 +44</option>
-				</select>
-				</span>
-				<br>
-			
-				<span class="box">
-				 <input type="text" id="dd" class="int"
-					placeholder="전화번호 입력">
-				</span> 
-				<br>
-				<div id="phone_wrap">
-					<div id="phone_certification">
-							<button type="submit"id = "sendUSER_PHONE"class="button1">번호확인</button>  
-					<br>
-					 	<input type="text" id="inputUSER_PHONE" class="int" name = "USER_PHONE" placeholder="인증번호 6자리 입력">
-					</form>
-					</div>
-					
-				</div>
-				
-			</div>
-			<br>
-					<div id="button2">
-						<input type="button" id = "checkBtn" value="확인"	class="button2">
-					</div>
-			<br>
-			<br>
-			<div>
-			
-				<h3 class="join_title">
-					<label for="USER_EMAIL">E-Mail</label>
-				</h3>
-				<span class="box int_email">
-				 <input type="text" id="email"
-					class="int" maxlength="100" placeholder="이메일 주소 입력">
-				</span>
 			</div>
 			<br>
 			<br>
 			<div class="btn_area">
-				 <input type ="button" id="button4" value = "확인" 
-				onClick="location.href='login_find_pw_tjdrhd.jsp'");"> 
+				 <input type ="submit" id="button" value = "확인" 
+				onClick="checkForm();")> 
 						 <!-- 임시암호 보여지는 화면 -->
 			</div>
-
-
-
 		</div>
 
 	</div>

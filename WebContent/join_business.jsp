@@ -95,21 +95,15 @@
 		             </td>
                 </tr>
                 <tr>
-                    <td>회원권 기간별 가격등록</td>
-                    <td>
-						<input type="text" name="price" placeholder="기간별 가격을 등록해주세요.">
-                    </td>
-                </tr>
-                <tr>
                     <td id="BIZ_CONTENT">기타</td>
                     <td>
 						<textarea name="bizcontent" placegolder="기타내용을 입력해주세요"></textarea>
                     </td>
                 </tr>
                 <tr>
-                    <td id="BIZ_PIC">사진첨부</td>
+                    <td id="BIZ_PIC">사업자 등록증 첨부</td>
                     <td>
-                        <input type="file" name="imgfile" accept=".jpg,.jpeg,.png,.gif" multiple="multiple">
+                        <input type="file" name="imgfile" accept=".jpg,.jpeg,.png,.gif">
                     </td>
                 </tr>
              </table>

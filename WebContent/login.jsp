@@ -195,9 +195,9 @@ console.log(Kakao.isInitialized());
 			</div>
 			
 			<div class="register">
-				<a href="">회원가입</a>
+				<a href="join_user.jsp">회원가입</a>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<a href="">아이디·비밀번호 찾기</a>
+				<a href="login_find_id_input.jsp">아이디·비밀번호 찾기</a>
 			</div>
 			
 			<div class="submit">

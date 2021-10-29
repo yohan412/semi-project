@@ -63,11 +63,10 @@ public class CenterController extends HttpServlet {
 			String biznm = "";
 			String bizaddr = "";
 			String bizcategory = "";
-			String price = "";
 			String bizcontent = ""; //초기화
 			
-			String[] imgpath = {""}; //이미지 경로 초기화
-			String[] imgname = {""}; //이미지 이름 초기화
+			String imgpath = ""; //이미지 경로 초기화
+			String imgname = ""; //이미지 이름 초기화
 			
 			String uploadpath = request.getRealPath("upload"); //upload파일에 실제 경로 설정
 			
@@ -76,26 +75,18 @@ public class CenterController extends HttpServlet {
 			try {
 				MultipartRequest multi = new MultipartRequest(request, uploadpath,10*1024*1024,"UTF-8",new DefaultFileRenamePolicy());
 				
-				//imgpath = multi.getFilesystemName("imgfile");
-				//System.out.println(imgpath);
-				
-				//imgname = multi.getOriginalFileName("imgfile");
-				
-				for(int i=0; i<multi.getFilesystemName("imgfile").length(); i++) {
-					imgpath[i]=multi.getFilesystemName("imgfile");
-					imgname[i] = multi.getOriginalFileName("imgfile");
-				}
-					System.out.println(imgpath);
-				
+				imgpath = multi.getFilesystemName("imgfile");				
+				imgname = multi.getOriginalFileName("imgfile");
 				
 				userno = Integer.parseInt(multi.getParameter("userno"));
 				usernm = multi.getParameter("usernm");
 				biznm = multi.getParameter("biznm");
 				bizaddr = multi.getParameter("bizaddr");
-				bizcategory = multi.getParameter("health")+((multi.getParameter("health")!=null)?","+multi.getParameter("pilates"):multi.getParameter("pilates"))
-						+((multi.getParameter("pilates")!=null)?","+multi.getParameter("yoga"):multi.getParameter("yoga"))
-						+((multi.getParameter("yoga")!=null)?","+multi.getParameter("etc"):multi.getParameter("etc"));
-				price = multi.getParameter("price");
+				bizcategory = String.join(",", multi.getParameter("health"),
+												multi.getParameter("pilates"),
+												multi.getParameter("yoga"),
+												multi.getParameter("etc"));
+			
 				bizcontent = multi.getParameter("bizcontent");
 				
 				System.out.println(userno+usernm+biznm+bizaddr+bizcategory); //값 확인용 나중에 지움
@@ -113,7 +104,6 @@ public class CenterController extends HttpServlet {
 				dto.setBiznm(biznm);
 				dto.setBizaddr(bizaddr);
 				dto.setBizcategory(bizcategory);
-				dto.setBizprice(price);
 				dto.setBizcontent(bizcontent);
 				dto.setBizpic(uploadpath+imgpath);
 				
@@ -132,7 +122,6 @@ public class CenterController extends HttpServlet {
 				dto.setBiznm(biznm);
 				dto.setBizaddr(bizaddr);
 				dto.setBizcategory(bizcategory);
-				dto.setBizprice(price);
 				dto.setBizcontent(bizcontent);
 				dto.setBizpic("");
 				

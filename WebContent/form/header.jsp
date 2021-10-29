@@ -75,8 +75,8 @@
 			</div>
 			<c:if test="${loginUser==null }">
 			<div id="login">
-				<button onclick="location.href='login.jsp'">로그인</button>
-				<button onclick="location.href='join_user.jsp'">회원가입</button>
+				<button onclick="location.href='usercontroller?command=loginform'">로그인</button>
+				<button onclick="location.href='usercontroller?command=registform'">회원가입</button>
 			</div>		
 			</c:if>
 			<c:if test="${loginUser !=null }">
@@ -92,7 +92,7 @@
 				<a href="CenterController?command=centerlist">스포츠 센터</a>
 			</div>
 			<div class="sub_menu">
-				<a href="CenterController?command=business&user_no=${ dto.userno }">사업장 등록</a>
+				<a href="CenterController?command=business&user_no=${ loginUser.userno }">사업장 등록</a>
 			</div>
 			<div class="sub_menu">
 				<a href="usedcontroller?command=usedlist">중고거래</a>

@@ -12,6 +12,7 @@ import com.used.dto.UsedDto;
 import common.JDBCTemplate;
 
 public class UsedDao extends JDBCTemplate{
+	
 	public List<UsedDto> selectAll(){
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
@@ -52,6 +53,50 @@ public class UsedDao extends JDBCTemplate{
 			close(rs);
 			close(pstm);
 			close(con);
+		}
+		return res;
+	}
+	
+	public UsedDto selectOne(int usedno) {
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		UsedDto res = new UsedDto();
+		
+		String sql = "SELECT * FROM USED_BOARD WHERE USED_NO=?";
+		
+		try {
+			pstm=con.prepareStatement(sql);
+			pstm.setInt(1, usedno);
+			System.out.println("03. query 준비 : "+sql);
+			
+			rs=pstm.executeQuery();
+			System.out.println("04. query 실행 및 리턴");
+			
+			while(rs.next()) {
+				
+				res.setUsedno(rs.getInt(1));
+				res.setUsedtitle(rs.getString(2));
+				res.setUserid(rs.getString(3));
+				res.setUserno(rs.getInt(4));
+				res.setUsedaddr(rs.getString(5));
+				res.setUsedprice(rs.getString(6));
+				res.setUsedcategory(rs.getString(7));
+				res.setUsedpic(rs.getString(8));
+				res.setUsedcenternm(rs.getString(9));
+				res.setUsedcontent(rs.getString(10));
+				res.setUsedreg(rs.getDate(11));
+				res.setUsedstatus(rs.getString(12));
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("error : 3/4단계 failed");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료");
 		}
 		return res;
 	}

@@ -169,17 +169,22 @@ public class CenterDao extends JDBCTemplate{
 		ResultSet rs = null;
 		int res=0;
 		
+		System.out.println(centername);
 		String sql = " SELECT * FROM CENTER WHERE CENTER_NAME = ?";
 		
 		try {
 			pstm=con.prepareStatement(sql);
-			pstm.setString(1, centername);
+			pstm.setString(1,centername);
 			System.out.println("03.query 준비: "+sql);
 			
 			rs=pstm.executeQuery();
 			System.out.println("04.query 실행 및 준비");
 			
-			res = rs.getInt(1);
+			while(rs.next()) {
+				res = rs.getInt("CENTER_NO");
+			}
+			
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

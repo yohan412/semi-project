@@ -20,7 +20,6 @@ import com.center.dao.CenterDao;
 import com.center.dto.CenterDto;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-import com.pic.dto.PicDto;
 import com.review.dao.ReviewDao;
 import com.review.dto.ReviewDto;
 import com.user.dao.UserDao;
@@ -198,6 +197,8 @@ public class CenterController extends HttpServlet {
 			
 			String uploadpath = request.getRealPath("upload"); //upload파일에 실제 경로 설정
 			
+			int res=0;
+			
 			try {
 				MultipartRequest multi = new MultipartRequest(request, uploadpath,10*1024*1024,"UTF-8",new DefaultFileRenamePolicy());
 
@@ -218,53 +219,37 @@ public class CenterController extends HttpServlet {
 				centerpro = multi.getParameter("centerpro");
 				
 				
+			
+				CenterDto dto = new CenterDto(centername, centeraddr, centerprice, centercategory, centerintro, centercontent, centerophour, centerpro);
+			
+				res = dao.centerdetail_writer(dto);
+			
+		
+				
+				int rs = dao.selectno(centername);
+				System.out.println(rs);
+				
+			
+					
+				Enumeration files =multi.getFileNames(); //파일명정보를 배열로 만듬
+					
+					
+				while(files.hasMoreElements()) { //다음 요소가 있으면 반복
+					String imgfile = (String)files.nextElement(); //파일명정보 Enumeration 의 다음요소를 imgfile에저장
+						
+					imgpath = multi.getFilesystemName(imgfile);
+					imgname = multi.getOriginalFileName(imgfile);
+						
+					res = dao.insert_pic(rs, imgname, imgpath);
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
-			CenterDto dto = new CenterDto(centername, centeraddr, centerprice, centercategory, centerintro, centercontent, centerophour, centerpro);
-			
-			int res = dao.centerdetail_writer(dto);
-			
-			if(imgname !=null && !imgname.equals("")) {
 				
-				int rs = dao.selectno(centername);
-				
-				try {
-					MultipartRequest multi = new MultipartRequest(request, uploadpath,10*1024*1024,"UTF-8",new DefaultFileRenamePolicy());
-					
-					Enumeration files =multi.getFileNames(); //파일명정보를 배열로 만듬
-					
-					int nfine =1; //새파일명에 들어갈 끝숫자
-					int si=0; //배열의 순서를 얻기 위한 숫자
-					
-					
-					
-					while(files.hasMoreElements()) { //다음 요소가 있으면 반복
-						String imgfile = (String)files.nextElement(); //파일명정보 Enumeration 의 다음요소를 imgfile에저장
-						
-						imgpath = multi.getFilesystemName(imgfile);
-						imgname = multi.getOriginalFileName(imgfile);
-						
-						res = dao.insert_pic(rs, imgname, imgpath);
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-				if(res>0) {
-					response.sendRedirect("center_detail.jsp");
-				}else {
-					response.sendRedirect("center_detail_writer.jsp");
-				}
+			if(res>0) {
+				response.sendRedirect("center_detail.jsp");
 			}else {
-				
-				
-				if(res>0) {
-					response.sendRedirect("center_detail.jsp");
-				}else {
-					response.sendRedirect("center_detail_writer.jsp");
-				}
+				response.sendRedirect("center_detail_writer.jsp");
 			}
 			
 		}

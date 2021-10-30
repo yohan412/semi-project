@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -230,17 +231,18 @@ public class CenterController extends HttpServlet {
 				System.out.println(rs);
 				
 			
-					
 				Enumeration files =multi.getFileNames(); //파일명정보를 배열로 만듬
-					
-					
+				
+				System.out.println(files);
+				int i=0;
+				
 				while(files.hasMoreElements()) { //다음 요소가 있으면 반복
 					String imgfile = (String)files.nextElement(); //파일명정보 Enumeration 의 다음요소를 imgfile에저장
-						
+					System.out.println(i++);
 					imgpath = multi.getFilesystemName(imgfile);
 					imgname = multi.getOriginalFileName(imgfile);
 						
-					res = dao.insert_pic(rs, imgname, imgpath);
+					res = dao.insert_pic(rs, imgname, uploadpath+imgpath);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

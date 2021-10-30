@@ -209,7 +209,7 @@ h1, p{
 	                    <h2 id="f">사진</h2>
 	                </div>
 	                <div class="cont_images">
-	                    <input type="file" name="imgfile" accept=".jpg,.jpeg,.png,.gif" multiple="multiple">
+	                    <input type="file" name="imgfile[]" accept=".jpg,.jpeg,.png,.gif" multiple="multiple">
 	                </div>
 	            </div>
 	            <div class="submit_btn">

@@ -178,6 +178,23 @@ input[type=checkbox]:checked + .check-icon{
 			
 		});
 	});
+	
+	function login_chk(){
+		if(${loginUser==null }){
+			if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
+				location.href="login.jsp"
+			}else{
+				
+			}
+		} else{
+			question1On1();
+		}
+	}
+	
+	function question1On1(){
+		var option="top=10,left=10,width=430,height=440, status=no,menubar=no,toolbar=no,resizable=no";
+		window.open("usedcontroller?command=askwriteform&usedno=${usedDto.usedno}&writer=${loginUser.userid}","1:1 문의하기",option);
+	}
 </script>
 </head>
 <body>
@@ -221,8 +238,8 @@ input[type=checkbox]:checked + .check-icon{
 			
 		</div>
 		<div class="regist">
-				<input type="button" id="ask" value="문  의" onclick="location.href='used_detatil.ask.jsp'">&nbsp;&nbsp;
-				<input type="button" id="list" value="목  록" onclick="location.href='used_list.jsp'">
+				<input type="button" id="ask" value="문  의" onclick="login_chk()">&nbsp;&nbsp;
+				<input type="button" id="list" value="목  록" onclick="location.href='usedcontroller?command=usedlist'">
 			</div>
 	</div>
 	

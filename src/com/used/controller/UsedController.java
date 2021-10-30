@@ -42,9 +42,12 @@ public class UsedController extends HttpServlet {
 		else if(command.equals("useddetail")) {
 			
 			int usedno = Integer.parseInt(request.getParameter("usedno"));			
-			UsedDto usedDto = usedDao.selectOne(usedno);
 			
-			request.setAttribute("usedDto", usedDto);			
+			UsedDto usedDto = usedDao.selectOne(usedno);
+			List<UsedaskDto> usklist = uskDao.selectAll(usedno);
+			
+			request.setAttribute("usklist", usklist);
+			request.setAttribute("usedDto", usedDto);
 			dispatch("used_detail.jsp",request,response);
 			
 		}else if (command.equals("askwriteform")) {
@@ -53,7 +56,7 @@ public class UsedController extends HttpServlet {
 			
 			request.setAttribute("writer", writer);
 			request.setAttribute("usedno", usedno);
-			dispatch("used_detail_ask.jsp",request,response);			
+			dispatch("used_ask_write.jsp",request,response);			
 		} else if (command.equals("askwrite")) {
 			
 			int usedno = Integer.parseInt(request.getParameter("usedno"));
@@ -86,6 +89,19 @@ public class UsedController extends HttpServlet {
 					+ "</script>";
 			PrintWriter out = response.getWriter();
 			out.print(s);
+		} else if(command.equals("use_ask_detail")) {
+			
+			int uskno = Integer.parseInt(request.getParameter("uskno"));
+			int usedno = Integer.parseInt(request.getParameter("usedno"));
+			String writer= request.getParameter("writer");
+			
+			UsedaskDto uskdto = uskDao.selectOne(uskno);
+			
+			request.setAttribute("writer", writer);
+			request.setAttribute("usedno", usedno);
+			request.setAttribute("uskdto", uskdto);
+			dispatch("used_ask_detail.jsp",request,response);
+			
 		}
 	}
 	

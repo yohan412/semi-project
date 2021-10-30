@@ -221,9 +221,8 @@ input[type=button]{
 				+"<div class='used_brief'>"
 				+"<label class='checkbox-wrap'><input type='checkbox' name='wish_list' id='center_no1'><i class='check-icon'></i></label>"
 				+"<a href='usedcontroller?command=useddetail&usedno="+list[i].no+"'>"
-				+"<span class='brief_title'>"+list[i].title+"</span></a>"+"<br><hr>"
+				+"<span class='brief_title'>"+"["+list[i].category+"] "+list[i].title+"</span></a>"+"<br><hr>"
 				+"<span class='brief_addr'>&nbsp;&nbsp; 주소 : "+list[i].addr+"</span>"+"<br>"
-				+"<span class='brief_category'>&nbsp;&nbsp; 종류 : "+list[i].category+"</span>"+"<br>"
 				+"<span class='brief_price'>&nbsp;&nbsp; 가격 : "+list[i].price+"</span>"+"<br>"
 				+"<span class='brief_status'>&nbsp;&nbsp; 거래상태 : " +status+"</span><br>"
 				+distanceinfo

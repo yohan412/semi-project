@@ -11,7 +11,6 @@ public class UsedDto {
 	private String usedaddr;
 	private String usedprice;
 	private String usedcategory;
-	private String usedpic;
 	private String usedcenternm;
 	private String usedcontent;
 	private Date usedreg;
@@ -22,9 +21,9 @@ public class UsedDto {
 		// TODO Auto-generated constructor stub
 	}
 
+
 	public UsedDto(int usedno, String usedtitle, String userid, int userno, String usedaddr, String usedprice,
-			String usedcategory, String usedpic, String usedcenternm, String usedcontent, Date usedreg,
-			String usedstatus) {
+			String usedcategory, String usedcenternm, String usedcontent, Date usedreg, String usedstatus) {
 		super();
 		this.usedno = usedno;
 		this.usedtitle = usedtitle;
@@ -33,12 +32,13 @@ public class UsedDto {
 		this.usedaddr = usedaddr;
 		this.usedprice = usedprice;
 		this.usedcategory = usedcategory;
-		this.usedpic = usedpic;
 		this.usedcenternm = usedcenternm;
 		this.usedcontent = usedcontent;
 		this.usedreg = usedreg;
 		this.usedstatus = usedstatus;
 	}
+
+
 
 	public int getUsedno() {
 		return usedno;
@@ -94,14 +94,6 @@ public class UsedDto {
 
 	public void setUsedcategory(String usedcategory) {
 		this.usedcategory = usedcategory;
-	}
-
-	public String getUsedpic() {
-		return usedpic;
-	}
-
-	public void setUsedpic(String usedpic) {
-		this.usedpic = usedpic;
 	}
 
 	public String getUsedcenternm() {

@@ -176,15 +176,7 @@ h1, p{
 	                        <h2 id="a">센터소개</h2>
 	                    </div>
 	                    <div class="cont_info">
-	                    	<textarea rows="20" cols="80" name=""></textarea>
-	                    </div>
-	                </div>
-	                <div id="center_intro">
-	                    <div class="cont_head">
-	                        <h2 id="a">센터소개</h2>
-	                    </div>
-	                    <div class="cont_info">
-	                    	<textarea rows="20" cols="80" name=""></textarea>
+	                    	<textarea rows="20" cols="80" name="centerintro"></textarea>
 	                    </div>
 	                </div>
 	                <div id="center_info">
@@ -192,7 +184,7 @@ h1, p{
 	                		<h2 id="b">이용정보</h2>
 	                	</div>
 	                    <div class="cont_info">
-	                    	<textarea rows="20" cols="80"></textarea>
+	                    	<textarea rows="20" cols="80" name="centercontent"></textarea>
 	                    </div>
 	                </div>
 	                <div id="center_time">
@@ -200,7 +192,7 @@ h1, p{
 	                		<h2 id="c">운영시간</h2>
 	                	</div>
 	                    <div class="cont_info">
-	                    	<textarea rows="20" cols="80"></textarea>
+	                    	<textarea rows="20" cols="80" name="centerophour"></textarea>
 	                    </div>
 	                </div>
 	                <div id="center_program">
@@ -208,7 +200,7 @@ h1, p{
 	                		<h2 id="d">프로그램</h2>
 	                	</div>
 	                    <div class="cont_info">
-	                    	<textarea rows="20" cols="80"></textarea>
+	                    	<textarea rows="20" cols="80" name="centerpro"></textarea>
 	                    </div>
 	                </div>
 	            </div>

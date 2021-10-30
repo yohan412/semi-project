@@ -133,94 +133,99 @@ h1, p{
 </head>
 <body>
 <header><%@ include file = "./form/header.jsp" %></header>
-<div id="main">      
-            <div class="text_cont">
-            	<div id="center_name">
-                    <div class="cont_head">
-                        <h2 id="a">센터이름</h2>
-                    </div>
-                    <div class="cont_info">
-                    	<input type="text" name="centernm">
-                    </div>
-                </div>
-                <div id="center_name">
-                    <div class="cont_head">
-                        <h2 id="a">센터위치</h2>
-                    </div>
-                    <div class="cont_info">
-                    	<input type="text" name="centeraddr">
-                    </div>
-                </div>
-                <div id="center_name">
-                    <div class="cont_head">
-                        <h2 id="a">가격</h2>
-                    </div>
-                    <div class="cont_info">
-                    	<input type="text" name="centerprice">
-                    </div>
-                </div>
-                <div id="center_name">
-                    <div class="cont_head">
-                        <h2 id="a">센터종류</h2>
-                    </div>
-                    <div class="cont_info">
-                    	<input type="checkbox" name="health" value="health">헬스
-						<input type="checkbox" name="pilates" value="pilates">필라테스
-						<input type="checkbox" name="yoga" value="yoga">요가
-						<input type="checkbox" name="etc" value="etc">기타
-                    </div>
-                </div>
-                <div id="center_intro">
-                    <div class="cont_head">
-                        <h2 id="a">센터소개</h2>
-                    </div>
-                    <div class="cont_info">
-                    	<textarea rows="20" cols="80" name=""></textarea>
-                    </div>
-                </div>
-                <div id="center_intro">
-                    <div class="cont_head">
-                        <h2 id="a">센터소개</h2>
-                    </div>
-                    <div class="cont_info">
-                    	<textarea rows="20" cols="80" name=""></textarea>
-                    </div>
-                </div>
-                <div id="center_info">
-                	<div class="cont_head">
-                		<h2 id="b">이용정보</h2>
-                	</div>
-                    <div class="cont_info">
-                    	<textarea rows="20" cols="80"></textarea>
-                    </div>
-                </div>
-                <div id="center_time">
-                	<div class="cont_head">
-                		<h2 id="c">운영시간</h2>
-                	</div>
-                    <div class="cont_info">
-                    	<textarea rows="20" cols="80"></textarea>
-                    </div>
-                </div>
-                <div id="center_program">
-                	<div class="cont_head">
-                		<h2 id="d">프로그램</h2>
-                	</div>
-                    <div class="cont_info">
-                    	<textarea rows="20" cols="80"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="img_cont">
-                <div>
-                    <h2 id="f">사진</h2>
-                </div>
-                <div class="cont_images">
-                    <img src="./img/tmp_image.png">
-                </div>
-            </div>
-        </div>
-       </div>
+	<div id="main">
+		<form action="CenterController?command=centerdetail_writer" method="post" enctype="multipart/form-data">      
+	            <div class="text_cont">
+	            	<div id="center_name">
+	                    <div class="cont_head">
+	                        <h2 id="a">센터이름</h2>
+	                    </div>
+	                    <div class="cont_info">
+	                    	<input type="text" name="centernm">
+	                    </div>
+	                </div>
+	                <div id="center_name">
+	                    <div class="cont_head">
+	                        <h2 id="a">센터위치</h2>
+	                    </div>
+	                    <div class="cont_info">
+	                    	<input type="text" name="centeraddr">
+	                    </div>
+	                </div>
+	                <div id="center_name">
+	                    <div class="cont_head">
+	                        <h2 id="a">가격</h2>
+	                    </div>
+	                    <div class="cont_info">
+	                    	<input type="text" name="centerprice">
+	                    </div>
+	                </div>
+	                <div id="center_name">
+	                    <div class="cont_head">
+	                        <h2 id="a">센터종류</h2>
+	                    </div>
+	                    <div class="cont_info">
+	                    	<input type="checkbox" name="health" value="health">헬스
+							<input type="checkbox" name="pilates" value="pilates">필라테스
+							<input type="checkbox" name="yoga" value="yoga">요가
+							<input type="checkbox" name="etc" value="etc">기타
+	                    </div>
+	                </div>
+	                <div id="center_intro">
+	                    <div class="cont_head">
+	                        <h2 id="a">센터소개</h2>
+	                    </div>
+	                    <div class="cont_info">
+	                    	<textarea rows="20" cols="80" name=""></textarea>
+	                    </div>
+	                </div>
+	                <div id="center_intro">
+	                    <div class="cont_head">
+	                        <h2 id="a">센터소개</h2>
+	                    </div>
+	                    <div class="cont_info">
+	                    	<textarea rows="20" cols="80" name=""></textarea>
+	                    </div>
+	                </div>
+	                <div id="center_info">
+	                	<div class="cont_head">
+	                		<h2 id="b">이용정보</h2>
+	                	</div>
+	                    <div class="cont_info">
+	                    	<textarea rows="20" cols="80"></textarea>
+	                    </div>
+	                </div>
+	                <div id="center_time">
+	                	<div class="cont_head">
+	                		<h2 id="c">운영시간</h2>
+	                	</div>
+	                    <div class="cont_info">
+	                    	<textarea rows="20" cols="80"></textarea>
+	                    </div>
+	                </div>
+	                <div id="center_program">
+	                	<div class="cont_head">
+	                		<h2 id="d">프로그램</h2>
+	                	</div>
+	                    <div class="cont_info">
+	                    	<textarea rows="20" cols="80"></textarea>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="img_cont">
+	                <div>
+	                    <h2 id="f">사진</h2>
+	                </div>
+	                <div class="cont_images">
+	                    <input type="file" name="imgfile" accept=".jpg,.jpeg,.png,.gif">
+	                </div>
+	            </div>
+	            <div class="submit_btn">
+	            	<input type="submit" value="등록">	
+					<input type="button" value="취소" onclide="location.href=''">
+	       		</div>
+      	</form>
+	</div>
 <header><%@ include file = "./form/footer.jsp" %></header>
 </body>
 </html>

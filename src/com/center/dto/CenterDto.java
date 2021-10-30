@@ -9,16 +9,20 @@ public class CenterDto {
 	private String centerprice;
 	private String centercategory;
 	private double centergrade;
-	private String centerpic;
+	private String centerintro;
 	private String centercontent;
+	private String centerophour;
+	private String centerpro;
 	private Date centerreg;
 	
 	public CenterDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	public CenterDto(int centerno, String centername, String centeraddr, String centerprice, String centercategory,
-			double centergrade, String centerpic, String centercontent, Date centerreg) {
+			double centergrade, String centerintro, String centercontent, String centerophour, String centerpro,
+			Date centerreg) {
 		super();
 		this.centerno = centerno;
 		this.centername = centername;
@@ -26,65 +30,102 @@ public class CenterDto {
 		this.centerprice = centerprice;
 		this.centercategory = centercategory;
 		this.centergrade = centergrade;
-		this.centerpic = centerpic;
+		this.centerintro = centerintro;
 		this.centercontent = centercontent;
+		this.centerophour = centerophour;
+		this.centerpro = centerpro;
 		this.centerreg = centerreg;
 	}
-	
+
 	public int getCenterno() {
 		return centerno;
 	}
+
 	public void setCenterno(int centerno) {
 		this.centerno = centerno;
 	}
+
 	public String getCentername() {
 		return centername;
 	}
+
 	public void setCentername(String centername) {
 		this.centername = centername;
 	}
+
 	public String getCenteraddr() {
 		return centeraddr;
 	}
+
 	public void setCenteraddr(String centeraddr) {
 		this.centeraddr = centeraddr;
 	}
+
 	public String getCenterprice() {
 		return centerprice;
 	}
+
 	public void setCenterprice(String centerprice) {
 		this.centerprice = centerprice;
 	}
+
 	public String getCentercategory() {
 		return centercategory;
 	}
+
 	public void setCentercategory(String centercategory) {
 		this.centercategory = centercategory;
 	}
+
 	public double getCentergrade() {
 		return centergrade;
 	}
+
 	public void setCentergrade(double centergrade) {
 		this.centergrade = centergrade;
 	}
-	public String getCenterpic() {
-		return centerpic;
+
+	public String getCenterintro() {
+		return centerintro;
 	}
-	public void setCenterpic(String centerpic) {
-		this.centerpic = centerpic;
+
+	public void setCenterintro(String centerintro) {
+		this.centerintro = centerintro;
 	}
+
 	public String getCentercontent() {
 		return centercontent;
 	}
+
 	public void setCentercontent(String centercontent) {
 		this.centercontent = centercontent;
 	}
+
+	public String getCenterophour() {
+		return centerophour;
+	}
+
+	public void setCenterophour(String centerophour) {
+		this.centerophour = centerophour;
+	}
+
+	public String getCenterpro() {
+		return centerpro;
+	}
+
+	public void setCenterpro(String centerpro) {
+		this.centerpro = centerpro;
+	}
+
 	public Date getCenterreg() {
 		return centerreg;
 	}
+
 	public void setCenterreg(Date centerreg) {
 		this.centerreg = centerreg;
 	}
+	
+	
 	
 }
 

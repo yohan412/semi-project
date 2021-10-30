@@ -178,6 +178,8 @@ public class CenterController extends HttpServlet {
 			} else {
 				jsResponse("리뷰등록이 실패하였습니다","CenterController?command=review_write_form&centerno="+centerno,response);
 			}
+		}else if(command.equals("centerdetail_writer")) {
+			
 		}
 	}
 

@@ -37,6 +37,7 @@
 </style>
 
 <script type="text/javascript">
+	
 	function reload(){
 		window.opener.location.reload();
 		window.close();

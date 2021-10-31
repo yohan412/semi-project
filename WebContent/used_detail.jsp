@@ -223,7 +223,7 @@ tbody a {
 	});
 	
 	function login_chk(){
-		if(${loginUser==null }){
+		if(${loginUser==null}){
 			if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
 				location.href="login.jsp"
 			}else{
@@ -239,9 +239,18 @@ tbody a {
 		window.open("usedcontroller?command=askwriteform&usedno=${usedDto.usedno}&writer=${loginUser.userid}","1:1 문의하기",option);
 	}
 	
-	function ask_detail(uskno){
-		var option="top=10,left=10,width=430,height=440, status=no,menubar=no,toolbar=no,resizable=yes";
-		window.open("usedcontroller?command=use_ask_detail&usedno=${usedDto.usedno}&writer=${loginUser.userid}&uskno="+uskno,"1:1 문의하기",option);
+	function ask_detail(uskno,writer){
+		
+		//접근을 시도하는 사람이 판매자나 글 작성자인지 확인
+		if( "${loginUser.userid}" == "${usedDto.userid}" || "${loginUser.userid}" == writer){
+			
+			var option="top=10,left=10,width=430,height=440, status=no,menubar=no,toolbar=no,resizable=yes";
+			window.open("usedcontroller?command=used_ask_detail&writer=${loginUser.userid}&uskno="+uskno,"1:1 문의하기",option);
+			
+		} else{
+			alert("판매자와 글 작성자만 접근 가능합니다.");
+		}
+		
 	}
 	
 	//table에 리스트 요소를 만드는 함수
@@ -267,7 +276,7 @@ tbody a {
 				+"<td>"
 				+(i+1)+"</td>"
 				+"<td>"+list[i].writer+"</td>"
-				+"<td align='left'><a onclick='ask_detail("+list[i].no+")'>"+list[i].title+"</a></td>"
+				+"<td align='left'><a onclick='ask_detail("+list[i].no+",\""+list[i].writer+"\")'>"+list[i].title+"</a></td>"
 				+"<td>"+status+"</td>"
 				+"<td>"+list[i].reg+"</td>"
 				+"</tr>"		

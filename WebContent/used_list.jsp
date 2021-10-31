@@ -110,6 +110,16 @@ input[type=button]{
 #search_result{
 	color : blue;
 }
+
+tfoot input{
+	margin-top:15px;
+	width: 85px;
+	height: 35px;
+	border-radius: 5px;
+	border: none;
+	font-weight: bold;
+	cursor:pointer;
+}
 #numbers{
 	list-style: none;
 }
@@ -221,9 +231,8 @@ input[type=button]{
 				+"<div class='used_brief'>"
 				+"<label class='checkbox-wrap'><input type='checkbox' name='wish_list' id='center_no1'><i class='check-icon'></i></label>"
 				+"<a href='usedcontroller?command=useddetail&usedno="+list[i].no+"'>"
-				+"<span class='brief_title'>"+list[i].title+"</span></a>"+"<br><hr>"
+				+"<span class='brief_title'>"+"["+list[i].category+"] "+list[i].title+"</span></a>"+"<br><hr>"
 				+"<span class='brief_addr'>&nbsp;&nbsp; 주소 : "+list[i].addr+"</span>"+"<br>"
-				+"<span class='brief_category'>&nbsp;&nbsp; 종류 : "+list[i].category+"</span>"+"<br>"
 				+"<span class='brief_price'>&nbsp;&nbsp; 가격 : "+list[i].price+"</span>"+"<br>"
 				+"<span class='brief_status'>&nbsp;&nbsp; 거래상태 : " +status+"</span><br>"
 				+distanceinfo
@@ -422,6 +431,18 @@ input[type=button]{
 		
 		makeBoardList(sortedlist,false);
 	}
+	
+	function login_chk(){
+		if(${loginUser==null}){
+			if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
+				location.href="login.jsp"
+			}else{
+				
+			}
+		} else{
+			location.href="usedcontroller?command=usedwriteform";
+		}
+	}
 </script>
 </head>
 <body>
@@ -463,6 +484,13 @@ input[type=button]{
 				<col width="200px">
 				<tbody>
 				</tbody>
+				<tfoot>
+					<tr>
+					<td colspan="2" align="right">
+					<input type="button" onclick="login_chk()" value="글 쓰 기">
+					</td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 		<div class="pagination">

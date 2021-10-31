@@ -55,7 +55,7 @@
 
 .content{
 	width: 700px;
-	height: 750px;
+	height: 800px;
 	background: white;
 	margin: 20px;
 	text-align: center;
@@ -78,7 +78,7 @@
 	width:150px;
 	height:100px;
 }
-.content_info{
+.content_info,.ask_list{
 	display:inline-block;
 	margin-top: 40px;
 	width:500px;
@@ -129,6 +129,41 @@ input[type=checkbox]:checked + .check-icon{
 	background-image:url('img/heart.png');
 }
 /*찜 버튼 구현 끝*/
+
+#numbers{
+	list-style: none;
+}
+#numbers li{
+	display:inline-block;
+	margin-left:5px;
+	margin-right:5px;
+}
+#numbers li a {
+	text-decoration: none;
+	color:black;
+	font-weight:bold;
+}
+#numbers li a.active {
+	color:blue;
+}
+tbody a {
+	text-decoration: none;
+	color:black;
+	cursor:pointer;
+}
+.pic img{
+	transition:all 02.x linear;
+}
+.pic img:hover{
+	transform:scale(3);
+}
+#board_blank{
+	width:100%;
+	height:67px;
+	border: 1px solid black;
+	text-align:center;
+	line-height:67px;
+}
 </style>
 <script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cf6a0311e8ff428c0d13bd95e775d7f3&libraries=services"></script>
 <script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -177,10 +212,30 @@ input[type=checkbox]:checked + .check-icon{
 			}
 			
 		});
+		
+		uskList = new Array();
+		
+		var uskObj = function(no,writer,title,status,reg){
+			this.no=no;
+			this.writer=writer;
+			this.title=title;
+			this.status=status;
+			this.reg=reg;
+		}
+		<c:choose>
+		<c:when test="${!empty usklist}">
+		<c:forEach items="${usklist}" var="usk">
+			var tmpUsk = new uskObj("${usk.uskno}","${usk.userid}","${usk.usktitle}"
+					,"${usk.uskstatus}","${usk.uskreg}");
+			uskList.push(tmpUsk);
+		</c:forEach>		
+		makeBoardList(uskList,false);
+		</c:when>
+		</c:choose>
 	});
 	
 	function login_chk(){
-		if(${loginUser==null }){
+		if(${loginUser==null}){
 			if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
 				location.href="login.jsp"
 			}else{
@@ -194,6 +249,105 @@ input[type=checkbox]:checked + .check-icon{
 	function question1On1(){
 		var option="top=10,left=10,width=430,height=440, status=no,menubar=no,toolbar=no,resizable=no";
 		window.open("usedcontroller?command=askwriteform&usedno=${usedDto.usedno}&writer=${loginUser.userid}","1:1 문의하기",option);
+	}
+	
+	function ask_detail(uskno,writer){
+		
+		//접근을 시도하는 사람이 판매자나 글 작성자인지 확인
+		if( "${loginUser.userid}" == "${usedDto.userid}" || "${loginUser.userid}" == writer){
+			
+			var option="top=10,left=10,width=430,height=440, status=no,menubar=no,toolbar=no,resizable=yes";
+			window.open("usedcontroller?command=used_ask_detail&writer=${loginUser.userid}&uskno="+uskno,"1:1 문의하기",option);
+			
+		} else{
+			alert("판매자와 글 작성자만 접근 가능합니다.");
+		}
+		
+	}
+	
+	//table에 리스트 요소를 만드는 함수
+	function makeBoardList(list,reset_bl){
+		//tbody의 자식 요소 초기화
+		$("tbody").empty();
+		
+		//boardlist 초기화 여부 판단
+		if(reset_bl){
+			boardlist=list;
+		}
+		//list에 들어있는 center 정보 추가
+		for(var i = 0 ; i < list.length ; i++){
+			
+			var status;
+			if(list[i].status == 'N'){
+				status="대기중";
+			} else{
+				status="답변완료";
+			}
+			$("tbody").append(
+				"<tr>"
+				+"<td>"
+				+(i+1)+"</td>"
+				+"<td>"+list[i].writer+"</td>"
+				+"<td align='left'><a onclick='ask_detail("+list[i].no+",\""+list[i].writer+"\")'>"+list[i].title+"</a></td>"
+				+"<td>"+status+"</td>"
+				+"<td>"+list[i].reg+"</td>"
+				+"</tr>"		
+			);
+		}
+		//테이블 페이징
+		tablePagenation();
+	}
+	
+	function tablePagenation(){
+		/*
+		변수 생성
+		- rowsPerPage페이지당 보여줄 개수 20
+		- rows 가로행 tr 
+		- rowsCount 개수 100
+		- pageCount 페이지네이션 개수 = 100/20
+		- pagenumbers
+		콘솔에서 pageCount 찍어보고
+		*/
+		$("#numbers").empty();
+		var rowsPerPage = 3,
+			rows = $('.ask_list tbody tr'),
+			rowsCount = rows.length
+			pageCount = Math.ceil(rowsCount/rowsPerPage),
+			numbers = $('#numbers');
+		
+		/* 페이지네이션 li를 생성 반복문*/
+		for(var i = 0 ; i < pageCount;i++){
+			numbers.append('<li><a href="">'+(i+1)+'</a></li>');
+		}
+		//#numbers li:first-child a
+		numbers.find('li:first-child a').addClass('active');
+		
+		//페이지네이션 함수 displayRows
+		function displayRows(idx){
+			
+			var start = (idx)*rowsPerPage;
+				end = start + rowsPerPage;
+				
+			rows.hide();
+			//해당하는 부분만 보여줌
+			rows.slice(start,end).show();
+		}
+		
+		displayRows(0);
+		//페이지네이션 클릭시 보여주기
+		/*
+			클릭한 그 a 태그의 active,
+			그 요소의 숫자를 dislplayRows의 매개변수로 지정
+		*/
+		numbers.find('li').click(function(e){
+			//a태그의 이벤트를 막음
+			e.preventDefault();
+			
+			numbers.find('li a').removeClass('active');
+			$(this).find('a').addClass('active');
+			var index = $(this).index();
+			displayRows(index);
+		});
 	}
 </script>
 </head>
@@ -219,8 +373,8 @@ input[type=checkbox]:checked + .check-icon{
 			
 			<div class="content">
 				<div id="map">					
-				</div>
-				
+				</div>		
+						
 				<div class="content_info">
 					<p>가격:${usedDto.usedprice}</p>
 					<p>사업장명:${usedDto.usedcenternm}</p>
@@ -234,13 +388,34 @@ input[type=checkbox]:checked + .check-icon{
 					<img src="./img/tmp_image.png">
 				</div>
 				
+				<div class="ask_list">
+				<h3 align="left">1:1문의 게시글</h3><br>
+				<table width="100%">
+					<col width="40px">
+					<col width="60px">
+					<col width="200px">
+					<col width="80px">
+					<col width="120px">
+					<thead>
+						<tr>
+							<th>번호</th><th>작성자</th><th>제목</th><th>답변상태</th><th>작성일</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr><td colspan="5"><div id='board_blank'>아직등록된 게시글이 없습니다.</div></td></tr>
+					</tbody>
+				</table>
+				<div class="pagination">
+					<ol id="numbers"></ol>
+				</div>
+				</div>
 			</div>			
 			
 		</div>
 		<div class="regist">
 				<input type="button" id="ask" value="문  의" onclick="login_chk()">&nbsp;&nbsp;
 				<input type="button" id="list" value="목  록" onclick="location.href='usedcontroller?command=usedlist'">
-			</div>
+		</div>
 	</div>
 	
 	<footer><%@ include file="form\footer.jsp" %></footer>	

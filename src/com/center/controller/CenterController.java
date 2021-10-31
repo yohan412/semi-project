@@ -2,6 +2,9 @@ package com.center.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -89,7 +92,7 @@ public class CenterController extends HttpServlet {
 			
 				bizcontent = multi.getParameter("bizcontent");
 				
-				System.out.println(userno+usernm+biznm+bizaddr+bizcategory); //값 확인용 나중에 지움
+				System.out.println(userno+usernm+biznm+bizaddr+bizcategory); //값 확인용 나중에 지워야함
 				
 				
 			} catch (IOException e) {
@@ -179,6 +182,77 @@ public class CenterController extends HttpServlet {
 				jsResponse("리뷰등록이 실패하였습니다","CenterController?command=review_write_form&centerno="+centerno,response);
 			}
 		}else if(command.equals("centerdetail_writer")) {
+			
+			
+			String centername = "";
+			String centeraddr = "";
+			String centerprice = "";
+			String centercategory = "";
+			String centerintro = "";
+			String centercontent = "";
+			String centerophour = "";
+			String centerpro = "";
+			
+			String imgpath = ""; //이미지 경로 초기화
+			String imgname = ""; //이미지 이름 초기화
+			
+			String uploadpath = request.getRealPath("upload"); //upload파일에 실제 경로 설정
+			
+			int res=0;
+			
+			try {
+				MultipartRequest multi = new MultipartRequest(request, uploadpath,10*1024*1024,"UTF-8",new DefaultFileRenamePolicy());
+
+				
+				
+				
+				
+				centername = multi.getParameter("centernm");
+				centeraddr = multi.getParameter("centeraddr");
+				centerprice = multi.getParameter("centerprice");
+				centercategory = String.join(",", multi.getParameter("health"),
+									multi.getParameter("pilates"),
+									multi.getParameter("yoga"),
+									multi.getParameter("etc"));
+				centerintro = multi.getParameter("centerintro");
+				centercontent = multi.getParameter("centercontent");
+				centerophour = multi.getParameter("centerophour");
+				centerpro = multi.getParameter("centerpro");
+				
+				
+			
+				CenterDto dto = new CenterDto(centername, centeraddr, centerprice, centercategory, centerintro, centercontent, centerophour, centerpro);
+			
+				res = dao.centerdetail_writer(dto);
+			
+		
+				
+				int rs = dao.selectno(centername);
+				System.out.println(rs);
+				
+			
+				Enumeration files =multi.getFileNames(); //파일명정보를 배열로 만듬
+				
+				System.out.println(files);
+				int i=0;
+				
+				while(files.hasMoreElements()) { //다음 요소가 있으면 반복
+					String imgfile = (String)files.nextElement(); //파일명정보 Enumeration 의 다음요소를 imgfile에저장
+					System.out.println(i++);
+					imgpath = multi.getFilesystemName(imgfile);
+					imgname = multi.getOriginalFileName(imgfile);
+						
+					res = dao.insert_pic(rs, imgname, uploadpath+imgpath);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+				
+			if(res>0) {
+				response.sendRedirect("center_detail.jsp");
+			}else {
+				response.sendRedirect("center_detail_writer.jsp");
+			}
 			
 		}
 	}

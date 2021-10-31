@@ -60,7 +60,11 @@ public class MainController extends HttpServlet {
 			int res = dao.update(dto);
 			
 			if(res>0) {
+<<<<<<< HEAD
                 jsResponse("회원 수정 성공","MainController?command=updateinfo&userno="+userno,response);
+=======
+				jsResponse("회원 수정 성공","MainController?command=updateinfo&userno="+userno,response);
+>>>>>>> branch 'main' of https://github.com/yohan412/semi-project.git
 			}else {
 				jsResponse("회원 수정 실패","MainController?command=update",response);
 			}
@@ -154,7 +158,23 @@ public class MainController extends HttpServlet {
 			}else {
 				dispatch("MainController?command=detail&qano="+qano, request, response);
 			}
-		}
+		}else if(command.equals("deleteinfo")) {
+			int userno = Integer.parseInt(request.getParameter("userno"));
+			
+			boolean res = dao.delete(userno);
+			
+			if(res) {
+				jsResponse("회원 탈퇴 성공","usercontroller?command=logout",response);
+			}else {
+				jsResponse("회원 탈퇴 실패","MainController?command=update",response);
+			}
+		}else if(command.equals("updateinfo")) {
+			int userno = Integer.parseInt(request.getParameter("userno"));
+		
+			UserDto loginUser = dao.selectOne(userno);
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser",loginUser);
+			dispatch("main.jsp",request,response);
 	}
 
 	private void dispatch(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

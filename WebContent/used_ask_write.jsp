@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>1:1 구매문의</title>
+<title>1:1 구매문의 작성하기</title>
 <style type="text/css">
 	.used_ask{
 		text-align: center;
@@ -37,6 +37,7 @@
 </style>
 
 <script type="text/javascript">
+	
 	function reload(){
 		window.opener.location.reload();
 		window.close();

@@ -62,6 +62,18 @@
 	color:skyblue;
 }
 </style>
+<script type="text/javascript">
+	function enrollment(){
+	  if(${loginUser==null}){
+		   if(confirm("로그인이 필요한 페이지입니다.\n 로그인 하시겠습니까?")){
+			   location.href="login.jsp";
+		   }else{
+		   }
+	  } else{	
+		  location.href="CenterController?command=business&user_no=${ loginUser.userno }";
+			   }
+	  }
+</script>
 </head>
 <body>
 <% 
@@ -83,7 +95,7 @@
 				<div id="logout">
 				<label>${loginUser.username }님(회원등급은 : ${loginUser.role }) 방문을 환영합니다.</label><br>
 				<button onclick="location.href='usercontroller?command=logout'">로그아웃</button>
-				<button onclick="location.href='mypage.jsp'">마이페이지</button>
+				<button onclick="location.href='usedcontroller?command=mypage'">마이페이지</button>
 				</div>
 			</c:if>
 		</div>
@@ -92,7 +104,7 @@
 				<a href="CenterController?command=centerlist">스포츠 센터</a>
 			</div>
 			<div class="sub_menu">
-				<a href="CenterController?command=business&user_no=${ loginUser.userno }">사업장 등록</a>
+				<a href="#" onclick="javascript:enrollment();">사업장 등록</a>
 			</div>
 			<div class="sub_menu">
 				<a href="usedcontroller?command=usedlist">중고거래</a>

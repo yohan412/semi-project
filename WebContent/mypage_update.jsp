@@ -89,7 +89,7 @@
 		</table>
 		<div align="center">
 				<input type="submit" id="submit" value="수정 완료">
-				<input type="button" id="reset" value="취 소" onclick="location.href='mypage.jsp'">
+				<input type="button" id="reset" value="취 소" onclick="location.href='usedcontroller?command=mypage'">
 		</div>		
 	</form>
 </div>

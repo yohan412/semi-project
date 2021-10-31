@@ -131,7 +131,11 @@ public class UsedController extends HttpServlet {
 			}else {
 				jsResponse("등록실패하였습니다. \n 다시시도해주세요.","usedcontroller?command=used_ask_detail&writer="+writer+"&uskno="+uskno,response);
 			}
-		}
+		}else if(command.equals("mypage")) {
+			List<UsedDto> mypagelist = usedDao.selectAll();
+			request.setAttribute("mypagelist", mypagelist);
+			
+			dispatch("mypage.jsp",request,response);
 	}
 	
 	private void dispatch(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

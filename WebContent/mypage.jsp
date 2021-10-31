@@ -4,6 +4,8 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
 <%@ page import ="com.user.dto.UserDto" %>
+<%@page import="com.used.dto.UsedDto"%>
+<%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +36,8 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 </head>
 <body>
 <header><%@ include file="./form/header.jsp" %></header>
-	<h2 class="information">마이 페이지</h2>
+<% List<UsedDto> mypagelist = (List<UsedDto>)request.getAttribute("mypagelist"); %>
+<h2 class="information">마이 페이지</h2>
 	<hr>
 	<table class="mylist">
 		<col width="150px"><col width="300px">
@@ -60,7 +63,32 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 		</tr>
 		<tr>
 			<th id="list">내가 쓴 글 목록</th>
-			<td><textarea rows="10" cols="60" style="resize:none;"></textarea></td>
+			<td>
+				<table border="1" width="100%" height="100px">
+					<thead>
+						<tr>
+							<th>번호</th>
+							<th>작성자</th>
+							<th>제목</th>
+							<th>내용</th>
+							<th>날짜</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${mypagelist}" var = "writer">
+						<c:if test="${writer.userno eq loginUser.userno }">
+							<tr>
+								<td>${writer.usedno }</td>
+								<td>${writer.userid }</td>
+								<td><a href="used_list.jsp">${writer.usedtitle }</a></td>
+								<td>${writer.usedcontent }</td> 
+								<td>${writer.usedreg }</td>
+							</tr>
+						</c:if>
+						</c:forEach>
+					</tbody>
+				</table>
+			</td>
 		</tr>
 		<tr>
 			<th id="list">찜 목록</th>
@@ -69,7 +97,7 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 		<tr>
 			<td colspan="2" class="function">
 			<input type="button" value="수정" onclick="location.href='MainController?command=updatestart&userno=<%=loginUser.getUserno()%>'">
-			<input type="button" value="탈퇴" onclick="location.href='MainController?command=delete&userno=<%=loginUser.getUserno()%>'">
+			<input type="button" value="탈퇴" onclick="location.href='MainController?command=deleteinfo&userno=<%=loginUser.getUserno()%>'">
 			<input type="button" value="취소" onclick="location.href='main.jsp'">
 			</td>
 		</tr>

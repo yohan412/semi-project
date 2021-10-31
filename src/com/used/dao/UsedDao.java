@@ -52,6 +52,7 @@ public class UsedDao extends JDBCTemplate{
 			close(rs);
 			close(pstm);
 			close(con);
+			System.out.println("05. db 종료\n");
 		}
 		return res;
 	}

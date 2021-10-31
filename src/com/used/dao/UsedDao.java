@@ -99,4 +99,42 @@ public class UsedDao extends JDBCTemplate{
 		}
 		return res;
 	}
+	
+	public int insert(UsedDto dto) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		
+		String sql ="INSERT INTO USED_BOARD VALUES (USED_NOSQ.NEXTVAL,?,?,?,?,?,?,?,?,SYSDATE,'N')";
+		
+		try {
+			pstm=con.prepareStatement(sql);
+			pstm.setString(1, dto.getUsedtitle());
+			pstm.setString(2, dto.getUserid());
+			pstm.setInt(3, dto.getUserno());
+			pstm.setString(4, dto.getUsedaddr());
+			pstm.setString(5, dto.getUsedprice());
+			pstm.setString(6, dto.getUsedcategory());
+			pstm.setString(7, dto.getUsedcenternm());
+			pstm.setString(8, dto.getUsedcontent());
+			System.out.println("03. query 준비 : "+sql);
+			
+			res=pstm.executeUpdate();
+			System.out.println("04. query 실행 및 리턴");
+			
+			if(res>0) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
+		} catch (SQLException e) {
+			System.out.println("error : 3/4단계 failed");
+			e.printStackTrace();
+		} finally {
+			close(pstm);
+			close(con);
+		}
+		return res;
+	}
 }

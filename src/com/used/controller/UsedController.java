@@ -131,11 +131,45 @@ public class UsedController extends HttpServlet {
 			}else {
 				jsResponse("등록실패하였습니다. \n 다시시도해주세요.","usedcontroller?command=used_ask_detail&writer="+writer+"&uskno="+uskno,response);
 			}
+			
 		}else if(command.equals("mypage")) {
 			List<UsedDto> mypagelist = usedDao.selectAll();
 			request.setAttribute("mypagelist", mypagelist);
 			
 			dispatch("mypage.jsp",request,response);
+			
+		} else if(command.equals("usedwriteform")) {
+			response.sendRedirect("used_write.jsp");
+		} else if(command.equals("usedwrite")){
+			
+			//사진첨부 미구현 , 첨부기능 추가되면 추가할것
+			String usedtitle = request.getParameter("title");
+			String userid = request.getParameter("logonid");
+			int userno = Integer.parseInt(request.getParameter("logonno"));
+			String usedaddr = request.getParameter("addr");
+			String usedprice = request.getParameter("price");
+			String usedcategory = request.getParameter("category");
+			String usedcenternm = request.getParameter("centernm");
+			String usedcontent = request.getParameter("content");
+			
+			UsedDto dto = new UsedDto();
+			dto.setUsedtitle(usedtitle);
+			dto.setUserid(userid);
+			dto.setUserno(userno);
+			dto.setUsedaddr(usedaddr);
+			dto.setUsedprice(usedprice);
+			dto.setUsedcategory(usedcategory);
+			dto.setUsedcenternm(usedcenternm);
+			dto.setUsedcontent(usedcontent);
+			
+			int res = usedDao.insert(dto);
+			
+			if(res>0) {
+				jsResponse("성공적으로 등록되었습니다.","usedcontroller?command=usedlist",response);
+			}else {
+				jsResponse("등록이 실패하였습니다.\n다시 시도해주세요","usedcontroller?command=usedlist",response);
+			}
+		}
 	}
 	
 	private void dispatch(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

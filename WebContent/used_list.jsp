@@ -110,6 +110,16 @@ input[type=button]{
 #search_result{
 	color : blue;
 }
+
+tfoot input{
+	margin-top:15px;
+	width: 85px;
+	height: 35px;
+	border-radius: 5px;
+	border: none;
+	font-weight: bold;
+	cursor:pointer;
+}
 #numbers{
 	list-style: none;
 }
@@ -421,6 +431,18 @@ input[type=button]{
 		
 		makeBoardList(sortedlist,false);
 	}
+	
+	function login_chk(){
+		if(${loginUser==null}){
+			if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
+				location.href="login.jsp"
+			}else{
+				
+			}
+		} else{
+			location.href="usedcontroller?command=usedwriteform";
+		}
+	}
 </script>
 </head>
 <body>
@@ -462,6 +484,13 @@ input[type=button]{
 				<col width="200px">
 				<tbody>
 				</tbody>
+				<tfoot>
+					<tr>
+					<td colspan="2" align="right">
+					<input type="button" onclick="login_chk()" value="글 쓰 기">
+					</td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 		<div class="pagination">

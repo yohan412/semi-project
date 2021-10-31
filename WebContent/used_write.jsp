@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<% request.setCharacterEncoding("UTF-8"); %>
+<% response.setContentType("text/html; charset=UTF-8"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,10 +17,9 @@ h1{text-align:center;}
 	text-align:center;
 }
 #wrap textarea{
-	width:95%;
+	width:100%;
 	height:60%;
 	resize:none;
-	margin-left:5%;
 }
 #wrap th{
 	font-size:16px;
@@ -29,8 +32,13 @@ h1{text-align:center;}
 	width:100%;
 	font-size:16px;
 }
-
+select {
+	font-size:20px;
+	width: 100px;
+	height: 25px;
+}
 input[type=button], input[type=submit]{
+	cursor:pointer;
 	width:100px;
 	height:30px;
 	font-size:16px;
@@ -42,7 +50,9 @@ input[type=button], input[type=submit]{
 	<header><%@ include file="./form/header.jsp" %></header>
 	<h1>양도 게시글 작성</h1>
 	<div id="wrap">
-	<form action="" method="post">
+	<form action="usedcontroller?command=usedwrite" method="post">
+		<input type="hidden" name="logonid" value="${loginUser.userid}">
+		<input type="hidden" name="logonno" value="${loginUser.userno}">
 		<table width="100%">
 			<colgroup>
 				<col width="20%">
@@ -50,7 +60,7 @@ input[type=button], input[type=submit]{
 			</colgroup>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="title" placeholder="내용을 입력해주세요" required></td>
+				<td><input type="text" name="title" placeholder="제목을 입력해주세요" required></td>
 			</tr>
 			<tr>
 				<th>판매 가격</th>
@@ -59,16 +69,26 @@ input[type=button], input[type=submit]{
 			<tr>
 				<th>글 머리</th>
 				<td>
-					<label><input type="checkbox" name="gym" value="gym" checked>헬스</label>
-					<label><input type="checkbox" name="pilates" value="pilates">필라테스</label>
-					<label><input type="checkbox" name="yoga" value="yoga">요가</label>
-					<label><input type="checkbox" name="etc" value="etc">기타</label>
+					<select name="category">
+						<option value="헬스장">헬스장</option>
+						<option value="요가">요가</option>
+						<option value="필라테스">필라테스</option>
+						<option value="크로스핏">크로스핏</option>
+						<option value="기타">기타</option>
+					</select>
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2">
-					<textarea name="content" rows="20">&#10;&#10; 사업자명:&#10;&#10; 주소:&#10;&#10; 회원권 기간별 가격등록:&#10;&#10; 나머지 관련정보:</textarea>
-				</td>
+				<th>센터 주소</th>
+				<td><input type="text" name="addr" placeholder="주소를 입력해주세요" required></td>
+			</tr>
+			<tr>
+				<th>센터명</th>
+				<td><input type="text" name="centernm" placeholder="센터명을 입력해주세요" required></td>
+			</tr>
+			<tr>
+				<th>상세설명</th>
+				<td><textarea name="content" rows="15" required></textarea></td>
 			</tr>
 			<tr>
 				<th>사진첨부</th>
@@ -79,7 +99,7 @@ input[type=button], input[type=submit]{
 			<tr>
 				<td colspan="2" style="text-align:center;"><br><br>
 					<input type="submit" value="등록">
-					<input type="button" value="취소">
+					<input type="button" value="취소" onclick="location.href='usedcontroller?command=usedlist'">
 				</td>
 			</tr>
 		</table>

@@ -63,24 +63,29 @@
 <h2 align="center">1 : 1 문의</h2>
 <div id="wrap">
 	<form action="MainController" method="post">
-		<input type="hidden" name="command" value="boardupdate">
-		<input type="hidden" name="qano" value="1" >
+		<input type="hidden" name="command" value="boardwrite">
+		<input type="hidden" name="qa_gpno" value="1">
+		<input type="hidden" name="qa_gpsq" value="1">
+		<input type="hidden" name="user_id" value="TEST">
+		<input type="hidden" name="user_no" value="1">
+		<input type="hidden" name="qa_faq" value="N">
+		<input type="hidden" name="qa_status" value="N">
 		<table>
 			<tr id="title">
 				<th>제 목</th>
 				<td>
-					<select id="category" style="width:50px;height:30px;">
+					<select id="category" name="qa_type" style="width:50px;height:30px;">
 							<option value="price">가격</option>
 							<option value="deal">거래</option>
 							<option value="center">시설</option>
 							<option value="etc">기타</option>
 					</select>
-					<input type="text" placeholder="제목을 입력하세요" maxlength="30" value="${dto.qatitle }">
+					<input type="text" placeholder="제목을 입력하세요" name="title" maxlength="30" value="${dto.qatitle }">
 				</td>
 			</tr>
 			<tr id="content">
 				<th>내 용</th>
-				<td><textarea rows="15" cols="50" placeholder="문의내용을 입력해주세요" >${dto.qacontent }</textarea></td>
+				<td><textarea rows="15" cols="50" name="content" placeholder="문의내용을 입력해주세요" >${dto.qacontent }</textarea></td>
 			</tr>
 			<tr id="photo">
 				<th>사진 첨부</th>
@@ -89,7 +94,7 @@
 		</table>
 		<br>
 		<div align="center">
-				<input type="submit" id="submit" value="수정 완료">
+				<input type="submit" id="submit" value="완 료">
 				<input type="button" id="reset" value="취 소" onclick="location.href='MainController?command=qna'">
 		</div>		
 	</form>

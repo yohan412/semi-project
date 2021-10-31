@@ -104,9 +104,11 @@ public class QnaDao extends JDBCTemplate{
 				int res = 0;
 				
 				String sql = " INSERT INTO QNA "+ 
-								" VALUES(QA_NOSQ.NEXTVAL,?,?,?,?,?,?,?.?,SYSDATE,? ) ";
+								" VALUES(QA_NOSQ.NEXTVAL,?,?,?,?,?,?,?,?,SYSDATE,? ) ";
+				
 						
 				try {
+					
 					pstm = con.prepareStatement(sql);
 					
 					pstm.setInt(1, dto.getQagpno());
@@ -119,6 +121,8 @@ public class QnaDao extends JDBCTemplate{
 					pstm.setString(8, dto.getQafaq());
 					pstm.setString(9, dto.getQastatus());
 					System.out.println("03.query 준비: " + sql);
+					
+					System.out.println("pstm : " + pstm);
 					
 					res = pstm.executeUpdate();
 					System.out.println("04.query 실행 및 리턴");

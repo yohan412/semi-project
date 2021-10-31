@@ -102,7 +102,7 @@
 		</div>
 		<br>
 		<div style="text-align: right; width: 500px; display: inline-block;">
-			<input type="button" value="1대1 문의" class="qna_button">
+			<input type="button" value="1대1 문의" class="qna_button" onclick="location.href='MainController?command=writeform'">
 		</div>
 	</div>
 	<br><br>

@@ -151,6 +151,12 @@ tbody a {
 	color:black;
 	cursor:pointer;
 }
+.pic img{
+	transition:all 02.x linear;
+}
+.pic img:hover{
+	transform:scale(3);
+}
 </style>
 <script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cf6a0311e8ff428c0d13bd95e775d7f3&libraries=services"></script>
 <script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

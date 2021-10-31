@@ -36,6 +36,19 @@ public class CenterDto {
 		this.centerpro = centerpro;
 		this.centerreg = centerreg;
 	}
+	
+	public CenterDto(String centername, String centeraddr, String centerprice, String centercategory,
+			String centerintro, String centercontent, String centerophour, String centerpro) {
+		super();
+		this.centername = centername;
+		this.centeraddr = centeraddr;
+		this.centerprice = centerprice;
+		this.centercategory = centercategory;
+		this.centerintro = centerintro;
+		this.centercontent = centercontent;
+		this.centerophour = centerophour;
+		this.centerpro = centerpro;
+	}
 
 	public int getCenterno() {
 		return centerno;

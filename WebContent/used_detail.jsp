@@ -157,6 +157,13 @@ tbody a {
 .pic img:hover{
 	transform:scale(3);
 }
+#board_blank{
+	width:100%;
+	height:67px;
+	border: 1px solid black;
+	text-align:center;
+	line-height:67px;
+}
 </style>
 <script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cf6a0311e8ff428c0d13bd95e775d7f3&libraries=services"></script>
 <script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -221,8 +228,7 @@ tbody a {
 			var tmpUsk = new uskObj("${usk.uskno}","${usk.userid}","${usk.usktitle}"
 					,"${usk.uskstatus}","${usk.uskreg}");
 			uskList.push(tmpUsk);
-		</c:forEach>
-		
+		</c:forEach>		
 		makeBoardList(uskList,false);
 		</c:when>
 		</c:choose>
@@ -396,6 +402,7 @@ tbody a {
 						</tr>
 					</thead>
 					<tbody>
+					<tr><td colspan="5"><div id='board_blank'>아직등록된 게시글이 없습니다.</div></td></tr>
 					</tbody>
 				</table>
 				<div class="pagination">

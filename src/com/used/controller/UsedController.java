@@ -89,19 +89,48 @@ public class UsedController extends HttpServlet {
 					+ "</script>";
 			PrintWriter out = response.getWriter();
 			out.print(s);
-		} else if(command.equals("use_ask_detail")) {
+		} else if(command.equals("used_ask_detail")) {
 			
 			int uskno = Integer.parseInt(request.getParameter("uskno"));
-			int usedno = Integer.parseInt(request.getParameter("usedno"));
 			String writer= request.getParameter("writer");
 			
-			UsedaskDto uskdto = uskDao.selectOne(uskno);
 			
+			UsedaskDto uskdto = uskDao.selectOne(uskno);
+			List<UsedaskDto> anslist = uskDao.selectAnswerAll(uskdto.getUsedno(), uskdto.getUskgpno());
+			
+			request.setAttribute("anslist", anslist);
 			request.setAttribute("writer", writer);
-			request.setAttribute("usedno", usedno);
 			request.setAttribute("uskdto", uskdto);
+			
 			dispatch("used_ask_detail.jsp",request,response);
 			
+		} else if(command.equals("askanswer")) {
+			
+			int uskno = Integer.parseInt(request.getParameter("uskno"));
+			String writer= request.getParameter("writer");
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			
+			UsedaskDto parentusk = uskDao.selectOne(uskno);
+			
+			//들어갈 공간 만들어주기
+			uskDao.answerUpdate(parentusk.getUskgpno(), parentusk.getUskgpsq());
+			
+			UsedaskDto uskdto = new UsedaskDto();
+			
+			uskdto.setUskgpno(parentusk.getUskgpno());
+			uskdto.setUskgpsq(parentusk.getUskgpsq());
+			uskdto.setUsedno(parentusk.getUsedno());
+			uskdto.setUserid(writer);
+			uskdto.setUsktitle(title);
+			uskdto.setUskcontent(content);
+			
+			int res = uskDao.answerInsert(uskdto);
+			if(res>0) {				
+				jsResponse("등록되었습니다.","usedcontroller?command=used_ask_detail&writer="+writer+"&uskno="+uskno,response);
+			}else {
+				jsResponse("등록실패하였습니다. \n 다시시도해주세요.","usedcontroller?command=used_ask_detail&writer="+writer+"&uskno="+uskno,response);
+			}
 		}
 	}
 	

@@ -137,4 +137,71 @@ public class UsedDao extends JDBCTemplate{
 		}
 		return res;
 	}
+	
+	public int delete (int usedno) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		
+		String sql = "DELETE FROM USED_BOARD WHERE USED_NO=?";
+		
+		try {
+			pstm=con.prepareStatement(sql);
+			pstm.setInt(1, usedno);
+			System.out.println("03. query 준비 : "+sql);
+			
+			res=pstm.executeUpdate();
+			System.out.println("04. query 실행 및 리턴");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		} catch (SQLException e) {
+			System.out.println("error : 3/4 단계 failed");
+			e.printStackTrace();
+		} finally {
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료 \n");
+		}
+		return res;
+	}
+	
+	public int update(UsedDto dto) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		
+		String sql = "UPDATE USED_BOARD SET USED_TITLE=?,USED_PRICE=?,USED_CATEGORY=?,USED_CONTENT=? WHERE USED_NO=?";
+		try {
+			pstm=con.prepareStatement(sql);
+			pstm.setString(1, dto.getUsedtitle());
+			pstm.setString(2, dto.getUsedprice());
+			pstm.setString(3, dto.getUsedcategory());
+			pstm.setString(4, dto.getUsedcontent());
+			pstm.setInt(5, dto.getUsedno());
+			System.out.println("03. query 준비 : "+sql);
+			
+			res=pstm.executeUpdate();
+			System.out.println("04. query 실행 및 리턴");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		} catch (SQLException e) {
+			System.out.println("error : 3/4 단계 failed");
+			e.printStackTrace();
+		} finally {
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료 \n");
+		}
+		return res;
+	}
 }

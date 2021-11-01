@@ -169,6 +169,52 @@ public class UsedController extends HttpServlet {
 			}else {
 				jsResponse("등록이 실패하였습니다.\n다시 시도해주세요","usedcontroller?command=usedlist",response);
 			}
+			
+		} else if(command.equals("useddelete")) {
+			
+			int usedno = Integer.parseInt(request.getParameter("usedno"));
+			
+			int res = usedDao.delete(usedno);
+			
+			if(res>0) {
+				jsResponse("게시글이 성공적으로 삭제되었습니다.","usedcontroller?command=usedlist",response);
+			} else {
+				jsResponse("게시글 삭제가 실패하였습니다. \n 다시 시도해 주세요.","usedcontroller?command=useddetail&usedno="+usedno,response);
+			}
+			
+		} else if(command.equals("usedupdateform")) {
+			
+			int usedno = Integer.parseInt(request.getParameter("usedno"));
+			
+			UsedDto useddto = usedDao.selectOne(usedno);
+			
+			request.setAttribute("useddto", useddto);
+			dispatch("used_update.jsp",request,response);
+			
+		} else if(command.equals("usedupdate")) {
+			
+			//첨부파일 수정 작업 필요
+			
+			int usedno = Integer.parseInt(request.getParameter("usedno"));
+			String title = request.getParameter("title");
+			String price = request.getParameter("price");
+			String content = request.getParameter("content");
+			String category = request.getParameter("category");
+			
+			UsedDto dto = new UsedDto();
+			dto.setUsedno(usedno);
+			dto.setUsedtitle(title);
+			dto.setUsedprice(price);
+			dto.setUsedcontent(content);
+			dto.setUsedcategory(category);
+			
+			int res = usedDao.update(dto);
+			
+			if(res>0) {
+				jsResponse("게시글이 수정되었습니다.","usedcontroller?command=useddetail&usedno="+usedno,response);
+			}else {
+				jsResponse("게시글이 수정이 실패하었습니다.","usedcontroller?command=useddetail&usedno="+usedno,response);
+			}
 		}
 	}
 	

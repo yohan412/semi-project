@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>양도 게시글 작성</title>
+<title>중고거래 게시글 작성</title>
 <style type="text/css">
 h1{text-align:center;}
 #wrap{
@@ -48,7 +48,7 @@ input[type=button], input[type=submit]{
 </head>
 <body>
 	<header><%@ include file="./form/header.jsp" %></header>
-	<h1>양도 게시글 작성</h1>
+	<h1>중고거래 게시글 작성</h1>
 	<div id="wrap">
 	<form action="usedcontroller?command=usedwrite" method="post">
 		<input type="hidden" name="logonid" value="${loginUser.userid}">

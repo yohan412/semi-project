@@ -175,6 +175,7 @@ public class MainController extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser",loginUser);
 			dispatch("main.jsp",request,response);
+		}
 	}
 
 	private void dispatch(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

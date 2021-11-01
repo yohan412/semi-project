@@ -12,7 +12,35 @@
 <title>센터 등록</title>
 <script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+	var gfv_count = 1;
+	
+	$(document).ready(function(){
+		
+	
+	$("#file").on("change", function(e){ //파일 추가 버튼 
+		e.preventDefault(); 
+	fn_addFile(); 
+	}); 
+	$("a[name='delete']").on("click", function(e){ //삭제 버튼 
+		e.preventDefault(); 
+	fn_deleteFile($(this)); 
+	});
+	});
+		
 
+	function fn_addFile(){ 
+		var str = "<p><input type='file' name='file_"+(gfv_count++)+"'><a href='#this' class='btn' name='delete'>삭제</a></p>"; 
+		$("#fileDiv").append(str); 
+		$("a[name='delete']").on("click", function(e){ //삭제 버튼 
+			e.preventDefault(); 
+		fn_deleteFile($(this)); 
+		}); 
+		} 
+	
+	function fn_deleteFile(obj){ obj.parent().remove(); }
+
+
+		
 </script>
 
 <style type ="text/css">
@@ -208,8 +236,11 @@ h1, p{
 	                <div>
 	                    <h2 id="f">사진</h2>
 	                </div>
-	                <div class="cont_images">
-	                    <input type="file" name="imgfile[]" accept=".jpg,.jpeg,.png,.gif" multiple="multiple">
+	                <div class="cont_images" id="fileDiv">
+	                    <p> 
+	                    	<input type="file" id="file" name="file_0" accept=".jpg,.jpeg,.png,.gif">
+	                    	<a href="#this" class="btn" id="delete" name="delete">삭제</a> 
+	                    </p>
 	                </div>
 	            </div>
 	            <div class="submit_btn">

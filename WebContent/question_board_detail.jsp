@@ -4,6 +4,9 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
 
+<%@ page import = "com.qna.dao.QnaDao" %>
+<%@ page import = "com.qna.dto.QnaDto" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,24 +50,35 @@
 </style>
 </head>
 <body>
+<%	
+	int qano = Integer.parseInt(request.getParameter("qano") );
+	QnaDao dao = new QnaDao();
+	QnaDto dto = dao.selectOne(qano);
+%>
 <h2 align="center">1 : 1 문의</h2>
 <div id="wrap">
-	<form action="" method="post">
+	<form action="MainController" method="post">
+		<input type="hidden" name="qano" value="<%=dto.getQano() %>">
+		<input type="hidden" name="qatitle" value="<%=dto.getQatitle() %>">
+		<input type="hidden" name="qacontent" value="<%=dto.getQacontent() %>">
 		<table>
 			<tr id="title">
 				<th>제 목</th>	
-					<td>${dto.boardtitle }<td>
+					<td><%=dto.getQatitle() %><td>
 			</tr>
 			<tr id="content">
 				<th>내 용</th>
-				<td><textarea rows="15" cols="50" readonly="readonly">${dto.boardcontent }</textarea></td>
+				<td><textarea rows="15" cols="50" readonly="readonly" resize="none"><%=dto.getQacontent() %></textarea></td>
 			</tr>
-		</table>
-		<br>
-		<div align="center">
-				<input type="button" id="reset" value="닫 기" onclick="location.href='qna.jsp'">
-		</div>		
-	</form>
+			<tr>
+		<td colspan="2">
+			<button onclick="location.href='question_board_update.jsp?qano=<%=dto.getQano()%>'">수정</button>&nbsp;&nbsp;
+			<button onclick="location.href='question_board_delete.jsp?qano=<%=dto.getQano()%>'">삭제</button>&nbsp;&nbsp;
+			<button onclick="location.href='qna.jsp'">목록</button>&nbsp;
+		</td>
+	</tr>
+</table>	
+</form>
 </div>
 <footer><%@ include file = "form/footer.jsp" %></footer>
 </body>

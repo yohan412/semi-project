@@ -4,18 +4,16 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
 
+<%@ page import = "com.qna.dao.QnaDao" %>
+<%@ page import = "com.qna.dto.QnaDto" %>
+<%@ page import="java.util.List" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-	function uploadFileAdded(){
-		
-}
-
-</script>
 <style type="text/css">
 	table{
 		text-align: center;
@@ -60,11 +58,19 @@
 </style>
 </head>
 <body>
+<% 
+	int qano = Integer.parseInt(request.getParameter("qano"));
+	QnaDao dao = new QnaDao();
+	QnaDto dto = dao.selectOne(qano);
+%>
 <h2 align="center">1 : 1 문의</h2>
+
 <div id="wrap">
 	<form action="MainController" method="post">
 		<input type="hidden" name="command" value="boardupdate">
-		<input type="hidden" name="qano" value="1" >
+		<input type="hidden" name="qano" value="<%=dto.getQano() %>" >
+		<input type="hidden" name="qatitle" value="<%=dto.getQatitle() %>">
+		<input type="hidden" name="qacontent" value="<%=dto.getQacontent() %>">
 		<table>
 			<tr id="title">
 				<th>제 목</th>
@@ -75,22 +81,26 @@
 							<option value="center">시설</option>
 							<option value="etc">기타</option>
 					</select>
-					<input type="text" placeholder="제목을 입력하세요" maxlength="30" value="${dto.qatitle }">
+					<input type="text" name="qatitle" maxlength="30" value="<%=dto.getQatitle()%>">
 				</td>
 			</tr>
 			<tr id="content">
 				<th>내 용</th>
-				<td><textarea rows="15" cols="50" placeholder="문의내용을 입력해주세요" >${dto.qacontent }</textarea></td>
+				<td><textarea rows="10" cols="60" name="qacontent" value="<%=dto.getQacontent()%>"></textarea></td>
 			</tr>
 			<tr id="photo">
 				<th>사진 첨부</th>
 				<td align="left"><input type="file" value="파일 선택" accept=".jpg,.jpeg,.png,.gif" multiple="multiple"></td>
 			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" id="submit" value="수정 완료">
+					<input type="button" id="reset" value="취 소" onclick="location.href='MainController?command=qna'">
+				</td>	
+			</tr>
 		</table>
 		<br>
 		<div align="center">
-				<input type="submit" id="submit" value="수정 완료">
-				<input type="button" id="reset" value="취 소" onclick="location.href='MainController?command=qna'">
 		</div>		
 	</form>
 </div>

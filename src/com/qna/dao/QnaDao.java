@@ -149,21 +149,13 @@ public class QnaDao extends JDBCTemplate{
 				PreparedStatement pstm = null;
 				int res = 0;
 
-				String sql = " UPDATE QNA SET QA_NO.NEXTVAL,?,?,?,?,?,?,?,?,SYSDATE,? WHERE QA_NO=? ";
+				String sql = " UPDATE QNA SET QA_TITLE=?,QA_CONTENT=? WHERE QA_NO=? ";
 				
 				try {
 					pstm = con.prepareStatement(sql);
-					pstm.setInt(1, dto.getQagpno());
-					pstm.setInt(2, dto.getQagpsq());
-					pstm.setString(3, dto.getUserid());
-					pstm.setInt(4, dto.getUserno());
-					pstm.setString(5, dto.getQatype());
-					pstm.setString(6,dto.getQatitle());
-					pstm.setString(7, dto.getQacontent());
-					pstm.setString(8, dto.getQafaq());
-					pstm.setString(9, dto.getQastatus());
-					
-					pstm.setInt(10, dto.getQano());
+					pstm.setString(1,dto.getQatitle());
+					pstm.setString(2, dto.getQacontent());
+					pstm.setInt(3, dto.getQano());
 					System.out.println("03.query 준비: " + sql);
 					
 					res = pstm.executeUpdate();

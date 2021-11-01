@@ -107,7 +107,7 @@
 				<div style="overflow: auto;">
 					<tr>
 						<td><%=list.get(i).getQano() %></td>
-						<td><a href="question_board_detail.jsp?qano=<%=list.get(i).getQano()%>"><%=list.get(i).getQatitle() %></a></td>
+						<td><a href="question_board_selectone.jsp?qano=<%=list.get(i).getQano()%>"><%=list.get(i).getQatitle() %></a></td>
 						<td><%=list.get(i).getQacontent() %></td>
 					</tr>
 				</div>

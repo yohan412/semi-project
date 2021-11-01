@@ -33,14 +33,18 @@ public class CenterDao extends JDBCTemplate{
 			
 			while(rs.next()) {
 				CenterDto tmp = new CenterDto();
+				
 				tmp.setCenterno(rs.getInt(1));
 				tmp.setCentername(rs.getString(2));
 				tmp.setCenteraddr(rs.getString(3));
 				tmp.setCenterprice(rs.getString(4));
 				tmp.setCentercategory(rs.getString(5));
 				tmp.setCentergrade(rs.getDouble(6));
+				tmp.setCenterintro(rs.getString(7));
 				tmp.setCentercontent(rs.getString(8));
-				tmp.setCenterreg(rs.getDate(9));
+				tmp.setCenterophour(rs.getString(9));
+				tmp.setCenterpro(rs.getString(10));
+				tmp.setCenterreg(rs.getDate(11));
 				
 				res.add(tmp);
 			}
@@ -81,8 +85,11 @@ public class CenterDao extends JDBCTemplate{
 				res.setCenterprice(rs.getString(4));
 				res.setCentercategory(rs.getString(5));
 				res.setCentergrade(rs.getDouble(6));
+				res.setCenterintro(rs.getString(7));
 				res.setCentercontent(rs.getString(8));
-				res.setCenterreg(rs.getDate(9));
+				res.setCenterophour(rs.getString(9));
+				res.setCenterpro(rs.getString(10));
+				res.setCenterreg(rs.getDate(11));
 			}
 		} catch (SQLException e) {
 			System.out.println("3/4 단계 오류");

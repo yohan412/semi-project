@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>중고거래 게시글 작성</title>
+<title>중고거래 게시글 수정</title>
 <style type="text/css">
 h1{text-align:center;}
 #wrap{
@@ -48,11 +48,10 @@ input[type=button], input[type=submit]{
 </head>
 <body>
 	<header><%@ include file="./form/header.jsp" %></header>
-	<h1>중고거래 게시글 작성</h1>
+	<h1>중고거래 게시글 수정</h1>
 	<div id="wrap">
-	<form action="usedcontroller?command=usedwrite" method="post">
-		<input type="hidden" name="logonid" value="${loginUser.userid}">
-		<input type="hidden" name="logonno" value="${loginUser.userno}">
+	<form action="usedcontroller?command=usedupdate" method="post">
+		<input type="hidden" name="usedno" value="${useddto.usedno }">
 		<table width="100%">
 			<colgroup>
 				<col width="20%">
@@ -60,11 +59,11 @@ input[type=button], input[type=submit]{
 			</colgroup>
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="title" placeholder="제목을 입력해주세요" required></td>
+				<td><input type="text" name="title" value="${useddto.usedtitle}" required></td>
 			</tr>
 			<tr>
 				<th>판매 가격</th>
-				<td><input type="text" name="price" placeholder="희망 판매가격을 입력해주세요" required></td>
+				<td><input type="text" name="price" value="${useddto.usedprice}" required></td>
 			</tr>
 			<tr>
 				<th>글 머리</th>
@@ -80,15 +79,15 @@ input[type=button], input[type=submit]{
 			</tr>
 			<tr>
 				<th>센터 주소</th>
-				<td><input type="text" name="addr" placeholder="주소를 입력해주세요" required></td>
+				<td><input type="text" name="addr" value="${useddto.usedaddr}" readonly></td>
 			</tr>
 			<tr>
 				<th>센터명</th>
-				<td><input type="text" name="centernm" placeholder="센터명을 입력해주세요" required></td>
+				<td><input type="text" name="centernm" value="${useddto.usedcenternm}" readonly required></td>
 			</tr>
 			<tr>
 				<th>상세설명</th>
-				<td><textarea name="content" rows="15" required></textarea></td>
+				<td><textarea name="content" rows="15" required>${useddto.usedcontent}</textarea></td>
 			</tr>
 			<tr>
 				<th>사진첨부</th>
@@ -98,8 +97,8 @@ input[type=button], input[type=submit]{
 			</tr>
 			<tr>
 				<td colspan="2" style="text-align:center;"><br><br>
-					<input type="submit" value="등록">
-					<input type="button" value="취소" onclick="location.href='usedcontroller?command=usedlist'">
+					<input type="submit" value="수정">
+					<input type="button" value="취소" onclick="location.href='usedcontroller?command=useddetail&usedno=${useddto.usedno}'">
 				</td>
 			</tr>
 		</table>

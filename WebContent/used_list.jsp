@@ -57,9 +57,6 @@ h1{
 /*찜 버튼 구현 시작*/
 .checkbox-wrap{
 	cursor:pointer;
-	position: relative;
-	left: 95%;
-	top:10px;
 }
 .checkbox-wrap .check-icon  { 
 	display: inline-block; 
@@ -101,7 +98,7 @@ input[type=button]{
 }
 .used_brief .brief_title{
 	font-family:'ONE-Mobile-POP';
-	font-size:28px;
+	font-size:20px;
 }
 .brief_distance{
 	color:blue;
@@ -135,6 +132,19 @@ tfoot input{
 }
 #numbers li a.active {
 	color:blue;
+}
+
+.brief_category{
+	width:80px;
+	display:inline-block;
+}
+.brief_title{
+	min-width:450px;
+	width:85%;
+	display:inline-block;
+}
+a{
+	cursor:pointer;
 }
 </style>
 
@@ -229,9 +239,10 @@ tfoot input{
 				+imgtag+"</a></td>"
 				+"<td>"
 				+"<div class='used_brief'>"
-				+"<label class='checkbox-wrap'><input type='checkbox' name='wish_list' id='center_no1'><i class='check-icon'></i></label>"
 				+"<a href='usedcontroller?command=useddetail&usedno="+list[i].no+"'>"
-				+"<span class='brief_title'>"+"["+list[i].category+"] "+list[i].title+"</span></a>"+"<br><hr>"
+				+"<span class='brief_category'>["+list[i].category+"]</span><span class='brief_title'>"+list[i].title+"</span></a>"
+				+"<label class='checkbox-wrap'><input type='checkbox' name='wish_list' id='center_no1'><i class='check-icon'></i></label>"
+				+"<br><hr>"
 				+"<span class='brief_addr'>&nbsp;&nbsp; 주소 : "+list[i].addr+"</span>"+"<br>"
 				+"<span class='brief_price'>&nbsp;&nbsp; 가격 : "+list[i].price+"</span>"+"<br>"
 				+"<span class='brief_status'>&nbsp;&nbsp; 거래상태 : " +status+"</span><br>"

@@ -112,8 +112,6 @@
 /*찜 버튼 구현 시작*/
 .checkbox-wrap{
 	cursor:pointer;
-	position: relative;
-	left: 60%;
 }
 .checkbox-wrap .check-icon  { 
 	display: inline-block; 
@@ -163,6 +161,17 @@ tbody a {
 	border: 1px solid black;
 	text-align:center;
 	line-height:67px;
+}
+input[type=button]{
+	cursor:pointer;
+}
+#category{
+	display:inline-block;
+	width:100px;
+}
+#title{
+	display:inline-block;
+	width:600px;
 }
 </style>
 <script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cf6a0311e8ff428c0d13bd95e775d7f3&libraries=services"></script>
@@ -232,13 +241,24 @@ tbody a {
 		makeBoardList(uskList,false);
 		</c:when>
 		</c:choose>
+		
+		//게시글을 보는사람이 글 작성자인지 아닌지 판단하여 수정,삭제 기능 부여
+		if("${loginUser.userid}" == "${usedDto.userid}"){
+			$(".regist").prepend(
+				"<input type='button' id='used_update' value='수  정' onclick='location.href=\"usedcontroller?command=usedupdateform&usedno=${usedDto.usedno}\"'>&nbsp;&nbsp;"
+				+"<input type='button' id='used_delete' value='삭  제' onclick='used_delete()'>&nbsp;&nbsp;"
+			);
+		} else{
+			$(".regist").prepend(
+					"<input type='button' id='ask' value='문  의' onclick='login_chk()'>&nbsp;&nbsp;"
+			);
+		}
 	});
 	
 	function login_chk(){
 		if(${loginUser==null}){
 			if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
-				location.href="login.jsp"
-			}else{
+				location.href="login.jsp" 
 				
 			}
 		} else{
@@ -263,6 +283,13 @@ tbody a {
 			alert("판매자와 글 작성자만 접근 가능합니다.");
 		}
 		
+	}
+	
+	//삭제의사 재확인
+	function used_delete(){
+		if(confirm("해당 게시글을 삭제하시겠습니까?")){
+			location.href="usedcontroller?command=useddelete&usedno=${usedDto.usedno}";	
+		}
 	}
 	
 	//table에 리스트 요소를 만드는 함수
@@ -359,8 +386,8 @@ tbody a {
 		<div class="used_detail">
 			<div class="headline">
 				<div class="title">
-					<span>[${usedDto.usedcategory}]</span>
-					<span>${usedDto.usedtitle}</span>
+					<span id="category">[${usedDto.usedcategory}]</span>
+					<span id="title">${usedDto.usedtitle}</span>
 					<label class='checkbox-wrap'><input type='checkbox' name='wish_list' id='center_no1'><i class='check-icon'></i></label>
 				</div>
 				
@@ -413,7 +440,6 @@ tbody a {
 			
 		</div>
 		<div class="regist">
-				<input type="button" id="ask" value="문  의" onclick="login_chk()">&nbsp;&nbsp;
 				<input type="button" id="list" value="목  록" onclick="location.href='usedcontroller?command=usedlist'">
 		</div>
 	</div>

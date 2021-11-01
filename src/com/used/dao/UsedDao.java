@@ -235,4 +235,71 @@ public class UsedDao extends JDBCTemplate{
 		}
 		return res;
 	}
+	
+	public int selectno(String usedtitle) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		int res=0;
+		
+		System.out.println(usedtitle);
+		String sql = " SELECT * FROM USED_BOARD WHERE USED_TITLE = ?";
+		
+		try {
+			pstm=con.prepareStatement(sql);
+			pstm.setString(1,usedtitle);
+			System.out.println("03.query 준비: "+sql);
+			
+			rs=pstm.executeQuery();
+			System.out.println("04.query 실행 및 준비");
+			
+			while(rs.next()) {
+				res = rs.getInt("USED_NO");
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			System.out.println("3/4단계 오류");
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstm);
+			close(con);
+			System.out.println("05.db 종료");
+		}
+		
+		return res;
+	}
+	
+	public int insert_pic(int usedno,String imgname,String imgpath) {
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res=0;
+		
+		String sql = " INSERT INTO USED_PIC VALUES(?,?,?)";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setInt(1, usedno);
+			pstm.setString(2, imgname);
+			pstm.setString(3, imgpath);
+			System.out.println("03.query 준비: "+sql);
+			
+			res = pstm.executeUpdate();
+			System.out.println("04.query 실행 및 준비");
+			
+		} catch (SQLException e) {
+			System.out.println("3/4단계 오류");
+			e.printStackTrace();
+		}finally {
+			close(pstm);
+			close(con);
+			System.out.println("05.db 종료");
+		}
+		
+		return res;
+	}
 }

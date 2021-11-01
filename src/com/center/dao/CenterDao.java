@@ -130,6 +130,7 @@ public class CenterDao extends JDBCTemplate{
 			System.out.println("04.query 실행 및 준비");
 			
 		} catch (SQLException e) {
+			System.out.println("3/4단계 오류");
 			e.printStackTrace();
 		}finally {
 			close(pstm);
@@ -159,6 +160,7 @@ public class CenterDao extends JDBCTemplate{
 			System.out.println("04.query 실행 및 준비");
 			
 		} catch (SQLException e) {
+			System.out.println("3/4단계 오류");
 			e.printStackTrace();
 		}finally {
 			close(pstm);

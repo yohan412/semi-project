@@ -2,6 +2,7 @@ package com.used.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.center.dto.CenterDto;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.used.dao.UsedDao;
 import com.used.dto.UsedDto;
 import com.usedask.dao.UsedaskDao;
@@ -145,26 +149,66 @@ public class UsedController extends HttpServlet {
 		} else if(command.equals("usedwrite")){
 			
 			//사진첨부 미구현 , 첨부기능 추가되면 추가할것
-			String usedtitle = request.getParameter("title");
-			String userid = request.getParameter("logonid");
-			int userno = Integer.parseInt(request.getParameter("logonno"));
-			String usedaddr = request.getParameter("addr");
-			String usedprice = request.getParameter("price");
-			String usedcategory = request.getParameter("category");
-			String usedcenternm = request.getParameter("centernm");
-			String usedcontent = request.getParameter("content");
+			String usedtitle = "";
+			String userid = "";
+			int userno = 0;
+			String usedaddr = "";
+			String usedprice = "";
+			String usedcategory = "";
+			String usedcenternm = "";
+			String usedcontent = "";
 			
-			UsedDto dto = new UsedDto();
-			dto.setUsedtitle(usedtitle);
-			dto.setUserid(userid);
-			dto.setUserno(userno);
-			dto.setUsedaddr(usedaddr);
-			dto.setUsedprice(usedprice);
-			dto.setUsedcategory(usedcategory);
-			dto.setUsedcenternm(usedcenternm);
-			dto.setUsedcontent(usedcontent);
 			
-			int res = usedDao.insert(dto);
+			String imgpath = ""; //이미지 경로 초기화
+			String imgname = ""; //이미지 이름 초기화
+			
+			String uploadpath = request.getRealPath("upload"); //upload파일에 실제 경로 설정
+			
+			int res=0;
+			
+			try {
+				MultipartRequest multi = new MultipartRequest(request, uploadpath,10*1024*1024,"UTF-8",new DefaultFileRenamePolicy());
+				
+				usedtitle = multi.getParameter("title");
+				userid = multi.getParameter("logonid");
+				userno = Integer.parseInt(multi.getParameter("logonno"));
+				usedaddr = multi.getParameter("addr");
+				usedprice = multi.getParameter("price");
+				usedcategory = multi.getParameter("category");
+				usedcenternm = multi.getParameter("centernm");
+				usedcontent = multi.getParameter("content");
+				
+				
+			
+				UsedDto dto = new UsedDto();
+				
+				dto.setUsedtitle(usedtitle);
+				dto.setUserid(userid);
+				dto.setUserno(userno);
+				dto.setUsedaddr(usedaddr);
+				dto.setUsedprice(usedprice);
+				dto.setUsedcategory(usedcategory);
+				dto.setUsedcenternm(usedcenternm);
+				dto.setUsedcontent(usedcontent);
+			
+				res = usedDao.insert(dto);
+			
+				int rs = usedDao.selectno(usedtitle); //centerno호출
+				System.out.println(rs);
+				
+			
+				Enumeration files =multi.getFileNames(); //파일명정보를 배열로 만듬
+				
+				while(files.hasMoreElements()) { //다음 요소가 있으면 반복
+					String imgfile = (String)files.nextElement(); //파일명정보 Enumeration 의 다음요소를 imgfile에저장
+					imgpath = multi.getFilesystemName(imgfile);
+					imgname = multi.getOriginalFileName(imgfile);
+						
+					res = usedDao.insert_pic(rs, imgname, uploadpath+imgpath);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
 			if(res>0) {
 				jsResponse("성공적으로 등록되었습니다.","usedcontroller?command=usedlist",response);

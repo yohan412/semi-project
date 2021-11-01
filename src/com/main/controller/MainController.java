@@ -139,7 +139,7 @@ public class MainController extends HttpServlet {
 			int res = udao.update(dto);
 			 
 			if(res>0) {
-				dispatch("MainController?command=list",request,response);
+				dispatch("MainController?command=qna",request,response);
 			}else {
 				dispatch("MainController?command=detail&qano="+qano,request,response);
 			}
@@ -151,7 +151,7 @@ public class MainController extends HttpServlet {
 			
 			// 성공 시 qna 페이지로 이동, 실패 시 상세페이지로 이동
 			if(res>0) {
-				dispatch("MainController?command=list", request, response);
+				dispatch("MainController?command=qna", request, response);
 			}else {
 				dispatch("MainController?command=detail&qano="+qano, request, response);
 			}

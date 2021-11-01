@@ -45,15 +45,47 @@ input[type=button], input[type=submit]{
 	font-weight:bold;
 }
 </style>
+<script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	var gfv_count = 1;
+	
+	$(document).ready(function(){
+		
+	
+	$("#file").on("change", function(e){ //파일 추가 버튼 
+		e.preventDefault(); 
+	fn_addFile(); 
+	}); 
+	$("a[name='delete']").on("click", function(e){ //삭제 버튼 
+		e.preventDefault(); 
+	fn_deleteFile($(this)); 
+	});
+	});
+		
+
+	function fn_addFile(){ 
+		var str = "<tr><th></th><td><input type='file' id=file name='file_"+(gfv_count++)+"'><a href='#this' class='btn' name='delete'>삭제</a></td></tr>"; 
+		$("#fileDiv").append(str); 
+		$("a[name='delete']").on("click", function(e){ //삭제 버튼 
+			e.preventDefault(); 
+		fn_deleteFile($(this)); 
+		}); 
+		} 
+	
+	function fn_deleteFile(obj){ obj.parent().remove(); }
+
+
+		
+</script>
 </head>
 <body>
 	<header><%@ include file="./form/header.jsp" %></header>
 	<h1>중고거래 게시글 작성</h1>
 	<div id="wrap">
-	<form action="usedcontroller?command=usedwrite" method="post">
+	<form action="usedcontroller?command=usedwrite" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="logonid" value="${loginUser.userid}">
 		<input type="hidden" name="logonno" value="${loginUser.userno}">
-		<table width="100%">
+		<table width="100%" id="fileDiv">
 			<colgroup>
 				<col width="20%">
 				<col width="80%">
@@ -93,16 +125,18 @@ input[type=button], input[type=submit]{
 			<tr>
 				<th>사진첨부</th>
 				<td>
-					<input type="file" name="images" accept="image/png,image/jpeg">
+					<input type="file" id="file" name="file_0" accept=".jpg,.jpeg,.png,.gif">
+	                <a href="#this" class="btn" id="delete" name="delete">삭제</a> 
 				</td>
 			</tr>
-			<tr>
-				<td colspan="2" style="text-align:center;"><br><br>
-					<input type="submit" value="등록">
-					<input type="button" value="취소" onclick="location.href='usedcontroller?command=usedlist'">
-				</td>
-			</tr>
+			
 		</table>
+		<div>
+			<td colspan="2" style="text-align:center;"><br><br>
+				<input type="submit" value="등록">
+				<input type="button" value="취소" onclick="location.href='usedcontroller?command=usedlist'">
+			</td>
+		</div>
 	</form>
 	</div>
 	<footer><%@ include file="./form/footer.jsp" %></footer>

@@ -73,7 +73,7 @@ public class QnaDao extends JDBCTemplate{
 					rs = pstm.executeQuery();
 					System.out.println("04.query 실행 및 리턴");
 					
-					while(rs.next()) {
+					if(rs.next()) {
 						res.setQano(rs.getInt(1));
 						res.setQagpno(rs.getInt(2));
 						res.setQagpsq(rs.getInt(3));
@@ -187,7 +187,7 @@ public class QnaDao extends JDBCTemplate{
 				return res;
 			}
 			
-			public int delete(int uskno) {
+			public int delete(int qano) {
 				Connection con = getConnection();
 				PreparedStatement pstm = null;
 				int res = 0;
@@ -196,7 +196,7 @@ public class QnaDao extends JDBCTemplate{
 				
 				try {
 					pstm=con.prepareStatement(sql);
-					pstm.setInt(1, uskno);
+					pstm.setInt(1, qano);
 					System.out.println("03.query 준비: " + sql);
 					
 					res = pstm.executeUpdate();

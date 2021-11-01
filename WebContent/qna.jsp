@@ -4,6 +4,10 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
 
+<%@ page import="com.qna.dao.QnaDao" %>
+<%@ page import="com.qna.dto.QnaDto" %>
+<%@ page import="java.util.List" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,7 +63,10 @@
 	}
 </style>
 </head>
-
+<% 
+	QnaDao dao = new QnaDao(); 
+	List<QnaDto> list = dao.selectAll();
+%>
 <body>
 	<header><%@ include file="form/header.jsp" %></header>
 	<br>
@@ -92,16 +99,25 @@
 				<tr>
 					<th style="width:50px;">NO.</th>
 					<th>제목</th>
-					<th>답변상태</th>
+					<th style="width:50px;">답변상태</th>
 				</tr>
+<%
+	for(int i = 0; i<list.size(); i++){
+%>				
 				<div style="overflow: auto;">
 					<tr>
+						<td><%=list.get(i).getQano() %></td>
+						<td><a href="question_board_detail.jsp?qano=<%=list.get(i).getQano()%>"><%=list.get(i).getQatitle() %></a></td>
+						<td><%=list.get(i).getQacontent() %></td>
 					</tr>
 				</div>
+<%
+	}
+%>				
 			</table>
 		</div>
 		<br>
-		<div style="text-align: right; width: 500px; display: inline-block;">
+		<div style="text-align: right; width: 500px; display: inline-block; position:relative;">
 			<input type="button" value="1대1 문의" class="qna_button" onclick="location.href='MainController?command=writeform'">
 		</div>
 	</div>

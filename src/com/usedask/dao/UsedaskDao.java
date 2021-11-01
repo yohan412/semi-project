@@ -253,4 +253,36 @@ public class UsedaskDao extends JDBCTemplate{
 		}
 		return res;
 	}
+	
+	public int uskstausUpdate(int uskno) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm =null;
+		int res = 0;
+		
+		String sql = "UPDATE USED_ASK SET USK_STATUS='Y' WHERE USK_NO=?";
+		
+		try {
+			pstm=con.prepareStatement(sql);
+			pstm.setInt(1, uskno);
+			System.out.println("03. query 준비 : "+sql);
+			
+			res=pstm.executeUpdate();
+			System.out.println("04. query 실행 및 리턴");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("error : 3/4단계 failed");
+			e.printStackTrace();
+		} finally {
+			close(pstm);
+			close(con);
+		}
+		return res;
+	}
 }

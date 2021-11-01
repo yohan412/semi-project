@@ -113,6 +113,8 @@ public class UsedController extends HttpServlet {
 			
 			UsedaskDto parentusk = uskDao.selectOne(uskno);
 			
+			//답변상태 변경
+			uskDao.uskstausUpdate(uskno);
 			//들어갈 공간 만들어주기
 			uskDao.answerUpdate(parentusk.getUskgpno(), parentusk.getUskgpsq());
 			
@@ -214,6 +216,18 @@ public class UsedController extends HttpServlet {
 				jsResponse("게시글이 수정되었습니다.","usedcontroller?command=useddetail&usedno="+usedno,response);
 			}else {
 				jsResponse("게시글이 수정이 실패하었습니다.","usedcontroller?command=useddetail&usedno="+usedno,response);
+			}
+		} else if(command.equals("usedstatus")) {
+			
+			int usedno = Integer.parseInt(request.getParameter("usedno"));
+			String status = request.getParameter("status");
+			
+			int res = usedDao.updateStatus(usedno,status);
+			
+			if(res>0) {
+				jsResponse("게시글이 거래상태가 변경되었습니다.","usedcontroller?command=useddetail&usedno="+usedno,response);
+			} else {
+				jsResponse("게시글 거래상태 변경이 실패하였습니다.","usedcontroller?command=useddetail&usedno="+usedno,response);
 			}
 		}
 	}

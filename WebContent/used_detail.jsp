@@ -55,7 +55,7 @@
 
 .content{
 	width: 700px;
-	height: 800px;
+	height: 850px;
 	background: white;
 	margin: 20px;
 	text-align: center;
@@ -89,10 +89,10 @@
 }
 
 .regist{
-	margin-top: 1000px;
+	margin-top: 1100px;
 }
 
-.regist input{
+.regist input, .status input{
 	width: 85px;
 	height: 35px;
 	border-radius: 5px;
@@ -248,6 +248,22 @@ input[type=button]{
 				"<input type='button' id='used_update' value='수  정' onclick='location.href=\"usedcontroller?command=usedupdateform&usedno=${usedDto.usedno}\"'>&nbsp;&nbsp;"
 				+"<input type='button' id='used_delete' value='삭  제' onclick='used_delete()'>&nbsp;&nbsp;"
 			);
+			$(".status").append(
+				"<input type='button' id='status_n' value='거 래 중' onclick=\"location.href='usedcontroller?command=usedstatus&status=N&usedno=${usedDto.usedno}'\">&nbsp;&nbsp;"
+				+"<input type='button' id='status_y' value='거 래 완 료' onclick=\"location.href='usedcontroller?command=usedstatus&status=Y&usedno=${usedDto.usedno}'\">&nbsp;&nbsp;"
+			);
+			
+			if("${usedDto.usedstatus}" =="N"){
+				$("#status_n").css('background','rgb(00,68,137)');
+				$("#status_n").css('color','white');
+				$("#status_n").css('cursor','default');
+				$("#status_n").removeAttr("onclick");
+			}else{
+				$("#status_y").css('background','rgb(00,68,137)');
+				$("#status_y").css('color','white');
+				$("#status_y").css('cursor','default');
+				$("#status_y").removeAttr("onclick");
+			}
 		} else{
 			$(".regist").prepend(
 					"<input type='button' id='ask' value='문  의' onclick='login_chk()'>&nbsp;&nbsp;"
@@ -434,6 +450,10 @@ input[type=button]{
 				</table>
 				<div class="pagination">
 					<ol id="numbers"></ol>
+				</div>
+				<br>
+				<div class="status">
+					
 				</div>
 				</div>
 			</div>			

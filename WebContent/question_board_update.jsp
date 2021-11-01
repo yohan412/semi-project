@@ -86,7 +86,7 @@
 			</tr>
 			<tr id="content">
 				<th>내 용</th>
-				<td><textarea rows="10" cols="60" name="qacontent" value="<%=dto.getQacontent()%>"></textarea></td>
+				<td><textarea rows="10" cols="60"><%=dto.getQacontent() %></textarea></td>
 			</tr>
 			<tr id="photo">
 				<th>사진 첨부</th>
@@ -98,12 +98,11 @@
 					<input type="button" id="reset" value="취 소" onclick="location.href='MainController?command=qna'">
 				</td>	
 			</tr>
-		</table>
-		<br>
-		<div align="center">
-		</div>		
+		</table>	
 	</form>
 </div>
+<div>
 		<footer><%@ include file = "form/footer.jsp" %></footer>
+</div>		
 </body>
 </html>

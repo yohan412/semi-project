@@ -133,7 +133,7 @@
 </head>
 <body>
 	<div style="text-align: center; margin-top: 30px;">
-		<a href="#"><img src="./img/tmp_image.png" width="200px" height="60px" alt="내주변 헬스장"></a>
+		<a href="#"><img src="./img/logo.png" width="200px" height="60px" alt="내주변 헬스장"></a>
 	</div>
 	<br><br>
 	<hr>
@@ -520,7 +520,7 @@
 				<tr>
 					<td colspan="10" style="text-align: center;">
 						<input type="submit" id="join" value="가 입 하 기"  style="width:300px;height:40px;" onclick="idChkConfirm();"><br><br>
-						<input type="button" id="reset" value="취 소" onclick="usercontroller?command=loginform" style="width:300px;height:40px;">
+						<input type="button" id="reset" value="취 소" onclick="location.href='usercontroller?command=loginform'" style="width:300px;height:40px;">
 					</td>
 				</tr>
 				</div>

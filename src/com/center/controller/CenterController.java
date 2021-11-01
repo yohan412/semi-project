@@ -202,10 +202,6 @@ public class CenterController extends HttpServlet {
 			
 			try {
 				MultipartRequest multi = new MultipartRequest(request, uploadpath,10*1024*1024,"UTF-8",new DefaultFileRenamePolicy());
-
-				
-				
-				
 				
 				centername = multi.getParameter("centernm");
 				centeraddr = multi.getParameter("centeraddr");
@@ -225,20 +221,14 @@ public class CenterController extends HttpServlet {
 			
 				res = dao.centerdetail_writer(dto);
 			
-		
-				
-				int rs = dao.selectno(centername);
+				int rs = dao.selectno(centername); //centerno호출
 				System.out.println(rs);
 				
 			
 				Enumeration files =multi.getFileNames(); //파일명정보를 배열로 만듬
 				
-				System.out.println(files);
-				int i=0;
-				
 				while(files.hasMoreElements()) { //다음 요소가 있으면 반복
 					String imgfile = (String)files.nextElement(); //파일명정보 Enumeration 의 다음요소를 imgfile에저장
-					System.out.println(i++);
 					imgpath = multi.getFilesystemName(imgfile);
 					imgname = multi.getOriginalFileName(imgfile);
 						

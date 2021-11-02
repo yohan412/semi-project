@@ -82,7 +82,7 @@
 		<input type="hidden" name="qa_status" value="<%=dto.getQastatus() %>"> --> 
 		
 		<input type="hidden" name="qano" value="<%=dto.getQano() %>"> 
-		<input type="hidden" id="qa_type" value="<%=dto.getQatype() %>"> 
+		<input type="hidden" name="qa_type" value="<%=dto.getQatype() %>"> 
 		
 		<table>
 			<tr id="title">

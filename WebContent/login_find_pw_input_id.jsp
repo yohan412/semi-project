@@ -91,17 +91,7 @@ select {
 }
 </style>
 <script type="text/javascript">
-	function CheckForm(){
-	var id= get.ElementById("txtUser_ID");
-	if(id.value =="" || !(id.value.length >=3 && id.value.length <=12)){ 
-		
-	}alert("아이디를 똑바로 입력하세요");
-	id.focus(); //id가 id인 태그에 커서 깜빡거리는 포커스 주기
-	return false; //현재 submit이벤트를 중지하는 개념(즉, 전송을 막는다->페이지안넘김)
-	}else{ //아이디와 비밀번호를 잘 입력받았다면
 
-		document.FormLogin.onsubmit; //form안에 있는 데이터를 action속성의 주소로 전송
-		}
 	</script>
 </head>
 <body>
@@ -118,11 +108,11 @@ select {
 				<h3 class="join_title">
 					<label for="USER_ID">ID</label>
 				</h3>
-				<span class="box int_USER-ID"> 
-				<input type="text" name="USER_ID" maxlength="20" required> 
-				</span>
-			</div>
-
+				<div>
+					<input type="text" id="findId" name="USER_ID" maxlength="20" required> 
+					<div class="check_font" id="id_check"></div>
+				</div>
+			</div>			
 			<br>
 			<br>
 			<div>
@@ -233,7 +223,7 @@ select {
 			<br>
 			<br>
 			<div class="btn_area">
-				 <input type ="submit" id="button" value = "확인" 
+				 <input type ="submit" id="NEXT_button" value = "확인" 
 				onClick="checkForm();")> 
 						 <!-- 임시암호 보여지는 화면 -->
 			</div>

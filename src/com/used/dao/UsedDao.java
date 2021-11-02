@@ -279,7 +279,7 @@ public class UsedDao extends JDBCTemplate{
 		PreparedStatement pstm = null;
 		int res=0;
 		
-		String sql = " INSERT INTO USED_PIC VALUES(?,?,?)";
+		String sql = " INSERT INTO USED_PIC VALUES(?,UPIC_NOSQ.NEXTVAL,?,?)";
 		
 		try {
 			pstm = con.prepareStatement(sql);

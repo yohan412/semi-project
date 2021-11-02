@@ -147,7 +147,7 @@ public class CenterDao extends JDBCTemplate{
 		PreparedStatement pstm = null;
 		int res=0;
 		
-		String sql = " INSERT INTO CENTER_PIC VALUES(?,?,?)";
+		String sql = " INSERT INTO CENTER_PIC VALUES(?,CPIC_NOSQ.NEXTVAL,?,?)";
 		
 		try {
 			pstm = con.prepareStatement(sql);

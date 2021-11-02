@@ -15,24 +15,23 @@
 	var gfv_count = 1;
 	
 	
-	$(document).on("hover","#file",function(){
-		
-		$("#file").on("change", function(e){ //파일 추가 버튼 
-			e.preventDefault(); 
-			fn_addFile();
-			
-		}); 
-		
-		$("a[name='delete']").on("click", function(e){ //삭제 버튼 
-			e.preventDefault(); 
-			fn_deleteFile($(this)); 
-		});
-	});
-	
+
+	$(function(){
+        $(document).on("change","#file",function(){
+            fn_addFile(); //input태그 추가
+        });
+      
+      
+      $("a[name='delete']").on("click", function(e){ //삭제 버튼 
+         e.preventDefault(); 
+         fn_deleteFile($(this)); 
+      });
+
+    });
 	
 
 	function fn_addFile(){ 
-		var str = "<p><input type='file' id='file' name='file_"+(gfv_count++)+"'><a href='#this' class='btn' name='delete'>삭제</a></p>"; 
+		var str = "<p><input type='file' id='file' name='file_"+(gfv_count++)+"'><a href='#this' class='btn' name='delete' accept='.jpg,.jpeg,.png,.gif'>삭제</a></p>"; 
 		$("#fileDiv").append(str); 
 		$("a[name='delete']").on("click", function(e){ //삭제 버튼 
 			e.preventDefault(); 

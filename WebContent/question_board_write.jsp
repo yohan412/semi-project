@@ -64,11 +64,12 @@
 		<input type="hidden" name="user_no" value="1">
 		<input type="hidden" name="qa_faq" value="N"> <!-- 관리자가 설정하는 영역이므로 사용자가 등록 시 'N' 고정값 -->
 		<input type="hidden" name="qa_status" value="N"> <!-- 관리자가 설정하는 영역이므로 사용자가 등록 시 'N' 고정값 -->
+		<input type="hidden" name="qa_type" value="${dto.qatype }">
 		<table>
 			<tr id="title">
 				<th>제 목</th>
 				<td>
-					<select id="qna_category" name="qa_type" style="width:50px;height:30px;">
+					<select id="qa_type" name="qa_type" style="width:50px;height:30px;">
 							<option value="price">가격</option>
 							<option value="deal">거래</option>
 							<option value="center">시설</option>

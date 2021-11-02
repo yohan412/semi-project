@@ -60,13 +60,13 @@
 	}	
 .starRating{
 	display: block;
-	width: 150px;
+	width: 5px;
 	margin:0 auto;
 	}
 .starR1{
 	background:url('http://miuu227.godohosting.com/image/icon/ico_review.png') no-repeat right 0;
 	background-size : auto 100%;
- 	width: 15px;
+ 	width: 5px;
   	height: 30px;
 	float : left;
   	cursor: pointer;
@@ -82,7 +82,7 @@
 	}
 .starR1.on{background-position:0 0;}
 .starR2.on{background-position:-15px 0;}
-}
+
 
 
 </style>
@@ -93,7 +93,7 @@
 $(document).ready(function(){
 	//좋아요 버튼 처리
 	$('.like-content').one('click','.like-review',function(e){
-		$(this).html('<i class="fa fa-heart" aria-hidden=true"></i> You liked this');
+		$(this).html('<img src="img/heart.png"> You liked this');
 		$(this).children('.fa-heart').addClass('animate-like');
 	});
 	$('.REVIEW_GRADE').click(function(){
@@ -129,7 +129,7 @@ $(document).ready(function(){
 				</div>
 			</div>
 				
-			<div class="content">
+			<div class="REVIEW_CONTENT">
 				<textarea rows="10" cols="70" readonly="readonly">후기후기후기</textarea>
 			</div>
 			
@@ -137,7 +137,7 @@ $(document).ready(function(){
 				<a>도움이 되었나요?</a>
 			<div class="like-content">
 				<button class="btn-secondary like-review">
-				<i class ="far fa-heart" aria-hidden="true"></i>Like
+				<img class="pic" src="img/emt_heart.png">Like
 				</button>
 			</div>
 			

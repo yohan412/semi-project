@@ -105,7 +105,7 @@
 				<tr>
 					<th style="width:50px;">NO.</th>
 					<th>제목</th>
-					<th style="width:50px;">답변상태</th>
+					<th style="width:80px;">답변상태</th>
 				</tr>
 <%
 	for(int i = 0; i<list.size(); i++){
@@ -119,24 +119,6 @@
 
 <%
 	}
-
-	final int ROWSIZE = 4;	// 한 페이지에 보일 게시물 수
-	final int BLOCK = 10; // 아래에 보일 페이지 최대개수 1~5 / 6~10 / 11~15 식으로 5개로 고정
-	
-	int pg = 1; // 기본 페이지 값
-	
-	if(request.getParameter("pg")!=null){
-		pg = Integer.parseInt(request.getParameter("pg"));
-	}
-	
-	int start = (pg*ROWSIZE) - (ROWSIZE-1);
-	int end = (pg*ROWSIZE);
-	
-	int allPage = 0;
-	
-	int startPage = ((pg-1)/BLOCK*BLOCK)+1;
-	int endPagee = ((pg-1)/BLOCK*BLOCK)+BLOCK;
-
 %>				
 			</table>
 		</div>

@@ -181,8 +181,11 @@ public class CenterController extends HttpServlet {
 			} else {
 				jsResponse("리뷰등록이 실패하였습니다","CenterController?command=review_write_form&centerno="+centerno,response);
 			}
-		}else if(command.equals("centerdetail_writer")) {
-			
+	
+		}else if(command.equals("centerwriteform")){
+			response.sendRedirect("center_detail_writer.jsp");
+		}
+		else if(command.equals("centerdetail_writer")) {			
 			
 			String centername = "";
 			String centeraddr = "";
@@ -239,9 +242,9 @@ public class CenterController extends HttpServlet {
 			}
 				
 			if(res>0) {
-				response.sendRedirect("center_detail.jsp");
+				response.sendRedirect("CenterController?command=centerlist");
 			}else {
-				response.sendRedirect("center_detail_writer.jsp");
+				response.sendRedirect("CenterController?command=centerwriteform");
 			}
 			
 		}

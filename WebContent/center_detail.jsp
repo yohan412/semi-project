@@ -197,15 +197,8 @@ h1, p{
             </div>
             <hr>
             <div class="top_cont">
-                <div class="img_part">
-                	<c:choose>
-                		<c:when test="${empty centerDto.centerpic}">
-                    		<img src="./img/center_default.png">
-                    	</c:when>
-                    	<c:otherwise>
-                    		<img src="./img/"+"${ centerDto.centerpic}")>
-                    	</c:otherwise>
-                    </c:choose>
+                <div class="img_part">                	
+                    		<img src="./img/center_default.png">                   
                 </div>
                 <div class="txt_part">
                     <p>${centerDto.centeraddr}</p>
@@ -232,6 +225,7 @@ h1, p{
                         <h2 id="a">센터소개</h2>
                     </div>
                     <div class="cont_info">
+                    	${centerDto.centerintro}
                     </div>
                 </div>
                 <div id="center_info">
@@ -239,6 +233,7 @@ h1, p{
                 		<h2 id="b">이용정보</h2>
                 	</div>
                     <div class="cont_info">
+                    	${centerDto.centercontent}
                     </div>
                 </div>
                 <div id="center_time">
@@ -246,6 +241,7 @@ h1, p{
                 		<h2 id="c">운영시간</h2>
                 	</div>
                     <div class="cont_info">
+                    	${centerDto.centerophour }
                     </div>
                 </div>
                 <div id="center_program">
@@ -253,6 +249,7 @@ h1, p{
                 		<h2 id="d">프로그램</h2>
                 	</div>
                     <div class="cont_info">
+                     	${centerDto.centerpro}
                     </div>
                 </div>
             </div>

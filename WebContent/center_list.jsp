@@ -71,13 +71,13 @@ response.setContentType("text/html; charset=UTF-8");
 		//객체를 담기위한 배열
 		centerlist = new Array();
 		// center 객체
-		var centerObj = function(no,name,addr,price,category,pic,grade) {
+		var centerObj = function(no,name,addr,price,category,grade) {
 			this.no = no;
 			this.name = name;
 			this.addr = addr;
 			this.price = price;
 			this.category = category;
-			this.pic = pic;
+			//this.pic = pic;
 			this.grade = grade;
 		}
 
@@ -85,7 +85,7 @@ response.setContentType("text/html; charset=UTF-8");
 		<c:forEach items="${centerlist}" var="center">
 		var tempCenter = 
 			new centerObj("${center.centerno}","${center.centername}","${center.centeraddr}","${center.centerprice}",
-					"${center.centercategory}","${center.centerpic}","${center.centergrade}");
+					"${center.centercategory}","${center.centergrade}");
 		centerlist.push(tempCenter);
 		</c:forEach>
 		
@@ -387,6 +387,18 @@ response.setContentType("text/html; charset=UTF-8");
 			displayRows(index);
 		});
 	}
+	
+	function login_chk(){
+		if(${loginUser==null}){
+			if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
+				location.href="login.jsp"
+			}else{
+				
+			}
+		} else{
+			location.href="CenterController?command=centerwriteform";
+		}
+	}
 </script>
 
 
@@ -532,6 +544,16 @@ input[type=checkbox]:checked+.check-icon {
 	line-height:0;
 	vertical-align:top;
 }
+
+tfoot input{
+	margin-top:15px;
+	width: 85px;
+	height: 35px;
+	border-radius: 5px;
+	border: none;
+	font-weight: bold;
+	cursor:pointer;
+}
 </style>
 
 </head>
@@ -584,6 +606,13 @@ input[type=checkbox]:checked+.check-icon {
 				<col width="200px">
 				<tbody>
 				</tbody>
+				<tfoot>
+					<tr>
+					<td colspan="2" align="right">
+					<input type="button" onclick="login_chk()" value="글 등 록">
+					</td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 		<div class="pagination">

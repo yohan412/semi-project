@@ -9,13 +9,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript">
-	function uploadFileAdded(){
-		
-}
-
-</script>
 <style type="text/css">
 	table{
 		text-align: center;
@@ -58,6 +51,7 @@
 		border-radius: 5px;
 	}
 </style>
+
 </head>
 <body>
 <h2 align="center">1 : 1 문의</h2>
@@ -74,7 +68,7 @@
 			<tr id="title">
 				<th>제 목</th>
 				<td>
-					<select id="category" name="qa_type" style="width:50px;height:30px;">
+					<select id="qna_category" name="qa_type" style="width:50px;height:30px;">
 							<option value="price">가격</option>
 							<option value="deal">거래</option>
 							<option value="center">시설</option>

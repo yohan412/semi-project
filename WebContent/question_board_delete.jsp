@@ -21,14 +21,14 @@
 	if(res>0){
 %>
 	<script type="text/javascript">
-		alert("글 삭제 성공!");
+		alert("삭제되었습니다.");
 		location.href="qna.jsp";
 	</script>
 <%		
 	}else{
 %>
 	<script type="text/javascript">
-		alert("글 삭제 실패");
+		alert("삭제하지 못했습니다.");
 		location.href="question_board_detail.jsp";
 	</script>
 		

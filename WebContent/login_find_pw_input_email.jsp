@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
@@ -7,55 +8,16 @@ request.setCharacterEncoding("UTF-8");
 response.setContentType("text/html; charset=UTF-8");
 %>
 
+import com.user.controller.*;
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>우리동네 헬스장</title>
-<script>
-$('#sendUSER_PHONE').click(function(){    // 'sendUSER_PHONE'라는 id를 가진 버튼 클릭 시 실행.
-    let phoneNumber = $('#inputUSER_PHONE').val();
-    Swal.fire('인증번호 발송 완료!')
-    
-    $.ajax({
-        type: "post",
-        url: "/src/user.controller.java",
-        data: {
-            "USER_PHONE" : "USER_PHONE"
-        },
-        success: function(res){
-            $('#checkBtn').click(function(){
-                if($.trim(res)
-                		==$('#inputCertifiedNumber').val()){
-                    Swal.fire(
-                        '인증성공!',
-                        '휴대폰 인증이 정상적으로 완료되었습니다.',
-                        'success'
-                    )
+<script type="text/javascript">
 
-                    $.ajax({
-                        type: "GET", // HTTP method type(GET, POST) 형식이다.
-                        url: "/update/phone", // 컨트롤러에서 대기중인 URL 주소이다. //여기에 뭘써야 하는데 모르겠음 ㅠㅠ
-                        data: {	// Json 형식의 데이터이다.
-                            "USER_PHONE" : $('#inputPhoneNumber').val()
-                        }
-                    })
-                    document.location.href="/WebContetnt/login.jsp";
-                }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: '인증오류',
-                        text: '인증번호가 올바르지 않습니다!',
-                        footer: '<a href="WebContent/login.jsp">다음에 인증하기</a>'
-                    })
-                }
-            })
-
-
-        }
-    })
-});
-</script>
+</script>   
 <style type="text/css">
 html {
 	height: 100%;
@@ -197,27 +159,29 @@ select {
 	font-weight: 200;
 }
 </style>
-<script type="text/javascript" src="WebContent/js/findinfo.js">
-</script>
+
 </head>
 <body>
 	<header><%@ include file="form/login_header.jsp"%></header>
 	<div id="wrapper">
 		<h5>
-			가입시 입력하셨던 핸드폰번호를 입력해주세요. <br>
+			Step3. 가입시 입력하셨던 이메일을 입력해주세요. <br>
 		</h5>
-	<form action="login_find_pw_tjdrhd.jsp" id="form_login"name="find_pw_email" onsubmit="CheckForm(); method="post">
+    
+	<form method="post" action="/mailSending.do">
 		<div id="content">
 			<h3 class="join_title">
 					<label for="USER_EMAIL">E-Mail</label>
 			</h3>
-			<div class="in-line">
-				<input type="text" id="email"class="int" maxlength="100" placeholder="이메일 주소 입력" required>
-				<input type="button" id = "sendEmail" value="임시번호 발송">
+			<div class="mail_check_wrap"> 
+			<div class="in-line" id="mail_check_input_box_false">
+				<input type="text" id="user_email"class="user_email" maxlength="100" placeholder="이메일 주소 입력" required>
+				<input type="submit" value = "임시번호 보내기" ">
+			</div>
 			</div>
 			<br><br><br>
 			<div class="btn_area">
-			  <input type ="submit" id="button1" value = "확인" onClick="checkForm();")> 
+			  <input type ="button" name ="" id="email_send" value = "확인"> 
 			</div>			
 		</div>
 	</form>				 						 	

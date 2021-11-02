@@ -13,53 +13,13 @@ response.setContentType("text/html; charset=UTF-8");
 <meta charset="UTF-8">
 <title>우리동네 헬스장</title>
 <script>
-$('#sendUSER_PHONE').click(function(){    // 'sendUSER_PHONE'라는 id를 가진 버튼 클릭 시 실행.
-    let phoneNumber = $('#inputUSER_PHONE').val();
-    Swal.fire('인증번호 발송 완료!')
-    
-    $.ajax({
-        type: "post",
-        url: "/src/user.controller.java",
-        data: {
-            "USER_PHONE" : "USER_PHONE"
-        },
-        success: function(res){
-            $('#checkBtn').click(function(){
-                if($.trim(res)
-                		==$('#inputCertifiedNumber').val()){
-                    Swal.fire(
-                        '인증성공!',
-                        '휴대폰 인증이 정상적으로 완료되었습니다.',
-                        'success'
-                    )
+function sendSMS(pageName){
 
-                    $.ajax({
-                        type: "GET", // HTTP method type(GET, POST) 형식이다.
-                        url: "/update/phone", // 컨트롤러에서 대기중인 URL 주소이다. //여기에 뭘써야 하는데 모르겠음 ㅠㅠ
-                        data: {	// Json 형식의 데이터이다.
-                            "USER_PHONE" : $('#inputPhoneNumber').val()
-                        }
-                    })
-                    document.location.href="/WebContetnt/login.jsp";
-                }else{
-                    Swal.fire({
-                        icon: 'error',
-                        title: '인증오류',
-                        text: '인증번호가 올바르지 않습니다!',
-                        footer: '<a href="WebContent/login.jsp">다음에 인증하기</a>'
-                    })
-                }
-            })
-
-
-        }
-    })
-});
-
-<%
-String id = request.getParameter("txtUSER_ID");
-%>
-<%=id %>  //변수 id 출력
+	console.log("문자를 전송합니다.");
+	$("#smsForm").attr("action", pageName + ".do");
+	$("#smsForm").submit();
+}
+}
 </script>
 <style type="text/css">
 html {
@@ -190,8 +150,7 @@ h3 {
 	font-weight: 200;
 }
 </style>
-<script type="text/javascript" src="WebContent/js/findinfo.js">
-</script>
+
 </head>
 <body>
 	<header><%@ include file="form/login_header.jsp"%></header>
@@ -201,7 +160,6 @@ h3 {
 			Step2. 가입시 입력하셨던 핸드폰번호를 입력해주세요. <br>
 		</h5>
 		
-	<form action="" method="post">
 		<div id="content">
 			<div>
 				<h3 class="USER_PHONE">
@@ -218,26 +176,24 @@ h3 {
 					</span>
 				<br>
 			</div>
-			<div class="in-line">
-				<input type="text" id="dd" class="int"	placeholder="전화번호 입력" required>
-				<input type ="button" id = "sendUSER_PHONE" value="인증번호 발송" >				
-			</div>
+			<form method ="post" id="smsForm">
+				<input type="text" id="pnNum" name="from" placeholder="전화번호 입력" required>
+				<input type ="button"  onClick="sendSMS('sendSms')" value="전송하기" ></li>				
+			</form>
 				<br>
 			<div id="phone_wrap">
 				<div id="phone_certification">
 					<br>
-					<input type="text" id="inputUSER_PHONE" class="int" name = "USER_PHONE" placeholder="인증번호 6자리 입력" required>
-					<input type ="button" id = "sendUSER_PHONE" value="확인" >				
-					 						 	
+					<input type="text" id="AuthNum" id="AuthNum" name="AuthNum" placeholder="인증번호 6자리 입력" required>			
+							 						 	
 				</div>
 			</div>
 			<br>
 			<br>
 			<div class="btn_area">
-				 <input type ="button" id="button2" value = "확인" onClick="location.href='login_find_pw_input_email.jsp'");">
+				 <input type ="button" id="button2" value = "확인" onClick="login_find_pw_input_email.jsp">
 			</div>
 		</div>
-		</form>
 			
 		</div>
 		<footer><%@ include file = "form/footer.jsp" %></footer>

@@ -148,9 +148,6 @@ select {
 			가입시 입력하셨던 이메일 주소를 작성해주세요. <br> 입력하신 이메일 주소로 인증번호를 발송해 드립니다.
 		</h5>
 		<div id="content">
-
-			
-			<br>
 			<div>
 				<h3 class="join_title">
 					<label for="USER_BIRTH DATE">생년월일</label>
@@ -311,11 +308,11 @@ select {
 			</div>
 
 
+	<footer><%@ include file = "form/footer.jsp" %></footer>
 
 		</div>
 
 	</div>
-	<footer><%@ include file = "form/footer.jsp" %></footer>
 	
 </body>
 </html>

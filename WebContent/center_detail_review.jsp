@@ -42,34 +42,91 @@
 
 .grade {
 	text-align: right;
-}
+	}
 
 .content{
 	margin-top: 15px;
-}
+	}
 
 .recommend{
 	text-align: right;
 	align-items: right;
-}
+	}
 
 .recommend a{
 	color: grey;
 	font-size: 12px;
 	font-weight: bold;
+	}	
+.starRating{
+	display: block;
+	width: 150px;
+	margin:0 auto;
+	}
+.starR1{
+	background:url('http://miuu227.godohosting.com/image/icon/ico_review.png') no-repeat right 0;
+	background-size : auto 100%;
+ 	width: 15px;
+  	height: 30px;
+	float : left;
+  	cursor: pointer;
+	}
+.starR2{
+	background:url('http://miuu227.godohosting.com/image/icon/ico_review.png') no-repeat right 0;
+	background-size : auto 100%;
+  	width: 15px;
+  	height: 30px;
+  	display: inline-block;
+  	float: left;
+  	cursor: pointer;
+	}
+.starR1.on{background-position:0 0;}
+.starR2.on{background-position:-15px 0;}
 }
 
 
 </style>
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff9e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"> </script>
+<script type="text/javascript">
+$(document).ready(function(){
+	//좋아요 버튼 처리
+	$('.like-content').one('click','.like-review',function(e){
+		$(this).html('<i class="fa fa-heart" aria-hidden=true"></i> You liked this');
+		$(this).children('.fa-heart').addClass('animate-like');
+	});
+	$('.REVIEW_GRADE').click(function(){
+		$(this).parent().children('span').removeClass('on');
+		$(this).addClass('on').prevAll('span').addClass('on');
+		var starValue='별점 : '+ $(this).attr("value");
+		$('.starRating p').html(starValue);
+		return false;
+		});
+	});
+</script>
 </head>
 <body>
-
+<div id="fb-root"></div>
 	<div class="wrap">
 		<div class="review_detail">
 			<div class="headline">
 				<a>닉네임</a> &nbsp;
 				<a>2020.02.02</a>
-				<img src="./img/tmp_image.png" width="100px" height="25px">
+				<br>
+				<div class="REVIEW_GRADE">
+					<span class="starR1 on" value="0.5"></span>
+					<span class="starR2" value="1"></span>
+					<span class="starR1" value="1.5"></span>
+					<span class="starR2" value="2"></span>
+					<span class="starR1" value="2.5"></span>
+					<span class="starR2" value="3"></span>
+					<span class="starR1" value="3.5"></span>
+					<span class="starR2" value="4"></span>
+					<span class="starR1" value="4.5"></span>
+					<span class="starR2" value="5"></span>
+					<p>별점 주기 클릭</p>
+				</div>
 			</div>
 				
 			<div class="content">
@@ -78,10 +135,12 @@
 			
 			<div class="recommend">
 				<a>도움이 되었나요?</a>
-				<img src="./img/tmp_image.png" width="30px" height="25px">
-				<img src="./img/tmp_image.png" width="30px" height="25px">
+			<div class="like-content">
+				<button class="btn-secondary like-review">
+				<i class ="far fa-heart" aria-hidden="true"></i>Like
+				</button>
 			</div>
-		</div>
+			
 	</div>
 
 </body>

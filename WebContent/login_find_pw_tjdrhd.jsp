@@ -65,23 +65,7 @@ h3 {
 	background: #fff;
 	font-size: 15px;
 }
-select {
-	width: 100%;
-	height: 29px;
-	font-size: 15px;
-	background: #fff;
-	background-size: 20px 8px;
-	-webkit-appearance: none;
-	display: inline-block;
-	text-align: start;
-	border: none;
-	cursor: default;
-	font-family: Dotum, '돋움', Helvetica, sans-serif;
-	background-size: 20px 8px;
-}
-.found-login{
-	
-	}
+
 </style>
 
 <script>

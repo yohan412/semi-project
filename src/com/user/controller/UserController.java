@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.user.dao.UserDao;
 import com.user.dto.UserDto;
 
+
 @WebServlet("/usercontroller")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -126,7 +127,68 @@ public class UserController extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		out.print(s);
-	}
+	}}
 
+
+@RequestMapping(value = "/sendSms.do")
+public String sendSms(HttpServletRequest request)throw Exception{
+String api_key = "<NCS9CI1UWC8LFNBC>";
+String api_secret = "<RDZZW13SAMYGVSTY7CHRQINZKJ04BH5L>";
+Coolsms coolsms = new Coolsms(api_key, api_secret);
+
+HashMap<String, String> set = new HashMap<String, String>();
+set.put("to", "USER_PHONE"); // 수신번호
+
+set.put("from", (String)request.getParameter("01035939862")); // 발신번호
+set.put("text", (String)request.getParameter("[우리동네 헬스장] 인증번호는 \" + \"[\" +  cerNum +\"]\"+\"입니다.")); // 문자내용
+set.put("type", "sms"); // 문자 타입
+
+System.out.println(set);
+
+JSONObject result = coolsms.send(set); // 보내기&전송결과받기
+
+if ((boolean)result.get("status") == true) {
+  // 메시지 보내기 성공 및 전송결과 출력
+  System.out.println("성공");
+} else {
+  // 메시지 보내기 실패
+  System.out.println("실패");
+}
+
+return "redirect:main.do";
+}
+
+//이메일 인증~
+public class MailController {
+
+	@Autowired
+	private JavaMailSender mailSender;
+
+	// mailSending 코드
+	@RequestMapping(value = "/mailSending.do")
+	public String mailSending(HttpServletRequest request) {
+
+		String setfrom = "";
+		String tomail = request.getParameter("navvy001@gmail.com"); // 받는 사람 이메일
+		String title = request.getParameter("title"); // 제목
+		String content = request.getParameter("content"); // 내용
+
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message,
+					true, "UTF-8");
+
+			messageHelper.setFrom(setfrom); // 보내는사람 생략하면 정상작동을 안함
+			messageHelper.setTo(tomail); // 받는사람 이메일
+			messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+			messageHelper.setText(content); // 메일 내용
+
+			mailSender.send(message);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return "main/main.tiles";
+	}
 }
 

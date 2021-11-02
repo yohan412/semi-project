@@ -162,8 +162,9 @@ public class UsedController extends HttpServlet {
 			String imgpath = ""; //이미지 경로 초기화
 			String imgname = ""; //이미지 이름 초기화
 			
-			String uploadpath = request.getRealPath("upload"); //upload파일에 실제 경로 설정
+			String uploadpath = request.getRealPath("download"); //upload파일에 실제 경로 설정
 			
+			System.out.println(uploadpath);
 			int res=0;
 			
 			try {

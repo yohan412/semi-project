@@ -15,11 +15,12 @@
 	var gfv_count = 1;
 	
 	
-	$(document).ready(function(){
+	$(document).on("hover","#file",function(){
 		
 		$("#file").on("change", function(e){ //파일 추가 버튼 
 			e.preventDefault(); 
-			fn_addFile(); 
+			fn_addFile();
+			
 		}); 
 		
 		$("a[name='delete']").on("click", function(e){ //삭제 버튼 

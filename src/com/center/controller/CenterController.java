@@ -2,9 +2,7 @@ package com.center.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -21,6 +19,7 @@ import com.center.dao.CenterDao;
 import com.center.dto.CenterDto;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.pic.dto.PicDto;
 import com.review.dao.ReviewDao;
 import com.review.dto.ReviewDto;
 import com.user.dao.UserDao;
@@ -45,11 +44,15 @@ public class CenterController extends HttpServlet {
 		ReviewDao rdao = new ReviewDao();
 		
 		if(command.equals("centerlist")) {
-			List<CenterDto> centerlist = dao.selectAll();
-			request.setAttribute("centerlist", centerlist);
 			
+			List<CenterDto> centerlist = dao.selectAll();
+			List<PicDto> piclist =dao.selectAllPic();
+			
+			request.setAttribute("centerlist", centerlist);
+			request.setAttribute("piclist", piclist);
 			RequestDispatcher dispatch = request.getRequestDispatcher("center_list.jsp");
 			dispatch.forward(request, response);
+			
 		}else if(command.equals("business")) {
 			int userno = Integer.parseInt(request.getParameter("user_no"));
 			
@@ -141,11 +144,16 @@ public class CenterController extends HttpServlet {
 			int centerno = Integer.parseInt(request.getParameter("centerno"));
 			CenterDto dto = dao.selectOne(centerno);
 			List<ReviewDto> reviewList = rdao.selectAll(centerno);
+			List<PicDto> piclist = dao.selectPics(centerno);
 			
 			request.setAttribute("centerDto", dto);
 			//리뷰 있는지 확인
 			if(reviewList !=null) {
 				request.setAttribute("reviewList", reviewList);
+			}
+			//사진 있는지 확인
+			if(piclist != null) {
+				request.setAttribute("piclist", piclist);
 			}
 			RequestDispatcher dispatch = request.getRequestDispatcher("center_detail.jsp");
 			dispatch.forward(request, response);

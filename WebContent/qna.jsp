@@ -52,7 +52,6 @@
 		width : 500px;
 		height : 200px;
 		display: inline-block;
-		border : 1px solid black;
 	}
 	.qna_table{
 		margin: 10px;
@@ -62,6 +61,10 @@
 		display: in
 	}
 </style>
+<script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+</script>
 </head>
 <% 
 	QnaDao dao = new QnaDao(); 
@@ -93,7 +96,10 @@
 				</div>	
 			</table>
 		</div>
-		<br>
+		<br><br>
+		<div style="text-align: right; width: 500px; display: inline-block;">
+			<input type="button" value="1대1 문의" class="qna_button" onclick="location.href='MainController?command=writeform'">
+		</div>
 		<div class="qna_list">
 			<table class="qna_table" border="1">
 				<tr>
@@ -104,24 +110,39 @@
 <%
 	for(int i = 0; i<list.size(); i++){
 %>				
-				<div style="overflow: auto;">
+
 					<tr>
 						<td><%=list.get(i).getQano() %></td>
 						<td><a href="question_board_selectone.jsp?qano=<%=list.get(i).getQano()%>"><%=list.get(i).getQatitle() %></a></td>
-						<td><%=list.get(i).getQacontent() %></td>
+						<td><%=list.get(i).getQastatus() %></td>
 					</tr>
-				</div>
+
 <%
 	}
+
+	final int ROWSIZE = 4;	// 한 페이지에 보일 게시물 수
+	final int BLOCK = 10; // 아래에 보일 페이지 최대개수 1~5 / 6~10 / 11~15 식으로 5개로 고정
+	
+	int pg = 1; // 기본 페이지 값
+	
+	if(request.getParameter("pg")!=null){
+		pg = Integer.parseInt(request.getParameter("pg"));
+	}
+	
+	int start = (pg*ROWSIZE) - (ROWSIZE-1);
+	int end = (pg*ROWSIZE);
+	
+	int allPage = 0;
+	
+	int startPage = ((pg-1)/BLOCK*BLOCK)+1;
+	int endPagee = ((pg-1)/BLOCK*BLOCK)+BLOCK;
+
 %>				
 			</table>
 		</div>
 		<br>
-		<div style="text-align: right; width: 500px; display: inline-block; position:relative;">
-			<input type="button" value="1대1 문의" class="qna_button" onclick="location.href='MainController?command=writeform'">
-		</div>
 	</div>
-	<br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	<footer><%@ include file="form/footer.jsp" %></footer>
 </body>
 </html>

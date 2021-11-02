@@ -73,38 +73,38 @@ public class MainController extends HttpServlet {
 			RequestDispatcher disp = request.getRequestDispatcher("qna.jsp");
 			disp.forward(request, response);
 			
-		}else if(command.equals("detail")) {
+		}else if(command.equals("selectone")) {
 			int qano = Integer.parseInt(request.getParameter("qano"));
 			
 			QnaDto dto = udao.selectOne(qano);
 			
 			request.setAttribute("dto", dto);
-			RequestDispatcher dis = request.getRequestDispatcher("question_board_detail.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("question_board_selectone.jsp");
 			dis.forward(request, response);
 			
 		}else if(command.equals("writeform")) {
 			response.sendRedirect("question_board_write.jsp");
 			
 		}else if(command.equals("boardwrite")) {
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
+			String qatitle = request.getParameter("title");
+			String qacontent = request.getParameter("content");
 			//String photo = request.getParameter("photo");
-			String userid = request.getParameter("user_id");
-			int userno = Integer.parseInt(request.getParameter("user_no"));
-			int gpno = Integer.parseInt(request.getParameter("qa_gpno"));
-			int gpsq = Integer.parseInt(request.getParameter("qa_gpsq"));
+			String qauserid = request.getParameter("user_id");
+			int qauserno = Integer.parseInt(request.getParameter("user_no"));
+			int qagpno = Integer.parseInt(request.getParameter("qa_gpno"));
+			int qagpsq = Integer.parseInt(request.getParameter("qa_gpsq"));
 			String qafaq = request.getParameter("qa_faq");
 			String qastatus = request.getParameter("qa_status");
 			String qatype = request.getParameter("qa_type");
 			
 			
 			QnaDto dto = new QnaDto();
-			dto.setQagpno(gpno);
-			dto.setQagpsq(gpsq);
-			dto.setQatitle(title);
-			dto.setQacontent(content);
-			dto.setUserno(userno);
-			dto.setUserid(userid);
+			dto.setQagpno(qagpno);
+			dto.setQagpsq(qagpsq);
+			dto.setQatitle(qatitle);
+			dto.setQacontent(qacontent);
+			dto.setUserno(qauserno);
+			dto.setUserid(qauserid);
 			dto.setQafaq(qafaq);
 			dto.setQastatus(qastatus);
 			dto.setQatype(qatype);
@@ -127,13 +127,15 @@ public class MainController extends HttpServlet {
 		}else if(command.equals("boardupdate")) {
 			int qano = Integer.parseInt(request.getParameter("qano"));
 			
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
+			String qatitle = request.getParameter("qatitle");
+			String qacontent = request.getParameter("qacontent");
 			//String photo = request.getParameter("photo");
 			
 			QnaDto dto = new QnaDto();
-			dto.setQatitle(title);
-			dto.setQacontent(content);
+			
+			dto.setQatitle(qatitle);
+			dto.setQacontent(qacontent);
+			dto.setQano(qano);
 			//dto.setQapic(photo);
 			
 			int res = udao.update(dto);
@@ -141,7 +143,7 @@ public class MainController extends HttpServlet {
 			if(res>0) {
 				dispatch("MainController?command=qna",request,response);
 			}else {
-				dispatch("MainController?command=detail&qano="+qano,request,response);
+				dispatch("MainController?command=selectone&qano="+qano,request,response);
 			}
 			
 		}else if(command.equals("delete")) {
@@ -155,6 +157,9 @@ public class MainController extends HttpServlet {
 			}else {
 				dispatch("MainController?command=detail&qano="+qano, request, response);
 			}
+			
+			
+			
 		}else if(command.equals("deleteinfo")) {
 			int userno = Integer.parseInt(request.getParameter("userno"));
 			

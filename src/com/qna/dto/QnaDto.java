@@ -34,6 +34,7 @@ public class QnaDto {
 		this.qafaq = qafaq;
 		this.qareg = qareg;
 		this.qastatus = qastatus;
+
 	}
 	
 	public int getQano() {

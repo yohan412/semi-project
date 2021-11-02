@@ -51,7 +51,25 @@
 		border-radius: 5px;
 	}
 </style>
-
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script> 
+	/* 유효성 검사 
+	$(function() {
+		$("form").submit(function() {
+			if ($("#title").val() === "") {
+				alert("제목을 입력하세요.");
+				$("#title").focus();
+				return false;
+			}else if ($("#content").val() === "") {
+				alert("내용을 입력하세요.");
+				$("#content").focus();
+				return false;
+			}else{
+				return true;
+			}
+		})
+	})*/
+</script>
 </head>
 <body>
 <h2 align="center">1 : 1 문의</h2>

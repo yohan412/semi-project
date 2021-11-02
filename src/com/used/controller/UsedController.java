@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.center.dto.CenterDto;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.pic.dto.PicDto;
 import com.used.dao.UsedDao;
 import com.used.dto.UsedDto;
 import com.usedask.dao.UsedaskDao;
@@ -37,19 +38,25 @@ public class UsedController extends HttpServlet {
 		if(command.equals("usedlist")) {
 			
 			List<UsedDto> usedList = usedDao.selectAll();
+			List<PicDto> piclist =usedDao.selectAllPic();
+			
 			
 			request.setAttribute("usedList", usedList);
-			
+			if(piclist != null) {
+			request.setAttribute("piclist", piclist);
+			}
 			dispatch("used_list.jsp",request,response);
 			
 		}
 		else if(command.equals("useddetail")) {
 			
-			int usedno = Integer.parseInt(request.getParameter("usedno"));			
+			int usedno = Integer.parseInt(request.getParameter("usedno"));
 			
+			List<PicDto> piclist = usedDao.selectPics(usedno);
 			UsedDto usedDto = usedDao.selectOne(usedno);
 			List<UsedaskDto> usklist = uskDao.selectAll(usedno);
 			
+			request.setAttribute("piclist", piclist);
 			request.setAttribute("usklist", usklist);
 			request.setAttribute("usedDto", usedDto);
 			dispatch("used_detail.jsp",request,response);

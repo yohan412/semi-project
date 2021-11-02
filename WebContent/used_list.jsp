@@ -154,6 +154,7 @@ a{
 
 	//controller 에서 받아올 used db정보
 	var usedList;
+	var piclist;
 	//실제로 CenterBoard에 표현되는 리스트들
 	var boardlist;
 	//페이지 시작과 동시에 실행될 작업들
@@ -177,6 +178,23 @@ a{
 			usedList.push(tmpUsed);
 		</c:forEach>
 		
+		piclist = new Array();
+		
+		var picObj = function(usedno,name,path){
+			this.usedno = usedno;
+			this.name = name;
+			this.path = path;
+		}
+		
+		<c:choose>
+		<c:when test="${!empty piclist}">
+		<c:forEach items="${piclist}" var="pic">
+			var tempPic = 
+				new picObj("${pic.boardno}","${pic.picname}","${pic.picpath}");
+			piclist.push(tempPic);
+		</c:forEach>		
+		</c:when>
+		</c:choose>
 		//주소-좌표 변환 해주는 객체 생성
 		var geocoder = new kakao.maps.services.Geocoder();
 		
@@ -212,10 +230,13 @@ a{
 		for(var i = 0 ; i < list.length ; i++){
 			//center 정보중 pic가 null,공백 일 경우 default 이미지를 넣음
 			var imgtag;
-			if(true){
+			var tmppic = piclist.filter(function(e){
+				return e.usedno == list[i].no;
+			});
+			if(tmppic[0] == undefined){
 				imgtag="<img src='img/center_default.png'>";
 			}else{
-				imgtag="<img src='"+list[i].pic+"'>"
+				imgtag="<img src='"+tmppic[0].path+"'alt ='"+tmppic[0].name+"'>";
 			}
 			
 			var distanceinfo;

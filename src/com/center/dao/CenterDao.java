@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.center.dto.CenterDto;
+import com.pic.dto.PicDto;
 
 import common.JDBCTemplate;
 
@@ -204,6 +205,82 @@ public class CenterDao extends JDBCTemplate{
 			System.out.println("05.db 종료");
 		}
 		
+		return res;
+	}
+	
+	public List<PicDto> selectAllPic(){
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;		
+		List<PicDto> res = new ArrayList<PicDto>();
+		
+		String sql = "SELECT * FROM CENTER_PIC WHERE(PIC_NO) IN (SELECT MIN(PIC_NO) FROM CENTER_PIC GROUP BY CENTER_NO)";
+		
+		try {
+			pstm=con.prepareStatement(sql);
+			System.out.println("03. query 준비 : "+sql);
+			
+			rs=pstm.executeQuery();
+			System.out.println("04. query 실행 및 리턴");
+			
+			while(rs.next()) {
+				PicDto tmp = new PicDto();
+				
+				tmp.setBoardno(rs.getInt(1));
+				tmp.setPicno(rs.getInt(2));
+				tmp.setPicname(rs.getString(3));
+				tmp.setPicpath(rs.getString(4));
+				
+				res.add(tmp);
+			}
+		} catch (SQLException e) {
+			System.out.println("error: 3/4단계 failed");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료 \n");
+		}
+		return res;
+	}
+	
+	public List<PicDto> selectPics(int centerno){
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;		
+		List<PicDto> res = new ArrayList<PicDto>();
+		
+		String sql = "SELECT * FROM CENTER_PIC WHERE CENTER_NO=?";
+		
+		try {
+			pstm=con.prepareStatement(sql);
+			pstm.setInt(1, centerno);
+			System.out.println("03. query 준비 : "+sql);
+			
+			rs=pstm.executeQuery();
+			System.out.println("04. query 실행 및 리턴");
+			
+			while(rs.next()) {
+				PicDto tmp = new PicDto();
+				
+				tmp.setBoardno(rs.getInt(1));
+				tmp.setPicno(rs.getInt(2));
+				tmp.setPicname(rs.getString(3));
+				tmp.setPicpath(rs.getString(4));
+				
+				res.add(tmp);
+			}
+		} catch (SQLException e) {
+			System.out.println("error: 3/4단계 failed");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료 \n");
+		}
 		return res;
 	}
 }

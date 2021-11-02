@@ -32,10 +32,33 @@
 					,"${review.reviewcontent}","${review.reviewreg}");
 			reviewlist.push(tempReview);
 			</c:forEach>
-
 			makeBoardList(reviewlist);
 		</c:when>
 		</c:choose>
+		
+		var piclist = new Array();
+		
+		var picObj = function(centerno,name,path){
+			this.centerno = centerno;
+			this.name = name;
+			this.path = path;
+		}
+		
+		<c:choose>
+		<c:when test="${!empty piclist}">
+		//CenterController 에서 보내준 piclist의 값을 넣어줌
+			<c:forEach items="${piclist}" var="pic">
+			var tempPic = 
+				new picObj("${pic.boardno}","${pic.picname}","${pic.picpath}");
+			piclist.push(tempPic);
+			</c:forEach>
+			makeimgGallery(piclist);
+			$(".img_part").empty();
+			$(".img_part").append("<img src='"+piclist[0].path+"' alt = '"+piclist[0].name+"'>");
+		</c:when>
+		</c:choose>
+		
+		
 	});
 	function makeBoardList(list){
 		//tbody의 자식 요소 초기화
@@ -55,6 +78,16 @@
 				+"<span class='review_reg'>&nbsp;&nbsp; 등록일 : "+list[i].reg+"</span>"+"<br>"
 				+"</div></td>"
 				+"</tr>"		
+			);
+		}
+	}
+	function makeimgGallery(list){
+		
+		$(".cont_images").empty();
+		
+		for(var i = 0 ; i < list.length; i++){
+			$(".cont_images").append(
+				"<img src='"+list[i].path+"' alt = '"+list[i].name+"'>"
 			);
 		}
 	}
@@ -198,7 +231,7 @@ h1, p{
             <hr>
             <div class="top_cont">
                 <div class="img_part">                	
-                    		<img src="./img/center_default.png">                   
+                    <img src="./img/center_default.png">            
                 </div>
                 <div class="txt_part">
                     <p>${centerDto.centeraddr}</p>

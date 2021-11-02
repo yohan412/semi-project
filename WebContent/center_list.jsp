@@ -21,9 +21,10 @@ response.setContentType("text/html; charset=UTF-8");
 
 <script type="text/javascript">
 	
-	//map, centerlist 는 다른 함수에도 필요하여 전역변수로 선언
+	//map, centerlist,piclist 는 다른 함수에도 필요하여 전역변수로 선언
 	var map;
 	var centerlist;
+	var piclist;
 	
 	//실제로 CenterBoard에 표현되는 리스트들
 	var boardlist;
@@ -87,6 +88,21 @@ response.setContentType("text/html; charset=UTF-8");
 			new centerObj("${center.centerno}","${center.centername}","${center.centeraddr}","${center.centerprice}",
 					"${center.centercategory}","${center.centergrade}");
 		centerlist.push(tempCenter);
+		</c:forEach>
+		
+		piclist = new Array();
+		
+		var picObj = function(centerno,name,path){
+			this.centerno = centerno;
+			this.name = name;
+			this.path = path;
+		}
+		//CenterController 에서 보내준 piclist의 값을 넣어줌
+		
+		<c:forEach items="${piclist}" var="pic">
+		var tempPic = 
+			new picObj("${pic.boardno}","${pic.picname}","${pic.picpath}");
+		piclist.push(tempPic);
 		</c:forEach>
 		
 		makeCenterList(centerlist,true);
@@ -159,10 +175,14 @@ response.setContentType("text/html; charset=UTF-8");
 		for(var i = 0 ; i < list.length ; i++){
 			//center 정보중 pic가 null,공백 일 경우 default 이미지를 넣음
 			var imgtag;
-			if(!list[i].pic){
+			
+			var tmppic = piclist.filter(function(e){
+				return e.centerno == list[i].no;
+			});
+			if(tmppic[0] == undefined){
 				imgtag="<img src='img/center_default.png'>";
 			}else{
-				imgtag="<img src='"+list[i].pic+"'>"
+				imgtag="<img src='"+tmppic[0].path+"'alt ='"+tmppic[0].name+"'>";
 			}
 			$("tbody").append(
 				"<tr>"

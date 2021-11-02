@@ -111,7 +111,7 @@ public class CenterController extends HttpServlet {
 				dto.setBizaddr(bizaddr);
 				dto.setBizcategory(bizcategory);
 				dto.setBizcontent(bizcontent);
-				dto.setBizpic(uploadpath+"'\'"+imgpath);
+				dto.setBizpic(uploadpath+"\\"+imgpath);
 				
 				int res = bdao.insert(dto);
 				
@@ -243,7 +243,7 @@ public class CenterController extends HttpServlet {
 					imgpath = multi.getFilesystemName(imgfile);
 					imgname = multi.getOriginalFileName(imgfile);
 						
-					res = dao.insert_pic(rs, imgname, uploadpath+"'\'"+imgpath);
+					res = dao.insert_pic(rs, imgname, uploadpath+"\\"+imgpath);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

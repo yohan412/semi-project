@@ -1,9 +1,6 @@
 package com.user.dto;
-
 import java.util.Date;
-
 public class UserDto {
-
 	private int userno;
 	private String userid;
 	private String userpw;
@@ -37,7 +34,7 @@ public class UserDto {
 		this.userenabled = userenabled;
 		this.userwish = userwish;
 	}
-	
+
 	public UserDto(int userno, String userid, String userpw, String username, String usergender, String userbirthdate,
 			String useremail, String userphone, String userzip, String useraddr, String role, Date reg,
 			String userenabled, String userwish) {
@@ -71,7 +68,6 @@ public class UserDto {
 		this.userzip = userzip;
 		this.useraddr = useraddr;
 	}
-
 	public int getUserno() {
 		return userno;
 	}
@@ -156,6 +152,5 @@ public class UserDto {
 	public void setUserwish(String userwish) {
 		this.userwish = userwish;
 	}
-
 	
 }

@@ -1,7 +1,5 @@
 package com.user.dao;
-
 import static common.JDBCTemplate.*;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +8,6 @@ import java.sql.SQLException;
 import com.user.dto.UserDto;
 
 public class UserDao {
-
 	public UserDto login(String user_id, String user_pw) {
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
@@ -58,7 +55,6 @@ public class UserDao {
 		}
 		return res;
 	}
-
 	
 	public String idChk(String id) {
 		Connection con = getConnection();
@@ -132,7 +128,6 @@ public class UserDao {
 		
 		return res;
 	}
-
 	public boolean delete(int userno) {
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
@@ -164,7 +159,6 @@ public class UserDao {
 		}
 		return (res>0)?true:false;
 	}
-
 	public int update(UserDto dto) {
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
@@ -202,40 +196,32 @@ public class UserDao {
 		}
 		return res;
 	}
-	
+
 	public UserDto selectOne(int userno) {
-		
+
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		UserDto res = new UserDto();
-		
+
 		String sql ="SELECT * FROM USER_INFO WHERE USER_NO=?";
-		
+
 		try {
 			pstm = con.prepareStatement(sql);
 			pstm.setInt(1, userno);
 			System.out.println("03. query 준비 : " + sql);
-			
+
 			rs = pstm.executeQuery();
 			System.out.println("04. query 실행 및 리턴");
-			
+
 			while(rs.next()) {
 				res.setUserno(rs.getInt(1));
-				res.setUserid(rs.getString(2));
-				res.setUserpw(rs.getString(3));
-				res.setUsername(rs.getString(4));
-				res.setUsergender(rs.getString(5));
-				res.setUserbirthdate(rs.getString(6));
-				res.setUseremail(rs.getString(7));
-				res.setUserphone(rs.getString(8));
-				res.setUserzip(rs.getString(9));
-				res.setUseraddr(rs.getString(10));
+	@@ -251,35 +234,21 @@ public UserDto selectUser(int userno) {
 				res.setRole(rs.getString(11));
 				res.setReg(rs.getDate(12));
 				res.setUserenabled(rs.getString(13));
 				res.setUserwish(rs.getString(14));
-				
+
 			}
 		} catch (SQLException e) {
 			System.out.println("3/4 단계 에러");
@@ -246,9 +232,9 @@ public class UserDao {
 			close(con);
 			System.out.println("05.db 종료");
 		}
-		
+
 		return res;
 	}
 
-	
+
 }

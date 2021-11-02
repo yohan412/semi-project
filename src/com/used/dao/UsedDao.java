@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pic.dto.PicDto;
 import com.used.dto.UsedDto;
 
 import common.JDBCTemplate;
@@ -278,7 +279,7 @@ public class UsedDao extends JDBCTemplate{
 		PreparedStatement pstm = null;
 		int res=0;
 		
-		String sql = " INSERT INTO USED_PIC VALUES(?,?,?)";
+		String sql = " INSERT INTO USED_PIC VALUES(?,UPIC_NOSQ.NEXTVAL,?,?)";
 		
 		try {
 			pstm = con.prepareStatement(sql);
@@ -300,6 +301,82 @@ public class UsedDao extends JDBCTemplate{
 			System.out.println("05.db 종료");
 		}
 		
+		return res;
+	}
+	
+		public List<PicDto> selectAllPic(){	
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;		
+		List<PicDto> res = new ArrayList<PicDto>();
+		
+		String sql = "SELECT * FROM USED_PIC WHERE(PIC_NO) IN (SELECT MIN(PIC_NO) FROM USED_PIC GROUP BY USED_NO)";
+		
+		try {
+			pstm=con.prepareStatement(sql);
+			System.out.println("03. query 준비 : "+sql);
+			
+			rs=pstm.executeQuery();
+			System.out.println("04. query 실행 및 리턴");
+			
+			while(rs.next()) {
+				PicDto tmp = new PicDto();
+				
+				tmp.setBoardno(rs.getInt(1));
+				tmp.setPicno(rs.getInt(2));
+				tmp.setPicname(rs.getString(3));
+				tmp.setPicpath(rs.getString(4));
+				
+				res.add(tmp);
+			}
+		} catch (SQLException e) {
+			System.out.println("error: 3/4단계 failed");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료 \n");
+		}
+		return res;
+		}
+	
+	public List<PicDto> selectPics(int usedno){
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;		
+		List<PicDto> res = new ArrayList<PicDto>();
+		
+		String sql = "SELECT * FROM USED_PIC WHERE USED_NO=?";
+		
+		try {
+			pstm=con.prepareStatement(sql);
+			pstm.setInt(1, usedno);
+			System.out.println("03. query 준비 : "+sql);
+			
+			rs=pstm.executeQuery();
+			System.out.println("04. query 실행 및 리턴");
+			
+			while(rs.next()) {
+				PicDto tmp = new PicDto();
+				
+				tmp.setBoardno(rs.getInt(1));
+				tmp.setPicno(rs.getInt(2));
+				tmp.setPicname(rs.getString(3));
+				tmp.setPicpath(rs.getString(4));
+				
+				res.add(tmp);
+			}
+		} catch (SQLException e) {
+			System.out.println("error: 3/4단계 failed");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료 \n");
+		}
 		return res;
 	}
 }

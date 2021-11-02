@@ -149,10 +149,10 @@ tbody a {
 	color:black;
 	cursor:pointer;
 }
-.pic img{
+.pic .usedpic{
 	transition:all 02.x linear;
 }
-.pic img:hover{
+.pic .usedpic:hover{
 	transform:scale(3);
 }
 #board_blank{
@@ -181,8 +181,7 @@ input[type=button]{
 
 	$(function(){
 		
-		var centerAddr = "${usedDto.usedaddr}";
-		
+		var centerAddr = "${usedDto.usedaddr}";		
 		
 		// 주소-좌표 변환 객체를 생성	
 		var geocoder = new kakao.maps.services.Geocoder();
@@ -239,6 +238,26 @@ input[type=button]{
 			uskList.push(tmpUsk);
 		</c:forEach>		
 		makeBoardList(uskList,false);
+		</c:when>
+		</c:choose>
+		
+		var piclist = new Array();
+		
+		var picObj = function(usedno,name,path){
+			this.usedno = usedno;
+			this.name = name;
+			this.path = path;
+		}
+		
+		<c:choose>
+		<c:when test="${!empty piclist}">
+		//CenterController 에서 보내준 piclist의 값을 넣어줌
+			<c:forEach items="${piclist}" var="pic">
+			var tempPic = 
+				new picObj("${pic.boardno}","${pic.picname}","${pic.picpath}");
+			piclist.push(tempPic);
+			</c:forEach>
+			makeimgGallery(piclist);
 		</c:when>
 		</c:choose>
 		
@@ -340,7 +359,16 @@ input[type=button]{
 		//테이블 페이징
 		tablePagenation();
 	}
-	
+	function makeimgGallery(list){
+		
+		$(".pic").empty();
+		
+		for(var i = 0 ; i < list.length; i++){
+			$(".pic").append(
+				"<img class='usedpic' src='"+list[i].path+"' alt = '"+list[i].name+"'>"
+			);
+		}
+	}
 	function tablePagenation(){
 		/*
 		변수 생성
@@ -426,9 +454,7 @@ input[type=button]{
 				</div>
 				
 				<div class="pic">
-					<img src="./img/tmp_image.png">
-					<img src="./img/tmp_image.png">
-					<img src="./img/tmp_image.png">
+					<img src="./img/no_photo.png">
 				</div>
 				
 				<div class="ask_list">

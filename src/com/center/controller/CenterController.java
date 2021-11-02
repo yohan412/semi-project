@@ -74,7 +74,7 @@ public class CenterController extends HttpServlet {
 			String imgpath = ""; //이미지 경로 초기화
 			String imgname = ""; //이미지 이름 초기화
 			
-			String uploadpath = request.getRealPath("upload"); //upload파일에 실제 경로 설정
+			String uploadpath = request.getRealPath("download"); //upload파일에 실제 경로 설정
 			
 			System.out.println(uploadpath); //경로확인용
 			
@@ -111,7 +111,7 @@ public class CenterController extends HttpServlet {
 				dto.setBizaddr(bizaddr);
 				dto.setBizcategory(bizcategory);
 				dto.setBizcontent(bizcontent);
-				dto.setBizpic(uploadpath+imgpath);
+				dto.setBizpic(uploadpath+"\\"+imgpath);
 				
 				int res = bdao.insert(dto);
 				
@@ -207,7 +207,7 @@ public class CenterController extends HttpServlet {
 			String imgpath = ""; //이미지 경로 초기화
 			String imgname = ""; //이미지 이름 초기화
 			
-			String uploadpath = request.getRealPath("upload"); //upload파일에 실제 경로 설정
+			String uploadpath = request.getRealPath("download"); //upload파일에 실제 경로 설정
 			
 			int res=0;
 			
@@ -243,7 +243,7 @@ public class CenterController extends HttpServlet {
 					imgpath = multi.getFilesystemName(imgfile);
 					imgname = multi.getOriginalFileName(imgfile);
 						
-					res = dao.insert_pic(rs, imgname, uploadpath+imgpath);
+					res = dao.insert_pic(rs, imgname, uploadpath+"\\"+imgpath);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

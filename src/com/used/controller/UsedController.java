@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.center.dto.CenterDto;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.pic.dto.PicDto;
 import com.used.dao.UsedDao;
 import com.used.dto.UsedDto;
 import com.usedask.dao.UsedaskDao;
@@ -37,19 +38,25 @@ public class UsedController extends HttpServlet {
 		if(command.equals("usedlist")) {
 			
 			List<UsedDto> usedList = usedDao.selectAll();
+			List<PicDto> piclist =usedDao.selectAllPic();
+			
 			
 			request.setAttribute("usedList", usedList);
-			
+			if(piclist != null) {
+			request.setAttribute("piclist", piclist);
+			}
 			dispatch("used_list.jsp",request,response);
 			
 		}
 		else if(command.equals("useddetail")) {
 			
-			int usedno = Integer.parseInt(request.getParameter("usedno"));			
+			int usedno = Integer.parseInt(request.getParameter("usedno"));
 			
+			List<PicDto> piclist = usedDao.selectPics(usedno);
 			UsedDto usedDto = usedDao.selectOne(usedno);
 			List<UsedaskDto> usklist = uskDao.selectAll(usedno);
 			
+			request.setAttribute("piclist", piclist);
 			request.setAttribute("usklist", usklist);
 			request.setAttribute("usedDto", usedDto);
 			dispatch("used_detail.jsp",request,response);
@@ -162,8 +169,9 @@ public class UsedController extends HttpServlet {
 			String imgpath = ""; //이미지 경로 초기화
 			String imgname = ""; //이미지 이름 초기화
 			
-			String uploadpath = request.getRealPath("upload"); //upload파일에 실제 경로 설정
+			String uploadpath = request.getRealPath("download"); //upload파일에 실제 경로 설정
 			
+			System.out.println(uploadpath);
 			int res=0;
 			
 			try {
@@ -204,7 +212,7 @@ public class UsedController extends HttpServlet {
 					imgpath = multi.getFilesystemName(imgfile);
 					imgname = multi.getOriginalFileName(imgfile);
 						
-					res = usedDao.insert_pic(rs, imgname, uploadpath+imgpath);
+					res = usedDao.insert_pic(rs, imgname, uploadpath+"\\"+imgpath);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

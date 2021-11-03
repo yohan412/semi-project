@@ -103,7 +103,6 @@ function b_list(type){
 			<table class="faq_table" border="1">
 				<tr>
 					<th style="width:80px;">유형</th>	
-					<th style="width:80px;">NO.</th>
 					<th style="width:400px;">자주하는 질문 리스트</th>
 				</tr>	
 				<tr>

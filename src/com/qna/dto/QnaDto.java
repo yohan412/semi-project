@@ -4,17 +4,17 @@ import java.util.Date;
 
 
 public class QnaDto {
-	private int qano;
-	private int qagpno;
-	private int qagpsq;
-	private String userid;
-	private int userno;
-	private String qatype;
-	private String qatitle;	
-	private String qacontent;
-	private String qafaq;
-	private Date qareg;
-	private String qastatus;
+	private int qano;			//문의글번호
+	private int qagpno;			//그룹번호
+	private int qagpsq;			//그룹번호 내 번호
+	private String userid;		//아이디
+	private int userno;			//회원번호
+	private String qatype;		//유형
+	private String qatitle;		//제목
+	private String qacontent;	//내용
+	private String qafaq;		//FAQ 여부 ('Y' || 'N(default)')
+	private Date qareg;			//작성일자
+	private String qastatus;	//답변상태	 ('Y' || 'N(default)')
 		
 	public QnaDto() {
 		super();

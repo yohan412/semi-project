@@ -1,8 +1,6 @@
 package com.user.controller;
-
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,11 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.user.dao.UserDao;
 import com.user.dto.UserDto;
-
-
 @WebServlet("/usercontroller")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -41,18 +36,36 @@ public class UserController extends HttpServlet {
 			}
 			
 			response.sendRedirect("idchk.jsp?idnotused="+idnotused);
+		}else if(command.equals("login")){String command = request.getParameter("command");
+		System.out.println("[ command : " + command + "]");
+		
+		UserDao dao = new UserDao();
+		
+		
+		if(command.equals("idChk")) {
+			String myid=request.getParameter("id");
+			String res = dao.idChk(myid);
+			
+			boolean idnotused=true;
+			
+			//중복되는 경우가 있을경우
+			if(res!=null){ 
+				idnotused=false;
+			}
+			
+			response.sendRedirect("idchk.jsp?idnotused="+idnotused);
 		}else if(command.equals("login")){
 			String user_id = request.getParameter("user_id");
 			String user_pw = request.getParameter("user_pw");
-			
+
 			UserDto loginUser = dao.login(user_id, user_pw);
-			
+
 			if(loginUser.getUserid() != null) {
-				
+
 				HttpSession session = request.getSession();
 				session.setAttribute("loginUser", loginUser);
 				session.setMaxInactiveInterval(60*60);
-			
+
 				if(loginUser.getRole().equals("M")) {
 					dispatch("main.jsp",request,response);
 				}else if(loginUser.getRole().equals("BU")) {
@@ -62,12 +75,11 @@ public class UserController extends HttpServlet {
 				}else if(loginUser.getRole().equals("GU")) {
 					dispatch("main.jsp",request,response);
 				}
-			
+
 			}else {
 				jsResponse("로그인 실패","main.jsp",response);
 			
 			}
-
 		}else if(command.equals("insertuser")) {
 			String myid = request.getParameter("myid");
 			String mypw = request.getParameter("mypw");
@@ -83,34 +95,8 @@ public class UserController extends HttpServlet {
 			dto.setUserid(myid);
 			dto.setUserpw(mypw);
 			dto.setUsername(myname);
-			dto.setUserzip(myzip);
-			dto.setUsergender(mygender);
-			dto.setUserbirthdate(mybirth);
-			dto.setUseraddr(myaddr);
-			dto.setUserphone(myphone);
-			dto.setUseremail(myemail);
-			
-			
-			int res = dao.insertUser(dto);
-			
-			if(res>0) {
-				jsResponse("회원 가입 성공", "usercontroller?command=loginform", response);
-			}else {
-				jsResponse("회원 가입 실패", "usercontroller?command=registform", response);
-			}
-		}else if(command.equals("registform")) {
-			response.sendRedirect("join_user.jsp");
-		}else if(command.equals("naver_login")) {
-			response.sendRedirect("naverlogin.jsp");
-		
-		}else if(command.equals("logout")) {
-		HttpSession session = request.getSession();
-		session.invalidate();
-		response.sendRedirect("main.jsp");
-		
-		}else if(command.equals("loginform")) {
-			response.sendRedirect("login.jsp");
 		}
+
 	}
 	
 	private void dispatch(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -131,5 +117,3 @@ public class UserController extends HttpServlet {
 	
 	
 }
-
-

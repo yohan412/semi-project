@@ -216,6 +216,7 @@ public class UserDao {
 
 			while(rs.next()) {
 				res.setUserno(rs.getInt(1));
+	@@ -251,35 +234,21 @@ public UserDto selectUser(int userno) {
 				res.setRole(rs.getString(11));
 				res.setReg(rs.getDate(12));
 				res.setUserenabled(rs.getString(13));

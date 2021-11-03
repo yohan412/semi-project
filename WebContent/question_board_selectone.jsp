@@ -87,7 +87,7 @@
 							<option value="center">시설</option>
 							<option value="etc">기타</option>
 	<script type="text/javascript">							
-					var selectoption = document.getElementById("qna)category");
+					var selectoption = document.getElementById("qna_category");
 					selectoption = selectoption.options[selectoption.selectedIndex].value;
 	</script>					
 					

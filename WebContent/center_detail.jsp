@@ -10,10 +10,51 @@
 <head>
 <meta charset="UTF-8">
 <title>${centerDto.centername} 상세페이지</title>
+<script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cf6a0311e8ff428c0d13bd95e775d7f3&libraries=services"></script>
 <script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	
 	$(function(){
+		
+		var centerAddr = "${centerDto.centeraddr}";		
+		
+		// 주소-좌표 변환 객체를 생성	
+		var geocoder = new kakao.maps.services.Geocoder();
+		
+		//주소 검색하여 주소를 좌표로 변환
+		geocoder.addressSearch(centerAddr,function(result, status) {
+
+			// 정상적으로 검색이 완료됐으면 
+			if (status === kakao.maps.services.Status.OK) {
+				
+				var container = document.getElementById('map'); //지도를 표시할 div
+				var options = {
+					center : new kakao.maps.LatLng(result[0].y, result[0].x), //지도의 중심 좌표
+					level : 4
+				//지도 확대 레벨
+				};
+				//지도 생성
+				map = new kakao.maps.Map(container, options);
+
+				var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+				//마커로 표시
+				var marker = new kakao.maps.Marker({
+					map : map,
+					position : coords
+				});
+				
+				// 인포윈도우로 장소에 대한 설명을 표시
+				var infowindow = new kakao.maps.InfoWindow(
+					{
+						content : '<div style="width:150px;text-align:center;padding:6px 0;">'
+								+ "${centerDto.centername}"
+								+ '</div>',
+						position : coords
+					});
+				infowindow.open(map, marker);
+			}
+			
+		});
 		
 		var reviewlist = new Array();
 		// center 객체
@@ -80,6 +121,58 @@
 				+"</tr>"		
 			);
 		}
+		tablePagenation();
+	}
+	function tablePagenation(){
+		/*
+		변수 생성
+		- rowsPerPage페이지당 보여줄 개수 20
+		- rows 가로행 tr 
+		- rowsCount 개수 100
+		- pageCount 페이지네이션 개수 = 100/20
+		- pagenumbers
+		콘솔에서 pageCount 찍어보고
+		*/
+		$("#numbers").empty();
+		var rowsPerPage = 3,
+			rows = $('#review_list tbody tr'),
+			rowsCount = rows.length
+			pageCount = Math.ceil(rowsCount/rowsPerPage),
+			numbers = $('#numbers');
+		
+		/* 페이지네이션 li를 생성 반복문*/
+		for(var i = 0 ; i < pageCount;i++){
+			numbers.append('<li><a href="">'+(i+1)+'</a></li>');
+		}
+		//#numbers li:first-child a
+		numbers.find('li:first-child a').addClass('active');
+		
+		//페이지네이션 함수 displayRows
+		function displayRows(idx){
+			
+			var start = (idx)*rowsPerPage;
+				end = start + rowsPerPage;
+				
+			rows.hide();
+			//해당하는 부분만 보여줌
+			rows.slice(start,end).show();
+		}
+		
+		displayRows(0);
+		//페이지네이션 클릭시 보여주기
+		/*
+			클릭한 그 a 태그의 active,
+			그 요소의 숫자를 dislplayRows의 매개변수로 지정
+		*/
+		numbers.find('li').click(function(e){
+			//a태그의 이벤트를 막음
+			e.preventDefault();
+			
+			numbers.find('li a').removeClass('active');
+			$(this).find('a').addClass('active');
+			var index = $(this).index();
+			displayRows(index);
+		});
 	}
 	function makeimgGallery(list){
 		
@@ -154,8 +247,12 @@ h1, p{
 #main .information a{
     margin: 0 15px;
 }
-
-#center_intro,#center_info,#center_time,#center_program{
+#map{
+	display:inline-block;
+	width:500px;
+	height:260px;
+}
+#center_intro,#center_info,#center_time,#center_program,#center_location{
 	display:flex;
 	width:90%;
 	margin-left:5%;
@@ -218,6 +315,23 @@ h1, p{
 }
 #review_button{
 	align-self:flex-end;
+}
+
+#numbers{
+	list-style: none;
+}
+#numbers li{
+	display:inline-block;
+	margin-left:5px;
+	margin-right:5px;
+}
+#numbers li a {
+	text-decoration: none;
+	color:black;
+	font-weight:bold;
+}
+#numbers li a.active {
+	color:blue;
 }
 </style>
 </head>
@@ -285,6 +399,14 @@ h1, p{
                      	${centerDto.centerpro}
                     </div>
                 </div>
+                <div id="center_location">
+                	<div class="cont_head">
+                		<h2 id="f">위치</h2>
+                	</div>
+                    <div class="cont_info">
+                     	<div id="map"></div>
+                    </div>
+                </div>
             </div>
             <div class="img_cont">
                 <div>
@@ -314,6 +436,10 @@ h1, p{
 					</div>
 					</td></tr>
 					</tbody>
+					<tfoot>
+					<tr><td align="center">
+					<div class="pagination"><ol id="numbers"></ol></div></td></tr>
+					</tfoot>
 					</table>
  				</div>           
             </div>

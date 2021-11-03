@@ -135,6 +135,8 @@ tfoot input{
 }
 
 .brief_category{
+	text-align:center;
+	font-weight:bold;
 	width:80px;
 	display:inline-block;
 }

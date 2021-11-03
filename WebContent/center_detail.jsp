@@ -54,7 +54,7 @@
 			</c:forEach>
 			makeimgGallery(piclist);
 			$(".img_part").empty();
-			$(".img_part").append("<img src='"+piclist[0].path+"' alt = '"+piclist[0].name+"'>");
+			$(".img_part").append("<img src='/download/"+piclist[0].path+"'alt='"+piclist[0].name+"'>");
 		</c:when>
 		</c:choose>
 		
@@ -87,7 +87,7 @@
 		
 		for(var i = 0 ; i < list.length; i++){
 			$(".cont_images").append(
-				"<img src='"+list[i].path+"' alt = '"+list[i].name+"'>"
+				"<img src='/download/"+list[i].path+"' alt = '"+list[i].name+"'>"
 			);
 		}
 	}

@@ -365,7 +365,7 @@ input[type=button]{
 		
 		for(var i = 0 ; i < list.length; i++){
 			$(".pic").append(
-				"<img class='usedpic' src='"+list[i].path+"' alt = '"+list[i].name+"'>"
+				"<img class='usedpic' src='/download/"+list[i].path+"' alt = '"+list[i].name+"'>"
 			);
 		}
 	}

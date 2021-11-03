@@ -182,7 +182,7 @@ response.setContentType("text/html; charset=UTF-8");
 			if(tmppic[0] == undefined){
 				imgtag="<img src='img/center_default.png'>";
 			}else{
-				imgtag="<img src='"+tmppic[0].path+"'alt ='"+tmppic[0].name+"'>";
+				imgtag="<img src='/download/"+tmppic[0].path+"'alt ='"+tmppic[0].name+"'>";
 			}
 			$("tbody").append(
 				"<tr>"

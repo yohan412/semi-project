@@ -236,7 +236,7 @@ a{
 			if(tmppic[0] == undefined){
 				imgtag="<img src='img/center_default.png'>";
 			}else{
-				imgtag="<img src='"+tmppic[0].path+"'alt ='"+tmppic[0].name+"'>";
+				imgtag="<img src='/download/"+tmppic[0].path+"'alt ='"+tmppic[0].name+"'>";
 			}
 			
 			var distanceinfo;

@@ -245,6 +245,7 @@ h1, p{
     margin: 10px;
     width: 200px;
     height: 200px;
+    border-radius:10px;
 }
 #main .wrap .top_cont .txt_part{
     display: inline-block;

@@ -58,7 +58,8 @@
 		
 		var reviewlist = new Array();
 		// center 객체
-		var reviewObj = function(writer,grade,content,reg) {
+		var reviewObj = function(no,writer,grade,content,reg) {
+			this.no = no;
 			this.writer = writer;
 			this.grade = grade;
 			this.content= content;
@@ -69,7 +70,7 @@
 		//CenterController 에서 보내준 reviewlist의 값을 넣어줌
 			<c:forEach items="${reviewList}" var="review">
 			var tempReview = 
-				new reviewObj("${review.reviewwriter}","${review.reviewgrade}"
+				new reviewObj("${review.reviewno}","${review.reviewwriter}","${review.reviewgrade}"
 					,"${review.reviewcontent}","${review.reviewreg}");
 			reviewlist.push(tempReview);
 			</c:forEach>
@@ -115,7 +116,7 @@
 				+"<span class='review_grade'>&nbsp;&nbsp; " 
 				+"평점 : <span class='star-rating'><span style='width:"+(list[i].grade*20)+"%'></span>"
                 +"</span> ("+list[i].grade+")</span>"+"<br>"
-				+"<span class='review_contents'>&nbsp;&nbsp; 내용 : "+list[i].content+"</span>"+"<br>"
+				+"<span class='review_contents'>&nbsp;&nbsp; 내용 : <a href='#' onclick='reviewdetail_chk("+list[i].no+")'>"+list[i].content+"</a></span>"+"<br>"
 				+"<span class='review_reg'>&nbsp;&nbsp; 등록일 : "+list[i].reg+"</span>"+"<br>"
 				+"</div></td>"
 				+"</tr>"		
@@ -186,7 +187,7 @@
 	}
 	function review_login_chk(){
 		if(${loginUser==null }){
-			if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
+			if(confirm("로그인이 필요한 동작입니다.\n 로그인 하시겠습니까?")){
 				location.href="login.jsp"
 			}else{
 				
@@ -194,6 +195,21 @@
 		} else{
 			//로그인 상태라면 컨르롤러에 작업 요청
 			location.href='CenterController?command=review_write_form&centerno=${centerDto.centerno}'
+		}
+	}
+	
+	function reviewdetail_chk(no){
+		if(${loginUser==null }){
+			if(confirm("로그인이 필요한 동작입니다.\n 로그인 하시겠습니까?")){
+				location.href="login.jsp"
+			}else{
+				
+			}
+		} else{
+			var popupX = window.screen.width/2;
+			var popupY = window.screen.height/2;
+			var option="top="+popupY+",left="+popupX+",width=515,height=650, status=no,menubar=no,toolbar=no,resizable=no";
+			window.open('CenterController?command=review_detail&loginid=${loginUser.userid}&reviewno='+no,"리뷰 상세보기",option);
 		}
 	}
 </script>
@@ -274,6 +290,7 @@ h1, p{
 .cont_images img{
 	width:300px;
 	height:200px;
+	margin:5px;
 }
 .review_content,.empty_review{
 	height:150px;
@@ -332,6 +349,20 @@ h1, p{
 }
 #numbers li a.active {
 	color:blue;
+}
+
+.ip_button{
+	margin-top:10px;
+	background: rgb(00,68,137);
+	font-weight:bold;
+	color : white;
+	width:80px;
+	height:30px;
+	border-radius: 5px;
+	cursor:pointer;
+	outline:none;
+	box-shadow:none;
+	border:none;
 }
 </style>
 </head>
@@ -413,17 +444,14 @@ h1, p{
                     <h2 id="f">사진</h2>
                 </div>
                 <div class="cont_images">
-                    <img src="./img/tmp_image.png">
-                    <img src="./img/tmp_image.png">
-                    <img src="./img/tmp_image.png">
-                    <img src="./img/tmp_image.png">
+                    <img src="./img/no_photo.png">
                 </div>
             </div>
              <div class="review_cont">
                 <div id="review_header">
                     <h2 id="e">이용후기</h2>
                     <div id="review_button">
-                    	<button type="button" onclick="review_login_chk()">리뷰작성</button>
+                    	<input class="ip_button" type="button" onclick="review_login_chk()" value="리뷰작성">
                     </div>
                 </div>
           

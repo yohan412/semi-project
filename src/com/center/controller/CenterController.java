@@ -272,9 +272,45 @@ public class CenterController extends HttpServlet {
 				response.sendRedirect("CenterController?command=centerwriteform");
 			}
 			
+		} else if(command.equals("review_detail")) {
+			
+			int reviewno = Integer.parseInt(request.getParameter("reviewno"));
+			String loginid = request.getParameter("loginid");
+			
+			ReviewDto reviewDto = rdao.selectOne(reviewno);
+			
+			request.setAttribute("loginid", loginid);
+			request.setAttribute("reviewDto", reviewDto);
+			dispatch("center_review_detail.jsp",request,response);
+		} else if(command.equals("review_delete")) {
+			
+			int reviewno = Integer.parseInt(request.getParameter("reviewno"));
+			
+			int res = rdao.delete(reviewno);
+			
+			String msg;
+			
+			if(res>0) {
+				msg="리뷰가 삭제되었습니다.";
+			} else {
+				msg="리뷰 삭제를 실패하였습니다.\n 다시 시도해주세요.";
+			}
+			
+			//열었던 팝업창 닫기
+			String s = "<script type='text/javascript'>"
+					+"window.opener.location.reload();"
+					+"window.close();"
+					+"alert('"+msg+"');"
+					+ "</script>";
+			PrintWriter out = response.getWriter();
+			out.print(s);
 		}
 	}
 
+	private void dispatch(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatch = request.getRequestDispatcher(url);
+		dispatch.forward(request, response);
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

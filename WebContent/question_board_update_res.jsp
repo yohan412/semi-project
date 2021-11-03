@@ -6,6 +6,7 @@
 
 <%@ page import="com.qna.dao.QnaDao" %>    
 <%@ page import="com.qna.dto.QnaDto" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%
+<% 
 	int qano = Integer.parseInt(request.getParameter("qano"));
 	String qatitle = request.getParameter("qatitle");
 	String qacontent = request.getParameter("qacontent");
@@ -37,6 +38,9 @@
 	<button onclick="location.href='question_board_update.jsp?qano=<%=dto.getQano() %>'">확인</button>
 <% 	
 	}
-%>	
+%> 
+
+
+
 </body>
 </html>

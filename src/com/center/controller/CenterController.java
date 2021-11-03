@@ -183,7 +183,7 @@ public class CenterController extends HttpServlet {
 			rdto.setReviewcontent(content);
 			
 			int res = rdao.insert(rdto);
-			
+			int res2 = dao.updateReviewgrade(centerno);
 			if(res>0) {
 				jsResponse("리뷰가 등록되었습니다.","CenterController?command=centerdetail&centerno="+centerno,response);
 			} else {
@@ -243,7 +243,7 @@ public class CenterController extends HttpServlet {
 					imgpath = multi.getFilesystemName(imgfile);
 					imgname = multi.getOriginalFileName(imgfile);
 						
-					res = dao.insert_pic(rs, imgname, uploadpath+"\\"+imgpath);
+					res = dao.insert_pic(rs, imgname, imgpath);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

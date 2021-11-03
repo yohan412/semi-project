@@ -212,7 +212,7 @@ public class UsedController extends HttpServlet {
 					imgpath = multi.getFilesystemName(imgfile);
 					imgname = multi.getOriginalFileName(imgfile);
 						
-					res = usedDao.insert_pic(rs, imgname, uploadpath+"\\"+imgpath);
+					res = usedDao.insert_pic(rs, imgname, imgpath);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();

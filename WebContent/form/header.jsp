@@ -71,7 +71,7 @@
 		   }
 	  } else{	
 		  location.href="CenterController?command=business&user_no=${ loginUser.userno }";
-			   }
+		}
 	  }
 </script>
 </head>
@@ -93,7 +93,7 @@
 			</c:if>
 			<c:if test="${loginUser !=null }">
 				<div id="logout">
-				<label>${loginUser.username }님(회원등급은 : ${loginUser.role }) 방문을 환영합니다.</label><br>
+				<label>${loginUser.username }님(회원등급 : ${loginUser.role }) 방문을 환영합니다.</label><br>
 				<button onclick="location.href='usercontroller?command=logout'">로그아웃</button>
 				<button onclick="location.href='usedcontroller?command=mypage'">마이페이지</button>
 				</div>

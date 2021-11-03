@@ -300,6 +300,13 @@ h1, p{
 	min-width:600px;
 	margin-top:10px;
 }
+.review_content a{
+	text-decoration:none;
+	color:black;
+}
+.review_content a:hover{
+	color:gray;
+}
 .empty_review{
 	line-height:150px;
 	text-align:center;
@@ -351,7 +358,14 @@ h1, p{
 #numbers li a.active {
 	color:blue;
 }
-
+.review_contents{
+	display:inline-block;
+	width:400px;
+	overflow:hidden;
+	/*텍스트가 설정한 범위 넘을경우 ...로 표시*/
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
 .ip_button{
 	margin-top:10px;
 	background: rgb(00,68,137);

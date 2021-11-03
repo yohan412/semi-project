@@ -184,7 +184,7 @@ console.log(Kakao.isInitialized());
 		<div class="login">
 		
 			<div class="logo">
-				<img src="./img/logo.png" width="300" height="60">
+				<a href="main.jsp"><img src="./img/logo.png" width="239" height="114"></a>
 			</div>
 			<div class="login_id">
 				<input type="text" name="user_id" placeholder="아이디">

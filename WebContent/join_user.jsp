@@ -133,7 +133,7 @@
 </head>
 <body>
 	<div style="text-align: center; margin-top: 30px;">
-		<a href="#"><img src="./img/logo.png" width="200px" height="60px" alt="내주변 헬스장"></a>
+		<a href="main.jsp"><img src="./img/logo.png" width="239" height="114" alt="우리동네 헬스장"></a>
 	</div>
 	<br><br>
 	<hr>

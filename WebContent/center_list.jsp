@@ -479,9 +479,9 @@ tbody a {
 }
 
 #centerboard_list img {
-	border-radius: 30%;
-	width: 200px;
-	height: 200px;
+	border-radius:10px;
+	width: 210px;
+	height: 210px;
 }
 
 .center_brief {

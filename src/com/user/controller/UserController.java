@@ -36,25 +36,8 @@ public class UserController extends HttpServlet {
 			}
 			
 			response.sendRedirect("idchk.jsp?idnotused="+idnotused);
-		}else if(command.equals("login")){String command = request.getParameter("command");
-		System.out.println("[ command : " + command + "]");
-		
-		UserDao dao = new UserDao();
-		
-		
-		if(command.equals("idChk")) {
-			String myid=request.getParameter("id");
-			String res = dao.idChk(myid);
-			
-			boolean idnotused=true;
-			
-			//중복되는 경우가 있을경우
-			if(res!=null){ 
-				idnotused=false;
-			}
-			
-			response.sendRedirect("idchk.jsp?idnotused="+idnotused);
 		}else if(command.equals("login")){
+			
 			String user_id = request.getParameter("user_id");
 			String user_pw = request.getParameter("user_pw");
 

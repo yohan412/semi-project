@@ -8,6 +8,7 @@
 <%@ page import="com.qna.dto.QnaDto" %>
 <%@ page import="java.util.List" %>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 
 <html>
@@ -48,6 +49,11 @@
 		margin: 10px 10px 0px;
 		width:480px;
 	}
+	td, a, a:hover{
+		color:#000000;
+		text-decoration:none;
+		
+	}
 	.qna_list{
 		width : 500px;
 		height : 200px;
@@ -62,9 +68,10 @@
 		display: in
 	}
 </style>
+
 <script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-/*function login_chk(){
+function login_chk(){
 		if(${loginUser==null}){
 			if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
 				location.href="login.jsp"
@@ -74,7 +81,12 @@
 		} else{
 			location.href="MainController?command=writeform";
 		}
-}*/
+}
+
+function b_list(type){
+	location.href="MainController?command=typelist&type="+type;
+}
+
 </script>
 </head>
 <% 
@@ -87,23 +99,26 @@
 	<div class="qna">
 		<div class="faq">
 		<h3 align="center">F A Q</h3>
+		<button type="button" onclick="b_list('center');">시설</button> <button type="button" onclick="b_list('deal');">거래</button> <button type="button" onclick="b_list('price');">가격</button> <button type="button" onclick="b_list('etc');">기타</button>
 			<table class="faq_table" border="1">
 				<tr>
 					<th style="width:80px;">유형</th>	
+					<th style="width:80px;">NO.</th>
 					<th style="width:400px;">자주하는 질문 리스트</th>
-				</tr>			
-<%
-	for(int i = 0; i<list.size(); i++){
-%>				
+				</tr>	
+				<tr>
+				<%
+					for(int i = 0; i<list.size(); i++){
+				%>				
 
 				<tr>
-					<td><%=list.get(i).getQatype() %></td>
+					<td><%=list.get(i).getQatype()%></td>
 					<td><a href="question_board_selectone.jsp?qano=<%=list.get(i).getQano()%>"><%=list.get(i).getQatitle() %></a></td>
 				</tr>
 
-<%
-	}
-%>
+				<%
+					}
+				%>
 			</table>
 		</div>
 		
@@ -132,7 +147,7 @@
 %>			
 			</table>
 			<div style="text-align: right; width: 500px; display: inline-block;">
-				<input type="button" value="1 : 1 문의" class="qna_button" onclick="location.href='MainController?command=writeform'">
+				<input type="button" value="1 : 1 문의" class="qna_button" onclick="login_chk();">	<!-- location.href='MainController?command=writeform' -->
 			</div>
 			<br>
 		</div>

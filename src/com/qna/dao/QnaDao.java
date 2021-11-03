@@ -105,6 +105,49 @@ public class QnaDao extends JDBCTemplate{
 				return res;
 			}
 			
+			public List<QnaDto> selectType(String type) {
+				Connection con = getConnection();
+				PreparedStatement pstm = null;
+				ResultSet rs = null;
+				List<QnaDto> res = new ArrayList<QnaDto>();
+				
+				String sql = " SELECT * FROM QNA WHERE QA_FAQ='Y' AND QA_TYPE=? ORDER BY QA_NO DESC ";
+				
+				try {
+					pstm = con.prepareStatement(sql);
+					System.out.println("03.query 준비: " + sql);
+					
+					rs = pstm.executeQuery();
+					System.out.println("04.query 실행 및 리턴");
+					while(rs.next()) {
+						QnaDto dto = new QnaDto();
+						dto.setQano(rs.getInt(1));
+						dto.setQagpno(rs.getInt(2));
+						dto.setQagpsq(rs.getInt(3));
+						dto.setUserid(rs.getString(4));
+						dto.setUserno(rs.getInt(5));
+						dto.setQatype(rs.getString(6));
+						dto.setQatitle(rs.getString(7));
+						dto.setQacontent(rs.getString(8));
+						dto.setQafaq(rs.getString(9));
+						dto.setQareg(rs.getDate(10));
+						dto.setQastatus(rs.getString(11));
+						
+						res.add(dto);
+					}
+					
+				} catch (SQLException e) {
+					System.out.println("3/4 단계 에러");
+					e.printStackTrace();
+				}finally {
+					close(rs);
+					close(pstm);
+					close(con);
+					System.out.println("05.db 종료\n");
+				}
+				return res;
+			}
+			
 			public int insert(QnaDto dto) {
 				Connection con = getConnection();
 				PreparedStatement pstm = null;
@@ -212,4 +255,35 @@ public class QnaDao extends JDBCTemplate{
 				return res;
 			}
 			
+			public String getPass(int qano) {
+				Connection con = getConnection();
+				PreparedStatement pstm = null;
+				ResultSet rs = null;
+				String pass ="";
+				System.out.println(qano);
+				
+				String sql = " SELECT USERPW FROM USER_INFO WHERE QANO=? ";
+				
+				try {
+					pstm = con.prepareStatement(sql);
+					pstm.setInt(1, qano);
+					System.out.println("03.query 준비: " + sql);
+					
+					rs = pstm.executeQuery();
+					System.out.println("04.query 실행 및 리턴");
+					
+					if(rs.next()) {
+						pass = rs.getString(1);
+					}
+					
+				} catch (SQLException e) {
+					System.out.println("3/4 단계 에러");
+					e.printStackTrace();
+				} finally {
+					close(pstm);
+					close(con);
+					System.out.println("05.db 종료\n");
+				}
+				return pass;
+			}
 }

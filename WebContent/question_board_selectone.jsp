@@ -48,7 +48,7 @@
 	#content{
 		resize:none;
 	}
-	#submit, #reset{
+	#submit, #reset,#reply{
 		cursor:pointer;
 	}
 	#submit{
@@ -58,7 +58,7 @@
 		border: 1px solid gray;
 		border-radius: 5px;
 	}
-	#reset{
+	#reset, #reply{
 		width : 80px;
 	 	height : 30px;
 		background-color:#d1d1d1;
@@ -77,15 +77,16 @@
 		<input type="hidden" name="qano" value="<%=dto.getQano() %>"> 
 		<input type="hidden" id="qa_type" value="<%=dto.getQatype() %>"> 
 		
+		
 		<table>
 			<tr id="title">
 				<th>제 목</th>
 				<td>
-					<select id="qna_category" name="qa_type" style="width:50px;height:30px;" disabled>
+					<!-- <select id="qna_category" name="qa_type" style="width:50px;height:30px;" disabled>
 							<option value="price">가격</option>
 							<option value="deal">거래</option>
 							<option value="center">시설</option>
-							<option value="etc">기타</option>
+							<option value="etc">기타</option>-->
 	<script type="text/javascript">							
 					var selectoption = document.getElementById("qna_category");
 					selectoption = selectoption.options[selectoption.selectedIndex].value;
@@ -102,7 +103,7 @@
 			<tr>
 				<td colspan="3">
 					<button type="button" id="submit" onclick="location.href='question_board_update.jsp?qano=<%=dto.getQano()%>'">수정</button>&nbsp;&nbsp;
-					<button type="button" id="reset" onclick="del_btn('<%=dto.getQano()%>');">삭제</button>&nbsp;&nbsp;
+					<button type="button" id="reset"  onclick="del_btn('<%=dto.getQano()%>');">삭제</button>&nbsp;&nbsp;
 					<button id="reset"  onclick="location.href='qna.jsp'">목록</button>&nbsp;
 				</td>
 			</tr>
@@ -120,6 +121,10 @@
 		}else{   //취소
 		    return;
 		}
+	}
+	
+	if("${loginUser.userid}" != "${dto.userid}"){
+		alert("본인글만 조회 가능합니다."); history.back();
 	}
 </script>
 </html>

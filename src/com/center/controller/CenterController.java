@@ -217,10 +217,27 @@ public class CenterController extends HttpServlet {
 				centername = multi.getParameter("centernm");
 				centeraddr = multi.getParameter("centeraddr");
 				centerprice = multi.getParameter("centerprice");
-				centercategory = String.join(",", multi.getParameter("health"),
-									multi.getParameter("pilates"),
-									multi.getParameter("yoga"),
-									multi.getParameter("etc"));
+				
+				if(multi.getParameter("health") != null) {
+					if(centercategory.length()==0) {centercategory += multi.getParameter("health");
+					}else {centercategory += ","+multi.getParameter("health");}						
+				}
+				if(multi.getParameter("pilates") != null) {
+					if(centercategory.length()==0) {centercategory += multi.getParameter("pilates");
+					}else {centercategory += ","+multi.getParameter("pilates");}						
+				}
+				if(multi.getParameter("yoga") != null) {
+					if(centercategory.length()==0) {centercategory += multi.getParameter("yoga");
+					}else {centercategory += ","+multi.getParameter("yoga");}						
+				}
+				if(multi.getParameter("crossfit") != null) {
+					if(centercategory.length()==0) {centercategory += multi.getParameter("crossfit");
+					}else {centercategory += ","+multi.getParameter("crossfit");}						
+				}
+				if(multi.getParameter("etc") != null) {
+					if(centercategory.length()==0) {centercategory += multi.getParameter("etc");
+					}else {centercategory += ","+multi.getParameter("etc");}						
+				}
 				centerintro = multi.getParameter("centerintro");
 				centercontent = multi.getParameter("centercontent");
 				centerophour = multi.getParameter("centerophour");

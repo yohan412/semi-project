@@ -110,12 +110,10 @@ public class QnaDao extends JDBCTemplate{
 				PreparedStatement pstm = null;
 				int res = 0;
 				
-				String sql = " INSERT INTO QNA "+ 
-								" VALUES(QA_NOSQ.NEXTVAL,?,?,?,?,?,?,?,?,SYSDATE,? ) ";
+				String sql = " INSERT INTO QNA VALUES(QA_NOSQ.NEXTVAL,?,?,?,?,?,?,?,'N',SYSDATE,'N') ";
 				
 						
 				try {
-					
 					pstm = con.prepareStatement(sql);
 					
 					pstm.setInt(1, dto.getQagpno());
@@ -125,11 +123,9 @@ public class QnaDao extends JDBCTemplate{
 					pstm.setString(5, dto.getQatype());
 					pstm.setString(6,dto.getQatitle());
 					pstm.setString(7, dto.getQacontent());
-					pstm.setString(8, dto.getQafaq());
-					pstm.setString(9, dto.getQastatus());
+					//pstm.setString(8, dto.getQafaq());
+					//pstm.setString(9, dto.getQastatus());
 					System.out.println("03.query 준비: " + sql);
-					
-					System.out.println("pstm : " + pstm);
 					
 					res = pstm.executeUpdate();
 					System.out.println("04.query 실행 및 리턴");
@@ -216,143 +212,4 @@ public class QnaDao extends JDBCTemplate{
 				return res;
 			}
 			
-			
-			
-////////////////////////////////////////////////////////////////////////
-	// 싱글톤
-	private static QnaDao instance = new QnaDao();
-	
-	public static QnaDao getInstance() {
-			return instance;
-	}
-
-	public List<QnaDto> getList() {
-		Connection con = getConnection();
-		PreparedStatement pstm = null;
-		ResultSet rs = null;
-		List<QnaDto> res = null;
-		
-		String sql = "select * from qna order by qano desc";
-		
-		try {
-			pstm = con.prepareStatement(sql); 
-			System.out.println("03.query 준비: " + sql);
-			
-			rs = pstm.executeQuery(); 
-			System.out.println("04.query 실행 및 리턴");
-			
-			if (rs.next()) { 
-				res = new ArrayList<>(); 
-				do {
-					QnaDto dto = new QnaDto();
-					dto.setQano(rs.getInt("qano"));
-					dto.setQagpno(rs.getInt("qagpno"));
-					dto.setQagpsq(rs.getInt("qagpsq"));
-					dto.setUserid(rs.getString("userid"));
-					dto.setUserno(rs.getInt("userno"));
-					dto.setQatitle(rs.getString("qatitle"));
-					dto.setQacontent(rs.getString("qacontent"));
-					dto.setQafaq(rs.getString("qafaq"));
-					dto.setQareg(rs.getDate("qareg"));
-					dto.setQastatus(rs.getString("qastatus"));
-					
-					res.add(dto); 
-					
-				} while (rs.next());
-			}
-		} catch (Exception e) {
-			System.out.println("3/4 단계 에러");
-			e.printStackTrace();
-			
-		} finally {
-			close(pstm);
-			close(con);
-			System.out.println("05.db 종료\n");
-		}
-		return res;
-	}
-
-	// qna.jsp에 보여줄 로직 (페이징 처리)
-		public List<QnaDto> getList(int startRow, int endRow){
-			Connection con = getConnection();
-			PreparedStatement pstm = null;
-			ResultSet rs = null;
-			List<QnaDto> res = null;
-				
-			String sql = "select * from "
-					+ "(select rownum rn, qano, qagpno, qagpsq, userid, userno, qatype, qatitle, qacontent, qafaq, qareg, qastatus from "
-					+ "(select * from qna order by qano desc)) where rn between ? and ?";
-				
-			try {
-				pstm = con.prepareStatement(sql); // sql 정의
-				pstm.setInt(1, startRow); // sql 물음표에 값 매핑
-				pstm.setInt(2, endRow);
-				System.out.println("03.query 준비: " + sql);
-					
-				rs = pstm.executeQuery(); // sql 실행
-				System.out.println("04.query 실행 및 리턴");
-				
-				if (rs.next()) { // 데이터베이스에 데이터가 있으면 실행
-					res = new ArrayList<>(); // list 객체 생성
-					do {
-					// 반복할 때마다 QnaDto 객체를 생성 및 데이터 저장
-						QnaDto dto = new QnaDto();
-						dto.setQano(rs.getInt("qano"));
-						dto.setQagpno(rs.getInt("qagpno"));
-						dto.setQagpsq(rs.getInt("qagpsq"));
-						dto.setUserid(rs.getString("userid"));
-						dto.setUserno(rs.getInt("userno"));
-						dto.setQatitle(rs.getString("qatitle"));
-						dto.setQacontent(rs.getString("qacontent"));
-						dto.setQafaq(rs.getString("qafaq"));
-						dto.setQareg(rs.getDate("qareg"));
-						dto.setQastatus(rs.getString("qastatus"));
-						
-						res.add(dto); // res에 0번 인덱스부터 board 객체의 참조값을 저장
-							
-					} while (rs.next());
-				}
-			} catch (Exception e) {
-				System.out.println("3/4 단계 에러");
-				e.printStackTrace();
-					
-			} finally {
-				close(pstm);
-				close(con);
-				System.out.println("05.db 종료\n");
-			}
-			return res;
-		}
-			
-	// 총 레코드 수 구하는 로직
-		public int getCount(){
-			Connection con = getConnection();
-			PreparedStatement pstm = null;
-			ResultSet rs = null;
-			int count = 0;
-				
-			String sql = "select count(*) from qna ";
-			try {
-				pstm = con.prepareStatement(sql);
-				System.out.println("03.query 준비: " + sql);
-				
-				rs = pstm.executeQuery();
-				System.out.println("04.query 실행 및 리턴");
-					
-				if(rs.next()){
-					count = rs.getInt(1);
-				}
-					
-			} catch (Exception e) {
-				System.out.println("3/4 단계 에러");
-				e.printStackTrace();
-					
-			} finally {
-				close(rs);
-				close(pstm);
-				close(con);
-				System.out.println("05.db 종료\n");
-			}	
-			return count; // 총 레코드 수 리턴
-		}
 }

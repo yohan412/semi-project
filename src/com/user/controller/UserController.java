@@ -96,3 +96,24 @@ public class UserController extends HttpServlet {
 			dto.setUserpw(mypw);
 			dto.setUsername(myname);
 		}
+
+	}
+	
+	private void dispatch(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dis = request.getRequestDispatcher(url);
+		dis.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
+	}
+	
+	private void jsResponse(String msg, String url,HttpServletResponse response) throws IOException {
+		String s = "<script type='text/javascript'>"+"alert('"+msg+"');"+"location.href='"+url+"';"+"</script>";
+		
+		PrintWriter out = response.getWriter();
+		out.print(s);
+	}
+	
+	
+}

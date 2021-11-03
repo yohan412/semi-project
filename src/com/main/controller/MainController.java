@@ -3,6 +3,7 @@ package com.main.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -86,28 +87,28 @@ public class MainController extends HttpServlet {
 			response.sendRedirect("question_board_write.jsp");
 			
 		}else if(command.equals("boardwrite")) {
-			String qatitle = request.getParameter("title");
-			String qacontent = request.getParameter("content");
-			//String photo = request.getParameter("photo");
-			String qauserid = request.getParameter("user_id");
-			int qauserno = Integer.parseInt(request.getParameter("user_no"));
 			int qagpno = Integer.parseInt(request.getParameter("qa_gpno"));
 			int qagpsq = Integer.parseInt(request.getParameter("qa_gpsq"));
-			String qafaq = request.getParameter("qa_faq");
-			String qastatus = request.getParameter("qa_status");
+			String qauserid = request.getParameter("user_id");
+			int qauserno = Integer.parseInt(request.getParameter("user_no"));
+			String qatitle = request.getParameter("title");
+			String qacontent = request.getParameter("content");
 			String qatype = request.getParameter("qa_type");
+			//String qafaq = request.getParameter("qa_faq");
+			//String qastatus = request.getParameter("qa_status");
+			//String photo = request.getParameter("photo");
 			
 			
 			QnaDto dto = new QnaDto();
 			dto.setQagpno(qagpno);
 			dto.setQagpsq(qagpsq);
+			dto.setUserid(qauserid);
+			dto.setUserno(qauserno);
 			dto.setQatitle(qatitle);
 			dto.setQacontent(qacontent);
-			dto.setUserno(qauserno);
-			dto.setUserid(qauserid);
-			dto.setQafaq(qafaq);
-			dto.setQastatus(qastatus);
 			dto.setQatype(qatype);
+			//dto.setQafaq(qafaq);
+			//dto.setQastatus(qastatus);
 			//dto.setQapic(photo);
 			
 			int res = udao.insert(dto);

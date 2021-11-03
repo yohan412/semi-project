@@ -53,8 +53,8 @@
 </style>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script> 
-	/* 유효성 검사 
-	$(function() {
+	/* 유효성 검사 */
+	/*$(function() {
 		$("form").submit(function() {
 			if ($("#title").val() === "") {
 				alert("제목을 입력하세요.");
@@ -75,23 +75,23 @@
 <h2 align="center">1 : 1 문의</h2>
 <div id="wrap">
 	<form action="MainController" method="post">
-		<input type="hidden" name="command" value="boardwrite">
+		<input type="text" name="command" value="boardwrite">
 		<input type="hidden" name="qa_gpno" value="1"> <!-- 1:1 문의 작성시 필요한 그룹번호, 그룹번호내 번호는 현재 받아올수 있는 값이 없어 임의에 값으로 설정 -->
 		<input type="hidden" name="qa_gpsq" value="1"> 
 		<input type="hidden" name="user_id" value="TEST"> <!-- 사용자 아이디와 번호는 로그인 기능 완료 후 세션값 적용 -->
 		<input type="hidden" name="user_no" value="1">
 		<input type="hidden" name="qa_faq" value="N"> <!-- 관리자가 설정하는 영역이므로 사용자가 등록 시 'N' 고정값 -->
 		<input type="hidden" name="qa_status" value="N"> <!-- 관리자가 설정하는 영역이므로 사용자가 등록 시 'N' 고정값 -->
-		<input type="hidden" name="qa_type" value="${dto.qatype }">
+
 		<table>
 			<tr id="title">
 				<th>제 목</th>
 				<td>
 					<select id="qa_type" name="qa_type" style="width:50px;height:30px;">
-							<option value="price">가격</option>
-							<option value="deal">거래</option>
-							<option value="center">시설</option>
-							<option value="etc">기타</option>
+							<option value="가격">가격</option>
+							<option value="거래">거래</option>
+							<option value="시설">시설</option>
+							<option value="기타">기타</option>
 					</select>
 					<input type="text" placeholder="제목을 입력하세요" name="title" maxlength="30" value="${dto.qatitle }">
 				</td>

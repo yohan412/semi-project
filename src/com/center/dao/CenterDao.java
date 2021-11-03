@@ -283,4 +283,36 @@ public class CenterDao extends JDBCTemplate{
 		}
 		return res;
 	}
+	
+	public int updateReviewgrade(int centerno) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res=0;
+		
+		String sql = "UPDATE CENTER SET CENTER_GRADE=(SELECT (ROUND(AVG(REVIEW_GRADE),1)) FROM REVIEW WHERE CENTER_NO=?) WHERE CENTER_NO=?";
+		try {
+			pstm=con.prepareStatement(sql);
+			pstm.setInt(1,centerno);
+			pstm.setInt(2, centerno);
+			System.out.println("03. query 준비 : "+ sql);
+			
+			res=pstm.executeUpdate();
+			System.out.println("04. query 실행 및 리턴");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		} catch (SQLException e) {
+			System.out.println("error: 3/4단계 failed");
+			e.printStackTrace();
+		} finally {
+			close(pstm);
+			close(con);
+			System.out.println("05. db종료 \n");
+		}
+		return res;
+	}
 }

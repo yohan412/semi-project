@@ -307,19 +307,19 @@ response.setContentType("text/html; charset=UTF-8");
 			if(selectedVal=="all"){
 				sortedlist.push(boardlist[i]);
 			}
-			else if(selectedVal=="gym" && boardlist[i].category=="헬스장"){
+			else if(selectedVal=="gym" && boardlist[i].category.includes("헬스")){
 				sortedlist.push(boardlist[i]);
 				
-			}else if(selectedVal=="yoga" && boardlist[i].category=="요가"){
+			}else if(selectedVal=="yoga" && boardlist[i].category.includes("요가")){
 				sortedlist.push(boardlist[i]);
 				
-			}else if(selectedVal=="pilates" && boardlist[i].category=="필라테스"){
+			}else if(selectedVal=="pilates" && boardlist[i].category.includes("필라테스")){
 				sortedlist.push(boardlist[i]);
 				
-			}else if(selectedVal=="crossfit" && boardlist[i].category=="크로스핏"){
+			}else if(selectedVal=="crossfit" && boardlist[i].category.includes("크로스핏")){
 				sortedlist.push(boardlist[i]);
 				
-			}else if(selectedVal=="etc" && boardlist[i].category=="기타"){
+			}else if(selectedVal=="etc" && boardlist[i].category.includes("기타")){
 				sortedlist.push(boardlist[i]);
 				
 			}
@@ -597,7 +597,7 @@ tfoot input{
 			<div class="sorting_sub">
 				센터종류&nbsp; <select name="center_category" onchange="sort_by_category()">
 					<option value="all">전체</option>
-					<option value="gym">헬스장</option>
+					<option value="gym">헬스</option>
 					<option value="yoga">요가</option>
 					<option value="pilates">필라테스</option>
 					<option value="crossfit">크로스핏</option>

@@ -5,11 +5,20 @@ import java.util.Date;
 public class CenterDto {
 	private int centerno;
 	private String centername;
+	private String userid;
 	private String centeraddr;
 	private String centerprice;
 	private String centercategory;
 	private double centergrade;
 	private String centerintro;
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
 	private String centercontent;
 	private String centerophour;
 	private String centerpro;
@@ -20,12 +29,13 @@ public class CenterDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CenterDto(int centerno, String centername, String centeraddr, String centerprice, String centercategory,
-			double centergrade, String centerintro, String centercontent, String centerophour, String centerpro,
-			Date centerreg) {
+	public CenterDto(int centerno, String centername, String userid, String centeraddr, String centerprice,
+			String centercategory, double centergrade, String centerintro, String centercontent, String centerophour,
+			String centerpro, Date centerreg) {
 		super();
 		this.centerno = centerno;
 		this.centername = centername;
+		this.userid = userid;
 		this.centeraddr = centeraddr;
 		this.centerprice = centerprice;
 		this.centercategory = centercategory;
@@ -137,9 +147,6 @@ public class CenterDto {
 	public void setCenterreg(Date centerreg) {
 		this.centerreg = centerreg;
 	}
-	
-	
-	
 }
 
 

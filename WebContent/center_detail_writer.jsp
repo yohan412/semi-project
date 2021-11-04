@@ -204,7 +204,8 @@ textarea{
 	<div id="main">
 		<h1 align="center">센터 등록</h1>
 		<hr>
-		<form action="CenterController?command=centerdetail_writer" method="post" enctype="multipart/form-data">      
+		<form action="CenterController?command=centerdetail_writer" method="post" enctype="multipart/form-data"> 
+			<input type="hidden" name="userid" value="${loginUser.userid}">     
 	            <div class="text_cont">
 	            	<div class="cont">
 	                    <div class="cont_head">

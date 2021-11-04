@@ -16,6 +16,14 @@
 	
 	$(function(){
 		
+		if("${loginUser.userid}" == "${centerDto.userid}"){
+			$("#detail_button").prepend(
+					'<input class="ip_button" type="button" value="수 정" onclick="location.href=\'CenterController?command=centerupdateform&centerno=${centerDto.centerno}\'">'+
+					'<input class="ip_button" type="button" value="삭 제" onclick="delete_chk()">'
+			);
+		}
+		
+		//지도 띄우기
 		var centerAddr = "${centerDto.centeraddr}";		
 		
 		// 주소-좌표 변환 객체를 생성	
@@ -102,6 +110,12 @@
 		
 		
 	});
+	function delete_chk(){
+		if(confirm("해당 게시글을 삭제하시겠습니까?")){
+			location.href='CenterController?command=centerdelete&centerno=${centerDto.centerno}';
+		}
+	}
+	
 	function makeBoardList(list){
 		//tbody의 자식 요소 초기화
 		$("tbody").empty();
@@ -368,6 +382,7 @@ h1, p{
 }
 .ip_button{
 	margin-top:10px;
+	margin-left:10px;
 	background: rgb(00,68,137);
 	font-weight:bold;
 	color : white;
@@ -485,6 +500,9 @@ h1, p{
 					</tfoot>
 					</table>
  				</div>           
+            </div>
+            <div id="detail_button" align="center">
+            	<input class="ip_button" type="button" value="목 록" onclick="location.href='CenterController?command=centerlist'";>
             </div>
         </div>
        </div>

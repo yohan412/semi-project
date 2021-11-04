@@ -16,6 +16,30 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">	
+	.tabs{
+		list-style-type:none;
+		height : 30px;
+		padding : 0;
+		margin :0;
+	}
+	.tabs li{
+		float : left;
+		position: relative;
+		padding : 0;
+		line-height:30px;
+	}
+	.tabs li a {
+		font-weight : bold;
+		padding: 5px 25px;
+	}
+	ul{ list-style : none;}
+	.category>ul>li>a{
+		display : block;
+		width : 100%;
+		height : 100%;
+		font-size : 13px;
+		text-align : center;
+	}
 	.qna{
 		text-align: center;
 		position: relative;
@@ -52,7 +76,6 @@
 	td, a, a:hover{
 		color:#000000;
 		text-decoration:none;
-		
 	}
 	.qna_list{
 		width : 500px;
@@ -72,26 +95,23 @@
 <script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 function login_chk(){
-		if(${loginUser==null}){
-			if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
-				location.href="login.jsp"
-			}else{
+	if(${loginUser==null}){
+		if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
+			location.href="login.jsp"
+		}else{
 				
-			}
-		} else{
-			location.href="MainController?command=writeform";
 		}
+	} else{
+		location.href="MainController?command=writeform";
+	}
 }
-
-function b_list(type){
-	location.href="MainController?command=typelist&type="+type;
-}
-
 </script>
 </head>
 <% 
+	String qatype = request.getParameter("qatype");
 	QnaDao dao = new QnaDao(); 
 	List<QnaDto> list = dao.selectAll();
+	List<QnaDto> typelist = dao.selectType(qatype);
 %>
 <body>
 	<header><%@ include file="form/header.jsp" %></header>
@@ -99,11 +119,40 @@ function b_list(type){
 	<div class="qna">
 		<div class="faq">
 		<h3 align="center">F A Q</h3>
-		<button type="button" onclick="b_list('center');">시설</button> <button type="button" onclick="b_list('deal');">거래</button> <button type="button" onclick="b_list('price');">가격</button> <button type="button" onclick="b_list('etc');">기타</button>
+
+			<div name="qna_category" id="tab_container" style="width:97%; padding:10px 10px 10px 10px;">
+				<ul class="tabs" onchange="sort_by_category()">
+					<!-- 탭 메뉴 영역 -->
+					<li><a href="#">가격</a></li>
+					<li><a href="#">거래</a></li>
+					<li><a href="#">시설</a></li>
+					<li><a href="#">기타</a></li>
+				
+					<!-- <input type="button" value="가격" rel="price" class="active" onclick="b_list('center');">
+					<input type="button" value="거래" rel="deal" onclick="b_list('deal');">
+					<input type="button" value="시설" rel="center" onclick="b_list('price');">
+					<input type="button" value="기타" rel="etc" onclick="b_list('etc');"> -->
+				</ul>	
+				
+				<!-- 탭 콘텐츠 영역 -->
+				<div class="tab_container">
+					<div id="price" class="tab_container" onchange="sort_by_price()"></div>	
+				</div>
+				<div class="tab_container">
+					<div id="deal" class="tab_container" onchange="sort_by_deal()"></div>	
+				</div>
+				<div class="tab_container">
+					<div id="center" class="tab_container" onchange="sort_by_center()"></div>	
+				</div>
+				<div class="tab_container">
+					<div id="etc" class="tab_container" onchange="sort_by_etc()"></div>	
+				</div>
+			</div>
+
 			<table class="faq_table" border="1">
 				<tr>
 					<th style="width:80px;">유형</th>	
-					<th style="width:400px;">자주하는 질문 리스트</th>
+					<th style="width:400px;">자주하는 질문</th>
 				</tr>	
 				<tr>
 				<%
@@ -129,7 +178,7 @@ function b_list(type){
 				<tr>
 					<th style="width:50px;">NO.</th>
 					<th>제목</th>
-					<th style="width:80px;">답변상태</th>
+					<th style="width:70px;">답변여부</th>
 				</tr>
 <%
 	for(int i = 0; i<list.size(); i++){
@@ -146,7 +195,7 @@ function b_list(type){
 %>			
 			</table>
 			<div style="text-align: right; width: 500px; display: inline-block;">
-				<input type="button" value="1 : 1 문의" class="qna_button" onclick="login_chk();">	<!-- location.href='MainController?command=writeform' -->
+				<input type="button" value="1 : 1 문의" class="qna_button" onclick="login_chk();">
 			</div>
 			<br>
 		</div>

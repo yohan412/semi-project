@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.naming.Context;
@@ -105,20 +106,24 @@ public class QnaDao extends JDBCTemplate{
 				return res;
 			}
 			
-			public List<QnaDto> selectType(String type) {
+			
+			public List<QnaDto> selectType(String qatype) {
 				Connection con = getConnection();
 				PreparedStatement pstm = null;
 				ResultSet rs = null;
 				List<QnaDto> res = new ArrayList<QnaDto>();
+				//QnaDto res = new QnaDto();
 				
-				String sql = " SELECT * FROM QNA WHERE QA_FAQ='Y' AND QA_TYPE=? ORDER BY QA_NO DESC ";
+				String sql = " SELECT * FROM QNA WHERE QA_FAQ='Y' AND QA_TYPE=? ";		//ORDER BY QA_NO DESC
 				
 				try {
 					pstm = con.prepareStatement(sql);
+					pstm.setString(1, qatype);
 					System.out.println("03.query 준비: " + sql);
 					
 					rs = pstm.executeQuery();
 					System.out.println("04.query 실행 및 리턴");
+					
 					while(rs.next()) {
 						QnaDto dto = new QnaDto();
 						dto.setQano(rs.getInt(1));
@@ -140,7 +145,6 @@ public class QnaDao extends JDBCTemplate{
 					System.out.println("3/4 단계 에러");
 					e.printStackTrace();
 				}finally {
-					close(rs);
 					close(pstm);
 					close(con);
 					System.out.println("05.db 종료\n");

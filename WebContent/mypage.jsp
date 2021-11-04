@@ -115,6 +115,7 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 					</tr>
 					</c:forEach>
 				</tbody>
+				</table>
 			</td>
 		</tr> 
 		<tr>

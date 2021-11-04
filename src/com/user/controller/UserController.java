@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.user.dao.UserDao;
 import com.user.dto.UserDto;
-
+import com.user.message.messageApp;
 
 @WebServlet("/usercontroller")
 public class UserController extends HttpServlet {
@@ -110,6 +111,21 @@ public class UserController extends HttpServlet {
       
       }else if(command.equals("loginform")) {
          response.sendRedirect("login.jsp");
+      }else if(command.equals("findid")) {
+    	  String mybirth = request.getParameter("mybirthyy")+"/"+request.getParameter("mybirthmm")+"/"+request.getParameter("mybirthdd");
+    	  String myphone = request.getParameter("myphone");
+      }else if(command.equals("phonechk")) {
+    	  String myphone = request.getParameter("myphone");
+    	  String ran = "";
+    	  
+    	  ran=messageApp.sendsms(myphone);
+    	  System.out.println(ran);
+    	  
+    	  if(ran!=""&&ran!=null) {
+				jsResponse("인증번호 발신이 성공했습니다","login_find_id_input.jsp&ran="+ran,response);
+			} else {
+				jsResponse("인증번호 발신이 실패했습니다","login_find_id_input.jsp",response);
+			}
       }
    }
    

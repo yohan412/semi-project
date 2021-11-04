@@ -140,14 +140,35 @@ select {
 	font-weight: 200;
 }
 </style>
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	function phonechk(){
+		var phonenum = document.getElementsByName("myphone")[0];
+		
+		if(phonenum.value.trim()==""||phonenum.value==null){
+			alert("전화번호를 입력해주세요");
+		}else{
+			var target = "usercontroller?command=phonechk&myphone="+phonenum.value.trim();
+			open(target,"","");
+		}
+	}
+	function rannumchk(){
+		
+	}
+</script>
 </head>
+<%
+	String ran = (String)request.getAttribute("ran");
+%>
 <body>
 	<header><%@ include file="form/login_header.jsp"%></header>
+	
 	<div id="wrapper">
 		<h5>
 			가입시 입력하셨던 이메일 주소를 작성해주세요. <br> 입력하신 이메일 주소로 인증번호를 발송해 드립니다.
 		</h5>
 		<div id="content">
+		<form action="usercontroller?command=findid" method="post">
 			<div>
 				<h3 class="join_title">
 					<label for="USER_BIRTH DATE">생년월일</label>
@@ -156,7 +177,7 @@ select {
 				<div id="USER_BIRTH DATE_wrap">
 					<div id="bir_yy">
 						<span class="box"> 
-						<select id="yy" class="sel">
+						<select id="yy" class="sel" name="mybirthyy">
 								<option value="00">년도</option>
 								<option value="01">1990</option>
 								<option value="02">1991</option>
@@ -195,7 +216,7 @@ select {
 					</div>
 
 					<div id="bir_mm">
-						<span class="box"> <select id="mm" class="sel">
+						<span class="box"> <select id="mm" class="sel" name="mybirthmm">
 								<option>월</option>
 								<option value="01">1</option>
 								<option value="02">2</option>
@@ -214,7 +235,7 @@ select {
 					</div>
 
 					<div id="bir_dd">
-						<span class="box"> <select id="dd" class="sel">
+						<span class="box"> <select id="dd" class="sel" name="mybirthdd">
 								<option value="00">일</option>
 								<option value="01">1</option>
 								<option value="02">2</option>
@@ -271,22 +292,24 @@ select {
 				</span>
 				<br>
 				
-				<span class="box"> <input type="text" id="dd" class="int"
-					placeholder="전화번호 입력">
+				<span class="box"> 
+					<input type="text" id="dd" class="int" name="myphone" placeholder="전화번호 입력">
 				</span> 
 				<br>
 				<div id="phone_wrap">
+					
+					<div id="button1">
+						<input type="button" value="인증번호 받기"	class="button1" onclick="phonechk();">
+					</div>
 					<div id="phone_certification">
 					 <span class="box"> 
 					 	<input type="text" id="dd" class="int" placeholder="인증번호 6자리">
+					 	<input type="hidden" name="rannum" value="${ran }">
 						</span>
-					</div>
-					<div id="button1">
-						<input type="button" value="인증번호 받기"	class="button1">
 					</div>
 				</div>
 			</div>
-
+			
 			<br>
 			<br>
 
@@ -302,11 +325,11 @@ select {
 			<br>
 			<br>
 			<div class="btn_area">
-				<button type="button" id="button2">
+				<button type="submit" id="button2" onclick="rannumchk();">
 					<span>확인</span>
 				</button>
 			</div>
-
+		</form>
 
 	<footer><%@ include file = "form/footer.jsp" %></footer>
 

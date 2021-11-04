@@ -111,7 +111,7 @@ public class CenterController extends HttpServlet {
 				dto.setBizaddr(bizaddr);
 				dto.setBizcategory(bizcategory);
 				dto.setBizcontent(bizcontent);
-				dto.setBizpic(uploadpath+"\\"+imgpath);
+				dto.setBizpic(imgpath);
 				
 				int res = bdao.insert(dto);
 				

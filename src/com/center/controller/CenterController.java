@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.biz.dao.BizDao;
 import com.biz.dto.BizDto;
 import com.center.dao.CenterDao;
@@ -378,6 +381,22 @@ public class CenterController extends HttpServlet {
 				jsResponse("게시글 수정이 실패하였습니다. \n 다시 시도해주세요.","CenterController?command=centerdetail&centerno="+centerno,response);
 			}
 			
+		} else if(command.equals("centerlist_ajax")) {
+			
+			List<CenterDto> centerlist = dao.selectAll();
+			
+			JSONArray jarr = new JSONArray();
+			
+			for(int i =0 ; i <centerlist.size();i++) {
+				JSONObject tmp = new JSONObject();
+				tmp.put("no", centerlist.get(i).getCenterno());
+				tmp.put("name", centerlist.get(i).getCentername());
+				tmp.put("writer", centerlist.get(i).getUserid());
+				tmp.put("reg", centerlist.get(i).getCenterreg().toString());
+				jarr.add(tmp);
+			}
+			response.setContentType("application/x-json; charset=utf-8");
+			response.getWriter().print(jarr);
 		}
 	}
 

@@ -7,8 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONObject;
+
 import com.pic.dto.PicDto;
 import com.used.dto.UsedDto;
+import com.wish.dto.WishDto;
 
 import common.JDBCTemplate;
 
@@ -376,6 +379,153 @@ public class UsedDao extends JDBCTemplate{
 			close(pstm);
 			close(con);
 			System.out.println("05. db 종료 \n");
+		}
+		return res;
+	}
+public int insertWish(WishDto dto) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		
+		String sql =" INSERT INTO USER_WISH VALUES(?,?,?,?, 'Y',SYSDATE,? ) ";
+		
+		try {
+			pstm=con.prepareStatement(sql);
+			pstm.setString(1, dto.getLoginid());
+			pstm.setString(2, dto.getUsedtitle());
+			pstm.setString(3, dto.getUserid());
+			pstm.setString(4, dto.getUsercenternm());
+			pstm.setString(5, dto.getUsedno());
+			System.out.println("03. query 준비 : "+sql);
+			
+			res=pstm.executeUpdate();
+			System.out.println("04. query 실행 및 리턴");
+			
+			
+			if(res>0) {
+				
+				commit(con);
+			} else {
+				rollback(con);
+			}
+		} catch (SQLException e) {
+			System.out.println("error : 3/4단계 failed");
+			e.printStackTrace();
+		} finally {
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료\n");
+		}
+		return res;
+	}
+
+	public List<WishDto> selectWishAll(String login_id){
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		List<WishDto> res = new ArrayList<WishDto>();
+		
+		String sql = " SELECT * FROM USER_WISH WHERE LOGIN_ID = ? AND USE_YN = 'Y' ";
+		
+		try {
+			pstm=con.prepareStatement(sql);
+			pstm.setString(1, login_id);
+			System.out.println("03. query 준비: " + sql);
+			
+			rs=pstm.executeQuery();
+			System.out.println("04. query 실행 및 리턴");
+			
+			while(rs.next()) {
+				WishDto dto = new WishDto();
+				
+				dto.setLoginid(rs.getString(1));
+				dto.setUsedtitle(rs.getString(2));
+				dto.setUserid(rs.getString(3));
+				dto.setUsercenternm(rs.getString(4));
+				dto.setUsedno(rs.getString(7));
+				
+				res.add(dto);
+			}
+		} catch (SQLException e) {
+			System.out.println("3/4 단계 오류");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료\n");
+		}
+		return res;
+	}
+	
+	public WishDto selectOne(String login_id, String used_no ) {
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		WishDto res = new WishDto();
+		
+		String sql = "SELECT * FROM USER_WISH WHERE LOGIN_ID=? AND USE_YN = 'Y' AND USED_NO=? ";
+		
+		try {
+			pstm=con.prepareStatement(sql);
+			pstm.setString(1, login_id);
+			pstm.setString(2, used_no);
+			System.out.println("03. query 준비 : "+ sql);
+			
+			rs=pstm.executeQuery();
+			System.out.println("04. query 실행 및 리턴");
+			
+			while(rs.next()) {
+				
+				res.setLoginid(rs.getString(1));
+				res.setUsedtitle(rs.getString(2));
+				res.setUserid(rs.getString(3));
+				res.setUsercenternm(rs.getString(4));
+				res.setUsedno(rs.getString(5));
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("error : 3/4단계 failed");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료");
+		}
+		return res;
+	}
+
+	public int updateWish(WishDto wish) {
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		
+		String sql = " UPDATE USER_WISH SET USE_YN='N' WHERE LOGIN_ID=? AND USED_NO=? ";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, wish.getLoginid());
+			pstm.setString(2, wish.getUsedno());
+			System.out.println("03. query 준비 : " + sql );
+			
+			res = pstm.executeUpdate();
+			System.out.println("04. query 실행 및 리턴");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("3/4 단계 에러 ");
+			e.printStackTrace();
+		}finally {
+			close(pstm);
+			close(con);
+			System.out.println("05. DB 종료\n");
 		}
 		return res;
 	}

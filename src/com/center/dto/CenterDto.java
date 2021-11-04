@@ -11,14 +11,6 @@ public class CenterDto {
 	private String centercategory;
 	private double centergrade;
 	private String centerintro;
-	public String getUserid() {
-		return userid;
-	}
-
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
-
 	private String centercontent;
 	private String centerophour;
 	private String centerpro;
@@ -47,10 +39,11 @@ public class CenterDto {
 		this.centerreg = centerreg;
 	}
 	
-	public CenterDto(String centername, String centeraddr, String centerprice, String centercategory,
+	public CenterDto(String centername,String userid, String centeraddr, String centerprice, String centercategory,
 			String centerintro, String centercontent, String centerophour, String centerpro) {
 		super();
 		this.centername = centername;
+		this.userid = userid;
 		this.centeraddr = centeraddr;
 		this.centerprice = centerprice;
 		this.centercategory = centercategory;
@@ -60,6 +53,13 @@ public class CenterDto {
 		this.centerpro = centerpro;
 	}
 
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
 	public int getCenterno() {
 		return centerno;
 	}

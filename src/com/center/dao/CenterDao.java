@@ -120,14 +120,88 @@ public class CenterDao extends JDBCTemplate{
 			pstm = con.prepareStatement(sql);
 			
 			pstm.setString(1, dto.getCentername());
-			pstm.setString(2, dto.getCenteraddr());
-			pstm.setString(3, dto.getUserid());
+			pstm.setString(2, dto.getUserid());
+			pstm.setString(3, dto.getCenteraddr());
 			pstm.setString(4, dto.getCenterprice());
 			pstm.setString(5, dto.getCentercategory());
 			pstm.setString(6, dto.getCenterintro());
 			pstm.setString(7, dto.getCentercontent());
 			pstm.setString(8, dto.getCenterophour());
 			pstm.setString(9, dto.getCenterpro());
+			System.out.println("03.query 준비: "+sql);
+			
+			res = pstm.executeUpdate();
+			System.out.println("04.query 실행 및 준비");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("3/4단계 오류");
+			e.printStackTrace();
+		}finally {
+			close(pstm);
+			close(con);
+			System.out.println("05.db 종료");
+		}
+		
+		return res;
+	}
+	
+	public int delete (int centerno) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res =0;
+		
+		String sql = "DELETE FROM CENTER WHERE CENTER_NO=?";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setInt(1, centerno);
+			System.out.println("03.query 준비: "+sql);
+			
+			res = pstm.executeUpdate();
+			System.out.println("04.query 실행 및 준비");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("3/4단계 오류");
+			e.printStackTrace();
+		}finally {
+			close(pstm);
+			close(con);
+			System.out.println("05.db 종료");
+		}
+		
+		return res;
+	}
+	
+	public int update (CenterDto dto) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res =0;
+		
+		String sql = "UPDATE CENTER SET CENTER_PRICE=?,CENTER_CATEGORY=?,CENTER_INTRO=?,CENTER_CONTENT=?,CENTER_OPHOUR=?,CENTER_PROGRAM=? WHERE CENTER_NO=?";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1,dto.getCenterprice());
+			pstm.setString(2, dto.getCentercategory());
+			pstm.setString(3, dto.getCenterintro());
+			pstm.setString(4, dto.getCentercontent());
+			pstm.setString(5, dto.getCenterophour());
+			pstm.setString(6, dto.getCenterpro());
+			pstm.setInt(7, dto.getCenterno());
 			System.out.println("03.query 준비: "+sql);
 			
 			res = pstm.executeUpdate();

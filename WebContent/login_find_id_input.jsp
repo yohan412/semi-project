@@ -144,6 +144,9 @@ select {
 <script type="text/javascript">
 	function phonechk(){
 		var phonenum = document.getElementsByName("myphone")[0];
+		var mybirthyy = document.getElementsByName("mypbirthyy")[0];
+		var mybirthmm = document.getElementsByName("mypbirthmm")[0];
+		var mybirthdd = document.getElementsByName("mypbirthdd")[0];
 		
 		if(phonenum.value.trim()==""||phonenum.value==null){
 			alert("전화번호를 입력해주세요");
@@ -156,12 +159,21 @@ select {
 		var rannum = document.getElementsByName("rannum")[0];
 		var inputnum = document.getElementsByName("inputnum")[0];
 		
-		
+		if(rannum!=inputnum){
+			alert("인증번호 오류");
+			document.getElementsByName("inputnum")[0].focus();
+		}
 	}
 </script>
 </head>
 <%
 	String ran = (String)request.getAttribute("ran");
+	String mybirthyy = (String)request.getAttribute("mybirthyy");
+	String mybirthmm = (String)request.getAttribute("mybirthmm");
+	String mybirthdd = (String)request.getAttribute("mybirthdd");
+	String myphone = (String)request.getAttribute("myphone");
+	
+	
 %>
 <body>
 	<header><%@ include file="form/login_header.jsp"%></header>

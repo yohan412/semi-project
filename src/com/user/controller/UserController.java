@@ -116,13 +116,16 @@ public class UserController extends HttpServlet {
     	  String myphone = request.getParameter("myphone");
       }else if(command.equals("phonechk")) {
     	  String myphone = request.getParameter("myphone");
+    	  String mybirthyy = request.getParameter("mybirthyy");
+    	  String mybirthmm = request.getParameter("mybirthmm");
+    	  String mybirthdd = request.getParameter("mybirthdd");
     	  String ran = "";
     	  
     	  ran=messageApp.sendsms(myphone);
     	  System.out.println(ran);
     	  
     	  if(ran!=""&&ran!=null) {
-				jsResponse("인증번호 발신이 성공했습니다","login_find_id_input.jsp&ran="+ran,response);
+				jsResponse("인증번호 발신이 성공했습니다","login_find_id_input.jsp&ran="+ran+"myphone="+myphone+"mybirthyy="+mybirthyy+"mybirthmm="+mybirthmm+"mybirthdd="+mybirthdd,response);
 			} else {
 				jsResponse("인증번호 발신이 실패했습니다","login_find_id_input.jsp",response);
 			}

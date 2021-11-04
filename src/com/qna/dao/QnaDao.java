@@ -106,24 +106,97 @@ public class QnaDao extends JDBCTemplate{
 				return res;
 			}
 			
+			public List<QnaDto> getList(String qatype){			//int qano로 받아야하는건가
+				Connection con = getConnection();
+				PreparedStatement pstm = null;
+				ResultSet rs = null;
+				
+				String qa_type = "";
+				
+				if(qatype == "1") {
+					qa_type = "가격";
+				}else if(qatype == "2") {
+					qa_type = "거래";
+				}else if(qatype == "3") {
+					qa_type = "시설";
+				}else if(qatype == "4") {
+					qa_type = "기타";
+				}	
+				
+				String sql = " SELECT * FROM QNA WHERE QA_FAQ='Y' AND QA_TYPE='거' ORDER BY QA_NO DESC ";
+				ArrayList<QnaDto> list = new ArrayList<QnaDto>();
+				
+				try {
+					pstm = con.prepareStatement(sql);
+					System.out.println("03.query 준비: " + sql);
+					
+					rs = pstm.executeQuery();
+					System.out.println("04.query 실행 및 리턴");
+					
+					while(rs.next()) {
+						QnaDto dto = new QnaDto();
+						dto.setQano(rs.getInt(1));
+						dto.setQagpno(rs.getInt(2));
+						dto.setQagpsq(rs.getInt(3));
+						dto.setUserid(rs.getString(4));
+						dto.setUserno(rs.getInt(5));
+						dto.setQatype(rs.getString(6));
+						dto.setQatitle(rs.getString(7));
+						dto.setQacontent(rs.getString(8));
+						dto.setQafaq(rs.getString(9));
+						dto.setQareg(rs.getDate(10));
+						dto.setQastatus(rs.getString(11));
+						
+						list.add(dto);
+					}
+					
+				} catch (SQLException e) {
+					System.out.println("3/4 단계 에러");
+					e.printStackTrace();
+				}finally {
+					close(pstm);
+					close(rs);
+					System.out.println("05.db 종료\n");
+				}
+				return list;
+			}
 			
 			public List<QnaDto> selectType(String qatype) {
 				Connection con = getConnection();
 				PreparedStatement pstm = null;
 				ResultSet rs = null;
 				List<QnaDto> res = new ArrayList<QnaDto>();
-				//QnaDto res = new QnaDto();
 				
-				String sql = " SELECT * FROM QNA WHERE QA_FAQ='Y' AND QA_TYPE=? ";		//ORDER BY QA_NO DESC
+				System.out.println("큐 타입 : " +qatype);
+				
+				String type = "";
+				
+				if(qatype.equals("1")) {
+					type = "가격";
+					System.out.println("type1 : " + type);
+				}else if(qatype.equals("2")) {
+					type = "거래";
+					System.out.println("type2 : " + type);
+				}else if(qatype.equals("3")) {
+					type = "시설";
+					System.out.println("type3 : " + type);
+				}else if(qatype.equals("4")) {
+					type = "기타";
+					System.out.println("type4 : " + type);
+				}
+				
+				System.out.println("type : " + type);
+				
+				
+				String sql = " SELECT * FROM QNA WHERE QA_FAQ='Y' AND QA_TYPE=? ORDER BY QA_TYPE DESC";
 				
 				try {
 					pstm = con.prepareStatement(sql);
-					pstm.setString(1, qatype);
+					pstm.setString(1, type);
 					System.out.println("03.query 준비: " + sql);
 					
 					rs = pstm.executeQuery();
 					System.out.println("04.query 실행 및 리턴");
-					
 					while(rs.next()) {
 						QnaDto dto = new QnaDto();
 						dto.setQano(rs.getInt(1));
@@ -145,6 +218,50 @@ public class QnaDao extends JDBCTemplate{
 					System.out.println("3/4 단계 에러");
 					e.printStackTrace();
 				}finally {
+					close(rs);
+					close(pstm);
+					close(con);
+					System.out.println("05.db 종료\n");
+				}
+				return res;
+			}
+			
+			public List<QnaDto> selectFaq() {
+				Connection con = getConnection();
+				PreparedStatement pstm = null;
+				ResultSet rs = null;
+				List<QnaDto> res = new ArrayList<QnaDto>();
+				
+				String sql = " SELECT * FROM QNA WHERE QA_FAQ='Y' ORDER BY QA_TYPE DESC";
+				
+				try {
+					pstm = con.prepareStatement(sql);
+					System.out.println("03.query 준비: " + sql);
+					
+					rs = pstm.executeQuery();
+					System.out.println("04.query 실행 및 리턴");
+					while(rs.next()) {
+						QnaDto dto = new QnaDto();
+						dto.setQano(rs.getInt(1));
+						dto.setQagpno(rs.getInt(2));
+						dto.setQagpsq(rs.getInt(3));
+						dto.setUserid(rs.getString(4));
+						dto.setUserno(rs.getInt(5));
+						dto.setQatype(rs.getString(6));
+						dto.setQatitle(rs.getString(7));
+						dto.setQacontent(rs.getString(8));
+						dto.setQafaq(rs.getString(9));
+						dto.setQareg(rs.getDate(10));
+						dto.setQastatus(rs.getString(11));
+						
+						res.add(dto);
+					}
+					
+				} catch (SQLException e) {
+					System.out.println("3/4 단계 에러");
+					e.printStackTrace();
+				}finally {
+					close(rs);
 					close(pstm);
 					close(con);
 					System.out.println("05.db 종료\n");

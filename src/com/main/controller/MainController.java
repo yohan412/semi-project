@@ -70,9 +70,17 @@ public class MainController extends HttpServlet {
 			}
 			
 		}else if(command.equals("qna")) {
+			String qatype = request.getParameter("qatype");
+			
+			if(qatype == "") {
+				qatype = "1";
+			}
+			
 			List<QnaDto> list = udao.selectAll();
+			List<QnaDto> faqlist = udao.selectFaq();
 			
 			request.setAttribute("list", list);
+			request.setAttribute("faqlist", faqlist);
 			RequestDispatcher disp = request.getRequestDispatcher("qna.jsp");
 			disp.forward(request, response);
 			
@@ -85,16 +93,20 @@ public class MainController extends HttpServlet {
 			RequestDispatcher dis = request.getRequestDispatcher("question_board_selectone.jsp");
 			dis.forward(request, response);
 			
-		}else if(command.equals("typelist")) {
-			String type = request.getParameter("command");
+		}else if(command.equals("getlist")) {
+			String qatype = request.getParameter("qatype");
+
+			List<QnaDto> getlist = udao.selectType(qatype);
 			
-			List<QnaDto> typelist = udao.selectType(type);
 			
-			JSONObject obj = new JSONObject();
 			
-			request.setAttribute("typelist", typelist);
+			//JSONObject obj = new JSONObject();
+			
+			request.setAttribute("getlist", getlist);
 			RequestDispatcher disp = request.getRequestDispatcher("faq_qa_type.jsp");
 			disp.forward(request, response);
+			
+			
 			
 		}else if(command.equals("writeform")) {
 			response.sendRedirect("question_board_write.jsp");

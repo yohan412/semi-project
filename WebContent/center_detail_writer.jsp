@@ -169,6 +169,13 @@ h1, p{
 	width:80%;
 	padding:8px;
 }
+.cont_button{
+	align-self: center;
+}
+#zip_chk{
+	display:block;
+	margin-bottom:18px;
+}
 .img_cont, .review_cont{
 	width:90%;
 	margin-left:5%;
@@ -211,7 +218,7 @@ textarea{
 	                    <div class="cont_head">
 	                        <h3 id="a">센터위치</h3>
 	                    </div>
-	                    <div>
+	                    <div class="cont_button">
 							<input type="hidden" id="zipcode" name="myzipcode" size="7" placeholder="우편번호" readonly>&nbsp;&nbsp;
 							<input type="button" id="zip_chk" value="주소 검색" onclick="zipChk()">
 						</div>
@@ -219,7 +226,7 @@ textarea{
 	                    	<input type="hidden" id="address1" name="myaddr1" placeholder="주소를 입력하세요" readonly>
 							<span id="guide" style="color:#999;display:none"></span>
 							<input type="hidden" id="address2" name="myaddr2" size="45" placeholder="상세 주소를 입력하세요">
-	                    	<input type="text" name="centeraddr" id="sample4_roadAddress">
+	                    	<input type="text" name="centeraddr" id="sample4_roadAddress" readonly onclick="zipChk()">
 	                    	<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
 	                    </div>
 	                </div>
@@ -236,10 +243,11 @@ textarea{
 	                        <h3 id="a">센터종류</h3>
 	                    </div>
 	                    <div class="cont_info">
-	                    	<input type="checkbox" name="health" value="health">헬스
-							<input type="checkbox" name="pilates" value="pilates">필라테스
-							<input type="checkbox" name="yoga" value="yoga">요가
-							<input type="checkbox" name="etc" value="etc">기타
+	                    	<input type="checkbox" name="health" value="헬스">헬스
+							<input type="checkbox" name="pilates" value="필라테스">필라테스
+							<input type="checkbox" name="yoga" value="요가">요가
+							<input type="checkbox" name="crossfit" value="크로스핏">크로스핏
+							<input type="checkbox" name="etc" value="기타">기타
 	                    </div>
 	                </div>
 	                <div class="cont">

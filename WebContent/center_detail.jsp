@@ -10,14 +10,56 @@
 <head>
 <meta charset="UTF-8">
 <title>${centerDto.centername} 상세페이지</title>
+<script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cf6a0311e8ff428c0d13bd95e775d7f3&libraries=services"></script>
 <script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	
 	$(function(){
 		
+		var centerAddr = "${centerDto.centeraddr}";		
+		
+		// 주소-좌표 변환 객체를 생성	
+		var geocoder = new kakao.maps.services.Geocoder();
+		
+		//주소 검색하여 주소를 좌표로 변환
+		geocoder.addressSearch(centerAddr,function(result, status) {
+
+			// 정상적으로 검색이 완료됐으면 
+			if (status === kakao.maps.services.Status.OK) {
+				
+				var container = document.getElementById('map'); //지도를 표시할 div
+				var options = {
+					center : new kakao.maps.LatLng(result[0].y, result[0].x), //지도의 중심 좌표
+					level : 4
+				//지도 확대 레벨
+				};
+				//지도 생성
+				map = new kakao.maps.Map(container, options);
+
+				var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+				//마커로 표시
+				var marker = new kakao.maps.Marker({
+					map : map,
+					position : coords
+				});
+				
+				// 인포윈도우로 장소에 대한 설명을 표시
+				var infowindow = new kakao.maps.InfoWindow(
+					{
+						content : '<div style="width:150px;text-align:center;padding:6px 0;">'
+								+ "${centerDto.centername}"
+								+ '</div>',
+						position : coords
+					});
+				infowindow.open(map, marker);
+			}
+			
+		});
+		
 		var reviewlist = new Array();
 		// center 객체
-		var reviewObj = function(writer,grade,content,reg) {
+		var reviewObj = function(no,writer,grade,content,reg) {
+			this.no = no;
 			this.writer = writer;
 			this.grade = grade;
 			this.content= content;
@@ -28,7 +70,7 @@
 		//CenterController 에서 보내준 reviewlist의 값을 넣어줌
 			<c:forEach items="${reviewList}" var="review">
 			var tempReview = 
-				new reviewObj("${review.reviewwriter}","${review.reviewgrade}"
+				new reviewObj("${review.reviewno}","${review.reviewwriter}","${review.reviewgrade}"
 					,"${review.reviewcontent}","${review.reviewreg}");
 			reviewlist.push(tempReview);
 			</c:forEach>
@@ -74,12 +116,64 @@
 				+"<span class='review_grade'>&nbsp;&nbsp; " 
 				+"평점 : <span class='star-rating'><span style='width:"+(list[i].grade*20)+"%'></span>"
                 +"</span> ("+list[i].grade+")</span>"+"<br>"
-				+"<span class='review_contents'>&nbsp;&nbsp; 내용 : "+list[i].content+"</span>"+"<br>"
+				+"<span class='review_contents'>&nbsp;&nbsp; 내용 : <a href='#' onclick='reviewdetail_chk("+list[i].no+")'>"+list[i].content+"</a></span>"+"<br>"
 				+"<span class='review_reg'>&nbsp;&nbsp; 등록일 : "+list[i].reg+"</span>"+"<br>"
 				+"</div></td>"
 				+"</tr>"		
 			);
 		}
+		tablePagenation();
+	}
+	function tablePagenation(){
+		/*
+		변수 생성
+		- rowsPerPage페이지당 보여줄 개수 20
+		- rows 가로행 tr 
+		- rowsCount 개수 100
+		- pageCount 페이지네이션 개수 = 100/20
+		- pagenumbers
+		콘솔에서 pageCount 찍어보고
+		*/
+		$("#numbers").empty();
+		var rowsPerPage = 3,
+			rows = $('#review_list tbody tr'),
+			rowsCount = rows.length
+			pageCount = Math.ceil(rowsCount/rowsPerPage),
+			numbers = $('#numbers');
+		
+		/* 페이지네이션 li를 생성 반복문*/
+		for(var i = 0 ; i < pageCount;i++){
+			numbers.append('<li><a href="">'+(i+1)+'</a></li>');
+		}
+		//#numbers li:first-child a
+		numbers.find('li:first-child a').addClass('active');
+		
+		//페이지네이션 함수 displayRows
+		function displayRows(idx){
+			
+			var start = (idx)*rowsPerPage;
+				end = start + rowsPerPage;
+				
+			rows.hide();
+			//해당하는 부분만 보여줌
+			rows.slice(start,end).show();
+		}
+		
+		displayRows(0);
+		//페이지네이션 클릭시 보여주기
+		/*
+			클릭한 그 a 태그의 active,
+			그 요소의 숫자를 dislplayRows의 매개변수로 지정
+		*/
+		numbers.find('li').click(function(e){
+			//a태그의 이벤트를 막음
+			e.preventDefault();
+			
+			numbers.find('li a').removeClass('active');
+			$(this).find('a').addClass('active');
+			var index = $(this).index();
+			displayRows(index);
+		});
 	}
 	function makeimgGallery(list){
 		
@@ -93,7 +187,7 @@
 	}
 	function review_login_chk(){
 		if(${loginUser==null }){
-			if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
+			if(confirm("로그인이 필요한 동작입니다.\n 로그인 하시겠습니까?")){
 				location.href="login.jsp"
 			}else{
 				
@@ -101,6 +195,21 @@
 		} else{
 			//로그인 상태라면 컨르롤러에 작업 요청
 			location.href='CenterController?command=review_write_form&centerno=${centerDto.centerno}'
+		}
+	}
+	
+	function reviewdetail_chk(no){
+		if(${loginUser==null }){
+			if(confirm("로그인이 필요한 동작입니다.\n 로그인 하시겠습니까?")){
+				location.href="login.jsp"
+			}else{
+				
+			}
+		} else{
+			var popupX = window.screen.width/2;
+			var popupY = window.screen.height/2;
+			var option="top="+popupY+",left="+popupX+",width=515,height=650, status=no,menubar=no,toolbar=no,resizable=no";
+			window.open('CenterController?command=review_detail&loginid=${loginUser.userid}&reviewno='+no,"리뷰 상세보기",option);
 		}
 	}
 </script>
@@ -136,6 +245,7 @@ h1, p{
     margin: 10px;
     width: 200px;
     height: 200px;
+    border-radius:10px;
 }
 #main .wrap .top_cont .txt_part{
     display: inline-block;
@@ -154,8 +264,12 @@ h1, p{
 #main .information a{
     margin: 0 15px;
 }
-
-#center_intro,#center_info,#center_time,#center_program{
+#map{
+	display:inline-block;
+	width:500px;
+	height:260px;
+}
+#center_intro,#center_info,#center_time,#center_program,#center_location{
 	display:flex;
 	width:90%;
 	margin-left:5%;
@@ -177,6 +291,7 @@ h1, p{
 .cont_images img{
 	width:300px;
 	height:200px;
+	margin:5px;
 }
 .review_content,.empty_review{
 	height:150px;
@@ -184,6 +299,13 @@ h1, p{
 	border-radius: 5px;
 	min-width:600px;
 	margin-top:10px;
+}
+.review_content a{
+	text-decoration:none;
+	color:black;
+}
+.review_content a:hover{
+	color:gray;
 }
 .empty_review{
 	line-height:150px;
@@ -218,6 +340,44 @@ h1, p{
 }
 #review_button{
 	align-self:flex-end;
+}
+
+#numbers{
+	list-style: none;
+}
+#numbers li{
+	display:inline-block;
+	margin-left:5px;
+	margin-right:5px;
+}
+#numbers li a {
+	text-decoration: none;
+	color:black;
+	font-weight:bold;
+}
+#numbers li a.active {
+	color:blue;
+}
+.review_contents{
+	display:inline-block;
+	width:400px;
+	overflow:hidden;
+	/*텍스트가 설정한 범위 넘을경우 ...로 표시*/
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+.ip_button{
+	margin-top:10px;
+	background: rgb(00,68,137);
+	font-weight:bold;
+	color : white;
+	width:80px;
+	height:30px;
+	border-radius: 5px;
+	cursor:pointer;
+	outline:none;
+	box-shadow:none;
+	border:none;
 }
 </style>
 </head>
@@ -285,23 +445,28 @@ h1, p{
                      	${centerDto.centerpro}
                     </div>
                 </div>
+                <div id="center_location">
+                	<div class="cont_head">
+                		<h2 id="f">위치</h2>
+                	</div>
+                    <div class="cont_info">
+                     	<div id="map"></div>
+                    </div>
+                </div>
             </div>
             <div class="img_cont">
                 <div>
                     <h2 id="f">사진</h2>
                 </div>
                 <div class="cont_images">
-                    <img src="./img/tmp_image.png">
-                    <img src="./img/tmp_image.png">
-                    <img src="./img/tmp_image.png">
-                    <img src="./img/tmp_image.png">
+                    <img src="./img/no_photo.png">
                 </div>
             </div>
              <div class="review_cont">
                 <div id="review_header">
                     <h2 id="e">이용후기</h2>
                     <div id="review_button">
-                    	<button type="button" onclick="review_login_chk()">리뷰작성</button>
+                    	<input class="ip_button" type="button" onclick="review_login_chk()" value="리뷰작성">
                     </div>
                 </div>
           
@@ -314,6 +479,10 @@ h1, p{
 					</div>
 					</td></tr>
 					</tbody>
+					<tfoot>
+					<tr><td align="center">
+					<div class="pagination"><ol id="numbers"></ol></div></td></tr>
+					</tfoot>
 					</table>
  				</div>           
             </div>

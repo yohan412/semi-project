@@ -37,12 +37,35 @@ select {
 	width: 100px;
 	height: 25px;
 }
-input[type=button], input[type=submit]{
-	cursor:pointer;
-	width:100px;
-	height:30px;
-	font-size:16px;
+
+#address_info{
+	display:flex;
+	align-items: center;
+}
+#address_button{
+	display:inline-block;
+}
+#zip_chk{
+	margin-bottom:16px;
+}
+#address_text{
+	width:100%;
+	display:inline-block;
+}
+#sample4_roadAddress{
+	margin-bottom:40px;
+}
+.ip_button{
+	background: rgb(00,68,137);
 	font-weight:bold;
+	color : white;
+	width:80px;
+	height:30px;
+	border-radius: 5px;
+	cursor:pointer;
+	outline:none;
+	box-shadow:none;
+	border:none;
 }
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -169,13 +192,18 @@ input[type=button], input[type=submit]{
 			<tr>
 				<th>센터 주소</th>
 				<td>
+					<div id="address_info">
+					<div id="address_button">
 					<input type="hidden" id="zipcode" name="myzipcode" size="7" placeholder="우편번호" readonly>&nbsp;&nbsp;
-					<input type="button" id="zip_chk" value="주소 검색" onclick="zipChk()">
+					<input type="button" id="zip_chk" value="주소 검색" onclick="zipChk()"></div>
+					<div id="address_text">
 					<input type="hidden" id="address1" name="myaddr1" placeholder="주소를 입력하세요" readonly><br><br>
 					<span id="guide" style="color:#999;display:none"></span>
 					<input type="hidden" id="address2" name="myaddr2" size="45" placeholder="상세 주소를 입력하세요">
-					<input type="text" name="addr" id="sample4_roadAddress" placeholder="주소를 입력해주세요" required>
+					<input type="text" name="addr" id="sample4_roadAddress" placeholder="주소를 입력해주세요" required readonly onclick="zipChk()">
 					<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
+					</div>
+					</div>
 				</td>
 			</tr>
 			<tr>
@@ -193,14 +221,14 @@ input[type=button], input[type=submit]{
 	                <a href="#this" class="btn" id="delete" name="delete">삭제</a> 
 				</td>
 			</tr>
-			
-		</table>
-		<div>
+			<tr>
 			<td colspan="2" style="text-align:center;"><br><br>
-				<input type="submit" value="등록">
-				<input type="button" value="취소" onclick="location.href='usedcontroller?command=usedlist'">
+				<input class="ip_button" type="submit" value="등록">
+				<input class="ip_button" type="button" value="취소" onclick="location.href='usedcontroller?command=usedlist'">
 			</td>
-		</div>
+		</tr>	
+		</table>
+		
 	</form>
 	</div>
 	<footer><%@ include file="./form/footer.jsp" %></footer>

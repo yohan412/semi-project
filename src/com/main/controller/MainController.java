@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.qna.dao.QnaDao;
@@ -83,6 +85,17 @@ public class MainController extends HttpServlet {
 			RequestDispatcher dis = request.getRequestDispatcher("question_board_selectone.jsp");
 			dis.forward(request, response);
 			
+		}else if(command.equals("typelist")) {
+			String type = request.getParameter("command");
+			
+			List<QnaDto> typelist = udao.selectType(type);
+			
+			JSONObject obj = new JSONObject();
+			
+			request.setAttribute("typelist", typelist);
+			RequestDispatcher disp = request.getRequestDispatcher("faq_qa_type.jsp");
+			disp.forward(request, response);
+			
 		}else if(command.equals("writeform")) {
 			response.sendRedirect("question_board_write.jsp");
 			
@@ -133,6 +146,7 @@ public class MainController extends HttpServlet {
 			//String photo = request.getParameter("photo");
 			
 			QnaDto dto = new QnaDto();
+			
 			
 			dto.setQatitle(qatitle);
 			dto.setQacontent(qacontent);

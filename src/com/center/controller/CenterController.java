@@ -217,10 +217,27 @@ public class CenterController extends HttpServlet {
 				centername = multi.getParameter("centernm");
 				centeraddr = multi.getParameter("centeraddr");
 				centerprice = multi.getParameter("centerprice");
-				centercategory = String.join(",", multi.getParameter("health"),
-									multi.getParameter("pilates"),
-									multi.getParameter("yoga"),
-									multi.getParameter("etc"));
+				
+				if(multi.getParameter("health") != null) {
+					if(centercategory.length()==0) {centercategory += multi.getParameter("health");
+					}else {centercategory += ","+multi.getParameter("health");}						
+				}
+				if(multi.getParameter("pilates") != null) {
+					if(centercategory.length()==0) {centercategory += multi.getParameter("pilates");
+					}else {centercategory += ","+multi.getParameter("pilates");}						
+				}
+				if(multi.getParameter("yoga") != null) {
+					if(centercategory.length()==0) {centercategory += multi.getParameter("yoga");
+					}else {centercategory += ","+multi.getParameter("yoga");}						
+				}
+				if(multi.getParameter("crossfit") != null) {
+					if(centercategory.length()==0) {centercategory += multi.getParameter("crossfit");
+					}else {centercategory += ","+multi.getParameter("crossfit");}						
+				}
+				if(multi.getParameter("etc") != null) {
+					if(centercategory.length()==0) {centercategory += multi.getParameter("etc");
+					}else {centercategory += ","+multi.getParameter("etc");}						
+				}
 				centerintro = multi.getParameter("centerintro");
 				centercontent = multi.getParameter("centercontent");
 				centerophour = multi.getParameter("centerophour");
@@ -255,9 +272,45 @@ public class CenterController extends HttpServlet {
 				response.sendRedirect("CenterController?command=centerwriteform");
 			}
 			
+		} else if(command.equals("review_detail")) {
+			
+			int reviewno = Integer.parseInt(request.getParameter("reviewno"));
+			String loginid = request.getParameter("loginid");
+			
+			ReviewDto reviewDto = rdao.selectOne(reviewno);
+			
+			request.setAttribute("loginid", loginid);
+			request.setAttribute("reviewDto", reviewDto);
+			dispatch("center_review_detail.jsp",request,response);
+		} else if(command.equals("review_delete")) {
+			
+			int reviewno = Integer.parseInt(request.getParameter("reviewno"));
+			
+			int res = rdao.delete(reviewno);
+			
+			String msg;
+			
+			if(res>0) {
+				msg="리뷰가 삭제되었습니다.";
+			} else {
+				msg="리뷰 삭제를 실패하였습니다.\n 다시 시도해주세요.";
+			}
+			
+			//열었던 팝업창 닫기
+			String s = "<script type='text/javascript'>"
+					+"window.opener.location.reload();"
+					+"window.close();"
+					+"alert('"+msg+"');"
+					+ "</script>";
+			PrintWriter out = response.getWriter();
+			out.print(s);
 		}
 	}
 
+	private void dispatch(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatch = request.getRequestDispatcher(url);
+		dispatch.forward(request, response);
+	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

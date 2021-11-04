@@ -51,30 +51,42 @@
 		border-radius: 5px;
 	}
 </style>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script> 
-	/* 유효성 검사 */
-	/*$(function() {
-		$("form").submit(function() {
-			if ($("#title").val() === "") {
-				alert("제목을 입력하세요.");
-				$("#title").focus();
-				return false;
-			}else if ($("#content").val() === "") {
-				alert("내용을 입력하세요.");
-				$("#content").focus();
-				return false;
-			}else{
-				return true;
-			}
-		})
-	})*/
+<script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript"> 
+var gfv_count = 1;
+
+$(function(){
+    $(document).on("change","#file",function(){
+        fn_addFile(); //input태그 추가
+    });
+  
+  
+  $("a[name='delete']").on("click", function(e){ //삭제 버튼 
+     e.preventDefault(); 
+     fn_deleteFile($(this)); 
+  });
+
+});
+	
+
+function fn_addFile(){ 
+	var str = "<tr><th></th><td><input type='file' id=file name='file_"+(gfv_count++)+"'><a href='#this' class='btn' name='delete'>삭제</a></td></tr>"; 
+	$("#fileDiv").append(str); 
+	$("a[name='delete']").on("click", function(e){ //삭제 버튼 
+		e.preventDefault(); 
+	fn_deleteFile($(this)); 
+	}); 
+	} 
+
+function fn_deleteFile(obj){ obj.parent().remove(); }
+
+
 </script>
 </head>
 <body>
 <h2 align="center">1 : 1 문의</h2>
 <div id="wrap">
-	<form action="MainController" method="post">
+	<form action="MainController" method="post">  <!-- name="formcheck" -->
 		<input type="text" name="command" value="boardwrite">
 		<input type="hidden" name="qa_gpno" value="1"> <!-- 1:1 문의 작성시 필요한 그룹번호, 그룹번호내 번호는 현재 받아올수 있는 값이 없어 임의에 값으로 설정 -->
 		<input type="hidden" name="qa_gpsq" value="1"> 
@@ -93,22 +105,28 @@
 							<option value="시설">시설</option>
 							<option value="기타">기타</option>
 					</select>
-					<input type="text" placeholder="제목을 입력하세요" name="title" maxlength="30" value="${dto.qatitle }">
+					<input type="text" placeholder="제목을 입력하세요" name="title" maxlength="30" value="${dto.qatitle }" required>
 				</td>
 			</tr>
+			
 			<tr id="content">
 				<th>내 용</th>
-				<td><textarea rows="15" cols="50" name="content" placeholder="문의내용을 입력해주세요" resize="none">${dto.qacontent }</textarea></td>
+				<td><textarea rows="15" cols="50" name="content" placeholder="문의내용을 입력해주세요" resize="none" required>${dto.qacontent }</textarea></td>
 			</tr>
+			
 			<tr id="photo">
 				<th>사진 첨부</th>
-				<td align="left"><input type="file" value="파일 선택" accept=".jpg,.jpeg,.png,.gif" multiple="multiple"></td>
+				<td align="left">
+					<input type="file" value="파일 선택" id="file" name="file_0" accept=".jpg,.jpeg,.png,.gif" multiple="multiple">
+					<a href="#this" class="btn" id="delete" name="delete">삭제</a>
+					<!-- <input type="button" value="파일 삭제" class="btn" id="delete" name="delete"> -->
+				</td>
 			</tr>
 		</table>
 		<br>
 		<div align="center">
-				<input type="submit" id="submit" value="완 료">
-				<input type="button" id="reset" value="취 소" onclick="location.href='MainController?command=qna'">
+			<input type="submit" id="submit" value="완 료" > <!-- onclick="formChk()" -->&nbsp;&nbsp;
+			<input type="button" id="reset" value="취 소" onclick="location.href='MainController?command=qna'">
 		</div>		
 	</form>
 </div>

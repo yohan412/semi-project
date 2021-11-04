@@ -37,15 +37,16 @@ public class CenterDao extends JDBCTemplate{
 				
 				tmp.setCenterno(rs.getInt(1));
 				tmp.setCentername(rs.getString(2));
-				tmp.setCenteraddr(rs.getString(3));
-				tmp.setCenterprice(rs.getString(4));
-				tmp.setCentercategory(rs.getString(5));
-				tmp.setCentergrade(rs.getDouble(6));
-				tmp.setCenterintro(rs.getString(7));
-				tmp.setCentercontent(rs.getString(8));
-				tmp.setCenterophour(rs.getString(9));
-				tmp.setCenterpro(rs.getString(10));
-				tmp.setCenterreg(rs.getDate(11));
+				tmp.setUserid(rs.getString(3));
+				tmp.setCenteraddr(rs.getString(4));
+				tmp.setCenterprice(rs.getString(5));
+				tmp.setCentercategory(rs.getString(6));
+				tmp.setCentergrade(rs.getDouble(7));
+				tmp.setCenterintro(rs.getString(8));
+				tmp.setCentercontent(rs.getString(9));
+				tmp.setCenterophour(rs.getString(10));
+				tmp.setCenterpro(rs.getString(11));
+				tmp.setCenterreg(rs.getDate(12));
 				
 				res.add(tmp);
 			}
@@ -82,15 +83,16 @@ public class CenterDao extends JDBCTemplate{
 			while(rs.next()) {
 				res.setCenterno(rs.getInt(1));
 				res.setCentername(rs.getString(2));
-				res.setCenteraddr(rs.getString(3));
-				res.setCenterprice(rs.getString(4));
-				res.setCentercategory(rs.getString(5));
-				res.setCentergrade(rs.getDouble(6));
-				res.setCenterintro(rs.getString(7));
-				res.setCentercontent(rs.getString(8));
-				res.setCenterophour(rs.getString(9));
-				res.setCenterpro(rs.getString(10));
-				res.setCenterreg(rs.getDate(11));
+				res.setUserid(rs.getString(3));
+				res.setCenteraddr(rs.getString(4));
+				res.setCenterprice(rs.getString(5));
+				res.setCentercategory(rs.getString(6));
+				res.setCentergrade(rs.getDouble(7));
+				res.setCenterintro(rs.getString(8));
+				res.setCentercontent(rs.getString(9));
+				res.setCenterophour(rs.getString(10));
+				res.setCenterpro(rs.getString(11));
+				res.setCenterreg(rs.getDate(12));
 			}
 		} catch (SQLException e) {
 			System.out.println("3/4 단계 오류");
@@ -112,23 +114,104 @@ public class CenterDao extends JDBCTemplate{
 	
 		int res =0;
 		
-		String sql = "INSERT INTO CENTER VALUES(CENTER_NOSQ.NEXTVAL,?,?,?,?,0,?,?,?,?,SYSDATE)";
+		String sql = "INSERT INTO CENTER VALUES(CENTER_NOSQ.NEXTVAL,?,?,?,?,?,0,?,?,?,?,SYSDATE)";
 		
 		try {
 			pstm = con.prepareStatement(sql);
 			
 			pstm.setString(1, dto.getCentername());
-			pstm.setString(2, dto.getCenteraddr());
-			pstm.setString(3, dto.getCenterprice());
-			pstm.setString(4, dto.getCentercategory());
-			pstm.setString(5, dto.getCenterintro());
-			pstm.setString(6, dto.getCentercontent());
-			pstm.setString(7, dto.getCenterophour());
-			pstm.setString(8, dto.getCenterpro());
+			pstm.setString(2, dto.getUserid());
+			pstm.setString(3, dto.getCenteraddr());
+			pstm.setString(4, dto.getCenterprice());
+			pstm.setString(5, dto.getCentercategory());
+			pstm.setString(6, dto.getCenterintro());
+			pstm.setString(7, dto.getCentercontent());
+			pstm.setString(8, dto.getCenterophour());
+			pstm.setString(9, dto.getCenterpro());
 			System.out.println("03.query 준비: "+sql);
 			
 			res = pstm.executeUpdate();
 			System.out.println("04.query 실행 및 준비");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("3/4단계 오류");
+			e.printStackTrace();
+		}finally {
+			close(pstm);
+			close(con);
+			System.out.println("05.db 종료");
+		}
+		
+		return res;
+	}
+	
+	public int delete (int centerno) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res =0;
+		
+		String sql = "DELETE FROM CENTER WHERE CENTER_NO=?";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setInt(1, centerno);
+			System.out.println("03.query 준비: "+sql);
+			
+			res = pstm.executeUpdate();
+			System.out.println("04.query 실행 및 준비");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("3/4단계 오류");
+			e.printStackTrace();
+		}finally {
+			close(pstm);
+			close(con);
+			System.out.println("05.db 종료");
+		}
+		
+		return res;
+	}
+	
+	public int update (CenterDto dto) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res =0;
+		
+		String sql = "UPDATE CENTER SET CENTER_PRICE=?,CENTER_CATEGORY=?,CENTER_INTRO=?,CENTER_CONTENT=?,CENTER_OPHOUR=?,CENTER_PROGRAM=? WHERE CENTER_NO=?";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1,dto.getCenterprice());
+			pstm.setString(2, dto.getCentercategory());
+			pstm.setString(3, dto.getCenterintro());
+			pstm.setString(4, dto.getCentercontent());
+			pstm.setString(5, dto.getCenterophour());
+			pstm.setString(6, dto.getCenterpro());
+			pstm.setInt(7, dto.getCenterno());
+			System.out.println("03.query 준비: "+sql);
+			
+			res = pstm.executeUpdate();
+			System.out.println("04.query 실행 및 준비");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
 			
 		} catch (SQLException e) {
 			System.out.println("3/4단계 오류");
@@ -160,6 +243,11 @@ public class CenterDao extends JDBCTemplate{
 			res = pstm.executeUpdate();
 			System.out.println("04.query 실행 및 준비");
 			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
 		} catch (SQLException e) {
 			System.out.println("3/4단계 오류");
 			e.printStackTrace();
@@ -193,9 +281,7 @@ public class CenterDao extends JDBCTemplate{
 			while(rs.next()) {
 				res = rs.getInt("CENTER_NO");
 			}
-			
-			
-			
+					
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

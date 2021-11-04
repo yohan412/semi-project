@@ -153,6 +153,9 @@ select {
 		}
 	}
 	function rannumchk(){
+		var rannum = document.getElementsByName("rannum")[0];
+		var inputnum = document.getElementsByName("inputnum")[0];
+		
 		
 	}
 </script>
@@ -303,7 +306,7 @@ select {
 					</div>
 					<div id="phone_certification">
 					 <span class="box"> 
-					 	<input type="text" id="dd" class="int" placeholder="인증번호 6자리">
+					 	<input type="text" id="dd" class="int" name="inputnum" placeholder="인증번호 6자리">
 					 	<input type="hidden" name="rannum" value="${ran }">
 						</span>
 					</div>

@@ -196,6 +196,7 @@ public class CenterController extends HttpServlet {
 		else if(command.equals("centerdetail_writer")) {			
 			
 			String centername = "";
+			String userid="";
 			String centeraddr = "";
 			String centerprice = "";
 			String centercategory = "";
@@ -215,6 +216,7 @@ public class CenterController extends HttpServlet {
 				MultipartRequest multi = new MultipartRequest(request, uploadpath,10*1024*1024,"UTF-8",new DefaultFileRenamePolicy());
 				
 				centername = multi.getParameter("centernm");
+				userid = multi.getParameter("userid");
 				centeraddr = multi.getParameter("centeraddr");
 				centerprice = multi.getParameter("centerprice");
 				
@@ -245,7 +247,7 @@ public class CenterController extends HttpServlet {
 				
 				
 			
-				CenterDto dto = new CenterDto(centername, centeraddr, centerprice, centercategory, centerintro, centercontent, centerophour, centerpro);
+				CenterDto dto = new CenterDto(centername, userid,centeraddr, centerprice, centercategory, centerintro, centercontent, centerophour, centerpro);
 			
 				res = dao.centerdetail_writer(dto);
 			
@@ -304,6 +306,78 @@ public class CenterController extends HttpServlet {
 					+ "</script>";
 			PrintWriter out = response.getWriter();
 			out.print(s);
+			
+		} else if(command.equals("centerdelete")) {
+			
+			int centerno = Integer.parseInt(request.getParameter("centerno"));
+			
+			int res = dao.delete(centerno);
+			
+			if(res>0) {
+				jsResponse("게시글이 성공적으로 삭제되었습니다.","CenterController?command=centerlist",response);
+			}else {
+				jsResponse("게시글 삭제가 실패하였습니다. \n 다시 시도해주세요..","CenterController?command=centerdetail&centerno="+centerno,response);
+			}
+			
+		} else if(command.equals("centerupdateform")) {
+			
+			int centerno = Integer.parseInt(request.getParameter("centerno"));
+			
+			CenterDto centerDto = dao.selectOne(centerno);
+			
+			request.setAttribute("centerDto", centerDto);
+			dispatch("center_update.jsp",request,response);
+			
+		} else if(command.equals("centerupdate")) {
+			
+			int centerno = Integer.parseInt(request.getParameter("centerno"));
+			
+			String centerprice= request.getParameter("centerprice");
+			String centercategory="";
+			String centerintro= request.getParameter("centerintro");
+			String centercontent=request.getParameter("centercontent");
+			String centerophour = request.getParameter("centerophour");
+			String centerpro = request.getParameter("centerpro");
+			
+			if(request.getParameter("health") != null) {
+				if(centercategory.length()==0) {centercategory += request.getParameter("health");
+				}else {centercategory += ","+request.getParameter("health");}						
+			}
+			if(request.getParameter("pilates") != null) {
+				if(centercategory.length()==0) {centercategory += request.getParameter("pilates");
+				}else {centercategory += ","+request.getParameter("pilates");}						
+			}
+			if(request.getParameter("yoga") != null) {
+				if(centercategory.length()==0) {centercategory += request.getParameter("yoga");
+				}else {centercategory += ","+request.getParameter("yoga");}						
+			}
+			if(request.getParameter("crossfit") != null) {
+				if(centercategory.length()==0) {centercategory += request.getParameter("crossfit");
+				}else {centercategory += ","+request.getParameter("crossfit");}						
+			}
+			if(request.getParameter("etc") != null) {
+				if(centercategory.length()==0) {centercategory += request.getParameter("etc");
+				}else {centercategory += ","+request.getParameter("etc");}						
+			}
+			
+			CenterDto dto = new CenterDto();
+			
+			dto.setCenterno(centerno);
+			dto.setCenterprice(centerprice);
+			dto.setCentercategory(centercategory);
+			dto.setCenterintro(centerintro);
+			dto.setCentercontent(centercontent);
+			dto.setCenterophour(centerophour);
+			dto.setCenterpro(centerpro);
+			
+			int res = dao.update(dto);
+			
+			if(res>0) {
+				jsResponse("게시글 수정이 성공적으로 완료되었습니다.","CenterController?command=centerdetail&centerno="+centerno,response);
+			}else {
+				jsResponse("게시글 수정이 실패하였습니다. \n 다시 시도해주세요.","CenterController?command=centerdetail&centerno="+centerno,response);
+			}
+			
 		}
 	}
 

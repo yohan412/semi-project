@@ -1,3 +1,4 @@
+<%@page import="com.wish.dto.WishDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -6,6 +7,7 @@
 <%@ page import ="com.user.dto.UserDto" %>
 <%@page import="com.used.dto.UsedDto"%>
 <%@page import="java.util.List"%>
+<%@page import="com.wish.dto.WishDto" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,6 +39,7 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 <body>
 <header><%@ include file="./form/header.jsp" %></header>
 <% List<UsedDto> mypagelist = (List<UsedDto>)request.getAttribute("mypagelist"); %>
+<% List<WishDto> mywish = (List<WishDto>)request.getAttribute("mywish"); %>
 <h2 class="information">마이 페이지</h2>
 	<hr>
 	<table class="mylist">
@@ -90,10 +93,31 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 				</table>
 			</td>
 		</tr>
-		<tr>
+		 <tr>
 			<th id="list">찜 목록</th>
-			<td><textarea rows="10" cols="60" style="resize:none;"></textarea></td>
-		</tr>
+			<td>
+				<table border="1" width="100%" height="100px">
+				<thead>
+					<tr>
+						<th>로그인ID</th>
+						<th>회원권 제목</th>
+						<th>회원권 작성자</th>
+						<th>회원권 센터이름</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${mywish }" var="wish">
+					<tr>
+						<td>${wish.loginid }</td>
+						<td><a href="usedcontroller?command=useddetail&usedno=${wish.usedno}">${wish.usedtitle }</a></td>
+						<td>${wish.userid }</td>
+						<td>${wish.usercenternm }</td>
+					</tr>
+					</c:forEach>
+				</tbody>
+				</table>
+			</td>
+		</tr> 
 		<tr>
 			<td colspan="2" class="function">
 			<input type="button" value="수정" onclick="location.href='MainController?command=updatestart&userno=<%=loginUser.getUserno()%>'">

@@ -33,13 +33,16 @@
 	}
 </style>
 </head>
+<%
+	String userid = (String)request.getAttribute("userid");
+%>
 <body>
 	<header><%@ include file="form/login_header.jsp" %></header>
 	
 	<div class="notice">
-		<a>여기에 안내사항</a>
+		<a>찾으시는 아이디는</a>
 		<br><br><br>
-		<a>기타안내사항</a>
+		<a><%=userid %> 입니다</a>
 	</div>
 	<br><br><br><br><br><br>
 	<div class="button">

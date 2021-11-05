@@ -113,8 +113,13 @@ function login_chk(){
 	List<QnaDto> list = dao.selectAll();
 	//List<QnaDto> typelist = dao.selectType(qatype);
 	List<QnaDto> faqlist = dao.selectFaq();
+	
+	String seid = request.getParameter("seid");
+
+	System.out.println(seid);
 %>
 <body>
+
 	<header><%@ include file="form/header.jsp" %></header>
 	<br>
 	<div class="qna">
@@ -129,26 +134,21 @@ function login_chk(){
 					<li><a href="MainController?command=getlist&qatype=2">거래</a></li>
 					<li><a href="MainController?command=getlist&qatype=3">시설</a></li>
 					<li><a href="MainController?command=getlist&qatype=4">기타</a></li>
-				
-					<!-- <input type="button" value="가격" rel="price" class="active" onclick="b_list('center');">
-					<input type="button" value="거래" rel="deal" onclick="b_list('deal');">
-					<input type="button" value="시설" rel="center" onclick="b_list('price');">
-					<input type="button" value="기타" rel="etc" onclick="b_list('etc');"> -->
 				</ul>	
 				
 				<!-- 탭 콘텐츠 영역 -->
-				<div class="tab_container">
-					<div id="price" class="tab_container" onchange="sort_by_price()"></div>	
-				</div>
-				<div class="tab_container">
-					<div id="deal" class="tab_container" onchange="sort_by_deal()"></div>	
-				</div>
-				<div class="tab_container">
-					<div id="center" class="tab_container" onchange="sort_by_center()"></div>	
-				</div>
-				<div class="tab_container">
-					<div id="etc" class="tab_container" onchange="sort_by_etc()"></div>	
-				</div>
+					<div class="tab_container">
+						<div id="price" class="tab_container""></div>	
+					</div>	
+					<div class="tab_container">
+						<div id="deal" class="tab_container"></div>	
+					</div>
+					<div class="tab_container">
+						<div id="center" class="tab_container"></div>	
+					</div>
+					<div class="tab_container">
+						<div id="etc" class="tab_container"></div>	
+					</div>
 			</div>
 
 			<table class="faq_table" border="1">
@@ -162,8 +162,10 @@ function login_chk(){
 				%>				
 
 				<tr>
-					<td><%=faqlist.get(i).getQatype()%></td>
-					<td><a href="question_board_selectone.jsp?qano=<%=faqlist.get(i).getQano()%>"><%=faqlist.get(i).getQatitle() %></a></td>
+					<c:if test="${userid eq QnaDto.userid }">
+						<td><%=faqlist.get(i).getQatype()%></td>
+						<td><a href="question_board_selectone.jsp?qano=<%=faqlist.get(i).getQano()%>"><%=faqlist.get(i).getQatitle() %></a></td>
+					</c:if>
 				</tr>
 
 				<%
@@ -188,7 +190,7 @@ function login_chk(){
 
 				<tr>
 					<td><%=list.get(i).getQano() %></td>
-					<td><a href="question_board_selectone.jsp?qano=<%=list.get(i).getQano()%>"><%=list.get(i).getQatitle() %></a></td>
+					<td><a href="question_board_selectone.jsp?qano=<%=list.get(i).getQano()%>&userid=<%=list.get(i).getUserid() %>&seid=<%=seid%>"><%=list.get(i).getQatitle() %></a></td>
 					<td><%=list.get(i).getQastatus() %></td>
 				</tr>
 

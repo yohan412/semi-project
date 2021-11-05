@@ -10,9 +10,17 @@
 <%@ page import="java.io.PrintWriter" %>
 
 <% 
+	
+	out.flush();
 	int qano = Integer.parseInt(request.getParameter("qano"));
 	String qatitle = request.getParameter("qatitle");
 	String qacontent = request.getParameter("qacontent");
+	String userid = request.getParameter("userid");
+	String seid = request.getParameter("seid");
+	
+	if(userid != seid){
+		out.println("<script>alert('본인이 작성한 글만 조회하실 수 있습니다.'); history.back();</script>");
+	}
 	
 	QnaDao dao = new QnaDao();
 	QnaDto dto = dao.selectOne(qano);
@@ -67,6 +75,7 @@
 	}
 </style>
 </head>
+<header><%@ include file="form/header.jsp" %></header>
 <body>
 
 <h2 align="center">1 : 1 문의</h2>
@@ -76,23 +85,17 @@
 		<input type="hidden" name="command" value="boardupdate">
 		<input type="hidden" name="qano" value="<%=dto.getQano() %>"> 
 		<input type="hidden" id="qa_type" value="<%=dto.getQatype() %>"> 
+		<input type="text" id="userid" value="<%=dto.getUserid() %>">
+		<input type="text" id="userno" value="<%=dto.getUserno() %>">
+		<input type="text" id="session_id" value="<%=loginUser.getUserid()%>">
+
+		
 		
 		
 		<table>
 			<tr id="title">
 				<th>제 목</th>
-				<td>
-					<!-- <select id="qna_category" name="qa_type" style="width:50px;height:30px;" disabled>
-							<option value="price">가격</option>
-							<option value="deal">거래</option>
-							<option value="center">시설</option>
-							<option value="etc">기타</option>-->
-	<script type="text/javascript">							
-					var selectoption = document.getElementById("qna_category");
-					selectoption = selectoption.options[selectoption.selectedIndex].value;
-	</script>					
-					
-					</select>	
+				<td>					
 					<input type="text" name="qatitle" maxlength="30" value="<%=dto.getQatitle()%>" readonly="readonly">
 				</td>
 			</tr>
@@ -115,6 +118,21 @@
 </div>		
 </body>
 <script>
+	
+	$(function(){
+		var userno = $('#userid').val();
+		console.log(userno);
+		
+	//	if("${loginid}"==null){
+	//		if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
+	//			location.href="login.jsp"
+	//		}else{
+	//			history.back();
+	//		}
+	//	}
+		
+		
+
 	function del_btn(qano){
 		if (confirm("삭제하시겠습니까?") == true){    //확인
 			location.href="question_board_delete.jsp?qano="+qano;
@@ -123,8 +141,6 @@
 		}
 	}
 	
-	if("${loginUser.userid}" != "${dto.userid}"){
-		alert("본인글만 조회 가능합니다."); history.back();
-	}
+	
 </script>
 </html>

@@ -62,7 +62,7 @@ public class QnaDao extends JDBCTemplate{
 			}
 			return res;
 		}
-		
+
 				
 			public QnaDto selectOne(int qano) {
 				Connection con = getConnection();
@@ -274,19 +274,18 @@ public class QnaDao extends JDBCTemplate{
 				PreparedStatement pstm = null;
 				int res = 0;
 				
-				String sql = " INSERT INTO QNA VALUES(QA_NOSQ.NEXTVAL,?,?,?,?,?,?,?,'N',SYSDATE,'N') ";
+				String sql = " INSERT INTO QNA VALUES(QA_NOSQ.NEXTVAL,QA_GPNOSQ.NEXTVAL,?,?,?,?,?,?,'N',SYSDATE,'N') ";
 				
 						
 				try {
 					pstm = con.prepareStatement(sql);
 					
 					pstm.setInt(1, dto.getQagpno());
-					pstm.setInt(2, dto.getQagpsq());
-					pstm.setString(3, dto.getUserid());
-					pstm.setInt(4, dto.getUserno());
-					pstm.setString(5, dto.getQatype());
-					pstm.setString(6,dto.getQatitle());
-					pstm.setString(7, dto.getQacontent());
+					pstm.setString(2, dto.getUserid());
+					pstm.setInt(3, dto.getUserno());
+					pstm.setString(4, dto.getQatype());
+					pstm.setString(5,dto.getQatitle());
+					pstm.setString(6, dto.getQacontent());
 					//pstm.setString(8, dto.getQafaq());
 					//pstm.setString(9, dto.getQastatus());
 					System.out.println("03.query 준비: " + sql);
@@ -311,6 +310,42 @@ public class QnaDao extends JDBCTemplate{
 				return res;
 			}
 
+			public int insertform(String qatitle, String userid, String qacontent) {
+				Connection con = getConnection();
+				PreparedStatement pstm = null;
+				int res = 0;
+				
+				String sql = " INSERT INTO QNA VALUES(?,?,?) ";
+				
+						
+				try {
+					pstm = con.prepareStatement(sql);
+					
+					pstm.setString(1,qatitle);
+					pstm.setString(2, userid);
+					pstm.setString(3, qacontent);
+					System.out.println("03.query 준비: " + sql);
+					
+					res = pstm.executeUpdate();
+					System.out.println("04.query 실행 및 리턴");
+					
+					if(res>0) {
+						commit(con);
+					}else {
+						rollback(con);
+					}
+					
+				} catch (SQLException e) {
+					System.out.println("3/4 단계 에러");
+					e.printStackTrace();
+				}finally {
+					close(pstm);
+					close(con);
+					System.out.println("05.db 종료\n");
+				}
+				return res;
+			}
+			
 			public int update(QnaDto dto) {
 				Connection con = getConnection();
 				PreparedStatement pstm = null;

@@ -86,10 +86,14 @@ public class MainController extends HttpServlet {
 			
 		}else if(command.equals("selectone")) {
 			int qano = Integer.parseInt(request.getParameter("qano"));
+			int userno = Integer.parseInt(request.getParameter("userno"));
+			UserDto loginUser = dao.selectOne(userno);
 			
 			QnaDto dto = udao.selectOne(qano);
 			
 			request.setAttribute("dto", dto);
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser",loginUser);
 			RequestDispatcher dis = request.getRequestDispatcher("question_board_selectone.jsp");
 			dis.forward(request, response);
 			

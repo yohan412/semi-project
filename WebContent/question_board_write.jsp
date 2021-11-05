@@ -87,11 +87,9 @@ function fn_deleteFile(obj){ obj.parent().remove(); }
 <h2 align="center">1 : 1 문의</h2>
 <div id="wrap">
 	<form action="MainController" method="post">  <!-- name="formcheck" -->
-		<input type="text" name="command" value="boardwrite">
-		<input type="hidden" name="qa_gpno" value="1"> <!-- 1:1 문의 작성시 필요한 그룹번호, 그룹번호내 번호는 현재 받아올수 있는 값이 없어 임의에 값으로 설정 -->
-		<input type="hidden" name="qa_gpsq" value="1"> 
-		<input type="hidden" name="user_id" value="TEST"> <!-- 사용자 아이디와 번호는 로그인 기능 완료 후 세션값 적용 -->
-		<input type="hidden" name="user_no" value="1">
+		<input type="hidden" name="command" value="boardwrite">
+		<input type="hidden" name="user_id" value="${loginUser.userid}"> <!-- 사용자 아이디와 번호는 로그인 기능 완료 후 세션값 적용 -->
+		<input type="hidden" name="user_no" value="${loginUser.userno}">
 		<input type="hidden" name="qa_faq" value="N"> <!-- 관리자가 설정하는 영역이므로 사용자가 등록 시 'N' 고정값 -->
 		<input type="hidden" name="qa_status" value="N"> <!-- 관리자가 설정하는 영역이므로 사용자가 등록 시 'N' 고정값 -->
 

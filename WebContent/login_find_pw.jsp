@@ -44,7 +44,23 @@
 		margin: 5px;
 	}
 </style>
-
+<script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+	function pwchk(){
+		var pw1 = document.getElementsByName("userpw")[0].value;
+		var pw2 = document.getElementsByName("userpw")[1].value;
+		
+		if(pw1!=pw2){
+			alert("비밀번호 입력 오류");
+			return false;
+		}
+			
+		return true;
+	}
+</script>
+<%
+	int userno = (int)request.getAttribute("userno");
+%>
 </head>
 <body>
 	<header><%@ include file="form/login_header.jsp" %></header>
@@ -53,15 +69,17 @@
 		<br><br>
 		<a style="font-weight:200;">영문,숫자,특수문자를 함께 사용하시면(8자이상 16자 이하)보다 안전합니다.</a>
 	</div>
-	
+	<form action="usercontroller?command=changepw" method="post" onsubmit="return pwchk()">
 	<div class="text">
-		<input type="text" placeholder="새 비밀번호"><br>
-		<input type="text" placeholder="새 비밀번호 확인">
+		<input type="hidden" name="userno" value=<%=userno %>>
+		<input type="text" placeholder="새 비밀번호" name="userpw"><br>
+		<input type="text" placeholder="새 비밀번호 확인" name="userpw">
 	</div>
 	
 	<div class="button">
-		<input type="button" value="확인">
+		<input type="submit" value="확인">
 	</div>
+	</form>
 	<footer><%@ include file="form/login_footer.jsp" %></footer>
 </body>
 </html>

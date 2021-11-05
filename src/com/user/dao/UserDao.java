@@ -248,6 +248,85 @@ public class UserDao {
 
 		return res;
 	}
+
+	public String findid(UserDto dto) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		String res = "";
+		
+		String sql = " SELECT * FROM USER_INFO WHERE USER_BIRTHDATE = ? AND USER_EMAIL = ? AND USER_PHONE = ?";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setString(1, dto.getUserbirthdate());
+			pstm.setString(2, dto.getUseremail());
+			pstm.setString(3, dto.getUserphone());
+			System.out.println("03.query 준비: "+sql);
+			
+			System.out.println(dto.getUserbirthdate()+" , "+dto.getUseremail()+" , "+dto.getUserphone());
+			rs=pstm.executeQuery();
+			System.out.println("04.query 실행 및 리턴");
+			
+			while(rs.next()) {
+				res=rs.getString("USER_ID");
+			}
+			
+			
+		} catch (SQLException e) {
+			System.out.println("3/4단계 오류");
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstm);
+			close(con);
+			System.out.println("05.db 종료");
+		}
+		
+		return res;
+	}
+	
+	public int findpw(UserDto dto) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		int res = 0;
+		
+		String sql = " SELECT * FROM USER_INFO WHERE USER_ID = ? AND USER_BIRTHDATE = ? AND USER_EMAIL = ? AND USER_PHONE = ?";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setString(1, dto.getUserid());
+			pstm.setString(2, dto.getUserbirthdate());
+			pstm.setString(3, dto.getUseremail());
+			pstm.setString(4, dto.getUserphone());
+			System.out.println("03.query 준비: "+sql);
+			
+			System.out.println(dto.getUserbirthdate()+" , "+dto.getUseremail()+" , "+dto.getUserphone());
+			rs=pstm.executeQuery();
+			System.out.println("04.query 실행 및 리턴");
+			
+			while(rs.next()) {
+				res=rs.getInt("USER_NO");
+			}
+			
+			
+		} catch (SQLException e) {
+			System.out.println("3/4단계 오류");
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstm);
+			close(con);
+			System.out.println("05.db 종료");
+		}
+		
+		return res;
+	}
 	public List<UserDto> selectAll(){
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
@@ -294,5 +373,84 @@ public class UserDao {
 		return res;
 	}
 	
- 
+	public int changepw(UserDto dto) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		
+		String sql = " UPDATE USER_INFO SET USER_PW=? WHERE USER_NO=? ";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, dto.getUserpw());
+			pstm.setInt(2, dto.getUserno());
+			System.out.println("03. query 준비 : " + sql);
+			
+			res = pstm.executeUpdate();
+			System.out.println("04. query 실행 및 리턴");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+			} catch (SQLException e) {
+				System.out.println("error : query 준비/실행 실패");
+				e.printStackTrace();
+			} finally {
+				close(pstm);
+				close(con);
+				System.out.println("05. db 종료 \n");
+			}
+			return res;
+	}
+	public int multiUpdate(List<UserDto> list) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res=0;
+		int[] cnt = null;
+		
+		//String sql = "UPDATE USER_INFO SET USER_ENABLED=CASE WHEN USER_ENABLED='Y' THEN 'N' WHEN USER_ENABLED='N' THEN 'Y' ELSE 'N' END WHERE USER_NO=?";
+		String sql ="UPDATE USER_INFO SET USER_ENABLED=?,USER_ROLE=? WHERE USER_NO=?";
+		try {
+			pstm= con.prepareStatement(sql);
+			for(int i = 0 ; i<list.size();i++) {
+				pstm.setString(1,list.get(i).getUserenabled());
+				pstm.setString(2, list.get(i).getRole());
+				pstm.setInt(3, list.get(i).getUserno());
+				pstm.addBatch();
+				System.out.println("03.query 준비: "+sql+"(변경할 번호:"+list.get(i).getUserno()+")");
+			}
+		
+			cnt=pstm.executeBatch();
+			System.out.println("04. query 실행");
+			
+			//성공: -2, 실패 : -3
+			for(int i = 0 ; i <cnt.length;i++) {
+				if(cnt[i] == -2) {
+					res++;
+				}
+			}
+			
+			if(list.size() == res) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("3/4 단계 에러");
+			e.printStackTrace();
+		}finally {
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료\n");
+		}
+		
+		return res;
+		
+	}
 }

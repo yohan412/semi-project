@@ -2,9 +2,11 @@ package com.user.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -98,7 +100,7 @@ public class UserController extends HttpServlet {
          
          
          int res = dao.insertUser(dto);
-         
+       
          if(res>0) {
             jsResponse("회원 가입 성공", "usercontroller?command=loginform", response);
          }else {
@@ -114,11 +116,37 @@ public class UserController extends HttpServlet {
       session.invalidate();
       response.sendRedirect("main.jsp");
       
+      }else if(command.equals("findidform")){
+    	  response.sendRedirect("login_find_id_input.jsp");
+      }else if(command.equals("findpwform")) {
+    	  response.sendRedirect("login_find_pw_input.jsp");
       }else if(command.equals("loginform")) {
          response.sendRedirect("login.jsp");
       }else if(command.equals("findid")) {
     	  String mybirth = request.getParameter("mybirthyy")+"/"+request.getParameter("mybirthmm")+"/"+request.getParameter("mybirthdd");
     	  String myphone = request.getParameter("myphone");
+    	  String myemail = request.getParameter("myemail");
+    	  
+    	  UserDto dto = new UserDto();
+    	  
+    	  dto.setUserbirthdate(mybirth);
+    	  dto.setUserphone(myphone);
+    	  dto.setUseremail(myemail);
+    	  
+    	  String res = dao.findid(dto);
+
+    	  System.out.println(res);
+    	  request.setAttribute("userid", res);
+    	  
+    	  if(res!=null&&res!="") {
+              ServletContext context = getServletContext();
+              RequestDispatcher dispatcher = context.getRequestDispatcher("/login_find_id.jsp");
+              dispatcher.forward(request, response);
+           }else {
+              jsResponse("아이디 찾기 실패", "usercontroller?command=loginform", response);
+           }
+    	  
+    	  
       }else if(command.equals("phonechk")) {
     	  String myphone = request.getParameter("myphone");
     	  String ran = "";
@@ -127,9 +155,10 @@ public class UserController extends HttpServlet {
     	  System.out.println(ran);
     	  
     	  if(ran!=""&&ran!=null) {
-				jsResponse("인증번호 발신이 성공했습니다","login_find_id_input.jsp&ran="+ran,response);
+				response.sendRedirect("phonechk.jsp?ran="+ran);
+				
 			} else {
-				jsResponse("인증번호 발신이 실패했습니다","login_find_id_input.jsp",response);
+				response.sendRedirect("phonechk.jsp?ran="+ran);
 			}
       }else if(command.equals("userlist_ajax")) {
 			
@@ -162,6 +191,81 @@ public class UserController extends HttpServlet {
 				request.setAttribute("usedlist", usedlist);
 			}
 			dispatch("admin_mypage.jsp",request,response);
+		}else if(command.equals("findpw")) {
+			String mybirth = request.getParameter("mybirthyy")+"/"+request.getParameter("mybirthmm")+"/"+request.getParameter("mybirthdd");
+	    	String myphone = request.getParameter("myphone");
+	    	String myemail = request.getParameter("myemail");
+	    	String myid = request.getParameter("myid"); 
+	    	  
+	    	UserDto dto = new UserDto();
+	    	  
+	    	dto.setUserbirthdate(mybirth);
+	    	dto.setUserphone(myphone);
+	    	dto.setUseremail(myemail);
+	    	dto.setUserid(myid);
+	    	  
+	    	int res = dao.findpw(dto);
+
+	    	System.out.println(res);
+	    	request.setAttribute("userno", res);  
+	    	
+	    	if(res>0) {
+	              ServletContext context = getServletContext();
+	              RequestDispatcher dispatcher = context.getRequestDispatcher("/login_find_pw.jsp");
+	              dispatcher.forward(request, response);
+	        }else {
+	            jsResponse("비번 찾기 실패", "usercontroller?command=loginform", response);
+	        }
+		}else if(command.equals("changepw")) {
+			int myno = Integer.parseInt(request.getParameter("userno"));
+			String mypw = request.getParameter("userpw");
+			
+			UserDto dto = new UserDto();
+			
+			dto.setUserno(myno);
+			dto.setUserpw(mypw);
+			
+			int res = dao.changepw(dto);
+			
+			if(res>0) {
+	            jsResponse("비밀 번호 변경 성공", "usercontroller?command=loginform", response);
+	         }else {
+	            jsResponse("비밀 번호 변경 실패", "usercontroller?command=registform", response);
+	         }
+			
+		} else if(command.equals("multi_update")) {
+			
+			String[] usernolist = request.getParameterValues("chk");
+			String[] rolelist = request.getParameterValues("role");
+			String[] enabledlist = request.getParameterValues("enabled");
+			System.out.println(usernolist.length);
+			System.out.println(rolelist.length);
+			if(usernolist==null || usernolist.length==0){
+				jsResponse("하나 이상 체크해주세요!", "admin_main.jsp", response);
+			}else {
+				
+				List<UserDto> userlist = dao.selectAll();
+				List<UserDto> updatelist = new ArrayList<UserDto>();
+				
+				for(int i = 0 ; i < userlist.size();i++) {
+					for(int j = 0 ; j < usernolist.length;j++) {
+						if(userlist.get(i).getUserno()==Integer.parseInt(usernolist[j])) {
+							UserDto tmp = userlist.get(i);
+							tmp.setRole(rolelist[i]);
+							tmp.setUserenabled(enabledlist[i]);
+							updatelist.add(tmp);
+						}
+					}
+				}
+				
+				int res= dao.multiUpdate(updatelist);
+				
+				if(res>0) {
+					jsResponse("변경되었습니다", "admin_main.jsp", response);
+				}else {
+					jsResponse("변경 중 오류가 발생하였습니다", "admin_main.jsp", response);
+				}
+			}
 		}
    }
    

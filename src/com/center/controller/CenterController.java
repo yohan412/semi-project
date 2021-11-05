@@ -397,6 +397,17 @@ public class CenterController extends HttpServlet {
 			}
 			response.setContentType("application/x-json; charset=utf-8");
 			response.getWriter().print(jarr);
+		} else if(command.equals("multi_delete")) {
+			
+			String[] centernoList = request.getParameterValues("chk");
+			
+			int res = dao.multiDelete(centernoList);
+			
+			if(res>0) {
+				jsResponse("선택한 게시글(들)이 삭제되었습니다.","admin_main.jsp",response);
+			} else {
+				jsResponse("선택한 게시글(들) 삭제 실패하였습니다.\n 다시 시도해주세요.","admin_main.jsp",response);
+			}
 		}
 	}
 

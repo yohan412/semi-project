@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.center.dto.CenterDto;
@@ -358,6 +359,23 @@ public class UsedController extends HttpServlet {
 			} else {
 				jsResponse("게시글 거래상태 변경이 실패하였습니다.","usedcontroller?command=useddetail&usedno="+usedno,response);
 			}
+		} else if(command.equals("usedlist_ajax")) {
+			
+			List<UsedDto> usedlist = usedDao.selectAll();
+			
+			JSONArray jarr = new JSONArray();
+			
+			for(int i =0 ; i <usedlist.size();i++) {
+				JSONObject tmp = new JSONObject();
+				tmp.put("no", usedlist.get(i).getUsedno());
+				tmp.put("title", usedlist.get(i).getUsedtitle());
+				tmp.put("writer", usedlist.get(i).getUserid());
+				tmp.put("status", usedlist.get(i).getUsedstatus());
+				tmp.put("reg", usedlist.get(i).getUsedreg().toString());
+				jarr.add(tmp);
+			}
+			response.setContentType("application/x-json; charset=utf-8");
+			response.getWriter().print(jarr);
 		}
 	}
 	

@@ -116,6 +116,10 @@ public class UserController extends HttpServlet {
       session.invalidate();
       response.sendRedirect("main.jsp");
       
+      }else if(command.equals("findidform")){
+    	  response.sendRedirect("login_find_id_input.jsp");
+      }else if(command.equals("findpwform")) {
+    	  response.sendRedirect("login_find_pw_input.jsp");
       }else if(command.equals("loginform")) {
          response.sendRedirect("login.jsp");
       }else if(command.equals("findid")) {
@@ -135,7 +139,6 @@ public class UserController extends HttpServlet {
     	  request.setAttribute("userid", res);
     	  
     	  if(res!=null&&res!="") {
-              jsResponse("아이디 찾기 성공", "login_find_id.jsp&userid="+res, response);
               ServletContext context = getServletContext();
               RequestDispatcher dispatcher = context.getRequestDispatcher("/login_find_id.jsp");
               dispatcher.forward(request, response);
@@ -188,6 +191,47 @@ public class UserController extends HttpServlet {
 				request.setAttribute("usedlist", usedlist);
 			}
 			dispatch("admin_mypage.jsp",request,response);
+		}else if(command.equals("findpw")) {
+			String mybirth = request.getParameter("mybirthyy")+"/"+request.getParameter("mybirthmm")+"/"+request.getParameter("mybirthdd");
+	    	String myphone = request.getParameter("myphone");
+	    	String myemail = request.getParameter("myemail");
+	    	String myid = request.getParameter("myid"); 
+	    	  
+	    	UserDto dto = new UserDto();
+	    	  
+	    	dto.setUserbirthdate(mybirth);
+	    	dto.setUserphone(myphone);
+	    	dto.setUseremail(myemail);
+	    	dto.setUserid(myid);
+	    	  
+	    	int res = dao.findpw(dto);
+
+	    	System.out.println(res);
+	    	request.setAttribute("userno", res);  
+	    	
+	    	if(res>0) {
+	              ServletContext context = getServletContext();
+	              RequestDispatcher dispatcher = context.getRequestDispatcher("/login_find_pw.jsp");
+	              dispatcher.forward(request, response);
+	        }else {
+	            jsResponse("비번 찾기 실패", "usercontroller?command=loginform", response);
+	        }
+		}else if(command.equals("changepw")) {
+			int myno = Integer.parseInt(request.getParameter("userno"));
+			String mypw = request.getParameter("userpw");
+			
+			UserDto dto = new UserDto();
+			
+			dto.setUserno(myno);
+			dto.setUserpw(mypw);
+			
+			int res = dao.changepw(dto);
+			
+			if(res>0) {
+	            jsResponse("비밀 번호 변경 성공", "usercontroller?command=loginform", response);
+	         }else {
+	            jsResponse("비밀 번호 변경 실패", "usercontroller?command=registform", response);
+	         }
 			
 		} else if(command.equals("multi_update")) {
 			

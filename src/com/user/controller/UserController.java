@@ -2,6 +2,7 @@ package com.user.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -162,6 +163,40 @@ public class UserController extends HttpServlet {
 				request.setAttribute("usedlist", usedlist);
 			}
 			dispatch("admin_mypage.jsp",request,response);
+			
+		} else if(command.equals("multi_update")) {
+			
+			String[] usernolist = request.getParameterValues("chk");
+			String[] rolelist = request.getParameterValues("role");
+			String[] enabledlist = request.getParameterValues("enabled");
+			System.out.println(usernolist.length);
+			System.out.println(rolelist.length);
+			if(usernolist==null || usernolist.length==0){
+				jsResponse("하나 이상 체크해주세요!", "admin_main.jsp", response);
+			}else {
+				
+				List<UserDto> userlist = dao.selectAll();
+				List<UserDto> updatelist = new ArrayList<UserDto>();
+				
+				for(int i = 0 ; i < userlist.size();i++) {
+					for(int j = 0 ; j < usernolist.length;j++) {
+						if(userlist.get(i).getUserno()==Integer.parseInt(usernolist[j])) {
+							UserDto tmp = userlist.get(i);
+							tmp.setRole(rolelist[i]);
+							tmp.setUserenabled(enabledlist[i]);
+							updatelist.add(tmp);
+						}
+					}
+				}
+				
+				int res= dao.multiUpdate(updatelist);
+				
+				if(res>0) {
+					jsResponse("변경되었습니다", "admin_main.jsp", response);
+				}else {
+					jsResponse("변경 중 오류가 발생하였습니다", "admin_main.jsp", response);
+				}
+			}
 		}
    }
    

@@ -146,7 +146,13 @@ td a{
 			console.log('select old = ', oldText + ', new = '
 					+ e.$newItem.text());
 		});
-
+		
+		$("#checked_change").submit(function(){
+			if($("#checked_change input:checked").length==0){
+				alert("하나 이상 체크해 주세요");
+				return false;
+			}
+		});
 	});
 
 	function AccordionMenu(selector) {
@@ -381,7 +387,7 @@ td a{
 			this.writer=writer;
 			this.reg=reg;
 		}
-		$("#wrap h1").html("센터 게시판");
+		$("#wrap h1").html("중고거래 게시판");
 		$.ajax({
 			url:"usedcontroller?command=usedlist_ajax",
 			dataType:"json",
@@ -403,8 +409,8 @@ td a{
 		$("#table_data").append(
 				"<form>"
 				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
-				+"<thead>"
 				+"<col width='20px'><col width='400px'><col width='100px'><col width='100px'>"
+				+"<thead>"
 				+"<tr><th>No</th><th>게시글 이름</th><th>작성자</th><th>작성일</th></tr>"
 				+"</thead><tbody></tbody></table></form>"
 		);
@@ -419,10 +425,10 @@ td a{
 	function make_usedtable(list){
 		$("#table_data").empty();
 		$("#table_data").append(
-				"<form>"
+				"<form id='checked_change'>"
 				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
-				+"<thead>"
 				+"<col width='20px'><col width='400px'><col width='100px'><col width='100px'>"
+				+"<thead>"
 				+"<tr><th>No</th><th>게시글 이름</th><th>작성자</th><th>작성일</th></tr>"
 				+"</thead><tbody></tbody></table></form>"
 		);
@@ -434,6 +440,84 @@ td a{
 			);
 		}
 	}
+	function user_list(){
+		
+		var userList = new Array();
+		
+		var userObj = function(no,id,name,email,role,enable,reg){
+			this.no=no;
+			this.id=id;
+			this.name=name;
+			this.email=email;
+			this.role=role;
+			this.enable=enable;
+			this.reg=reg;
+		}
+		$("#wrap h1").html("유저 리스트");
+		$.ajax({
+			url:"usercontroller?command=userlist_ajax",
+			dataType:"json",
+			success:function(data){
+				for(var i = 0 ; i <data.length;i++){
+					var tmpObj = new userObj(data[i].no,data[i].id,data[i].name,data[i].email,data[i].role,data[i].enabled,data[i].reg);
+					userList.push(tmpObj);
+				}
+				make_usertable(userList);
+			},
+			error:function(){
+				alert("실패");
+			}
+		});
+	}
+	
+	function make_usertable(list){
+		$("#table_data").empty();
+		$("#table_data").append(
+				"<form action='usercontroller?command=multi_update' method='post' id='checked_change'>"
+				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
+				+"<col width='20px'><col width='100px'><col width='100px'><col width='300px'>"
+				+"<thead>"
+				+"<tr><th>No</th><th>아이디</th><th>이름</th><th>이메일</th><th>회원등급</th><th>탈퇴여부</th><th>가입날짜</th><th><input type='checkbox' name='all' onclick='allChk(this.checked)'></th></tr>"
+				+"</thead><tbody></tbody><tfoot></tfoot></table></form>"
+		);
+		for(var i = 0 ; i<list.length;i++){
+			$("tbody").append(
+				"<tr>"
+				+"<td>"+list[i].no+"</td>"+"<td><a href='usercontroller?command=admin_mypage&userno="+list[i].no+"'>"+list[i].id+"</a></td>"+"<td>"+list[i].name+"</td>"+"<td>"+list[i].email+"</td>"+"<td>"+role_select(list[i].role)+"</td>"+"<td>"+enabled_select(list[i].enable)+"</td>"+"<td>"+list[i].reg+"</td>"
+				+"<td align='center'><input type='checkbox' name='chk' value='"+list[i].no+"'></td>"
+				+"</tr>"
+			);
+		}
+		$("tfoot").append(
+			"<tr><td colspan='8'><input type='submit' value='탈퇴여부 변경'></td></tr>"		
+		);
+		
+		function enabled_select(value){
+			if( value=="Y"){
+				return "<select name=enabled><option value='N'>N</option><option value='Y' selected>Y</option></select>";
+			} else{
+				return "<select name=enabled><option value='N' selected>N</option><option value='Y'>Y</option></select>";
+			}
+		}
+		function role_select(value){
+			if( value=="GU"){
+				return "<select name=role><option value='GU' selected>GU</option><option value='BU'>BU</option><option value='M'>M</option><option value='DM'>DM</option></select>";
+			} else if(value=="BU"){
+				return "<select name=role><option value='GU'>GU</option><option value='BU' selected>BU</option><option value='M'>M</option><option value='DM'>DM</option></select>";
+			} else if(value=="M"){
+				return "<select name=role><option value='GU'>GU</option><option value='BU'>BU</option><option value='M' selected>M</option><option value='DM'>DM</option></select>";
+			} else{
+				return "<select name=role><option value='GU'>GU</option><option value='BU'>BU</option><option value='M'>M</option><option value='DM' selected>DM</option></select>";
+			}
+		}
+	}
+	function allChk(bool){
+		var chks= document.getElementsByName("chk");		
+		for(var i = 0 ; i < chks.length;i++){
+			chks[i].checked=bool;
+		}
+	}
+	
 	
 </script>
 </head>
@@ -448,7 +532,7 @@ td a{
 					<span class="folder"> </span><a>유저관리</a>
 				</div>
 				<ul class="sub">
-					<li><a>일반유저</a></li>
+					<li><a href="#" onclick="user_list()">일반유저</a></li>
 					<li><a>사업자</a></li>
 					<li><a>관리자</a></li>
 				</ul>

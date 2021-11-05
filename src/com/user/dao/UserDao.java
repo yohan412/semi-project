@@ -248,7 +248,6 @@ public class UserDao {
 
 		return res;
 	}
-<<<<<<< HEAD
 
 	public String findid(UserDto dto) {
 		
@@ -257,14 +256,14 @@ public class UserDao {
 		ResultSet rs = null;
 		String res = "";
 		
-		String sql = " SELECT * FROM USER_INFO WHERE USER_EMAIL = ? ";
+		String sql = " SELECT * FROM USER_INFO WHERE USER_BIRTHDATE = ? AND USER_EMAIL = ? AND USER_PHONE = ?";
 		
 		try {
 			pstm = con.prepareStatement(sql);
 			
-			//pstm.setString(1, dto.getUserbirthdate());
-			pstm.setString(1, dto.getUseremail());
-			//pstm.setString(3, dto.getUserphone());
+			pstm.setString(1, dto.getUserbirthdate());
+			pstm.setString(2, dto.getUseremail());
+			pstm.setString(3, dto.getUserphone());
 			System.out.println("03.query 준비: "+sql);
 			
 			System.out.println(dto.getUserbirthdate()+" , "+dto.getUseremail()+" , "+dto.getUserphone());
@@ -288,7 +287,46 @@ public class UserDao {
 		
 		return res;
 	}
-=======
+	
+	public int findpw(UserDto dto) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		int res = 0;
+		
+		String sql = " SELECT * FROM USER_INFO WHERE USER_ID = ? AND USER_BIRTHDATE = ? AND USER_EMAIL = ? AND USER_PHONE = ?";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setString(1, dto.getUserid());
+			pstm.setString(2, dto.getUserbirthdate());
+			pstm.setString(3, dto.getUseremail());
+			pstm.setString(4, dto.getUserphone());
+			System.out.println("03.query 준비: "+sql);
+			
+			System.out.println(dto.getUserbirthdate()+" , "+dto.getUseremail()+" , "+dto.getUserphone());
+			rs=pstm.executeQuery();
+			System.out.println("04.query 실행 및 리턴");
+			
+			while(rs.next()) {
+				res=rs.getInt("USER_NO");
+			}
+			
+			
+		} catch (SQLException e) {
+			System.out.println("3/4단계 오류");
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstm);
+			close(con);
+			System.out.println("05.db 종료");
+		}
+		
+		return res;
+	}
 	public List<UserDto> selectAll(){
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
@@ -335,6 +373,39 @@ public class UserDao {
 		return res;
 	}
 	
->>>>>>> 731d7315a2466b00b6ae4fa4f4747566a6e4ee2d
- 
+	public int changepw(UserDto dto) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		
+		String sql = " UPDATE USER_INFO SET USER_PW=? WHERE USER_NO=? ";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, dto.getUserpw());
+			pstm.setInt(2, dto.getUserno());
+			System.out.println("03. query 준비 : " + sql);
+			
+			res = pstm.executeUpdate();
+			System.out.println("04. query 실행 및 리턴");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("3/4 단계 에러");
+			e.printStackTrace();
+		}finally {
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료\n");
+		}
+		
+		return res;
+		
+	}
 }

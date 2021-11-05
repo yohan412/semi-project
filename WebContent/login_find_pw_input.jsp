@@ -175,8 +175,16 @@ select {
 			가입시 입력하셨던 전화번호를 작성해주세요. <br> 입력하신 전화번호로 인증번호를 발송해 드립니다.
 		</h5>
 		<div id="content">
-		<form action="usercontroller?command=findid" method="post"  onsubmit="return rannumchk()">
-			
+		<form action="usercontroller?command=findpw" method="post"  onsubmit="return rannumchk()">
+			<div>
+				<h3 class="join_title">
+					<label for="USER_ID">ID</label>
+				</h3>
+				<span class="box int_id">
+				 <input type="text" id="id"
+					class="int" maxlength="100" name="myid" placeholder="아이디 입력">
+				</span>
+			</div>
 			<div>
 				<h3 class="join_title">
 					<label for="USER_BIRTH DATE">생년월일</label>

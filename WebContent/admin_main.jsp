@@ -381,10 +381,11 @@ td a{
 		
 		var usedList = new Array();
 		
-		var usedObj = function(no,name,writer,reg){
+		var usedObj = function(no,title,writer,status,reg){
 			this.no=no;
-			this.name=name;
+			this.title=title;
 			this.writer=writer;
+			this.status=status
 			this.reg=reg;
 		}
 		$("#wrap h1").html("중고거래 게시판");
@@ -393,10 +394,10 @@ td a{
 			dataType:"json",
 			success:function(data){
 				for(var i = 0 ; i <data.length;i++){
-					var tmpObj = new usedObj(data[i].no,data[i].name,data[i].writer,data[i].reg);
+					var tmpObj = new usedObj(data[i].no,data[i].title,data[i].writer,data[i].status,data[i].reg);
 					usedList.push(tmpObj);
 				}
-				make_usedtable(centerList);
+				make_usedtable(usedList);
 			},
 			error:function(){
 				alert("실패");
@@ -411,13 +412,14 @@ td a{
 				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
 				+"<col width='20px'><col width='400px'><col width='100px'><col width='100px'>"
 				+"<thead>"
-				+"<tr><th>No</th><th>게시글 이름</th><th>작성자</th><th>작성일</th></tr>"
+				+"<tr><th>No</th><th>게시글 이름</th><th>작성자</th><th>작성일</th><th><input type='checkbox' name='all' onclick='allChk(this.checked)'></th></tr>"
 				+"</thead><tbody></tbody></table></form>"
 		);
 		for(var i = 0 ; i<list.length;i++){
 			$("tbody").append(
 				"<tr>"
 				+"<td>"+list[i].no+"</td>"+"<td><a href='CenterController?command=centerdetail&centerno="+list[i].no+"'>"+list[i].name+"</a></td>"+"<td>"+list[i].writer+"</td>"+"<td>"+list[i].reg+"</td>"
+				+"<td align='center'><input type='checkbox' name='chk' value='"+list[i].no+"'></td>"
 				+"</tr>"
 			);
 		}
@@ -427,15 +429,22 @@ td a{
 		$("#table_data").append(
 				"<form id='checked_change'>"
 				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
-				+"<col width='20px'><col width='400px'><col width='100px'><col width='100px'>"
+				+"<col width='20px'><col width='400px'><col width='100px'><col width='100px'><col width='100px'>"
 				+"<thead>"
-				+"<tr><th>No</th><th>게시글 이름</th><th>작성자</th><th>작성일</th></tr>"
+				+"<tr><th>No</th><th>게시글 이름</th><th>작성자</th><th>거래상태</th><th>작성일</th><th><input type='checkbox' name='all' onclick='allChk(this.checked)'></th></tr>"
 				+"</thead><tbody></tbody></table></form>"
 		);
 		for(var i = 0 ; i<list.length;i++){
+			var status;
+			if(list[i].status == 'N'){
+				status="거래중";
+			}else{
+				status="거래완료";
+			}
 			$("tbody").append(
 				"<tr>"
-				+"<td>"+list[i].no+"</td>"+"<td><a href='usedcontroller?command=useddetail&usedno="+list[i].no+"'>"+list[i].name+"</a></td>"+"<td>"+list[i].writer+"</td>"+"<td>"+list[i].reg+"</td>"
+				+"<td>"+list[i].no+"</td>"+"<td><a href='usedcontroller?command=useddetail&usedno="+list[i].no+"'>"+list[i].title+"</a></td>"+"<td>"+list[i].writer+"</td>"+"<td>"+status+"</td>"+"<td>"+list[i].reg+"</td>"
+				+"<td align='center'><input type='checkbox' name='chk' value='"+list[i].no+"'></td>"
 				+"</tr>"
 			);
 		}
@@ -532,9 +541,8 @@ td a{
 					<span class="folder"> </span><a>유저관리</a>
 				</div>
 				<ul class="sub">
-					<li><a href="#" onclick="user_list()">일반유저</a></li>
-					<li><a>사업자</a></li>
-					<li><a>관리자</a></li>
+					<li><a href="#" onclick="user_list()">유저 리스트</a></li>
+					<li><a>사업자 요청</a></li>
 				</ul>
 			</li>
 
@@ -544,7 +552,7 @@ td a{
 				</div>
 				<ul class="sub">
 					<li><a href="#" onclick="center_list()">센터 게시판</a></li>
-					<li><a>회원권 게시판</a></li>
+					<li><a href="#" onclick="used_list()">회원권 게시판</a></li>
 				</ul>
 			</li>
 		</ul>

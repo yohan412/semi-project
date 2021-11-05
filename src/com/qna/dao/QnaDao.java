@@ -280,7 +280,7 @@ public class QnaDao extends JDBCTemplate{
 				try {
 					pstm = con.prepareStatement(sql);
 					
-					pstm.setInt(1, dto.getQagpno());
+					pstm.setInt(1, dto.getQagpsq());
 					pstm.setString(2, dto.getUserid());
 					pstm.setInt(3, dto.getUserno());
 					pstm.setString(4, dto.getQatype());

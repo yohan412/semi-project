@@ -11,14 +11,13 @@
 
 <% 
 	
-	out.flush();
 	int qano = Integer.parseInt(request.getParameter("qano"));
 	String qatitle = request.getParameter("qatitle");
 	String qacontent = request.getParameter("qacontent");
 	String userid = request.getParameter("userid");
 	String seid = request.getParameter("seid");
 	
-	if(userid != seid){
+	if(!(userid.equals(seid))){
 		out.println("<script>alert('본인이 작성한 글만 조회하실 수 있습니다.'); history.back();</script>");
 	}
 	

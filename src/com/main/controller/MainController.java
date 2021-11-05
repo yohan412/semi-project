@@ -116,7 +116,6 @@ public class MainController extends HttpServlet {
 			response.sendRedirect("question_board_write.jsp");
 			
 		}else if(command.equals("boardwrite")) {
-			int qagpno = Integer.parseInt(request.getParameter("qa_gpno"));
 			int qagpsq = Integer.parseInt(request.getParameter("qa_gpsq"));
 			String qauserid = request.getParameter("user_id");
 			int qauserno = Integer.parseInt(request.getParameter("user_no"));
@@ -129,7 +128,7 @@ public class MainController extends HttpServlet {
 			
 			
 			QnaDto dto = new QnaDto();
-			dto.setQagpno(qagpno);
+			
 			dto.setQagpsq(qagpsq);
 			dto.setUserid(qauserid);
 			dto.setUserno(qauserno);

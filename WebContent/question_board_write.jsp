@@ -88,6 +88,7 @@ function fn_deleteFile(obj){ obj.parent().remove(); }
 <div id="wrap">
 	<form action="MainController" method="post">  <!-- name="formcheck" -->
 		<input type="hidden" name="command" value="boardwrite">
+		<input type="hidden" name="qa_gpsq" value="1">
 		<input type="hidden" name="user_id" value="${loginUser.userid}"> <!-- 사용자 아이디와 번호는 로그인 기능 완료 후 세션값 적용 -->
 		<input type="hidden" name="user_no" value="${loginUser.userno}">
 		<input type="hidden" name="qa_faq" value="N"> <!-- 관리자가 설정하는 영역이므로 사용자가 등록 시 'N' 고정값 -->

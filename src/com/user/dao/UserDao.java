@@ -1,9 +1,15 @@
 package com.user.dao;
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.user.dto.UserDto;
 
@@ -216,11 +222,19 @@ public class UserDao {
 
 			while(rs.next()) {
 				res.setUserno(rs.getInt(1));
+				res.setUserid(rs.getString(2));
+				res.setUserpw(rs.getString(3));
+				res.setUsername(rs.getString(4));
+				res.setUsergender(rs.getString(5));
+				res.setUserbirthdate(rs.getString(6));
+				res.setUseremail(rs.getString(7));
+				res.setUserphone(rs.getString(8));
+				res.setUserzip(rs.getString(9));
+				res.setUseraddr(rs.getString(10));
 				res.setRole(rs.getString(11));
 				res.setReg(rs.getDate(12));
 				res.setUserenabled(rs.getString(13));
 				res.setUserwish(rs.getString(14));
-
 			}
 		} catch (SQLException e) {
 			System.out.println("3/4 단계 에러");
@@ -234,7 +248,51 @@ public class UserDao {
 
 		return res;
 	}
-
+	public List<UserDto> selectAll(){
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		List<UserDto> res = new ArrayList<UserDto>();
+		
+		String sql = "SELECT * FROM USER_INFO";
+		
+		try {
+			pstm=con.prepareStatement(sql);
+			System.out.println("03. query 준비");
+			
+			rs=pstm.executeQuery();
+			System.out.println("04. query 실행 및 리턴");
+			while(rs.next()) {
+				UserDto tmp = new UserDto();
+				
+				tmp.setUserno(rs.getInt(1));
+				tmp.setUserid(rs.getString(2));
+				tmp.setUserpw(rs.getString(3));
+				tmp.setUsername(rs.getString(4));
+				tmp.setUsergender(rs.getString(5));
+				tmp.setUserbirthdate(rs.getString(6));
+				tmp.setUseremail(rs.getString(7));
+				tmp.setUserphone(rs.getString(8));
+				tmp.setUserzip(rs.getString(9));
+				tmp.setUseraddr(rs.getString(10));
+				tmp.setRole(rs.getString(11));
+				tmp.setReg(rs.getDate(12));
+				tmp.setUserenabled(rs.getString(13));
+				tmp.setUserwish(rs.getString(14));
+				
+				res.add(tmp);
+			}
+		} catch (SQLException e) {
+			System.out.println("error : 3/4단계 failed");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료\n");
+		}
+		return res;
+	}
 	
  
 }

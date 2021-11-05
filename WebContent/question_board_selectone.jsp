@@ -84,12 +84,9 @@
 		<input type="hidden" name="command" value="boardupdate">
 		<input type="hidden" name="qano" value="<%=dto.getQano() %>"> 
 		<input type="hidden" id="qa_type" value="<%=dto.getQatype() %>"> 
-		<input type="text" id="userid" value="<%=dto.getUserid() %>">
-		<input type="text" id="userno" value="<%=dto.getUserno() %>">
-		<input type="text" id="session_id" value="<%=loginUser.getUserid()%>">
-
-		
-		
+		<input type="hidden" id="userid" value="<%=dto.getUserid() %>">
+		<input type="hidden" id="userno" value="<%=dto.getUserno() %>">
+		<input type="hidden" id="session_id" value="<%=loginUser.getUserid()%>">
 		
 		<table>
 			<tr id="title">
@@ -122,16 +119,6 @@
 		var userno = $('#userid').val();
 		console.log(userno);
 		
-	//	if("${loginid}"==null){
-	//		if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
-	//			location.href="login.jsp"
-	//		}else{
-	//			history.back();
-	//		}
-	//	}
-		
-		
-
 	function del_btn(qano){
 		if (confirm("삭제하시겠습니까?") == true){    //확인
 			location.href="question_board_delete.jsp?qano="+qano;

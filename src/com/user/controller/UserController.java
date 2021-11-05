@@ -191,7 +191,6 @@ public class UserController extends HttpServlet {
 				request.setAttribute("usedlist", usedlist);
 			}
 			dispatch("admin_mypage.jsp",request,response);
-<<<<<<< HEAD
 		}else if(command.equals("findpw")) {
 			String mybirth = request.getParameter("mybirthyy")+"/"+request.getParameter("mybirthmm")+"/"+request.getParameter("mybirthdd");
 	    	String myphone = request.getParameter("myphone");
@@ -233,7 +232,6 @@ public class UserController extends HttpServlet {
 	         }else {
 	            jsResponse("비밀 번호 변경 실패", "usercontroller?command=registform", response);
 	         }
-=======
 			
 		} else if(command.equals("multi_update")) {
 			
@@ -268,7 +266,6 @@ public class UserController extends HttpServlet {
 					jsResponse("변경 중 오류가 발생하였습니다", "admin_main.jsp", response);
 				}
 			}
->>>>>>> 2eac472ec9c89efde1fed72fc4aa4fbd8d5ead9c
 		}
    }
    

@@ -287,7 +287,6 @@ public class UserDao {
 		
 		return res;
 	}
-<<<<<<< HEAD
 	
 	public int findpw(UserDto dto) {
 		
@@ -328,8 +327,6 @@ public class UserDao {
 		
 		return res;
 	}
-=======
->>>>>>> 2eac472ec9c89efde1fed72fc4aa4fbd8d5ead9c
 	public List<UserDto> selectAll(){
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
@@ -376,7 +373,6 @@ public class UserDao {
 		return res;
 	}
 	
-<<<<<<< HEAD
 	public int changepw(UserDto dto) {
 		
 		Connection con = getConnection();
@@ -395,7 +391,21 @@ public class UserDao {
 			System.out.println("04. query 실행 및 리턴");
 			
 			if(res>0) {
-=======
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+			} catch (SQLException e) {
+				System.out.println("error : query 준비/실행 실패");
+				e.printStackTrace();
+			} finally {
+				close(pstm);
+				close(con);
+				System.out.println("05. db 종료 \n");
+			}
+			return res;
+	}
 	public int multiUpdate(List<UserDto> list) {
 		
 		Connection con = getConnection();
@@ -426,12 +436,10 @@ public class UserDao {
 			}
 			
 			if(list.size() == res) {
->>>>>>> 2eac472ec9c89efde1fed72fc4aa4fbd8d5ead9c
 				commit(con);
 			}else {
 				rollback(con);
 			}
-<<<<<<< HEAD
 			
 		} catch (SQLException e) {
 			System.out.println("3/4 단계 에러");
@@ -444,16 +452,5 @@ public class UserDao {
 		
 		return res;
 		
-=======
-		} catch (SQLException e) {
-			System.out.println("error : query 준비/실행 실패");
-			e.printStackTrace();
-		} finally {
-			close(pstm);
-			close(con);
-			System.out.println("05. db 종료 \n");
-		}
-		return res;
->>>>>>> 2eac472ec9c89efde1fed72fc4aa4fbd8d5ead9c
 	}
 }

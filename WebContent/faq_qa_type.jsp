@@ -105,65 +105,78 @@ function login_chk(){
 		location.href="MainController?command=writeform";
 	}
 }
+
+function b_list(type){
+	location.href="MainController?command=typelist&type="+type;
+}
+
+function sort_by_price(){
+	String qatype = request.getParameter("qatype");
+	if(qatype == "price"){
+		
+	}else if(qatype == "deal"){
+		
+	}else if(qatype == "center"){
+		
+	}else if(qatype == "etc"){
+		
+	}
+	
+}
+
+
+}
 </script>
 </head>
 <% 
-	String qatype = request.getParameter("qatype");
 	QnaDao dao = new QnaDao(); 
+	QnaDto dto = new QnaDto();
 	List<QnaDto> list = dao.selectAll();
-	//List<QnaDto> typelist = dao.selectType(qatype);
-	List<QnaDto> faqlist = dao.selectFaq();
+	String qatype = request.getParameter("qatype");
+	
+	List<QnaDto> getlist = dao.selectType(qatype);
+	
+	
 %>
 <body>
 	<header><%@ include file="form/header.jsp" %></header>
 	<br>
+	<input type="hidden" name="qatype" value="<%=dto.getQatype()%>">
 	<div class="qna">
 		<div class="faq">
 		<h3 align="center">F A Q</h3>
 
-			<div name="qna_category" id="tab_container" style="width:97%; padding:10px 10px 10px 10px;">
-				<ul class="tabs" onchange="sort_by_category()">
-				<!-- 탭 메뉴 영역 -->
+			<div id="category" style="width:97%; padding:10px 10px 10px 10px;">
+				<ul class="tabs">
+					<!-- 탭 메뉴 영역 -->
 					<li><a href="MainController?command=qna">전체</a></li>
 					<li><a href="MainController?command=getlist&qatype=1">가격</a></li>
 					<li><a href="MainController?command=getlist&qatype=2">거래</a></li>
 					<li><a href="MainController?command=getlist&qatype=3">시설</a></li>
 					<li><a href="MainController?command=getlist&qatype=4">기타</a></li>
-				
-					<!-- <input type="button" value="가격" rel="price" class="active" onclick="b_list('center');">
-					<input type="button" value="거래" rel="deal" onclick="b_list('deal');">
-					<input type="button" value="시설" rel="center" onclick="b_list('price');">
-					<input type="button" value="기타" rel="etc" onclick="b_list('etc');"> -->
 				</ul>	
 				
 				<!-- 탭 콘텐츠 영역 -->
 				<div class="tab_container">
-					<div id="price" class="tab_container" onchange="sort_by_price()"></div>	
-				</div>
-				<div class="tab_container">
-					<div id="deal" class="tab_container" onchange="sort_by_deal()"></div>	
-				</div>
-				<div class="tab_container">
-					<div id="center" class="tab_container" onchange="sort_by_center()"></div>	
-				</div>
-				<div class="tab_container">
-					<div id="etc" class="tab_container" onchange="sort_by_etc()"></div>	
-				</div>
+					<div id="price" class="tab_container" >
+						<!-- Content -->
+				</div>	
+			</div>
 			</div>
 
 			<table class="faq_table" border="1">
 				<tr>
 					<th style="width:80px;">유형</th>	
-					<th style="width:400px;">자주하는 질문</th>
+					<th style="width:400px;">자주 묻는 질문</th>
 				</tr>	
 				<tr>
 				<%
-					for(int i = 0; i<faqlist.size(); i++){
+					for(int i = 0; i<getlist.size(); i++){
 				%>				
 
 				<tr>
-					<td><%=faqlist.get(i).getQatype()%></td>
-					<td><a href="question_board_selectone.jsp?qano=<%=faqlist.get(i).getQano()%>"><%=faqlist.get(i).getQatitle() %></a></td>
+					<td><%=getlist.get(i).getQatype()%></td>
+					<td><a href="question_board_selectone.jsp?qano=<%=getlist.get(i).getQano()%>"><%=getlist.get(i).getQatitle() %></a></td>
 				</tr>
 
 				<%
@@ -172,35 +185,6 @@ function login_chk(){
 			</table>
 		</div>
 		
-		<br><br><br><br>
-		
-		<div class="qna_list">
-		<h3 align="center">Q & A</h3>
-			<table class="qna_table" border="1">
-				<tr>
-					<th style="width:50px;">NO.</th>
-					<th>제목</th>
-					<th style="width:70px;">답변여부</th>
-				</tr>
-<%
-	for(int i = 0; i<list.size(); i++){
-%>				
-
-				<tr>
-					<td><%=list.get(i).getQano() %></td>
-					<td><a href="question_board_selectone.jsp?qano=<%=list.get(i).getQano()%>"><%=list.get(i).getQatitle() %></a></td>
-					<td><%=list.get(i).getQastatus() %></td>
-				</tr>
-
-<%
-	}
-%>			
-			</table>
-			<div style="text-align: right; width: 500px; display: inline-block;">
-				<input type="button" value="1 : 1 문의" class="qna_button" onclick="login_chk();">
-			</div>
-			<br>
-		</div>
 	</div>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	<footer><%@ include file="form/footer.jsp" %></footer>

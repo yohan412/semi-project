@@ -83,7 +83,7 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 							<tr>
 								<td>${writer.usedno }</td>
 								<td>${writer.userid }</td>
-								<td><a href="used_list.jsp">${writer.usedtitle }</a></td>
+								<td><a href="usedcontroller?command=useddetail&usedno=${writer.usedno }">${writer.usedtitle }</a></td>
 								<td>${writer.usedcontent }</td> 
 								<td>${writer.usedreg }</td>
 							</tr>

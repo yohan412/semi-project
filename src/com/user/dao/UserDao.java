@@ -287,6 +287,7 @@ public class UserDao {
 		
 		return res;
 	}
+<<<<<<< HEAD
 	
 	public int findpw(UserDto dto) {
 		
@@ -327,6 +328,8 @@ public class UserDao {
 		
 		return res;
 	}
+=======
+>>>>>>> 2eac472ec9c89efde1fed72fc4aa4fbd8d5ead9c
 	public List<UserDto> selectAll(){
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
@@ -373,6 +376,7 @@ public class UserDao {
 		return res;
 	}
 	
+<<<<<<< HEAD
 	public int changepw(UserDto dto) {
 		
 		Connection con = getConnection();
@@ -391,10 +395,43 @@ public class UserDao {
 			System.out.println("04. query 실행 및 리턴");
 			
 			if(res>0) {
+=======
+	public int multiUpdate(List<UserDto> list) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res=0;
+		int[] cnt = null;
+		
+		//String sql = "UPDATE USER_INFO SET USER_ENABLED=CASE WHEN USER_ENABLED='Y' THEN 'N' WHEN USER_ENABLED='N' THEN 'Y' ELSE 'N' END WHERE USER_NO=?";
+		String sql ="UPDATE USER_INFO SET USER_ENABLED=?,USER_ROLE=? WHERE USER_NO=?";
+		try {
+			pstm= con.prepareStatement(sql);
+			for(int i = 0 ; i<list.size();i++) {
+				pstm.setString(1,list.get(i).getUserenabled());
+				pstm.setString(2, list.get(i).getRole());
+				pstm.setInt(3, list.get(i).getUserno());
+				pstm.addBatch();
+				System.out.println("03.query 준비: "+sql+"(변경할 번호:"+list.get(i).getUserno()+")");
+			}
+		
+			cnt=pstm.executeBatch();
+			System.out.println("04. query 실행");
+			
+			//성공: -2, 실패 : -3
+			for(int i = 0 ; i <cnt.length;i++) {
+				if(cnt[i] == -2) {
+					res++;
+				}
+			}
+			
+			if(list.size() == res) {
+>>>>>>> 2eac472ec9c89efde1fed72fc4aa4fbd8d5ead9c
 				commit(con);
 			}else {
 				rollback(con);
 			}
+<<<<<<< HEAD
 			
 		} catch (SQLException e) {
 			System.out.println("3/4 단계 에러");
@@ -407,5 +444,16 @@ public class UserDao {
 		
 		return res;
 		
+=======
+		} catch (SQLException e) {
+			System.out.println("error : query 준비/실행 실패");
+			e.printStackTrace();
+		} finally {
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료 \n");
+		}
+		return res;
+>>>>>>> 2eac472ec9c89efde1fed72fc4aa4fbd8d5ead9c
 	}
 }

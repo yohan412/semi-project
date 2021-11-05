@@ -2,9 +2,9 @@ package com.user.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import com.used.dao.UsedDao;
+import com.used.dto.UsedDto;
 import com.user.dao.UserDao;
 import com.user.dto.UserDto;
 import com.user.message.messageApp;
@@ -28,7 +33,7 @@ public class UserController extends HttpServlet {
       System.out.println("[ command : " + command + "]");
       
       UserDao dao = new UserDao();
-      
+      UsedDao usedDao = new UsedDao();
       
       if(command.equals("idChk")) {
          String myid=request.getParameter("id");
@@ -126,7 +131,38 @@ public class UserController extends HttpServlet {
 			} else {
 				jsResponse("인증번호 발신이 실패했습니다","login_find_id_input.jsp",response);
 			}
-      }
+      }else if(command.equals("userlist_ajax")) {
+			
+			List<UserDto> userlist = dao.selectAll();
+			
+			JSONArray jarr = new JSONArray();
+			
+			for(int i =0 ; i <userlist.size();i++) {
+				JSONObject tmp = new JSONObject();
+				tmp.put("no", userlist.get(i).getUserno());
+				tmp.put("id", userlist.get(i).getUserid());
+				tmp.put("name", userlist.get(i).getUsername());
+				tmp.put("email", userlist.get(i).getUseremail());
+				tmp.put("role", userlist.get(i).getRole());
+				tmp.put("enabled", userlist.get(i).getUserenabled());
+				tmp.put("reg", userlist.get(i).getReg().toString());
+				jarr.add(tmp);
+			}
+			response.setContentType("application/x-json; charset=utf-8");
+			response.getWriter().print(jarr);
+		}else if(command.equals("admin_mypage")) {
+			
+			int userno = Integer.parseInt(request.getParameter("userno"));
+			
+			UserDto userDto = dao.selectOne(userno);			
+			List<UsedDto> usedlist = usedDao.selectWriter(userDto.getUserid());
+			
+			request.setAttribute("userDto", userDto);
+			if(usedlist != null) {
+				request.setAttribute("usedlist", usedlist);
+			}
+			dispatch("admin_mypage.jsp",request,response);
+		}
    }
    
    private void dispatch(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

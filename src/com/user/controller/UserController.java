@@ -93,7 +93,7 @@ public class UserController extends HttpServlet {
          
          
          int res = dao.insertUser(dto);
-         
+       
          if(res>0) {
             jsResponse("회원 가입 성공", "usercontroller?command=loginform", response);
          }else {
@@ -114,20 +114,41 @@ public class UserController extends HttpServlet {
       }else if(command.equals("findid")) {
     	  String mybirth = request.getParameter("mybirthyy")+"/"+request.getParameter("mybirthmm")+"/"+request.getParameter("mybirthdd");
     	  String myphone = request.getParameter("myphone");
+    	  String myemail = request.getParameter("myemail");
+    	  
+    	  UserDto dto = new UserDto();
+    	  
+    	  dto.setUserbirthdate(mybirth);
+    	  dto.setUserphone(myphone);
+    	  dto.setUseremail(myemail);
+    	  
+    	  String res = dao.findid(dto);
+
+    	  System.out.println(res);
+    	  request.setAttribute("userid", res);
+    	  
+    	  if(res!=null&&res!="") {
+              jsResponse("아이디 찾기 성공", "login_find_id.jsp&userid="+res, response);
+              ServletContext context = getServletContext();
+              RequestDispatcher dispatcher = context.getRequestDispatcher("/login_find_id.jsp");
+              dispatcher.forward(request, response);
+           }else {
+              jsResponse("아이디 찾기 실패", "usercontroller?command=loginform", response);
+           }
+    	  
+    	  
       }else if(command.equals("phonechk")) {
     	  String myphone = request.getParameter("myphone");
-    	  String mybirthyy = request.getParameter("mybirthyy");
-    	  String mybirthmm = request.getParameter("mybirthmm");
-    	  String mybirthdd = request.getParameter("mybirthdd");
     	  String ran = "";
     	  
     	  ran=messageApp.sendsms(myphone);
     	  System.out.println(ran);
     	  
     	  if(ran!=""&&ran!=null) {
-				jsResponse("인증번호 발신이 성공했습니다","login_find_id_input.jsp&ran="+ran+"myphone="+myphone+"mybirthyy="+mybirthyy+"mybirthmm="+mybirthmm+"mybirthdd="+mybirthdd,response);
+				response.sendRedirect("phonechk.jsp?ran="+ran);
+				
 			} else {
-				jsResponse("인증번호 발신이 실패했습니다","login_find_id_input.jsp",response);
+				response.sendRedirect("phonechk.jsp?ran="+ran);
 			}
       }
    }

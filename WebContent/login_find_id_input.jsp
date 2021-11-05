@@ -6,6 +6,7 @@ request.setCharacterEncoding("UTF-8");
 <%
 response.setContentType("text/html; charset=UTF-8");
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -144,37 +145,26 @@ select {
 <script type="text/javascript">
 	function phonechk(){
 		var phonenum = document.getElementsByName("myphone")[0];
-		var mybirthyy = document.getElementsByName("mypbirthyy")[0];
-		var mybirthmm = document.getElementsByName("mypbirthmm")[0];
-		var mybirthdd = document.getElementsByName("mypbirthdd")[0];
 		
 		if(phonenum.value.trim()==""||phonenum.value==null){
 			alert("전화번호를 입력해주세요");
 		}else{
 			var target = "usercontroller?command=phonechk&myphone="+phonenum.value.trim();
-			open(target,"","");
+			open(target,"","width=0,height=0");	
 		}
 	}
 	function rannumchk(){
-		var rannum = document.getElementsByName("rannum")[0];
-		var inputnum = document.getElementsByName("inputnum")[0];
+		var rannum = document.getElementsByName("rannum")[0].value;
+		var inputnum = document.getElementsByName("inputnum")[0].value;
 		
 		if(rannum!=inputnum){
 			alert("인증번호 오류");
 			document.getElementsByName("inputnum")[0].focus();
+			return false;
 		}
 	}
 </script>
 </head>
-<%
-	String ran = (String)request.getAttribute("ran");
-	String mybirthyy = (String)request.getAttribute("mybirthyy");
-	String mybirthmm = (String)request.getAttribute("mybirthmm");
-	String mybirthdd = (String)request.getAttribute("mybirthdd");
-	String myphone = (String)request.getAttribute("myphone");
-	
-	
-%>
 <body>
 	<header><%@ include file="form/login_header.jsp"%></header>
 	
@@ -183,7 +173,7 @@ select {
 			가입시 입력하셨던 이메일 주소를 작성해주세요. <br> 입력하신 이메일 주소로 인증번호를 발송해 드립니다.
 		</h5>
 		<div id="content">
-		<form action="usercontroller?command=findid" method="post">
+		<form action="usercontroller?command=findid" method="post"  onsubmit="return rannumchk()">
 			<div>
 				<h3 class="join_title">
 					<label for="USER_BIRTH DATE">생년월일</label>
@@ -192,46 +182,46 @@ select {
 				<div id="USER_BIRTH DATE_wrap">
 					<div id="bir_yy">
 						<span class="box"> 
-						<select id="yy" class="sel" name="mybirthyy">
+						<select id="yy" class="sel" name="mybirthyy" value="" required>
 								<option value="00">년도</option>
-								<option value="01">1990</option>
-								<option value="02">1991</option>
-								<option value="03">1992</option>
-								<option value="04">1993</option>
-								<option value="05">1994</option>
-								<option value="06">1995</option>
-								<option value="07">1996</option>
-								<option value="08">1997</option>
-								<option value="09">1998</option>
-								<option value="10">1999</option>
-								<option value="11">2000</option>
-								<option value="12">2001</option>
-								<option value="13">2002</option>
-								<option value="14">2003</option>
-								<option value="15">2004</option>
-								<option value="16">2005</option>
-								<option value="17">2006</option>
-								<option value="18">2007</option>
-								<option value="19">2008</option>
-								<option value="20">2009</option>
-								<option value="21">2010</option>
-								<option value="22">2011</option>
-								<option value="23">2012</option>
-								<option value="24">2013</option>
-								<option value="25">2014</option>
-								<option value="26">2015</option>
-								<option value="27">2016</option>
-								<option value="28">2017</option>
-								<option value="29">2018</option>
-								<option value="30">2019</option>
-								<option value="31">2020</option>
-								<option value="32">2021</option>
+								<option value="1990">1990</option>
+								<option value="1991">1991</option>
+								<option value="1992">1992</option>
+								<option value="1993">1993</option>
+								<option value="1994">1994</option>
+								<option value="1995">1995</option>
+								<option value="1996">1996</option>
+								<option value="1997">1997</option>
+								<option value="1998">1998</option>
+								<option value="1999">1999</option>
+								<option value="2000">2000</option>
+								<option value="2001">2001</option>
+								<option value="2002">2002</option>
+								<option value="2003">2003</option>
+								<option value="2004">2004</option>
+								<option value="2005">2005</option>
+								<option value="2006">2006</option>
+								<option value="2007">2007</option>
+								<option value="2008">2008</option>
+								<option value="2009">2009</option>
+								<option value="2010">2010</option>
+								<option value="2011">2011</option>
+								<option value="2012">2012</option>
+								<option value="2013">2013</option>
+								<option value="2014">2014</option>
+								<option value="2015">2015</option>
+								<option value="2016">2016</option>
+								<option value="2017">2017</option>
+								<option value="2018">2018</option>
+								<option value="2019">2019</option>
+								<option value="2020">2020</option>
+								<option value="2021">2021</option>
 						</select>
 						</span>
 					</div>
 
 					<div id="bir_mm">
-						<span class="box"> <select id="mm" class="sel" name="mybirthmm">
+						<span class="box"> <select id="mm" class="sel" name="mybirthmm" value="" required>
 								<option>월</option>
 								<option value="01">1</option>
 								<option value="02">2</option>
@@ -250,7 +240,7 @@ select {
 					</div>
 
 					<div id="bir_dd">
-						<span class="box"> <select id="dd" class="sel" name="mybirthdd">
+						<span class="box"> <select id="dd" class="sel" name="mybirthdd" value="" required>
 								<option value="00">일</option>
 								<option value="01">1</option>
 								<option value="02">2</option>
@@ -308,7 +298,7 @@ select {
 				<br>
 				
 				<span class="box"> 
-					<input type="text" id="dd" class="int" name="myphone" placeholder="전화번호 입력">
+					<input type="text" id="dd" class="int" name="myphone" placeholder="전화번호 입력" value="" required="required">
 				</span> 
 				<br>
 				<div id="phone_wrap">
@@ -318,9 +308,8 @@ select {
 					</div>
 					<div id="phone_certification">
 					 <span class="box"> 
-					 	<input type="text" id="dd" class="int" name="inputnum" placeholder="인증번호 6자리">
-					 	<input type="hidden" name="rannum" value="${ran }">
-						</span>
+					 	<input type="text" id="dd" class="int" name="inputnum" placeholder="인증번호 6자리" value="" required="required">
+					 	<input type="hidden" name="rannum" value="null">
 					</div>
 				</div>
 			</div>
@@ -334,13 +323,13 @@ select {
 				</h3>
 				<span class="box int_email">
 				 <input type="text" id="email"
-					class="int" maxlength="100" placeholder="이메일 주소 입력">
+					class="int" maxlength="100" name="myemail" placeholder="이메일 주소 입력">
 				</span>
 			</div>
 			<br>
 			<br>
 			<div class="btn_area">
-				<button type="submit" id="button2" onclick="rannumchk();">
+				<button type="submit" id="button2">
 					<span>확인</span>
 				</button>
 			</div>

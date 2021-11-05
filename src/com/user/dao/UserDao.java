@@ -235,6 +235,43 @@ public class UserDao {
 		return res;
 	}
 
-	
+	public String findid(UserDto dto) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		String res = "";
+		
+		String sql = " SELECT * FROM USER_INFO WHERE USER_EMAIL = ? ";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			
+			//pstm.setString(1, dto.getUserbirthdate());
+			pstm.setString(1, dto.getUseremail());
+			//pstm.setString(3, dto.getUserphone());
+			System.out.println("03.query 준비: "+sql);
+			
+			System.out.println(dto.getUserbirthdate()+" , "+dto.getUseremail()+" , "+dto.getUserphone());
+			rs=pstm.executeQuery();
+			System.out.println("04.query 실행 및 리턴");
+			
+			while(rs.next()) {
+				res=rs.getString("USER_ID");
+			}
+			
+			
+		} catch (SQLException e) {
+			System.out.println("3/4단계 오류");
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstm);
+			close(con);
+			System.out.println("05.db 종료");
+		}
+		
+		return res;
+	}
  
 }

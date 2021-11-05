@@ -127,6 +127,7 @@
 		if(chk=="n"){
 			alert("아이디 중복체크");
 			document.getElementsByName("myid")[0].focus();
+			return false;
 		}
 	}
 </script>
@@ -509,8 +510,8 @@
 					<td style="font-size:15px;">
 						<input type="checkbox" id="chkbox" required><span><a href="">서비스 이용약관 및 운영원칙</a>에 동의합니다.</span><br>
 						<input type="checkbox" id="chkbox" required><span><a href="">개인정보 수집 이용</a>에 동의합니다.</span><br>
-						<input type="checkbox" id="chkbox"><span><a href="">위치정보 이용약관</a>에 동의합니다.</span><br>
-						<input type="checkbox" id="chkbox"><span><a href="">프로모션 정보 수신</a>에 동의합니다.</span>
+						<input type="checkbox" id="chkbox" required><span><a href="">위치정보 이용약관</a>에 동의합니다.</span><br>
+						<input type="checkbox" id="chkbox" required><span><a href="">프로모션 정보 수신</a>에 동의합니다.</span>
 					</td>
 					<td></td><td></td>
 					<br><br><br><br>

@@ -14,12 +14,7 @@
 	int qano = Integer.parseInt(request.getParameter("qano"));
 	String qatitle = request.getParameter("qatitle");
 	String qacontent = request.getParameter("qacontent");
-	String userid = request.getParameter("userid");
-	String seid = request.getParameter("seid");
 	
-	if(!(userid.equals(seid))){
-		out.println("<script>alert('본인이 작성한 글만 조회하실 수 있습니다.'); history.back();</script>");
-	}
 	
 	QnaDao dao = new QnaDao();
 	QnaDto dto = dao.selectOne(qano);
@@ -58,14 +53,14 @@
 	#submit, #reset,#reply{
 		cursor:pointer;
 	}
-	#submit{
+	#submit,#reply{
 		width : 80px;
 	 	height : 30px;
 		background-color:rgb(75, 161, 231);
 		border: 1px solid gray;
 		border-radius: 5px;
 	}
-	#reset, #reply{
+	#reset{
 		width : 80px;
 	 	height : 30px;
 		background-color:#d1d1d1;
@@ -104,7 +99,7 @@
 					<button type="button" id="submit" onclick="location.href='question_board_update.jsp?qano=<%=dto.getQano()%>'">수정</button>&nbsp;&nbsp;
 					<button type="button" id="reset"  onclick="del_btn('<%=dto.getQano()%>');">삭제</button>&nbsp;&nbsp;
 					<button id="reset"  onclick="location.href='qna.jsp'">목록</button>&nbsp;&nbsp;
-					<button type="button" id="submit" onclick="location.href='question_board_answerwrite.jsp?qano=<%=dto.getQano()%>'">답글</button>
+					<button type="button" id="reply" onclick="location.href='question_board_answerwrite.jsp?qano=<%=dto.getQano()%>'">답글</button>
 				</td>
 			</tr>
 		</table>	
@@ -119,7 +114,7 @@
 	$(function(){
 		var userno = $('#userid').val();
 		console.log(userno);
-		
+	)}
 	function del_btn(qano){
 		if (confirm("삭제하시겠습니까?") == true){    //확인
 			location.href="question_board_delete.jsp?qano="+qano;

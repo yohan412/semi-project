@@ -3,14 +3,13 @@
     
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ page import="com.qna.dao.QnaDao" %>
 <%@ page import="com.qna.dto.QnaDto" %>
 <%@ page import="java.util.List" %>
 
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-
 <html>
 <head>
 <meta charset="UTF-8">
@@ -91,30 +90,46 @@
 		display: in
 	}
 </style>
-
-<script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 function login_chk(){
 	if(${loginUser==null}){
-		if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
+		if(confirm("로그인이 필요한 작업입니다.\n로그인 하시겠습니까?")){
 			location.href="login.jsp"
 		}else{
 				
 		}
 	} else{
 		location.href="MainController?command=writeform";
+	}	
+	
+function user_Chk(){
+	if(${loginUser==null}){
+		if(confirm("로그인이 필요한 작업입니다.\n로그인 하시겠습니까?")){
+			location.href="login.jsp"
+		}else{
+			
+		}
+	}else{
+		if(${loginUser.equals(userid)}){
+			location.href="MainController?command=selecttone"
+		}
 	}
-}
+}	
+}	
 </script>
 </head>
 <% 
 	String qatype = request.getParameter("qatype");
 	QnaDao dao = new QnaDao(); 
 	List<QnaDto> list = dao.selectAll();
-	//List<QnaDto> typelist = dao.selectType(qatype);
 	List<QnaDto> faqlist = dao.selectFaq();
 	
 	String seid = request.getParameter("seid");
+	
+	if(seid != ""){
+		seid = "";
+	}
 
 	System.out.println(seid);
 %>
@@ -164,7 +179,7 @@ function login_chk(){
 				<tr>
 					<c:if test="${userid eq QnaDto.userid }">
 						<td><%=faqlist.get(i).getQatype()%></td>
-						<td><a href="question_board_selectone.jsp?qano=<%=faqlist.get(i).getQano()%>"><%=faqlist.get(i).getQatitle() %></a></td>
+						<td><a href="question_board_selectone.jsp?qano=<%=faqlist.get(i).getQano()%>" onclick="user_Chk();"><%=faqlist.get(i).getQatitle() %></a></td>
 					</c:if>
 				</tr>
 
@@ -190,7 +205,7 @@ function login_chk(){
 
 				<tr>
 					<td><%=list.get(i).getQano() %></td>
-					<td><a href="question_board_selectone.jsp?qano=<%=list.get(i).getQano()%>&userid=<%=list.get(i).getUserid() %>&seid=<%=seid%>"><%=list.get(i).getQatitle() %></a></td>
+					<td><a href="question_board_selectone.jsp?qano=<%=list.get(i).getQano()%>&userid=<%=list.get(i).getUserid() %>&seid=${loginUser.userid}"><%=list.get(i).getQatitle() %></a></td>
 					<td><%=list.get(i).getQastatus() %></td>
 				</tr>
 

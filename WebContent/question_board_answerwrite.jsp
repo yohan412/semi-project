@@ -49,6 +49,11 @@
 		border-radius: 5px;
 	}
 </style>
+<script type="text/javascript">
+function goBack(){
+	window.history.back();
+}
+</script>
 </head>
 <header><%@ include file="form/header.jsp" %></header>
 <body>
@@ -69,8 +74,8 @@
 			</tr>
 			<tr>
 				<td colspan="3">
-					<button type="button" id="submit">작 성</button>&nbsp;&nbsp;
-					<button type="button" id="reset">취 소</button>
+					<input type="submit" id="submit" value="작 성" >&nbsp;&nbsp;
+					<input type="button" id="reset" value="취 소" onclick="goBack();">
 				</td>
 			</tr>
 		</table>

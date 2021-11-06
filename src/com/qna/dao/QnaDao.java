@@ -106,7 +106,8 @@ public class QnaDao extends JDBCTemplate{
 				return res;
 			}
 			
-			public List<QnaDto> getList(String qatype){			//int qano로 받아야하는건가
+			
+			public List<QnaDto> getList(String qatype){	
 				Connection con = getConnection();
 				PreparedStatement pstm = null;
 				ResultSet rs = null;
@@ -123,7 +124,7 @@ public class QnaDao extends JDBCTemplate{
 					qa_type = "기타";
 				}	
 				
-				String sql = " SELECT * FROM QNA WHERE QA_FAQ='Y' AND QA_TYPE='거' ORDER BY QA_NO DESC ";
+				String sql = " SELECT * FROM QNA WHERE QA_FAQ='Y' AND QA_TYPE='거래' ORDER BY QA_NO DESC ";
 				ArrayList<QnaDto> list = new ArrayList<QnaDto>();
 				
 				try {
@@ -411,38 +412,6 @@ public class QnaDao extends JDBCTemplate{
 				return res;
 			}
 			
-			public String getPass(int qano) {
-				Connection con = getConnection();
-				PreparedStatement pstm = null;
-				ResultSet rs = null;
-				String pass ="";
-				System.out.println(qano);
-				
-				String sql = " SELECT USERPW FROM USER_INFO WHERE QANO=? ";
-				
-				try {
-					pstm = con.prepareStatement(sql);
-					pstm.setInt(1, qano);
-					System.out.println("03.query 준비: " + sql);
-					
-					rs = pstm.executeQuery();
-					System.out.println("04.query 실행 및 리턴");
-					
-					if(rs.next()) {
-						pass = rs.getString(1);
-					}
-					
-				} catch (SQLException e) {
-					System.out.println("3/4 단계 에러");
-					e.printStackTrace();
-				} finally {
-					close(pstm);
-					close(con);
-					System.out.println("05.db 종료\n");
-				}
-				return pass;
-			}
-	
 			public int countAnswer(Connection con, int parentgpno, int parentgpsq) {
 				PreparedStatement pstm = null;
 				ResultSet rs = null;

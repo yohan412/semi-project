@@ -86,14 +86,15 @@ public class MainController extends HttpServlet {
 			
 		}else if(command.equals("selectone")) {
 			int qano = Integer.parseInt(request.getParameter("qano"));
-			int userno = Integer.parseInt(request.getParameter("userno"));
-			UserDto loginUser = dao.selectOne(userno);
+			//int userno = Integer.parseInt(request.getParameter("userno"));
+			
+			//UserDto loginUser = dao.selectOne(userno);
 			
 			QnaDto dto = udao.selectOne(qano);
 			
 			request.setAttribute("dto", dto);
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser",loginUser);
+			//HttpSession session = request.getSession();
+			//session.setAttribute("loginUser",loginUser);
 			RequestDispatcher dis = request.getRequestDispatcher("question_board_selectone.jsp");
 			dis.forward(request, response);
 			
@@ -117,11 +118,11 @@ public class MainController extends HttpServlet {
 			
 		}else if(command.equals("boardwrite")) {
 			int qagpsq = Integer.parseInt(request.getParameter("qa_gpsq"));
-			String qauserid = request.getParameter("userid");
-			int qauserno = Integer.parseInt(request.getParameter("userno"));
+			String qauserid = request.getParameter("user_id");
+			int qauserno = Integer.parseInt(request.getParameter("user_no"));
 			String qatitle = request.getParameter("title");
 			String qacontent = request.getParameter("content");
-			String qatype = request.getParameter("qatype");
+			String qatype = request.getParameter("qa_type");
 			//String qafaq = request.getParameter("qa_faq");
 			//String qastatus = request.getParameter("qa_status");
 			//String photo = request.getParameter("photo");
@@ -189,9 +190,9 @@ public class MainController extends HttpServlet {
 			}
 			
 		}else if(command.equals("answerform")) {
-			int qano = Integer.parseInt(request.getParameter("qano"));
+			int parentqano = Integer.parseInt(request.getParameter("parentqano"));
 			
-			QnaDto dto = udao.selectOne(qano);
+			QnaDto dto = udao.selectOne(parentqano);
 			request.setAttribute("parent", dto);
 			dispatch("question_board_answerwrite.jsp",request,response);
 			

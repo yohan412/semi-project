@@ -86,13 +86,13 @@ function fn_deleteFile(obj){ obj.parent().remove(); }
 <body>
 <h2 align="center">1 : 1 문의</h2>
 <div id="wrap">
-	<form action="MainController" method="post">  <!-- name="formcheck" -->
+	<form action="MainController" method="post">
 		<input type="hidden" name="command" value="boardwrite">
 		<input type="hidden" name="qa_gpsq" value="1">
 		<input type="hidden" name="user_id" value="${loginUser.userid}"> <!-- 사용자 아이디와 번호는 로그인 기능 완료 후 세션값 적용 -->
 		<input type="hidden" name="user_no" value="${loginUser.userno}">
-		<input type="hidden" name="qa_faq" value="N"> <!-- 관리자가 설정하는 영역이므로 사용자가 등록 시 'N' 고정값 -->
-		<input type="hidden" name="qa_status" value="N"> <!-- 관리자가 설정하는 영역이므로 사용자가 등록 시 'N' 고정값 -->
+		<input type="hidden" name="qa_faq" value="N">
+		<input type="hidden" name="qa_status" value="N"> 
 
 		<table>
 			<tr id="title">
@@ -123,8 +123,8 @@ function fn_deleteFile(obj){ obj.parent().remove(); }
 		</table>
 		<br>
 		<div align="center">
-			<input type="submit" id="submit" value="완 료" > <!-- onclick="formChk()" -->&nbsp;&nbsp;
-			<input type="button" id="reset" value="취 소" onclick="location.href='MainController?command=qna'">
+			<input type="submit" id="submit" value="완 료" >&nbsp;&nbsp;
+			<button type="button" id="reset" onclick="location.href='MainController?command=qna'">취 소</button>
 		</div>		
 	</form>
 </div>

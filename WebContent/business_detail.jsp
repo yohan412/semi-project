@@ -159,6 +159,7 @@
         	<div class="">
         		<input class="ip_button" type="button" value="승 인" onclick="status_change(1)">
         		<input class="ip_button" type="button" value="거 절" onclick="status_change(2)">
+        		<input class="ip_button" type="button" value="목 록" onclick="location.href='MainController?command=adminpage&act=biz'">
         	</div>
 		</div>
 	</div>

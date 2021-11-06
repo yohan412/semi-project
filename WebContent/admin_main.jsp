@@ -113,15 +113,48 @@ td a{
  color:black;
  font-weight:bold;
 }
+
+#numbers{
+	list-style: none;
+}
+#numbers li{
+	display:inline-block;
+	margin-left:5px;
+	margin-right:5px;
+}
+#numbers li a {
+	text-decoration: none;
+	color:black;
+	font-weight:bold;
+}
+#numbers li a.active {
+	color:blue;
+}
 </style>
 
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		// 인스턴스 생성
+		
 		var accordion = new AccordionMenu('.acc-menu');
-		accordion.selectMenu(0, 0, true);
+		
+		var act ="${act}";
+		
+		if(act == "user"){
+			user_list();
+			accordion.selectMenu(0, 0, true);
+		} else if(act =="biz"){
+			biz_list();
+			accordion.selectMenu(0, 1, true);
+		}else if(act =="center"){
+			center_list();
+			accordion.selectMenu(1, 0, true);
+		} else if(act =="used"){
+			used_list();
+			accordion.selectMenu(1, 1, true);
+		}
+		
 
 		// 애니메이션 타입으로 0번째 메뉴 열기
 		// accordion.openSubMenuAt(0, true);
@@ -426,6 +459,10 @@ td a{
 		$("tfoot").append(
 				"<tr><td colspan='8' align='right'><input type='submit' value='삭제'></td></tr>"		
 		);
+		$("#table_data").append(
+				"<div class='pagination'><ol id='numbers'></ol></div>"		
+		);
+		tablePagenation();
 	}
 	function make_usedtable(list){
 		$("#table_data").empty();
@@ -454,6 +491,10 @@ td a{
 		$("tfoot").append(
 				"<tr><td colspan='8' align='right'><input type='submit' value='삭제'></td></tr>"		
 		);
+		$("#table_data").append(
+				"<div class='pagination'><ol id='numbers'></ol></div>"		
+		);
+		tablePagenation();
 	}
 	function user_list(){
 		
@@ -506,6 +547,10 @@ td a{
 		$("tfoot").append(
 			"<tr><td colspan='8' align='right'><input type='submit' value='수정'></td></tr>"		
 		);
+		$("#table_data").append(
+				"<div class='pagination'><ol id='numbers'></ol></div>"		
+		);
+		tablePagenation();
 		
 		function enabled_select(value){
 			if( value=="Y"){
@@ -594,6 +639,61 @@ td a{
 		$("tfoot").append(
 				"<tr><td colspan='6' align='right'><input type='submit' value='삭제'></td></tr>"		
 		);
+		$("#table_data").append(
+				"<div class='pagination'><ol id='numbers'></ol></div>"		
+		);
+		tablePagenation();
+	}
+	function tablePagenation(){
+		/*
+		변수 생성
+		- rowsPerPage페이지당 보여줄 개수 20
+		- rows 가로행 tr 
+		- rowsCount 개수 100
+		- pageCount 페이지네이션 개수 = 100/20
+		- pagenumbers
+		콘솔에서 pageCount 찍어보고
+		*/
+		$("#numbers").empty();
+		var rowsPerPage = 15,
+			rows = $('#table_data tbody tr'),
+			rowsCount = rows.length
+			pageCount = Math.ceil(rowsCount/rowsPerPage),
+			numbers = $('#numbers');
+		
+		/* 페이지네이션 li를 생성 반복문*/
+		for(var i = 0 ; i < pageCount;i++){
+			numbers.append('<li><a href="">'+(i+1)+'</a></li>');
+		}
+		//#numbers li:first-child a
+		numbers.find('li:first-child a').addClass('active');
+		
+		//페이지네이션 함수 displayRows
+		function displayRows(idx){
+			
+			var start = (idx)*rowsPerPage;
+				end = start + rowsPerPage;
+				
+			rows.hide();
+			//해당하는 부분만 보여줌
+			rows.slice(start,end).show();
+		}
+		
+		displayRows(0);
+		//페이지네이션 클릭시 보여주기
+		/*
+			클릭한 그 a 태그의 active,
+			그 요소의 숫자를 dislplayRows의 매개변수로 지정
+		*/
+		numbers.find('li').click(function(e){
+			//a태그의 이벤트를 막음
+			e.preventDefault();
+			
+			numbers.find('li a').removeClass('active');
+			$(this).find('a').addClass('active');
+			var index = $(this).index();
+			displayRows(index);
+		});
 	}
 </script>
 </head>

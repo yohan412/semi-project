@@ -85,19 +85,28 @@
 			<div id="logo" onclick="img">
 				<a href="main.jsp"><img src="./img/logo.png" width="239px" height="114px" alt="우리동네 헬스장"></a>
 			</div>
-			<c:if test="${loginUser==null }">
+			<c:choose>
+			<c:when test="${loginUser==null }">
 			<div id="login">
 				<button onclick="location.href='usercontroller?command=loginform'">로그인</button>
 				<button onclick="location.href='usercontroller?command=registform'">회원가입</button>
 			</div>		
-			</c:if>
-			<c:if test="${loginUser !=null }">
+			</c:when>
+			<c:when test="${loginUser !=null }">
 				<div id="logout">
 				<label>${loginUser.username }님(회원등급 : ${loginUser.role }) 방문을 환영합니다.</label><br>
 				<button onclick="location.href='usercontroller?command=logout'">로그아웃</button>
+				<c:choose>
+				<c:when test="${loginUser.role eq 'M' || loginUser.role eq 'DM'}">
+				<button onclick="location.href='MainController?command=adminpage&act=user'">관리자페이지</button>
+				</c:when>
+				<c:otherwise>
 				<button onclick="location.href='usedcontroller?command=mypage'">마이페이지</button>
+				</c:otherwise>
+				</c:choose>		
 				</div>
-			</c:if>
+			</c:when>
+			</c:choose>
 		</div>
 		<div id="nav">
 			<div class="sub_menu">

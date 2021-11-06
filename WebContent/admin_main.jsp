@@ -408,12 +408,12 @@ td a{
 		$("#table_data").empty();
 		
 		$("#table_data").append(
-				"<form>"
+				"<form action='CenterController?command=multi_delete' method='post' id='checked_change'>"
 				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
 				+"<col width='20px'><col width='400px'><col width='100px'><col width='100px'>"
 				+"<thead>"
 				+"<tr><th>No</th><th>게시글 이름</th><th>작성자</th><th>작성일</th><th><input type='checkbox' name='all' onclick='allChk(this.checked)'></th></tr>"
-				+"</thead><tbody></tbody></table></form>"
+				+"</thead><tbody></tbody><tfoot></tfoot></table></form>"
 		);
 		for(var i = 0 ; i<list.length;i++){
 			$("tbody").append(
@@ -423,16 +423,19 @@ td a{
 				+"</tr>"
 			);
 		}
+		$("tfoot").append(
+				"<tr><td colspan='8' align='right'><input type='submit' value='삭제'></td></tr>"		
+		);
 	}
 	function make_usedtable(list){
 		$("#table_data").empty();
 		$("#table_data").append(
-				"<form id='checked_change'>"
+				"<form action='usedcontroller?command=multi_delete' method='post' id='checked_change'>"
 				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
 				+"<col width='20px'><col width='400px'><col width='100px'><col width='100px'><col width='100px'>"
 				+"<thead>"
 				+"<tr><th>No</th><th>게시글 이름</th><th>작성자</th><th>거래상태</th><th>작성일</th><th><input type='checkbox' name='all' onclick='allChk(this.checked)'></th></tr>"
-				+"</thead><tbody></tbody></table></form>"
+				+"</thead><tbody></tbody><tfoot></tfoot></table></form>"
 		);
 		for(var i = 0 ; i<list.length;i++){
 			var status;
@@ -448,6 +451,9 @@ td a{
 				+"</tr>"
 			);
 		}
+		$("tfoot").append(
+				"<tr><td colspan='8' align='right'><input type='submit' value='삭제'></td></tr>"		
+		);
 	}
 	function user_list(){
 		
@@ -498,7 +504,7 @@ td a{
 			);
 		}
 		$("tfoot").append(
-			"<tr><td colspan='8'><input type='submit' value='탈퇴여부 변경'></td></tr>"		
+			"<tr><td colspan='8' align='right'><input type='submit' value='수정'></td></tr>"		
 		);
 		
 		function enabled_select(value){

@@ -306,10 +306,27 @@ public class UserController extends HttpServlet {
 				usernm = multi.getParameter("usernm");
 				biznm = multi.getParameter("biznm");
 				bizaddr = multi.getParameter("bizaddr");
-				bizcategory = String.join(",", multi.getParameter("health"),
-												multi.getParameter("pilates"),
-												multi.getParameter("yoga"),
-												multi.getParameter("etc"));
+				
+				if(multi.getParameter("health") != null) {
+					if(bizcategory.length()==0) {bizcategory += multi.getParameter("health");
+					}else {bizcategory += ","+multi.getParameter("health");}						
+				}
+				if(multi.getParameter("pilates") != null) {
+					if(bizcategory.length()==0) {bizcategory += multi.getParameter("pilates");
+					}else {bizcategory += ","+multi.getParameter("pilates");}						
+				}
+				if(multi.getParameter("yoga") != null) {
+					if(bizcategory.length()==0) {bizcategory += multi.getParameter("yoga");
+					}else {bizcategory += ","+multi.getParameter("yoga");}						
+				}
+				if(multi.getParameter("crossfit") != null) {
+					if(bizcategory.length()==0) {bizcategory += multi.getParameter("crossfit");
+					}else {bizcategory += ","+multi.getParameter("crossfit");}						
+				}
+				if(multi.getParameter("etc") != null) {
+					if(bizcategory.length()==0) {bizcategory += multi.getParameter("etc");
+					}else {bizcategory += ","+multi.getParameter("etc");}						
+				}
 			
 				bizcontent = multi.getParameter("bizcontent");
 				
@@ -358,7 +375,26 @@ public class UserController extends HttpServlet {
 				}
 			}
 			
-		} 
+		}else if(command.equals("bizlist_ajax")) {
+			
+			List<BizDto> bizList = bdao.selectAll();
+			
+			JSONArray jarr = new JSONArray();
+			
+			for(int i =0 ; i <bizList.size();i++) {
+				JSONObject tmp = new JSONObject();
+				tmp.put("no", bizList.get(i).getBizno());
+				tmp.put("writer", bizList.get(i).getUsernm());
+				tmp.put("centernm", bizList.get(i).getBiznm());
+				tmp.put("status", bizList.get(i).getBizstatus());
+				tmp.put("reg", bizList.get(i).getBizreg().toString());
+				jarr.add(tmp);
+			}
+			response.setContentType("application/x-json; charset=utf-8");
+			response.getWriter().print(jarr);
+		} else if(command.equals("bizdetail")) {
+			
+		}
    }
    
    private void dispatch(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

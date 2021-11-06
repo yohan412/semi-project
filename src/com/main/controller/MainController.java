@@ -86,10 +86,14 @@ public class MainController extends HttpServlet {
 			
 		}else if(command.equals("selectone")) {
 			int qano = Integer.parseInt(request.getParameter("qano"));
+			int userno = Integer.parseInt(request.getParameter("userno"));
+			UserDto loginUser = dao.selectOne(userno);
 			
 			QnaDto dto = udao.selectOne(qano);
 			
 			request.setAttribute("dto", dto);
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser",loginUser);
 			RequestDispatcher dis = request.getRequestDispatcher("question_board_selectone.jsp");
 			dis.forward(request, response);
 			
@@ -112,7 +116,6 @@ public class MainController extends HttpServlet {
 			response.sendRedirect("question_board_write.jsp");
 			
 		}else if(command.equals("boardwrite")) {
-			int qagpno = Integer.parseInt(request.getParameter("qa_gpno"));
 			int qagpsq = Integer.parseInt(request.getParameter("qa_gpsq"));
 			String qauserid = request.getParameter("user_id");
 			int qauserno = Integer.parseInt(request.getParameter("user_no"));
@@ -125,7 +128,7 @@ public class MainController extends HttpServlet {
 			
 			
 			QnaDto dto = new QnaDto();
-			dto.setQagpno(qagpno);
+			
 			dto.setQagpsq(qagpsq);
 			dto.setUserid(qauserid);
 			dto.setUserno(qauserno);

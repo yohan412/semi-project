@@ -111,7 +111,7 @@
             	<a href="usedcontroller?command=usedlist"><img src="img/icon_used.png"><br>중고거래</a>
             </div>
             <div class="icon_subnav">
-            	<a href="qna.jsp"><img src="img/icon_qna.png"><br>Q&A</a>
+            	<a href="qna.jsp?seid=<%=loginUser.getUserid()%>"><img src="img/icon_qna.png"><br>Q&A</a>
             </div>
         </div>
         <br><br><br>

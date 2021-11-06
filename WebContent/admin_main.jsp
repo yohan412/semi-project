@@ -526,6 +526,7 @@ td a{
 			}
 		}
 	}
+	
 	function allChk(bool){
 		var chks= document.getElementsByName("chk");		
 		for(var i = 0 ; i < chks.length;i++){
@@ -533,7 +534,64 @@ td a{
 		}
 	}
 	
+	function biz_list(){
+		
+		var bizList = new Array();
+		
+		var bizObj = function(no,writer,centernm,status,reg){
+			this.no=no;
+			this.writer=writer;
+			this.centernm=centernm;
+			this.status=status;
+			this.reg=reg;
+		}
+		
+		$("#wrap h1").html("사업자 요청 리스트");
+		$.ajax({
+			url:"usercontroller?command=bizlist_ajax",
+			dataType:"json",
+			success:function(data){
+				for(var i = 0 ; i <data.length;i++){
+					var tmpObj = new bizObj(data[i].no,data[i].writer,data[i].centernm,data[i].status,data[i].reg);
+					bizList.push(tmpObj);
+				}
+				make_biztable(bizList);
+			},
+			error:function(){
+				alert("실패");
+			}
+		});
+	}
 	
+	function make_biztable(list){
+		$("#table_data").empty();
+		$("#table_data").append(
+				"<form action='usedcontroller?command=biz_multi_delete' method='post' id='checked_change'>"
+				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
+				+"<col width='20px'><col width='100px'><col width='300px'><col width='100px'><col width='100px'>"
+				+"<thead>"
+				+"<tr><th>No</th><th>작성자</th><th>센터이름</th><th>승인상태</th><th>등록일</th><th><input type='checkbox' name='all' onclick='allChk(this.checked)'></th></tr>"
+				+"</thead><tbody></tbody><tfoot></tfoot></table></form>"
+		);
+		for(var i = 0 ; i<list.length;i++){
+			var status;
+			if(list[i].status == 'N'){
+				status="승인대기";
+			}else{
+				status="승인완료";
+			}
+			
+			$("tbody").append(
+				"<tr>"
+				+"<td>"+list[i].no+"</td>"+"<td>"+list[i].writer+"</td>"+"<td><a href='usedcontroller?command=bizdetail&bizno="+list[i].no+"'>"+list[i].centernm+"</a></td>"+"<td>"+status+"</td>"+"<td>"+list[i].reg+"</td>"
+				+"<td align='center'><input type='checkbox' name='chk' value='"+list[i].no+"'></td>"
+				+"</tr>"
+			);
+		}
+		$("tfoot").append(
+				"<tr><td colspan='6' align='right'><input type='submit' value='삭제'></td></tr>"		
+		);
+	}
 </script>
 </head>
 <body>
@@ -548,7 +606,7 @@ td a{
 				</div>
 				<ul class="sub">
 					<li><a href="#" onclick="user_list()">유저 리스트</a></li>
-					<li><a>사업자 요청</a></li>
+					<li><a href="#" onclick="biz_list()">사업자 요청</a></li>
 				</ul>
 			</li>
 

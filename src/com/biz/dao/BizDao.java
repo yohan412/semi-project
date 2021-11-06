@@ -1,5 +1,10 @@
 package com.biz.dao;
 
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -173,4 +178,80 @@ public class BizDao extends JDBCTemplate{
 		return res;
 	}
 	
+	public int statusUpdate(int bizno,String status) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		
+		String sql = " UPDATE BUSINESS SET BIZ_STATUS=? WHERE BIZ_NO=?";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setString(1, status);
+			pstm.setInt(2, bizno);
+			System.out.println("03.query 준비: "+sql);
+			
+			res=pstm.executeUpdate();
+			System.out.println("04.query 실행 및 리턴");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("3/4단계 오류");
+			e.printStackTrace();
+		}finally {
+			close(pstm);
+			close(con);
+			System.out.println("05.db 종료\n");
+		}		
+		return res;
+	}
+	
+		public int multiDelete(String[] list) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res=0;
+		int[] cnt = null;
+		
+		String sql ="DELETE FROM BUSINESS WHERE BIZ_NO=?";
+		try {
+			pstm= con.prepareStatement(sql);
+			for(int i = 0 ; i<list.length;i++) {
+				pstm.setString(1,list[i]);
+				pstm.addBatch();
+				System.out.println("03.query 준비: "+sql+"(변경할 번호:"+list[i]+")");
+			}
+		
+			cnt=pstm.executeBatch();
+			System.out.println("04. query 실행");
+			
+			//성공: -2, 실패 : -3
+			for(int i = 0 ; i <cnt.length;i++) {
+				if(cnt[i] == -2) {
+					res++;
+				}
+			}
+			if(list.length == res) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("3/4 단계 에러");
+			e.printStackTrace();
+		}finally {
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료\n");
+		}		
+		return res;		
+	}
 }

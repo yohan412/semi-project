@@ -453,4 +453,39 @@ public class UserDao {
 		return res;
 		
 	}
+	
+	public int roleUpdate(int userno,String role) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res = 0;
+		
+		String sql = " UPDATE USER_INFO SET USER_ROLE=? WHERE USER_NO=?";
+		
+		try {
+			pstm = con.prepareStatement(sql);
+			
+			pstm.setString(1, role);
+			pstm.setInt(2, userno);
+			System.out.println("03.query 준비: "+sql);
+			
+			res=pstm.executeUpdate();
+			System.out.println("04.query 실행 및 리턴");
+			
+			if(res>0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("3/4단계 오류");
+			e.printStackTrace();
+		}finally {
+			close(pstm);
+			close(con);
+			System.out.println("05.db 종료\n");
+		}		
+		return res;
+	}
 }

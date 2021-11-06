@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>유저페이지(관리자)</title>
 <style type="text/css">
 .information{
 	text-align:center;

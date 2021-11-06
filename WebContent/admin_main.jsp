@@ -12,7 +12,7 @@ response.setContentType("text/html; charset=UTF-8");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자 페이지</title>
 
 <style type="text/css">
 #body {
@@ -129,6 +129,53 @@ td a{
 }
 #numbers li a.active {
 	color:blue;
+}
+table{
+  border-collapse: collapse;
+  font-size:18px;
+  width:1000px;
+}
+table tr{
+	line-height:30px;
+}
+table th{
+	border-bottom: 3px solid #036;
+}
+table tbody tr{
+	border-bottom: 1px solid #ccc;
+}
+
+.ip_button{
+	margin-top:10px;
+	margin-left:10px;
+	background: rgb(00,68,137);
+	font-weight:bold;
+	color : white;
+	width:80px;
+	height:30px;
+	border-radius: 5px;
+	cursor:pointer;
+	outline:none;
+	box-shadow:none;
+	border:none;
+}
+.status_active{
+	width:85px;
+	display:inline-block;
+	background:rgb(92, 122, 234);
+	color:white;
+	font-weight:bold;
+	font-size:16px;
+	border-radius:10px;
+}
+.status_dis{
+	width:85px;
+	display:inline-block;
+	background:gray;
+	color:white;
+	font-weight:bold;
+	font-size:16px;
+	border-radius:10px;
 }
 </style>
 
@@ -442,8 +489,8 @@ td a{
 		
 		$("#table_data").append(
 				"<form action='CenterController?command=multi_delete' method='post' id='checked_change'>"
-				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
-				+"<col width='20px'><col width='400px'><col width='100px'><col width='100px'>"
+				+"<table style='margin-left: auto; margin-right: auto;' >"
+				+"<col width='30px'><col width='400px'>"
 				+"<thead>"
 				+"<tr><th>No</th><th>게시글 이름</th><th>작성자</th><th>작성일</th><th><input type='checkbox' name='all' onclick='allChk(this.checked)'></th></tr>"
 				+"</thead><tbody></tbody><tfoot></tfoot></table></form>"
@@ -457,7 +504,7 @@ td a{
 			);
 		}
 		$("tfoot").append(
-				"<tr><td colspan='8' align='right'><input type='submit' value='삭제'></td></tr>"		
+				"<tr><td colspan='8' align='right'><input class='ip_button' type='submit' value='삭제'></td></tr>"		
 		);
 		$("#table_data").append(
 				"<div class='pagination'><ol id='numbers'></ol></div>"		
@@ -468,8 +515,8 @@ td a{
 		$("#table_data").empty();
 		$("#table_data").append(
 				"<form action='usedcontroller?command=multi_delete' method='post' id='checked_change'>"
-				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
-				+"<col width='20px'><col width='400px'><col width='100px'><col width='100px'><col width='100px'>"
+				+"<table style='margin-left: auto; margin-right: auto;' >"
+				+"<col width='30px'><col width='400px'>"
 				+"<thead>"
 				+"<tr><th>No</th><th>게시글 이름</th><th>작성자</th><th>거래상태</th><th>작성일</th><th><input type='checkbox' name='all' onclick='allChk(this.checked)'></th></tr>"
 				+"</thead><tbody></tbody><tfoot></tfoot></table></form>"
@@ -477,9 +524,9 @@ td a{
 		for(var i = 0 ; i<list.length;i++){
 			var status;
 			if(list[i].status == 'N'){
-				status="거래중";
+				status="<span class='status_active'>거래중</span>";
 			}else{
-				status="거래완료";
+				status="<span class='status_dis'>거래완료</span>";
 			}
 			$("tbody").append(
 				"<tr>"
@@ -489,7 +536,7 @@ td a{
 			);
 		}
 		$("tfoot").append(
-				"<tr><td colspan='8' align='right'><input type='submit' value='삭제'></td></tr>"		
+				"<tr><td colspan='8' align='right'><input class='ip_button' type='submit' value='삭제'></td></tr>"		
 		);
 		$("#table_data").append(
 				"<div class='pagination'><ol id='numbers'></ol></div>"		
@@ -530,8 +577,8 @@ td a{
 		$("#table_data").empty();
 		$("#table_data").append(
 				"<form action='usercontroller?command=multi_update' method='post' id='checked_change'>"
-				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
-				+"<col width='20px'><col width='100px'><col width='100px'><col width='300px'>"
+				+"<table style='margin-left: auto; margin-right: auto;'>"
+				+"<col width='30px'><col width='100px'><col width='100px'><col width='300px'>"
 				+"<thead>"
 				+"<tr><th>No</th><th>아이디</th><th>이름</th><th>이메일</th><th>회원등급</th><th>탈퇴여부</th><th>가입날짜</th><th><input type='checkbox' name='all' onclick='allChk(this.checked)'></th></tr>"
 				+"</thead><tbody></tbody><tfoot></tfoot></table></form>"
@@ -545,7 +592,7 @@ td a{
 			);
 		}
 		$("tfoot").append(
-			"<tr><td colspan='8' align='right'><input type='submit' value='수정'></td></tr>"		
+			"<tr><td colspan='8' align='right'><input class='ip_button' type='submit' value='수정'></td></tr>"		
 		);
 		$("#table_data").append(
 				"<div class='pagination'><ol id='numbers'></ol></div>"		
@@ -612,8 +659,8 @@ td a{
 		$("#table_data").empty();
 		$("#table_data").append(
 				"<form action='usercontroller?command=biz_multi_delete' method='post' id='checked_change'>"
-				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
-				+"<col width='20px'><col width='100px'><col width='300px'><col width='100px'><col width='100px'>"
+				+"<table style='margin-left: auto; margin-right: auto;'>"
+				+"<col width='30px'><col width='100px'><col width='300px'>"
 				+"<thead>"
 				+"<tr><th>No</th><th>작성자</th><th>센터이름</th><th>승인상태</th><th>등록일</th><th><input type='checkbox' name='all' onclick='allChk(this.checked)'></th></tr>"
 				+"</thead><tbody></tbody><tfoot></tfoot></table></form>"
@@ -621,12 +668,12 @@ td a{
 		for(var i = 0 ; i<list.length;i++){
 			var status;
 			if(list[i].status == 'N'){
-				status="승인대기";
+				status="<span class='status_active'>대기중</span>";
 			}else if(list[i].status == 'D'){
-				status="승인거절";
+				status="<span class='status_dis'>승인거절</span>";
 			}
 			else{
-				status="승인수락";
+				status="<span class='status_dis'>승인수락</span>";
 			}
 			
 			$("tbody").append(
@@ -637,7 +684,7 @@ td a{
 			);
 		}
 		$("tfoot").append(
-				"<tr><td colspan='6' align='right'><input type='submit' value='삭제'></td></tr>"		
+				"<tr><td colspan='6' align='right'><input class='ip_button' type='submit' value='삭제'></td></tr>"		
 		);
 		$("#table_data").append(
 				"<div class='pagination'><ol id='numbers'></ol></div>"		

@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>유저페이지(관리자)</title>
 <style type="text/css">
 .information{
 	text-align:center;
@@ -89,7 +89,7 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 			<td colspan="2" class="function">
 			<input type="button" value="수정" onclick="location.href='MainController?command=updatestart&userno=${userDto.userno}'">
 			<input type="button" value="탈퇴" onclick="location.href='MainController?command=deleteinfo&userno=${userDto.userno}'">
-			<input type="button" value="취소" onclick="location.href='main.jsp'">
+			<input type="button" value="목록" onclick="location.href='MainController?command=adminpage&act=user'">
 			</td>
 		</tr>
 	</table>

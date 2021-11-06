@@ -412,7 +412,7 @@ public class QnaDao extends JDBCTemplate{
 				return res;
 			}
 			
-			public int countAnswer(Connection con, int parentgpno, int parentgpsq) {
+			public int countAnswer(Connection con, int gpno, int gpsq) {
 				PreparedStatement pstm = null;
 				ResultSet rs = null;
 				int res = 0;
@@ -421,8 +421,8 @@ public class QnaDao extends JDBCTemplate{
 				
 				try {
 					pstm = con.prepareStatement(sql);
-					pstm.setInt(1, parentgpno);
-					pstm.setInt(2, parentgpsq);
+					pstm.setInt(1, gpno);
+					pstm.setInt(2, gpsq);
 					System.out.println("03. query 준비: " + sql);
 					
 					rs = pstm.executeQuery();
@@ -442,7 +442,7 @@ public class QnaDao extends JDBCTemplate{
 				return res;
 			}
 
-			public int updateAnswer(Connection con, int parentgpno, int parentgpsq) {
+			public int updateAnswer(Connection con, int gpno, int gpsq) {
 				PreparedStatement pstm = null;
 				int res = 0;
 				
@@ -457,8 +457,8 @@ public class QnaDao extends JDBCTemplate{
 				
 				try {
 					pstm = con.prepareStatement(sql);
-					pstm.setInt(1, parentgpno);
-					pstm.setInt(2, parentgpsq);
+					pstm.setInt(1, gpno);
+					pstm.setInt(2, gpsq);
 					System.out.println("03. query 준비: "+ sql);
 					
 					res = pstm.executeUpdate();
@@ -486,7 +486,7 @@ public class QnaDao extends JDBCTemplate{
 								'RE:두번째 글','2번글에 답글입니다(2)','유저2',SYSDATE
 					);
 				 */
-				String sql = " INSERT INTO QNA VALUES(QANOSQ.NEXTVAL,?,?,?,?,?,?,?,?,?,SYSDATE,?) ";
+				String sql = " INSERT INTO QNA VALUES(QANOSQ.NEXTVAL,?,?,?,?,?,?,?,?,SYSDATE,?) ";
 				
 				try {
 					pstm = con.prepareStatement(sql);

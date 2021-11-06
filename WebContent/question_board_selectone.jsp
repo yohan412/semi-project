@@ -69,8 +69,8 @@
 	}
 </style>
 </head>
-<header><%@ include file="form/header.jsp" %></header>
 <body>
+<header><%@ include file="form/header.jsp" %></header>
 
 <h2 align="center">1 : 1 문의</h2>
 
@@ -81,7 +81,8 @@
 		<input type="hidden" id="qa_type" value="<%=dto.getQatype() %>"> 
 		<input type="hidden" id="userid" value="<%=dto.getUserid() %>">
 		<input type="hidden" id="userno" value="<%=dto.getUserno() %>">
-		<input type="hidden" id="session_id" value="<%=loginUser.getUserid()%>">
+		<input type="hidden" id="session_id" value="${loginUser.userid}">
+		
 		
 		<table>
 			<tr id="title">
@@ -99,7 +100,7 @@
 					<button type="button" id="submit" onclick="location.href='question_board_update.jsp?qano=<%=dto.getQano()%>'">수정</button>&nbsp;&nbsp;
 					<button type="button" id="reset"  onclick="del_btn('<%=dto.getQano()%>');">삭제</button>&nbsp;&nbsp;
 					<button id="reset"  onclick="location.href='qna.jsp'">목록</button>&nbsp;&nbsp;
-					<button type="button" id="reply" onclick="location.href='question_board_answerwrite.jsp?qano=<%=dto.getQano()%>'">답글</button>
+					<button type="button" id="reply" onclick="location.href='MainController?command=answerform&qano=<%=dto.getQano()%>'">답글</button>
 				</td>
 			</tr>
 		</table>	
@@ -110,11 +111,25 @@
 </div>		
 </body>
 <script>
+
+	//$(document).ready(function() {
+	//	if(${loginUser} == null){
+	//		alert("111");
+	//	}else{
+	//		alert("222");
+	//	}
+	//});
 	
-	$(function(){
-		var userno = $('#userid').val();
-		console.log(userno);
-	)}
+	var uid = "${loginUser.userid}";
+		
+	console.log(uid);
+	
+	
+	if(uid==""){
+		alert("로그인 후 이용가능합니다."); history.back();
+		location.href="login.jsp";
+	}
+		
 	function del_btn(qano){
 		if (confirm("삭제하시겠습니까?") == true){    //확인
 			location.href="question_board_delete.jsp?qano="+qano;

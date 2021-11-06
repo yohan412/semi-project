@@ -12,7 +12,7 @@ response.setContentType("text/html; charset=UTF-8");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자 페이지</title>
 
 <style type="text/css">
 #body {
@@ -32,7 +32,7 @@ ul,li{
 	display: inline-block;
 	position: absolute;
 	top:300px;
-	background: rgb(00, 68, 137);
+	background: gray;
 	color: white;
 }
 
@@ -113,15 +113,95 @@ td a{
  color:black;
  font-weight:bold;
 }
+
+#numbers{
+	list-style: none;
+}
+#numbers li{
+	display:inline-block;
+	margin-left:5px;
+	margin-right:5px;
+}
+#numbers li a {
+	text-decoration: none;
+	color:black;
+	font-weight:bold;
+}
+#numbers li a.active {
+	color:blue;
+}
+table{
+  border-collapse: collapse;
+  font-size:18px;
+  width:1000px;
+}
+table tr{
+	line-height:30px;
+}
+table th{
+	border-bottom: 3px solid #036;
+}
+table tbody tr{
+	border-bottom: 1px solid #ccc;
+}
+
+.ip_button{
+	margin-top:10px;
+	margin-left:10px;
+	background: rgb(00,68,137);
+	font-weight:bold;
+	color : white;
+	width:80px;
+	height:30px;
+	border-radius: 5px;
+	cursor:pointer;
+	outline:none;
+	box-shadow:none;
+	border:none;
+}
+.status_active{
+	width:80px;
+	display:inline-block;
+	background:rgb(15, 82, 186);
+	color:white;
+	font-weight:bold;
+	font-size:14px;
+	border-radius:10px;
+}
+.status_dis{
+	width:80px;
+	display:inline-block;
+	background:gray;
+	color:white;
+	font-weight:bold;
+	font-size:14px;
+	border-radius:10px;
+}
 </style>
 
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		// 인스턴스 생성
+		
 		var accordion = new AccordionMenu('.acc-menu');
-		accordion.selectMenu(0, 0, true);
+		
+		var act ="${act}";
+		
+		if(act == "user"){
+			user_list();
+			accordion.selectMenu(0, 0, true);
+		} else if(act =="biz"){
+			biz_list();
+			accordion.selectMenu(0, 1, true);
+		}else if(act =="center"){
+			center_list();
+			accordion.selectMenu(1, 0, true);
+		} else if(act =="used"){
+			used_list();
+			accordion.selectMenu(1, 1, true);
+		}
+		
 
 		// 애니메이션 타입으로 0번째 메뉴 열기
 		// accordion.openSubMenuAt(0, true);
@@ -409,8 +489,8 @@ td a{
 		
 		$("#table_data").append(
 				"<form action='CenterController?command=multi_delete' method='post' id='checked_change'>"
-				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
-				+"<col width='20px'><col width='400px'><col width='100px'><col width='100px'>"
+				+"<table style='margin-left: auto; margin-right: auto;' >"
+				+"<col width='30px'><col width='400px'>"
 				+"<thead>"
 				+"<tr><th>No</th><th>게시글 이름</th><th>작성자</th><th>작성일</th><th><input type='checkbox' name='all' onclick='allChk(this.checked)'></th></tr>"
 				+"</thead><tbody></tbody><tfoot></tfoot></table></form>"
@@ -424,15 +504,19 @@ td a{
 			);
 		}
 		$("tfoot").append(
-				"<tr><td colspan='8' align='right'><input type='submit' value='삭제'></td></tr>"		
+				"<tr><td colspan='8' align='right'><input class='ip_button' type='submit' value='삭제'></td></tr>"		
 		);
+		$("#table_data").append(
+				"<div class='pagination'><ol id='numbers'></ol></div>"		
+		);
+		tablePagenation();
 	}
 	function make_usedtable(list){
 		$("#table_data").empty();
 		$("#table_data").append(
 				"<form action='usedcontroller?command=multi_delete' method='post' id='checked_change'>"
-				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
-				+"<col width='20px'><col width='400px'><col width='100px'><col width='100px'><col width='100px'>"
+				+"<table style='margin-left: auto; margin-right: auto;' >"
+				+"<col width='30px'><col width='400px'>"
 				+"<thead>"
 				+"<tr><th>No</th><th>게시글 이름</th><th>작성자</th><th>거래상태</th><th>작성일</th><th><input type='checkbox' name='all' onclick='allChk(this.checked)'></th></tr>"
 				+"</thead><tbody></tbody><tfoot></tfoot></table></form>"
@@ -440,9 +524,9 @@ td a{
 		for(var i = 0 ; i<list.length;i++){
 			var status;
 			if(list[i].status == 'N'){
-				status="거래중";
+				status="<span class='status_active'>거래중</span>";
 			}else{
-				status="거래완료";
+				status="<span class='status_dis'>거래완료</span>";
 			}
 			$("tbody").append(
 				"<tr>"
@@ -452,8 +536,12 @@ td a{
 			);
 		}
 		$("tfoot").append(
-				"<tr><td colspan='8' align='right'><input type='submit' value='삭제'></td></tr>"		
+				"<tr><td colspan='8' align='right'><input class='ip_button' type='submit' value='삭제'></td></tr>"		
 		);
+		$("#table_data").append(
+				"<div class='pagination'><ol id='numbers'></ol></div>"		
+		);
+		tablePagenation();
 	}
 	function user_list(){
 		
@@ -489,8 +577,8 @@ td a{
 		$("#table_data").empty();
 		$("#table_data").append(
 				"<form action='usercontroller?command=multi_update' method='post' id='checked_change'>"
-				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
-				+"<col width='20px'><col width='100px'><col width='100px'><col width='300px'>"
+				+"<table style='margin-left: auto; margin-right: auto;'>"
+				+"<col width='30px'><col width='100px'><col width='100px'><col width='300px'>"
 				+"<thead>"
 				+"<tr><th>No</th><th>아이디</th><th>이름</th><th>이메일</th><th>회원등급</th><th>탈퇴여부</th><th>가입날짜</th><th><input type='checkbox' name='all' onclick='allChk(this.checked)'></th></tr>"
 				+"</thead><tbody></tbody><tfoot></tfoot></table></form>"
@@ -504,8 +592,12 @@ td a{
 			);
 		}
 		$("tfoot").append(
-			"<tr><td colspan='8' align='right'><input type='submit' value='수정'></td></tr>"		
+			"<tr><td colspan='8' align='right'><input class='ip_button' type='submit' value='수정'></td></tr>"		
 		);
+		$("#table_data").append(
+				"<div class='pagination'><ol id='numbers'></ol></div>"		
+		);
+		tablePagenation();
 		
 		function enabled_select(value){
 			if( value=="Y"){
@@ -566,9 +658,9 @@ td a{
 	function make_biztable(list){
 		$("#table_data").empty();
 		$("#table_data").append(
-				"<form action='usedcontroller?command=biz_multi_delete' method='post' id='checked_change'>"
-				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
-				+"<col width='20px'><col width='100px'><col width='300px'><col width='100px'><col width='100px'>"
+				"<form action='usercontroller?command=biz_multi_delete' method='post' id='checked_change'>"
+				+"<table style='margin-left: auto; margin-right: auto;'>"
+				+"<col width='30px'><col width='100px'><col width='300px'>"
 				+"<thead>"
 				+"<tr><th>No</th><th>작성자</th><th>센터이름</th><th>승인상태</th><th>등록일</th><th><input type='checkbox' name='all' onclick='allChk(this.checked)'></th></tr>"
 				+"</thead><tbody></tbody><tfoot></tfoot></table></form>"
@@ -576,21 +668,79 @@ td a{
 		for(var i = 0 ; i<list.length;i++){
 			var status;
 			if(list[i].status == 'N'){
-				status="승인대기";
-			}else{
-				status="승인완료";
+				status="<span class='status_active'>대기중</span>";
+			}else if(list[i].status == 'D'){
+				status="<span class='status_dis'>승인거절</span>";
+			}
+			else{
+				status="<span class='status_dis'>승인수락</span>";
 			}
 			
 			$("tbody").append(
 				"<tr>"
-				+"<td>"+list[i].no+"</td>"+"<td>"+list[i].writer+"</td>"+"<td><a href='usedcontroller?command=bizdetail&bizno="+list[i].no+"'>"+list[i].centernm+"</a></td>"+"<td>"+status+"</td>"+"<td>"+list[i].reg+"</td>"
+				+"<td>"+list[i].no+"</td>"+"<td>"+list[i].writer+"</td>"+"<td><a href='usercontroller?command=bizdetail&bizno="+list[i].no+"'>"+list[i].centernm+"</a></td>"+"<td>"+status+"</td>"+"<td>"+list[i].reg+"</td>"
 				+"<td align='center'><input type='checkbox' name='chk' value='"+list[i].no+"'></td>"
 				+"</tr>"
 			);
 		}
 		$("tfoot").append(
-				"<tr><td colspan='6' align='right'><input type='submit' value='삭제'></td></tr>"		
+				"<tr><td colspan='6' align='right'><input class='ip_button' type='submit' value='삭제'></td></tr>"		
 		);
+		$("#table_data").append(
+				"<div class='pagination'><ol id='numbers'></ol></div>"		
+		);
+		tablePagenation();
+	}
+	function tablePagenation(){
+		/*
+		변수 생성
+		- rowsPerPage페이지당 보여줄 개수 20
+		- rows 가로행 tr 
+		- rowsCount 개수 100
+		- pageCount 페이지네이션 개수 = 100/20
+		- pagenumbers
+		콘솔에서 pageCount 찍어보고
+		*/
+		$("#numbers").empty();
+		var rowsPerPage = 15,
+			rows = $('#table_data tbody tr'),
+			rowsCount = rows.length
+			pageCount = Math.ceil(rowsCount/rowsPerPage),
+			numbers = $('#numbers');
+		
+		/* 페이지네이션 li를 생성 반복문*/
+		for(var i = 0 ; i < pageCount;i++){
+			numbers.append('<li><a href="">'+(i+1)+'</a></li>');
+		}
+		//#numbers li:first-child a
+		numbers.find('li:first-child a').addClass('active');
+		
+		//페이지네이션 함수 displayRows
+		function displayRows(idx){
+			
+			var start = (idx)*rowsPerPage;
+				end = start + rowsPerPage;
+				
+			rows.hide();
+			//해당하는 부분만 보여줌
+			rows.slice(start,end).show();
+		}
+		
+		displayRows(0);
+		//페이지네이션 클릭시 보여주기
+		/*
+			클릭한 그 a 태그의 active,
+			그 요소의 숫자를 dislplayRows의 매개변수로 지정
+		*/
+		numbers.find('li').click(function(e){
+			//a태그의 이벤트를 막음
+			e.preventDefault();
+			
+			numbers.find('li a').removeClass('active');
+			$(this).find('a').addClass('active');
+			var index = $(this).index();
+			displayRows(index);
+		});
 	}
 </script>
 </head>

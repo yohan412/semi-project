@@ -1,7 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
+
+<%@ page import = "com.qna.dao.QnaDao" %>
+<%@ page import = "com.qna.dto.QnaDto" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.io.PrintWriter" %>
+
+<% 
+	
+	int qano = Integer.parseInt(request.getParameter("qano"));
+	String qatitle = request.getParameter("qatitle");
+	String qacontent = request.getParameter("qacontent");
+	
+	
+	QnaDao dao = new QnaDao();
+	QnaDto dto = dao.selectOne(qano);
+	
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +70,7 @@
 </style>
 <script type="text/javascript">
 function goBack(){
-	window.history.back();
+	history.back();
 }
 </script>
 </head>
@@ -62,11 +81,11 @@ function goBack(){
 <div id="wrap">	
 	<form action="MainController" method="post">
 		<input type="hidden" name="command" value="answerwrite" >
-		<input type="hidden" name="qano" value="${parent.qano }" >
+		<input type="hidden" name="qano" value="<%=dto.getQano() %>">
 		<table>
 			<tr id="title">
 				<th>제 목</th>
-				<td><input type="text" name="title" value="RE:${parent.title }"></td>
+				<td><input type="text" name="title" value="RE:<%=dto.getQatitle()%>" readonly></td>
 			</tr>
 			<tr id="content">
 				<th>내 용</th>

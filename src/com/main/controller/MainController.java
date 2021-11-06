@@ -190,31 +190,33 @@ public class MainController extends HttpServlet {
 			}
 			
 		}else if(command.equals("answerform")) {
-			int parentqano = Integer.parseInt(request.getParameter("parentqano"));
+			int qano = Integer.parseInt(request.getParameter("qano"));
 			
-			QnaDto dto = udao.selectOne(parentqano);
-			request.setAttribute("parent", dto);
-			dispatch("question_board_answerwrite.jsp",request,response);
+			QnaDto dto = udao.selectOne(qano);
+			request.setAttribute("dto", dto);
+			
+			RequestDispatcher dis = request.getRequestDispatcher("question_board_answerwrite.jsp");
+			dis.forward(request, response);
 			
 		}else if(command.equals("answerwrite")) {	
-			int parentqano = Integer.parseInt(request.getParameter("parentqano"));
+			int qano = Integer.parseInt(request.getParameter("qano"));
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			//String photo = request.getParameter("photo");
 			
-			QnaDto parent = udao.selectOne(parentqano);
+			QnaDto parent = udao.selectOne(qano);
 			
-			int parentgpno = parent.getQagpno();
-			int parentgpsq = parent.getQagpsq();
-			int parenttitletab = parent.getTitletab();
+			int gpno = parent.getQagpno();
+			int gpsq = parent.getQagpsq();
+			int titletab = parent.getTitletab();
 			
-			QnaDto dto = new QnaDto(0, parentgpno, parentgpsq, parenttitletab, title, content, null);
+			QnaDto dto = new QnaDto(0, gpno, gpsq, titletab, title, content, null);
 			
 			boolean res = new QnaDao().answerLogic(dto);
 			if(res) {
 				response.sendRedirect("MainController?command=qna");
 			}else {
-				response.sendRedirect("MainController?command=selectone&qano="+parentqano);
+				response.sendRedirect("MainController?command=selectone&qano="+qano);
 			}
 			
 			
@@ -236,6 +238,13 @@ public class MainController extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser",loginUser);
 			dispatch("main.jsp",request,response);
+			
+		} else if(command.equals("adminpage")) {
+			
+			String act = request.getParameter("act");
+			
+			request.setAttribute("act", act);
+			dispatch("admin_main.jsp",request,response);
 		}
 	}
 

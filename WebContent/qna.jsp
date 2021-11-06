@@ -92,31 +92,7 @@
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-function login_chk(){
-	if(${loginUser==null}){
-		if(confirm("로그인이 필요한 작업입니다.\n로그인 하시겠습니까?")){
-			location.href="login.jsp"
-		}else{
-				
-		}
-	} else{
-		location.href="MainController?command=writeform";
-	}	
 	
-function user_Chk(){
-	if(${loginUser==null}){
-		if(confirm("로그인이 필요한 작업입니다.\n로그인 하시겠습니까?")){
-			location.href="login.jsp"
-		}else{
-			
-		}
-	}else{
-		if(${loginUser.equals(userid)}){
-			location.href="MainController?command=selecttone"
-		}
-	}
-}	
-}	
 </script>
 </head>
 <% 
@@ -125,24 +101,17 @@ function user_Chk(){
 	List<QnaDto> list = dao.selectAll();
 	List<QnaDto> faqlist = dao.selectFaq();
 	
-	String seid = request.getParameter("seid");
-	
-	if(seid != ""){
-		seid = "";
-	}
-
-	System.out.println(seid);
 %>
 <body>
 
 	<header><%@ include file="form/header.jsp" %></header>
 	<br>
+	<input type="text" id="session_id" value="${loginUser.userid}">
 	<div class="qna">
 		<div class="faq">
 		<h3 align="center">F A Q</h3>
-
 			<div name="qna_category" id="tab_container" style="width:97%; padding:10px 10px 10px 10px;">
-				<ul class="tabs" onchange="sort_by_category()">
+				<ul class="tabs">
 				<!-- 탭 메뉴 영역 -->
 					<li><a href="MainController?command=qna">전체</a></li>
 					<li><a href="MainController?command=getlist&qatype=1">가격</a></li>

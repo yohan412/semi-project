@@ -2,65 +2,70 @@ package com.wish.dto;
 
 public class WishDto {
 
-	private String loginid;
-	private String usedtitle;
-	private String userid;
-	private String usercenternm;
-	private String usedno;
+	private String login_id;
+	private int title_no;
+	private String use_yn;
+	private String type;
+	private String used_title;
 	
 	public WishDto() {
 		super();
 	}
 
-	public WishDto(String loginid, String usedtitle, String userid, String usercenternm, String usedno) {
+	public WishDto(String login_id, int title_no, String use_yn, String type, String used_title) {
 		super();
-		this.loginid = loginid;
-		this.usedtitle = usedtitle;
-		this.userid = userid;
-		this.usercenternm = usercenternm;
-		this.usedno = usedno;
+		this.login_id = login_id;
+		this.title_no = title_no;
+		this.use_yn = use_yn;
+		this.type = type;
+		this.used_title = used_title;
 	}
 
-	public String getLoginid() {
-		return loginid;
+	public String getLogin_id() {
+		return login_id;
 	}
 
-	public void setLoginid(String loginid) {
-		this.loginid = loginid;
+	public void setLogin_id(String login_id) {
+		this.login_id = login_id;
 	}
 
-	public String getUsedtitle() {
-		return usedtitle;
+	public int getTitle_no() {
+		return title_no;
 	}
 
-	public void setUsedtitle(String usedtitle) {
-		this.usedtitle = usedtitle;
+	public void setTitle_no(int title_no) {
+		this.title_no = title_no;
 	}
 
-	public String getUserid() {
-		return userid;
+	public String getUse_yn() {
+		return use_yn;
 	}
 
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUse_yn(String use_yn) {
+		this.use_yn = use_yn;
 	}
 
-	public String getUsercenternm() {
-		return usercenternm;
+	public String getType() {
+		return type;
 	}
 
-	public void setUsercenternm(String usercenternm) {
-		this.usercenternm = usercenternm;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public String getUsedno() {
-		return usedno;
+	public String getUsed_title() {
+		return used_title;
 	}
 
-	public void setUsedno(String usedno) {
-		this.usedno = usedno;
+	public void setUsed_title(String used_title) {
+		this.used_title = used_title;
 	}
 
 	
+
+	
+
+	
+
 	
 }

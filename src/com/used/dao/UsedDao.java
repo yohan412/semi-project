@@ -382,29 +382,27 @@ public class UsedDao extends JDBCTemplate{
 		}
 		return res;
 	}
+
 public int insertWish(WishDto dto) {
-		
+
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
 		int res = 0;
-		
-		String sql =" INSERT INTO USER_WISH VALUES(?,?,?,?, 'Y',SYSDATE,? ) ";
-		
+
+		String sql = " INSERT INTO USER_WISH VALUES(?,?, SYSDATE, 'Y',?) ";
+
 		try {
-			pstm=con.prepareStatement(sql);
-			pstm.setString(1, dto.getLoginid());
-			pstm.setString(2, dto.getUsedtitle());
-			pstm.setString(3, dto.getUserid());
-			pstm.setString(4, dto.getUsercenternm());
-			pstm.setString(5, dto.getUsedno());
-			System.out.println("03. query 준비 : "+sql);
-			
-			res=pstm.executeUpdate();
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, dto.getLogin_id());
+			pstm.setInt(2, dto.getTitle_no());
+			pstm.setString(3, dto.getType());
+			System.out.println("03. query 준비 : " + sql);
+
+			res = pstm.executeUpdate();
 			System.out.println("04. query 실행 및 리턴");
-			
-			
-			if(res>0) {
-				
+
+			if (res > 0) {
+
 				commit(con);
 			} else {
 				rollback(con);
@@ -420,31 +418,33 @@ public int insertWish(WishDto dto) {
 		return res;
 	}
 
-	public List<WishDto> selectWishAll(String login_id){
+
+	public List<WishDto> selectWishAll(String login_id) {
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		List<WishDto> res = new ArrayList<WishDto>();
-		
-		String sql = " SELECT * FROM USER_WISH WHERE LOGIN_ID = ? AND USE_YN = 'Y' ";
-		
+
+		String sql = " SELECT A.USED_NO, A.USER_ID, B.TYPE, A.USED_TITLE ";
+		sql += "FROM USED_BOARD A ";
+		sql += "LEFT JOIN USER_WISH B ON (A.USED_NO = B.TITLE_NO ) ";
+		sql += "WHERE B.TYPE = 'U' AND B.LOGIN_ID = ? AND B.USE_YN = 'Y' ";
+
 		try {
-			pstm=con.prepareStatement(sql);
+			pstm = con.prepareStatement(sql);
 			pstm.setString(1, login_id);
 			System.out.println("03. query 준비: " + sql);
-			
-			rs=pstm.executeQuery();
+
+			rs = pstm.executeQuery();
 			System.out.println("04. query 실행 및 리턴");
-			
-			while(rs.next()) {
+
+			while (rs.next()) {
 				WishDto dto = new WishDto();
-				
-				dto.setLoginid(rs.getString(1));
-				dto.setUsedtitle(rs.getString(2));
-				dto.setUserid(rs.getString(3));
-				dto.setUsercenternm(rs.getString(4));
-				dto.setUsedno(rs.getString(7));
-				
+
+				dto.setTitle_no(rs.getInt(1));
+				dto.setLogin_id(rs.getString(2));
+				dto.setType(rs.getString(3));
+				dto.setUsed_title(rs.getString(4));
 				res.add(dto);
 			}
 		} catch (SQLException e) {
@@ -459,31 +459,69 @@ public int insertWish(WishDto dto) {
 		return res;
 	}
 	
-	public WishDto selectOne(String login_id, String used_no ) {
+	public List<WishDto> selectCenterWishAll(String login_id) {
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		List<WishDto> res = new ArrayList<WishDto>();
+
+		String sql = " SELECT A.CENTER_NO, A.USER_ID, B.TYPE, A.CENTER_NAME ";
+		sql += "FROM CENTER A ";
+		sql += "LEFT JOIN USER_WISH B ON (A.CENTER_NO = B.TITLE_NO ) ";
+		sql += "WHERE B.TYPE = 'C' AND B.LOGIN_ID = ? AND B.USE_YN = 'Y' ";
+
+		try {
+			pstm = con.prepareStatement(sql);
+			pstm.setString(1, login_id);
+			System.out.println("03. query 준비: " + sql);
+
+			rs = pstm.executeQuery();
+			System.out.println("04. query 실행 및 리턴");
+
+			while (rs.next()) {
+				WishDto dto = new WishDto();
+
+				dto.setTitle_no(rs.getInt(1));
+				dto.setLogin_id(rs.getString(2));
+				dto.setType(rs.getString(3));
+				dto.setUsed_title(rs.getString(4));
+				res.add(dto);
+			}
+		} catch (SQLException e) {
+			System.out.println("3/4 단계 오류");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료\n");
+		}
+		return res;
+	}
+
+	public WishDto selectOne(String login_id, String used_no, String type) {
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		WishDto res = new WishDto();
-		
-		String sql = "SELECT * FROM USER_WISH WHERE LOGIN_ID=? AND USE_YN = 'Y' AND USED_NO=? ";
-		
+
+		String sql = "SELECT * FROM USER_WISH WHERE LOGIN_ID=? AND USE_YN = 'Y' AND TITLE_NO=? AND TYPE=? ";
+
 		try {
-			pstm=con.prepareStatement(sql);
+			pstm = con.prepareStatement(sql);
 			pstm.setString(1, login_id);
 			pstm.setString(2, used_no);
-			System.out.println("03. query 준비 : "+ sql);
-			
-			rs=pstm.executeQuery();
+			pstm.setString(3, type);
+			System.out.println("03. query 준비 : " + sql);
+
+			rs = pstm.executeQuery();
 			System.out.println("04. query 실행 및 리턴");
-			
-			while(rs.next()) {
-				
-				res.setLoginid(rs.getString(1));
-				res.setUsedtitle(rs.getString(2));
-				res.setUserid(rs.getString(3));
-				res.setUsercenternm(rs.getString(4));
-				res.setUsedno(rs.getString(5));
-				
+
+			while (rs.next()) {
+
+				res.setLogin_id(rs.getString(1));
+				res.setTitle_no(rs.getInt(2));
+
 			}
 		} catch (SQLException e) {
 			System.out.println("error : 3/4단계 failed");
@@ -501,28 +539,29 @@ public int insertWish(WishDto dto) {
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
 		int res = 0;
-		
-		String sql = " UPDATE USER_WISH SET USE_YN='N' WHERE LOGIN_ID=? AND USED_NO=? ";
-		
+
+		String sql = " UPDATE USER_WISH SET USE_YN='N' WHERE LOGIN_ID=? AND TITLE_NO=? AND TYPE=? ";
+
 		try {
 			pstm = con.prepareStatement(sql);
-			pstm.setString(1, wish.getLoginid());
-			pstm.setString(2, wish.getUsedno());
-			System.out.println("03. query 준비 : " + sql );
-			
+			pstm.setString(1, wish.getLogin_id());
+			pstm.setInt(2, wish.getTitle_no());
+			pstm.setString(3, wish.getType());
+			System.out.println("03. query 준비 : " + sql);
+
 			res = pstm.executeUpdate();
 			System.out.println("04. query 실행 및 리턴");
-			
-			if(res>0) {
+
+			if (res > 0) {
 				commit(con);
-			}else {
+			} else {
 				rollback(con);
 			}
-			
+
 		} catch (SQLException e) {
 			System.out.println("3/4 단계 에러 ");
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(pstm);
 			close(con);
 			System.out.println("05. DB 종료\n");

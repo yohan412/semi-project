@@ -16,6 +16,11 @@
 	
 	$(function(){
 		
+		 // 찜 설정이 된 경우 채워진 하트 이미지 표시
+	     if($("#wish").val() == "1"){
+	      $(".button-add").css({"background":"url(./img/heart.png)"});
+	     }
+		
 		if("${loginUser.userid}" == "${centerDto.userid}"){
 			$("#detail_button").prepend(
 					'<input class="ip_button" type="button" value="수 정" onclick="location.href=\'CenterController?command=centerupdateform&centerno=${centerDto.centerno}\'">'+
@@ -226,6 +231,47 @@
 			window.open('CenterController?command=review_detail&loginid=${loginUser.userid}&reviewno='+no,"리뷰 상세보기",option);
 		}
 	}
+	
+	 function clickLike(){
+	      /* 1. ajax 로 USED_WISH 테이블에 데이터 넣기
+	      2. 빈하트 -> 채워진 하트로 배경이미지를 변경 */
+
+	      var param = {
+	         "login_id" : $("#login_id").val(),
+	         "title_no" : $("#center_no").val(),
+	         "type" : "C"
+	      }
+	      
+	      console.log(param);
+	      
+	      
+	      // 찜을 설정한 경우
+	      if($("#wish").val() == "1"){
+	         // 찜 해제 필요
+	         param.wish_data = "1";
+	      
+	      } else {
+	         //찜 설정
+	         param.wish_data = "0";
+	      }
+	      
+	      
+	      $.ajax({             
+	         url : "usedcontroller?command=wish"  ,   //어디로 요청을 보낼지
+	         dataType : "json",                   //서버로부터 받을 데이터 타입
+	         data : param,
+	         success:function(msg){               //성공시 실행
+	            console.log(msg);
+	            $(".button-add").css({"background":"url(./img/heart.png)"});  
+	            location.reload();
+	            //console.log(msg);
+	         },
+	         error:function(){                  //실패시 실행
+	            alert("실패ㅠㅠ");
+	         }
+	      })
+	      
+	   }
 </script>
 
 <style type ="text/css">
@@ -394,6 +440,42 @@ h1, p{
 	box-shadow:none;
 	border:none;
 }
+
+/*찜 버튼 구현 시작*/
+.checkbox-wrap{
+   cursor:pointer;
+}
+.checkbox-wrap .check-icon  { 
+   display: inline-block; 
+   width: 30px; height: 30px; 
+   background: url('img/emt_heart.png') left center no-repeat; 
+   vertical-align: middle; 
+   transition-duration: .3s; }   
+.checkbox-wrap input[type=checkbox]{display:none;}
+.checkbox-wrap input[type=checkbox]:disalbed + .check-icon{
+   background-image:url('img/emt_heart.png');
+}
+input[type=checkbox]:checked + .check-icon{
+   background-image:url('img/heart.png');
+}
+
+input.button-add {
+    background-image: url(./img/emt_heart.png); /* 16px x 16px */
+    background-color: transparent; /* make the button transparent */
+    background-repeat: no-repeat;  /* make the background image appear only once */
+    background-position: 0px 0px;  /* equivalent to 'top left' */
+    border: none;           /* assuming we don't want any borders */
+    cursor: pointer;        /* make the cursor like hovering over an <a> element */
+    height: 16px;           /* make this the size of your image */
+    padding-left: 16px;     /* make text start to the right of the image */
+    vertical-align: middle; /* align the text vertically centered */
+    position : relative;
+    transform : rotate(0deg);
+    width :24px;
+    height : 24px;
+}
+/*찜 버튼 구현 끝*/
+
 </style>
 </head>
 <body>
@@ -415,6 +497,10 @@ h1, p{
                     	<span style="width:${centerDto.centergrade*20}%"></span>
                     </span> (${centerDto.centergrade})
                     </span>
+                    	<input type="button" onclick="clickLike()" class="button-add" />
+						<input type="hidden" id="login_id" value="<%=loginUser.getUserid()%>"> 
+						<input type="hidden" id="center_no" value="<%=request.getParameter("centerno")%>">
+						<input type="hidden" id="wish" value="${wish}">
                 </div>
             </div>
             <hr>

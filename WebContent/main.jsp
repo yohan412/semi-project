@@ -82,7 +82,7 @@
         	}else{
         	}
        } else{	
-    	   location.href="join_business.jsp";
+    	   location.href="usercontroller?command=business&user_no=${ loginUser.userno }";
         		}
        }
 </script>

@@ -17,6 +17,10 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.biz.dao.BizDao;
+import com.biz.dto.BizDto;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.used.dao.UsedDao;
 import com.used.dto.UsedDto;
 import com.user.dao.UserDao;
@@ -36,6 +40,7 @@ public class UserController extends HttpServlet {
       
       UserDao dao = new UserDao();
       UsedDao usedDao = new UsedDao();
+      BizDao bdao = new BizDao();
       
       if(command.equals("idChk")) {
          String myid=request.getParameter("id");
@@ -266,7 +271,94 @@ public class UserController extends HttpServlet {
 					jsResponse("변경 중 오류가 발생하였습니다", "admin_main.jsp", response);
 				}
 			}
-		}
+		}else if(command.equals("business")) {
+			int userno = Integer.parseInt(request.getParameter("user_no"));
+			
+			UserDto dto = dao.selectOne(userno);
+			
+			request.setAttribute("dto", dto);
+			
+			RequestDispatcher dis = request.getRequestDispatcher("join_business.jsp");
+			dis.forward(request, response);
+		}else if(command.equals("join_biz")) {
+			
+			int userno = 0;
+			String usernm = "";
+			String biznm = "";
+			String bizaddr = "";
+			String bizcategory = "";
+			String bizcontent = ""; //초기화
+			
+			String imgpath = ""; //이미지 경로 초기화
+			String imgname = ""; //이미지 이름 초기화
+			
+			String uploadpath = request.getRealPath("download"); //upload파일에 실제 경로 설정
+			
+			System.out.println(uploadpath); //경로확인용
+			
+			try {
+				MultipartRequest multi = new MultipartRequest(request, uploadpath,10*1024*1024,"UTF-8",new DefaultFileRenamePolicy());
+				
+				imgpath = multi.getFilesystemName("imgfile");				
+				imgname = multi.getOriginalFileName("imgfile");
+				
+				userno = Integer.parseInt(multi.getParameter("userno"));
+				usernm = multi.getParameter("usernm");
+				biznm = multi.getParameter("biznm");
+				bizaddr = multi.getParameter("bizaddr");
+				bizcategory = String.join(",", multi.getParameter("health"),
+												multi.getParameter("pilates"),
+												multi.getParameter("yoga"),
+												multi.getParameter("etc"));
+			
+				bizcontent = multi.getParameter("bizcontent");
+				
+				System.out.println(userno+usernm+biznm+bizaddr+bizcategory); //값 확인용 나중에 지워야함
+				
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			if(imgname !=null && !imgname.equals("")) {
+				BizDto dto = new BizDto();
+				
+				dto.setUserno(userno);
+				dto.setUsernm(usernm);
+				dto.setBiznm(biznm);
+				dto.setBizaddr(bizaddr);
+				dto.setBizcategory(bizcategory);
+				dto.setBizcontent(bizcontent);
+				dto.setBizpic(imgpath);
+				
+				int res = bdao.insert(dto);
+				
+				if(res>0) {
+					response.sendRedirect("main.jsp");
+				}else {
+					response.sendRedirect("join_business.jsp");
+				}
+			}else {
+				BizDto dto = new BizDto();
+				
+				dto.setUserno(userno);
+				dto.setUsernm(usernm);
+				dto.setBiznm(biznm);
+				dto.setBizaddr(bizaddr);
+				dto.setBizcategory(bizcategory);
+				dto.setBizcontent(bizcontent);
+				dto.setBizpic("");
+				
+				int res = bdao.insert(dto);
+				
+				if(res>0) {
+					response.sendRedirect("main.jsp");
+				}else {
+					response.sendRedirect("join_business.jsp");
+				}
+			}
+			
+		} 
    }
    
    private void dispatch(String url, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

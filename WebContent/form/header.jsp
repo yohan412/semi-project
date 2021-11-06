@@ -70,7 +70,7 @@
 		   }else{
 		   }
 	  } else{	
-		  location.href="CenterController?command=business&user_no=${ loginUser.userno }";
+		  location.href="usercontroller?command=business&user_no=${ loginUser.userno }";
 		}
 	  }
 </script>

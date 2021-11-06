@@ -65,7 +65,7 @@
         <br>
         <br>
         
-         <form action="CenterController?command=join_biz&userno=${dto.userno }" method="post" enctype="multipart/form-data">
+         <form action="usercontroller?command=join_biz&userno=${dto.userno }" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
                     <td id="USER_NAME">사업자명</td>

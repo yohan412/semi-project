@@ -88,10 +88,11 @@
                 <tr>
                     <td id="BIZ_CATEGORY">사업장 종류</td>
                     <td>
-						<input type="checkbox" name="health" value="health">헬스
-						<input type="checkbox" name="pilates" value="pilates">필라테스
-						<input type="checkbox" name="yoga" value="yoga">요가
-						<input type="checkbox" name="etc" value="etc">기타      
+						<input type="checkbox" name="health" value="헬스">헬스
+						<input type="checkbox" name="pilates" value="필라테스">필라테스
+						<input type="checkbox" name="yoga" value="요가">요가
+						<input type="checkbox" name="crossfit" value="크로스핏">크로스핏
+						<input type="checkbox" name="etc" value="기타">기타      
 		             </td>
                 </tr>
                 <tr>

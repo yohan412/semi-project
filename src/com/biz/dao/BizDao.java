@@ -40,6 +40,8 @@ public class BizDao extends JDBCTemplate{
 				tmp.setBizcategory(rs.getString(6));
 				tmp.setBizcontent(rs.getString(7));
 				tmp.setBizpic(rs.getString(8));
+				tmp.setBizreg(rs.getDate(9));
+				tmp.setBizstatus(rs.getString(10));
 				
 				res.add(tmp);
 			}
@@ -81,6 +83,8 @@ public class BizDao extends JDBCTemplate{
 				res.setBizcategory(rs.getString(6));
 				res.setBizcontent(rs.getString(7));
 				res.setBizpic(rs.getString(8));
+				res.setBizreg(rs.getDate(9));
+				res.setBizstatus(rs.getString(10));
 			}
 		} catch (SQLException e) {
 			System.out.println("error: 3/4단계 failed");
@@ -134,7 +138,7 @@ public class BizDao extends JDBCTemplate{
 		PreparedStatement pstm = null;
 		int res = 0;
 		
-		String sql = "INSERT INTO BUSINESS VALUES(BIZ_NOSQ.NEXTVAL,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO BUSINESS VALUES(BIZ_NOSQ.NEXTVAL,?,?,?,?,?,?,?,SYSDATE,'N')";
 		
 		try {
 			pstm=con.prepareStatement(sql);

@@ -1,5 +1,7 @@
 package com.biz.dto;
 
+import java.sql.Date;
+
 public class BizDto {
 	private int bizno;
 	private int userno;
@@ -9,13 +11,17 @@ public class BizDto {
 	private String bizcategory;
 	private String bizcontent;
 	private String bizpic;
+	private Date bizreg;
+	private String bizstatus;
 	public BizDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	
 	public BizDto(int bizno, int userno, String usernm, String biznm, String bizaddr, String bizcategory,
-			String bizcontent, String bizpic) {
+			String bizcontent, String bizpic, Date bizreg, String bizstatus) {
 		super();
 		this.bizno = bizno;
 		this.userno = userno;
@@ -25,8 +31,12 @@ public class BizDto {
 		this.bizcategory = bizcategory;
 		this.bizcontent = bizcontent;
 		this.bizpic = bizpic;
+		this.bizreg = bizreg;
+		this.bizstatus = bizstatus;
 	}
-	
+
+
+
 	public BizDto(int userno,String usernm, String biznm, String bizaddr, String bizcategory,
 			String bizcontent, String bizpic) {
 		super();
@@ -39,6 +49,30 @@ public class BizDto {
 		this.bizpic = bizpic;
 	}
 	
+	public Date getBizreg() {
+		return bizreg;
+	}
+
+
+
+	public void setBizreg(Date bizreg) {
+		this.bizreg = bizreg;
+	}
+
+
+
+	public String getBizstatus() {
+		return bizstatus;
+	}
+
+
+
+	public void setBizstatus(String bizstatus) {
+		this.bizstatus = bizstatus;
+	}
+
+
+
 	public int getBizno() {
 		return bizno;
 	}

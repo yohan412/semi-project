@@ -118,7 +118,6 @@ function fn_deleteFile(obj){ obj.parent().remove(); }
 				<td align="left">
 					<input type="file" value="파일 선택" id="file" name="file_0" accept=".jpg,.jpeg,.png,.gif" multiple="multiple">
 					<a href="#this" class="btn" id="delete" name="delete">삭제</a>
-					<!-- <input type="button" value="파일 삭제" class="btn" id="delete" name="delete"> -->
 				</td>
 			</tr>
 		</table>

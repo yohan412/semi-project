@@ -7,6 +7,7 @@ public class QnaDto {
 	private int qano;			//문의글번호
 	private int qagpno;			//그룹번호
 	private int qagpsq;			//그룹번호 내 번호
+	private int titletab;
 	private String userid;		//아이디
 	private int userno;			//회원번호
 	private String qatype;		//유형
@@ -20,12 +21,13 @@ public class QnaDto {
 		super();
 	}
 
-	public QnaDto(int qano, int qagpno, int qagpsq, String userid, int userno, String qatype, String qatitle,
+	public QnaDto(int qano, int qagpno, int qagpsq, int titletab, String userid, int userno, String qatype, String qatitle,
 			String qacontent, String qafaq, Date qareg, String qastatus) {
 		super();
 		this.qano = qano;
 		this.qagpno = qagpno;
 		this.qagpsq = qagpsq;
+		this.titletab = titletab;
 		this.userid = userid;
 		this.userno = userno;
 		this.qatype = qatype;
@@ -37,6 +39,16 @@ public class QnaDto {
 
 	}
 	
+	public QnaDto(int qano, int qagpno, int qagpsq, int titletab, String qatitle, String qacontent, Date qareg) {
+		this.qano = qano;
+		this.qagpno = qagpno;
+		this.qagpsq = qagpsq;
+		this.titletab = titletab;
+		this.qatitle = qatitle;
+		this.qacontent = qacontent;
+		this.qareg = qareg;
+	}
+
 	public int getQano() {
 		return qano;
 	}
@@ -59,6 +71,14 @@ public class QnaDto {
 
 	public void setQagpsq(int qagpsq) {
 		this.qagpsq = qagpsq;
+	}
+	
+	public int getTitletab() {
+		return titletab;
+	}
+	
+	public void setTitletab(int titletab) {
+		this.titletab = titletab;
 	}
 
 	public String getUserid() {

@@ -32,7 +32,7 @@ ul,li{
 	display: inline-block;
 	position: absolute;
 	top:300px;
-	background: rgb(00, 68, 137);
+	background: gray;
 	color: white;
 }
 
@@ -160,21 +160,21 @@ table tbody tr{
 	border:none;
 }
 .status_active{
-	width:85px;
+	width:80px;
 	display:inline-block;
-	background:rgb(92, 122, 234);
+	background:rgb(15, 82, 186);
 	color:white;
 	font-weight:bold;
-	font-size:16px;
+	font-size:14px;
 	border-radius:10px;
 }
 .status_dis{
-	width:85px;
+	width:80px;
 	display:inline-block;
 	background:gray;
 	color:white;
 	font-weight:bold;
-	font-size:16px;
+	font-size:14px;
 	border-radius:10px;
 }
 </style>

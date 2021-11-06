@@ -394,6 +394,56 @@ public class UserController extends HttpServlet {
 			response.getWriter().print(jarr);
 		} else if(command.equals("bizdetail")) {
 			
+			int bizno = Integer.parseInt(request.getParameter("bizno"));
+			
+			BizDto bizDto = bdao.selectOne(bizno);
+			
+			request.setAttribute("bizDto", bizDto);
+			dispatch("business_detail.jsp",request,response);
+			
+		} else if(command.equals("change_status")) {
+			
+			int bizno = Integer.parseInt(request.getParameter("bizno"));
+			int userno = Integer.parseInt(request.getParameter("userno"));
+			
+			String status = request.getParameter("status");
+			//승인수락 됬을때
+			if(status.equals("Y")) {
+				
+				int res1 = bdao.statusUpdate(bizno, status);
+				
+				//등급 변경
+				int res2 = dao.roleUpdate(userno, "BU");
+				
+				if(res1>0 && res2>0) {
+					jsResponse("승인되었습니다","usercontroller?command=bizdetail&bizno="+bizno,response);
+				} else {
+					jsResponse("승인이 실패하었습니다","usercontroller?command=bizdetail&bizno="+bizno,response);
+				}
+				
+			} 
+			//승인 거절됬을때
+			else if(status.equals("D")) {
+				
+				int res = bdao.statusUpdate(bizno, status);
+				
+				if(res>0) {
+					jsResponse("거절되었습니다","usercontroller?command=bizdetail&bizno="+bizno,response);
+				} else {
+					jsResponse("승인거절이 실패하었습니다","usercontroller?command=bizdetail&bizno="+bizno,response);
+				}
+			}
+		} else if(command.equals("biz_multi_delete")) {
+			
+			String[] biznoList = request.getParameterValues("chk");
+			
+			int res = bdao.multiDelete(biznoList);
+			
+			if(res>0) {
+				jsResponse("선택한 게시글(들)이 삭제되었습니다.","admin_main.jsp",response);
+			} else {
+				jsResponse("선택한 게시글(들) 삭제 실패하였습니다.\n 다시 시도해주세요.","admin_main.jsp",response);
+			}
 		}
    }
    

@@ -566,7 +566,7 @@ td a{
 	function make_biztable(list){
 		$("#table_data").empty();
 		$("#table_data").append(
-				"<form action='usedcontroller?command=biz_multi_delete' method='post' id='checked_change'>"
+				"<form action='usercontroller?command=biz_multi_delete' method='post' id='checked_change'>"
 				+"<table style='margin-left: auto; margin-right: auto;' border='1'>"
 				+"<col width='20px'><col width='100px'><col width='300px'><col width='100px'><col width='100px'>"
 				+"<thead>"
@@ -577,13 +577,16 @@ td a{
 			var status;
 			if(list[i].status == 'N'){
 				status="승인대기";
-			}else{
-				status="승인완료";
+			}else if(list[i].status == 'D'){
+				status="승인거절";
+			}
+			else{
+				status="승인수락";
 			}
 			
 			$("tbody").append(
 				"<tr>"
-				+"<td>"+list[i].no+"</td>"+"<td>"+list[i].writer+"</td>"+"<td><a href='usedcontroller?command=bizdetail&bizno="+list[i].no+"'>"+list[i].centernm+"</a></td>"+"<td>"+status+"</td>"+"<td>"+list[i].reg+"</td>"
+				+"<td>"+list[i].no+"</td>"+"<td>"+list[i].writer+"</td>"+"<td><a href='usercontroller?command=bizdetail&bizno="+list[i].no+"'>"+list[i].centernm+"</a></td>"+"<td>"+status+"</td>"+"<td>"+list[i].reg+"</td>"
 				+"<td align='center'><input type='checkbox' name='chk' value='"+list[i].no+"'></td>"
 				+"</tr>"
 			);

@@ -574,4 +574,45 @@ public int insertWish(WishDto dto) {
 		}
 		return res;
 	}
+	public int multiDelete(String[] list) {
+		
+		Connection con = getConnection();
+		PreparedStatement pstm = null;
+		int res=0;
+		int[] cnt = null;
+		
+		String sql ="DELETE FROM USED_BOARD WHERE USED_NO=?";
+		try {
+			pstm= con.prepareStatement(sql);
+			for(int i = 0 ; i<list.length;i++) {
+				pstm.setString(1,list[i]);
+				pstm.addBatch();
+				System.out.println("03.query 준비: "+sql+"(변경할 번호:"+list[i]+")");
+			}
+		
+			cnt=pstm.executeBatch();
+			System.out.println("04. query 실행");
+			
+			//성공: -2, 실패 : -3
+			for(int i = 0 ; i <cnt.length;i++) {
+				if(cnt[i] == -2) {
+					res++;
+				}
+			}
+			if(list.length == res) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("3/4 단계 에러");
+			e.printStackTrace();
+		}finally {
+			close(pstm);
+			close(con);
+			System.out.println("05. db 종료\n");
+		}		
+		return res;		
+	}
 }

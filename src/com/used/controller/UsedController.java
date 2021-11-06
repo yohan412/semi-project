@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.center.dto.CenterDto;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.pic.dto.PicDto;
@@ -23,8 +22,6 @@ import com.used.dao.UsedDao;
 import com.used.dto.UsedDto;
 import com.usedask.dao.UsedaskDao;
 import com.usedask.dto.UsedaskDto;
-import com.user.dto.UserDto;
-import com.wish.dto.WishDto;
 
 @WebServlet("/usedcontroller")
 public class UsedController extends HttpServlet {
@@ -40,51 +37,7 @@ public class UsedController extends HttpServlet {
 		UsedDao usedDao = new UsedDao();
 		UsedaskDao uskDao = new UsedaskDao();
 		
-		
-		if (command.equals("wish")) {
-
-			String login_id = request.getParameter("login_id");
-			String title = request.getParameter("title");
-			String user_id = request.getParameter("user_id");
-			String center_nm = request.getParameter("center_nm");
-			String used_no = request.getParameter("used_no");
-			String wish_data = request.getParameter("wish_data");
-			
-
-			
-			WishDto wish = new WishDto();
-			wish.setLoginid(login_id);
-			wish.setUsedtitle(title);
-			wish.setUserid(user_id);
-			wish.setUsercenternm(center_nm);
-			wish.setUsedno(used_no);
-			
-			int res = 0;
-			
-			if(wish_data.equals("1")) {
-				// use_yn = N
-				res = usedDao.updateWish(wish);
-			}else {
-				// 찜 insert
-				res = usedDao.insertWish(wish);
-			}
-
-			// return type은 json으로
-			JSONObject obj = new JSONObject();
-			
-			if(res>0) {
-				obj.put("result", "ok");
-			}else {
-				obj.put("result", "no");
-			}
-			
-			//쿼리가 제대로 올바르게 실행된 경우와 그렇지 않은 경우 판별.
-			response.setContentType("application/json; charset=UTF-8");
-			response.getWriter().print(obj);
-			
-		}
-		
-		else if(command.equals("usedlist")) {
+		if(command.equals("usedlist")) {
 			
 			List<UsedDto> usedList = usedDao.selectAll();
 			List<PicDto> piclist =usedDao.selectAllPic();
@@ -104,26 +57,6 @@ public class UsedController extends HttpServlet {
 			List<PicDto> piclist = usedDao.selectPics(usedno);
 			UsedDto usedDto = usedDao.selectOne(usedno);
 			List<UsedaskDto> usklist = uskDao.selectAll(usedno);
-			
-			//1. WISH 테이블에 login_id & used_no 로 조회했을 때 
-			// 데이터 O ->  request.setAttribute("wish", 1);
-			// 데이터 X ->  request.setAttribute("wish", 0);
-			
-			UserDto loginUser = (UserDto)request.getSession().getAttribute("loginUser");
-			
-			String login_id = loginUser.getUserid();
-			String used_no = request.getParameter("usedno");
-			
-			WishDto WishDto = usedDao.selectOne(login_id, used_no);
-			
-			//if(login_id != null && used_no != null) {
-			System.out.println(WishDto.getLoginid());
-			
-			if(WishDto.getLoginid() != null) {
-				request.setAttribute("wish", 1);
-			}else {
-				request.setAttribute("wish", 0);
-			}
 			
 			request.setAttribute("piclist", piclist);
 			request.setAttribute("usklist", usklist);
@@ -218,16 +151,7 @@ public class UsedController extends HttpServlet {
 			List<UsedDto> mypagelist = usedDao.selectAll();
 			request.setAttribute("mypagelist", mypagelist);
 			
-			UserDto loginUser = (UserDto)request.getSession().getAttribute("loginUser");
-			
-			
-			String login_ids = loginUser.getUserid();
-			
-			List<WishDto> mywish = usedDao.selectWishAll(login_ids);
-			request.setAttribute("mywish", mywish);
-			
 			dispatch("mypage.jsp",request,response);
-			
 			
 		} else if(command.equals("usedwriteform")) {
 			response.sendRedirect("used_write.jsp");
@@ -359,7 +283,7 @@ public class UsedController extends HttpServlet {
 			} else {
 				jsResponse("게시글 거래상태 변경이 실패하였습니다.","usedcontroller?command=useddetail&usedno="+usedno,response);
 			}
-		} else if(command.equals("usedlist_ajax")) {
+		}else if(command.equals("usedlist_ajax")) {
 			
 			List<UsedDto> usedlist = usedDao.selectAll();
 			
@@ -376,6 +300,18 @@ public class UsedController extends HttpServlet {
 			}
 			response.setContentType("application/x-json; charset=utf-8");
 			response.getWriter().print(jarr);
+			
+		}else if(command.equals("multi_delete")) {
+			
+			String[] usednoList = request.getParameterValues("chk");
+			
+			int res = usedDao.multiDelete(usednoList);
+			
+			if(res>0) {
+				jsResponse("선택한 게시글(들)이 삭제되었습니다.","admin_main.jsp",response);
+			} else {
+				jsResponse("선택한 게시글(들) 삭제 실패하였습니다.\n 다시 시도해주세요.","admin_main.jsp",response);
+			}
 		}
 	}
 	

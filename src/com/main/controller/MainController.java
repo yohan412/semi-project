@@ -117,11 +117,11 @@ public class MainController extends HttpServlet {
 			
 		}else if(command.equals("boardwrite")) {
 			int qagpsq = Integer.parseInt(request.getParameter("qa_gpsq"));
-			String qauserid = request.getParameter("user_id");
-			int qauserno = Integer.parseInt(request.getParameter("user_no"));
+			String qauserid = request.getParameter("userid");
+			int qauserno = Integer.parseInt(request.getParameter("userno"));
 			String qatitle = request.getParameter("title");
 			String qacontent = request.getParameter("content");
-			String qatype = request.getParameter("qa_type");
+			String qatype = request.getParameter("qatype");
 			//String qafaq = request.getParameter("qa_faq");
 			//String qastatus = request.getParameter("qa_status");
 			//String photo = request.getParameter("photo");
@@ -186,6 +186,34 @@ public class MainController extends HttpServlet {
 				dispatch("MainController?command=qna", request, response);
 			}else {
 				dispatch("MainController?command=detail&qano="+qano, request, response);
+			}
+			
+		}else if(command.equals("answerform")) {
+			int qano = Integer.parseInt(request.getParameter("qano"));
+			
+			QnaDto dto = udao.selectOne(qano);
+			request.setAttribute("parent", dto);
+			dispatch("question_board_answerwrite.jsp",request,response);
+			
+		}else if(command.equals("answerwrite")) {	
+			int parentqano = Integer.parseInt(request.getParameter("parentqano"));
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			//String photo = request.getParameter("photo");
+			
+			QnaDto parent = udao.selectOne(parentqano);
+			
+			int parentgpno = parent.getQagpno();
+			int parentgpsq = parent.getQagpsq();
+			int parenttitletab = parent.getTitletab();
+			
+			QnaDto dto = new QnaDto(0, parentgpno, parentgpsq, parenttitletab, title, content, null);
+			
+			boolean res = new QnaDao().answerLogic(dto);
+			if(res) {
+				response.sendRedirect("MainController?command=qna");
+			}else {
+				response.sendRedirect("MainController?command=selectone&qano="+parentqano);
 			}
 			
 			

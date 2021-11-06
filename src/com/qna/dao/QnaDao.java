@@ -442,4 +442,136 @@ public class QnaDao extends JDBCTemplate{
 				}
 				return pass;
 			}
-}
+	
+			public int countAnswer(Connection con, int parentgpno, int parentgpsq) {
+				PreparedStatement pstm = null;
+				ResultSet rs = null;
+				int res = 0;
+				
+				String sql = " SELECT COUNT(*) FROM QNA WHERE QA_GPNO=? AND QA_GPSQ>? ";
+				
+				try {
+					pstm = con.prepareStatement(sql);
+					pstm.setInt(1, parentgpno);
+					pstm.setInt(2, parentgpsq);
+					System.out.println("03. query 준비: " + sql);
+					
+					rs = pstm.executeQuery();
+					System.out.println("04. query 실행 및 리턴");
+					
+					while(rs.next()) {
+						res = rs.getInt(1);
+					}
+					
+				} catch (SQLException e) {
+					System.out.println("3/4 단계 에러");
+					e.printStackTrace();
+				}finally {
+					close(rs);
+					close(pstm);
+				}
+				return res;
+			}
+
+			public int updateAnswer(Connection con, int parentgpno, int parentgpsq) {
+				PreparedStatement pstm = null;
+				int res = 0;
+				
+				/*
+				 * UPDATE ANSWERBOARD SET GROUPSQ = GROUPSQ + 1
+				    WHERE GROUPNO = (SELECT GROUPNO FROM ANSWERBOARD WHERE BOARDNO=2 )
+		     			AND GROUPSQ > (SELECT GROUPSQ FROM ANSWERBOARD WHERE BOARDNO=2 );
+				 */
+				String sql = " UPDATE QNA SET QA_GPSQ = QA_GPSQ + 1 "
+							+   " WHERE QA_GPNO=? AND QA_GPSQ>? ";
+				
+				
+				try {
+					pstm = con.prepareStatement(sql);
+					pstm.setInt(1, parentgpno);
+					pstm.setInt(2, parentgpsq);
+					System.out.println("03. query 준비: "+ sql);
+					
+					res = pstm.executeUpdate();
+					System.out.println("04. query 실행 및 리턴");
+					
+				} catch (SQLException e) {
+					System.out.println("3/4 단계 에러");
+					e.printStackTrace();
+				}finally {
+					close(pstm);
+				}
+				return res;
+			}
+
+			public int insertAnswer(Connection con, QnaDto dto) {
+				PreparedStatement pstm = null;
+				int res = 0;
+				
+				/*
+				 * INSERT INTO QNA
+					VALUES(QA_NOSQ.NEXTVAL,
+								(SELECT QA_GPNO FROM QNA WHERE QA_NO=2),
+								(SELECT QA_GPSQ FROM QNA WHERE QA_NO=2)+1,
+								(SELECT TITLETAB FROM QNA WHERE QA_NO=2)+1,
+								'RE:두번째 글','2번글에 답글입니다(2)','유저2',SYSDATE
+					);
+				 */
+				String sql = " INSERT INTO QNA VALUES(QANOSQ.NEXTVAL,?,?,?,?,?,?,?,?,?,SYSDATE,?) ";
+				
+				try {
+					pstm = con.prepareStatement(sql);
+					pstm.setInt(1, dto.getQagpno());
+					pstm.setInt(2, dto.getQagpsq()+1);
+					pstm.setInt(3, dto.getTitletab()+1);
+					pstm.setString(4, dto.getUserid());
+					pstm.setInt(5, dto.getUserno());
+					pstm.setString(6, dto.getQatype());
+					pstm.setString(7, dto.getQatitle());
+					pstm.setString(8, dto.getQacontent());
+					pstm.setString(9, dto.getQafaq());
+					pstm.setString(10, dto.getQastatus());
+					System.out.println("03. query 준비:" + sql);
+					
+					res= pstm.executeUpdate();
+					System.out.println("04. query 실행 및 리턴");
+					
+				} catch (SQLException e) {
+					System.out.println("3/4 단계 에러");
+					e.printStackTrace();
+				} finally {
+					close(pstm);
+				}
+				
+				return res;
+			}
+			
+			public boolean answerLogic(QnaDto dto) {
+				Connection con = getConnection();
+				
+				int parentgpno = dto.getQagpno();
+				int parentgpsq = dto.getQagpsq();
+				
+				// update
+				int countRes = countAnswer(con, parentgpno, parentgpsq);
+				int updateRes = updateAnswer(con, parentgpno, parentgpsq);
+				
+				System.out.println("countRes: " + countRes);
+				System.out.println("updateRes: " + updateRes);
+				System.out.println("count == update : " + (countRes == updateRes));
+				
+				// insert
+				int insertRes = insertAnswer(con, dto);
+				
+				if(countRes == updateRes && insertRes>0) {
+					commit(con);
+				}else {
+					rollback(con);
+				}
+				
+				close(con);
+				System.out.println("05.db 종료\n");
+				
+				return(countRes==updateRes && insertRes>0)?true:false;
+			}
+		}

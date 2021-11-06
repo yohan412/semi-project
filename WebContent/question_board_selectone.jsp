@@ -103,7 +103,8 @@
 				<td colspan="3">
 					<button type="button" id="submit" onclick="location.href='question_board_update.jsp?qano=<%=dto.getQano()%>'">수정</button>&nbsp;&nbsp;
 					<button type="button" id="reset"  onclick="del_btn('<%=dto.getQano()%>');">삭제</button>&nbsp;&nbsp;
-					<button id="reset"  onclick="location.href='qna.jsp'">목록</button>&nbsp;
+					<button id="reset"  onclick="location.href='qna.jsp'">목록</button>&nbsp;&nbsp;
+					<button type="button" id="submit" onclick="location.href='question_board_answerwrite.jsp?qano=<%=dto.getQano()%>'">답글</button>
 				</td>
 			</tr>
 		</table>	

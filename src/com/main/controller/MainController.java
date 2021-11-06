@@ -235,6 +235,13 @@ public class MainController extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser",loginUser);
 			dispatch("main.jsp",request,response);
+			
+		} else if(command.equals("adminpage")) {
+			
+			String act = request.getParameter("act");
+			
+			request.setAttribute("act", act);
+			dispatch("admin_main.jsp",request,response);
 		}
 	}
 

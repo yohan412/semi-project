@@ -51,6 +51,12 @@
 			border:3px solid white
 			
 		}
+		.input{
+			width: 370px;
+		}
+		th{
+			text-align: center;
+		}
     </style>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -126,31 +132,32 @@
          <form action="usercontroller?command=join_biz&userno=${dto.userno }" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
-                    <td id="USER_NAME">사업자명</td>
+                    <th id="USER_NAME">사업자명</th>
                     <td>
-						<input type="text" name="usernm" id="USER_NAME" value="${ dto.username }">
+						<input type="text" class="input" name="usernm" id="USER_NAME" value="${ dto.username }">
 					</td>
                 </tr>
                 <tr>
-                    <td id="BIZ_NAME">사업장명</td>
+                    <th id="BIZ_NAME">사업장명</th>
                     <td>
-					<input type="text" name="biznm" placeholder="사업장명을 작성해주세요" required>
+					<input type="text" cols="40" name="biznm" class="input" placeholder="사업장명을 작성해주세요" required>
                     </td>
                 </tr>
                 <tr>
-                    <td id="BIZ_ADDRESS">주소</td>
+                    <th id="BIZ_ADDRESS">주소</th>
                     <td>
+                    	<input type="button" id="zip_chk" value="주소 검색" onclick="zipChk()">
 						<input type="hidden" id="address1" name="myaddr1" placeholder="주소를 입력하세요" readonly>
 						<span id="guide" style="color:#999;display:none"></span>
 						<input type="hidden" id="address2" name="myaddr2" size="45" placeholder="상세 주소를 입력하세요">
-						<input type="text" id="sample4_roadAddress" name="bizaddr" placeholder="사업장 주소를 작성해주세요">
+						<input type="text" id="sample4_roadAddress" name="bizaddr" placeholder="사업장 주소를 작성해주세요" style="width: 290px">
 						<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
-						<input type="hidden" id="zipcode" name="myzipcode" size="7" placeholder="우편번호" readonly required>&nbsp;&nbsp;
-						<input type="button" id="zip_chk" value="주소 검색" onclick="zipChk()">
+						<input type="hidden" class="input" id="zipcode" name="myzipcode" size="7" placeholder="우편번호" readonly required>&nbsp;&nbsp;
+						
 					</td>
                 </tr>
                 <tr>
-                    <td id="BIZ_CATEGORY">사업장 종류</td>
+                    <th id="BIZ_CATEGORY">사업장 종류</th>
                     <td>
 						<input type="checkbox" name="health" value="헬스">헬스
 						<input type="checkbox" name="pilates" value="필라테스">필라테스
@@ -160,13 +167,13 @@
 		             </td>
                 </tr>
                 <tr>
-                    <td id="BIZ_CONTENT">기타</td>
+                    <th id="BIZ_CONTENT">기타</th>
                     <td>
-						<textarea name="bizcontent" placegolder="기타내용을 입력해주세요"></textarea>
+						<textarea cols="50" rows="10" name="bizcontent" style="resize: none;" placeholder="기타내용을 입력해주세요"></textarea>
                     </td>
                 </tr>
                 <tr>
-                    <td id="BIZ_PIC">사업자 등록증 첨부</td>
+                    <th id="BIZ_PIC">사업자 등록증</th>
                     <td>
                         <input type="file" name="imgfile" accept=".jpg,.jpeg,.png,.gif" required>
                     </td>

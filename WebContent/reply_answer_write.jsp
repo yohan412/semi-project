@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+    
 <% request.setCharacterEncoding("UTF-8"); %>
 <% response.setContentType("text/html; charset=UTF-8"); %>
 
@@ -50,10 +50,10 @@
 	#content{
 		resize:none;
 	}
-	#submit, #reset,#reply{
+	#submit, #reset{
 		cursor:pointer;
 	}
-	#submit,#reply{
+	#submit{
 		width : 80px;
 	 	height : 30px;
 		background-color:rgb(75, 161, 231);
@@ -68,76 +68,42 @@
 		border-radius: 5px;
 	}
 </style>
+<script type="text/javascript">
+function goBack(){
+	history.back();
+}
+</script>
 </head>
-<body>
 <header><%@ include file="form/header.jsp" %></header>
+<body>
+<h2 align="center">1 : 1 문의 답변</h2>
 
-<h2 align="center">1 : 1 문의</h2>
-
-<div id="wrap">
+<div id="wrap">	
 	<form action="MainController" method="post">
-		<input type="hidden" name="command" value="boardupdate">
-		<input type="hidden" name="qano" value="<%=dto.getQano() %>"> 
-		<input type="hidden" id="qa_type" value="<%=dto.getQatype() %>"> 
-		<input type="hidden" id="userid" value="<%=dto.getUserid() %>">
-		<input type="hidden" id="userno" value="<%=dto.getUserno() %>">
-		<input type="hidden" id="session_id" value="${loginUser.userid}">
-		
+		<input type="hidden" name="command" value="answerwrite" >
+		<input type="hidden" name="qano" value="<%=dto.getQano() %>">
+		<input type="hidden" name="titletab" value="<%=dto.getTitletab() %>">
 		
 		<table>
 			<tr id="title">
 				<th>제 목</th>
-				<td>					
-					<input type="text" name="qatitle" maxlength="30" value="<%=dto.getQatitle()%>" readonly="readonly">
-				</td>
+				<td><input type="text" name="title" value="[답변] <%=dto.getQatitle()%>" readonly></td>
 			</tr>
 			<tr id="content">
 				<th>내 용</th>
-				<td><textarea rows="10" cols="60" name="qacontent" readonly="readonly"><%=dto.getQacontent() %></textarea></td>
+				<td><textarea rows="10" cols="60" name="content"></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="3">
-					<button type="button" id="submit" onclick="location.href='question_board_update.jsp?qano=<%=dto.getQano()%>'">수정</button>&nbsp;&nbsp;
-					<button type="button" id="reset"  onclick="del_btn('<%=dto.getQano()%>');">삭제</button>&nbsp;&nbsp;
-					<button id="reset"  onclick="location.href='qna.jsp'">목록</button>&nbsp;&nbsp;
-					<button type="button" id="reply" onclick="location.href='MainController?command=answerform&qano=<%=dto.getQano()%>'">답글</button>
+					<input type="submit" id="submit" value="작 성" >&nbsp;&nbsp;
+					<input type="button" id="reset" value="취 소" onclick="goBack();">
 				</td>
 			</tr>
-		</table>	
+		</table>
 	</form>
-</div>
-<div>
+	</div>
+	<div>
 		<footer><%@ include file = "form/footer.jsp" %></footer>
-</div>		
+</div>	
 </body>
-<script>
-
-	//$(document).ready(function() {
-	//	if(${loginUser} == null){
-	//		alert("111");
-	//	}else{
-	//		alert("222");
-	//	}
-	//});
-	
-	var uid = "${loginUser.userid}";
-		
-	console.log(uid);
-	
-	
-	if(uid==""){
-		alert("로그인 후 이용가능합니다."); location.href="login.jsp";
-	}	
-	
-	
-	function del_btn(qano){
-		if (confirm("삭제하시겠습니까?") == true){    //확인
-			location.href="question_board_delete.jsp?qano="+qano;
-		}else{   //취소
-		    return;
-		}
-	}
-	
-	
-</script>
 </html>

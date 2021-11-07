@@ -7,6 +7,8 @@
 
 <%@ page import="com.qna.dao.QnaDao" %>
 <%@ page import="com.qna.dto.QnaDto" %>
+<%@ page import="com.reply.dao.ReplyDao" %>
+<%@ page import="com.reply.dto.ReplyDto" %>
 <%@ page import="java.util.List" %>
 
 <!DOCTYPE html>
@@ -92,21 +94,35 @@
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
+function login_chk(){
+	if(${loginUser==null}){
+		if(confirm("로그인이 필요한 작업입니다.\n 로그인 하시겠습니까?")){
+			location.href="login.jsp"
+		}else{
+			
+		}
+	} else{
+		location.href="MainController?command=writeform";
+	}
+}
 	
 </script>
 </head>
 <% 
 	String qatype = request.getParameter("qatype");
 	QnaDao dao = new QnaDao(); 
+	ReplyDao rdao = new ReplyDao();
+	
 	List<QnaDto> list = dao.selectAll();
 	List<QnaDto> faqlist = dao.selectFaq();
+	
 	
 %>
 <body>
 
 	<header><%@ include file="form/header.jsp" %></header>
 	<br>
-	<input type="text" id="session_id" value="${loginUser.userid}">
+	<input type="hidden" id="session_id" value="${loginUser.userid}">
 	<div class="qna">
 		<div class="faq">
 		<h3 align="center">F A Q</h3>
@@ -177,10 +193,27 @@
 					<td><a href="question_board_selectone.jsp?qano=<%=list.get(i).getQano()%>&userid=<%=list.get(i).getUserid() %>&seid=${loginUser.userid}"><%=list.get(i).getQatitle() %></a></td>
 					<td><%=list.get(i).getQastatus() %></td>
 				</tr>
+<%
+
+	List<ReplyDto> relist = rdao.reList(list.get(i).getQano());
+	for(int j = 0; j<relist.size(); j++){
+		System.out.print(relist.get(j).getRetitle());
+		
+%>
+				<tr>
+					<td>└</td>
+					<td><a href="question_board_answerwrite.jsp?qareno=<%=relist.get(j).getQareno()%>&qano=<%=list.get(i).getQano()%>&userid=<%=list.get(i).getUserid() %>&seid=${loginUser.userid}"><%=relist.get(j).getRetitle() %></a></td>
+					<td>-</td>
+				</tr>
+<%
+	}
+%>
+				
 
 <%
 	}
-%>			
+%>	
+
 			</table>
 			<div style="text-align: right; width: 500px; display: inline-block;">
 				<input type="button" value="1 : 1 문의" class="qna_button" onclick="login_chk();">

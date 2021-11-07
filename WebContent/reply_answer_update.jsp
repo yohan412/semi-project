@@ -13,16 +13,10 @@
 
 <% 
 	
-	int qano = Integer.parseInt(request.getParameter("qano"));
 	int qareno = Integer.parseInt(request.getParameter("qareno"));
-	String qatitle = request.getParameter("qatitle");
-	String qacontent = request.getParameter("qacontent");
-	
-	
-	QnaDao dao = new QnaDao();
+
 	ReplyDao rdao = new ReplyDao();
 	
-	QnaDto dto = dao.selectOne(qano);
 	ReplyDto rdto = rdao.selectOne(qareno);
 	
 %>
@@ -56,7 +50,7 @@
 	#content{
 		resize:none;
 	}
-	#submit, #reset, #delete{
+	#submit, #reset{
 		cursor:pointer;
 	}
 	#submit{
@@ -66,7 +60,7 @@
 		border: 1px solid gray;
 		border-radius: 5px;
 	}
-	#reset, #delete{
+	#reset{
 		width : 80px;
 	 	height : 30px;
 		background-color:#d1d1d1;
@@ -86,22 +80,21 @@ function goBack(){
 
 <div id="wrap">	
 	<form action="MainController" method="post">
-		<input type="hidden" name="command" value="answerupdateform" >
+		<input type="hidden" name="command" value="answerupdate" >
 		<input type="hidden" name="qareno" value="<%=rdto.getQareno() %>">
 		
 		<table>
 			<tr id="title">
 				<th>제 목</th>
-				<td><input type="text" name="title" value="<%=rdto.getRetitle()%>" readonly></td>
+				<td><input type="text" name="title" value="<%=rdto.getRetitle()%>"></td>
 			</tr>
 			<tr id="content">
 				<th>내 용</th>
-				<td><textarea rows="10" cols="60" name="content" readonly><%=rdto.getContent()%></textarea></td>
+				<td><textarea rows="10" cols="60" name="content"><%=rdto.getContent()%></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="3">
 					<input type="submit" id="submit" value="수 정" >&nbsp;&nbsp;
-					<input type="button" id="delete" value="삭 제" onclick="del_btn('<%=rdto.getQareno()%>');">&nbsp;&nbsp;
 					<input type="button" id="reset" value="취 소" onclick="goBack();">
 
 				</td>
@@ -113,24 +106,4 @@ function goBack(){
 		<footer><%@ include file = "form/footer.jsp" %></footer>
 </div>	
 </body>
-<script>
-
-	var uid = "${loginUser.userid}";
-	
-	console.log(uid);
-	
-	
-	if(uid==""){
-		alert("로그인 후 이용가능합니다."); history.back();
-		location.href="login.jsp";
-	}
-
-function del_btn(qareno){
-	if (confirm("삭제하시겠습니까?") == true){    //확인
-		location.href="MainController?command=answerdelete&qareno="+qareno;
-	}else{   //취소
-	    return;
-	}
-}
-</script>
 </html>

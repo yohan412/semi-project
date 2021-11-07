@@ -39,14 +39,15 @@ public class QnaDao extends JDBCTemplate{
 					dto.setQano(rs.getInt(1));
 					dto.setQagpno(rs.getInt(2));
 					dto.setQagpsq(rs.getInt(3));
-					dto.setUserid(rs.getString(4));
-					dto.setUserno(rs.getInt(5));
-					dto.setQatype(rs.getString(6));
-					dto.setQatitle(rs.getString(7));
-					dto.setQacontent(rs.getString(8));
-					dto.setQafaq(rs.getString(9));
-					dto.setQareg(rs.getDate(10));
-					dto.setQastatus(rs.getString(11));
+					dto.setTitletab(rs.getInt(4));
+					dto.setUserid(rs.getString(5));
+					dto.setUserno(rs.getInt(6));
+					dto.setQatype(rs.getString(7));
+					dto.setQatitle(rs.getString(8));
+					dto.setQacontent(rs.getString(9));
+					dto.setQafaq(rs.getString(10));
+					dto.setQareg(rs.getDate(11));
+					dto.setQastatus(rs.getString(12));
 					
 					res.add(dto);
 				}
@@ -84,14 +85,15 @@ public class QnaDao extends JDBCTemplate{
 						res.setQano(rs.getInt(1));
 						res.setQagpno(rs.getInt(2));
 						res.setQagpsq(rs.getInt(3));
-						res.setUserid(rs.getString(4));
-						res.setUserno(rs.getInt(5));
-						res.setQatype(rs.getString(6));
-						res.setQatitle(rs.getString(7));
-						res.setQacontent(rs.getString(8));
-						res.setQafaq(rs.getString(9));
-						res.setQareg(rs.getDate(10));
-						res.setQastatus(rs.getString(11));
+						res.setTitletab(rs.getInt(4));
+						res.setUserid(rs.getString(5));
+						res.setUserno(rs.getInt(6));
+						res.setQatype(rs.getString(7));
+						res.setQatitle(rs.getString(8));
+						res.setQacontent(rs.getString(9));
+						res.setQafaq(rs.getString(10));
+						res.setQareg(rs.getDate(11));
+						res.setQastatus(rs.getString(12));
 					}
 					
 				} catch (SQLException e) {
@@ -108,6 +110,7 @@ public class QnaDao extends JDBCTemplate{
 			
 			
 			public List<QnaDto> getList(String qatype){	
+
 				Connection con = getConnection();
 				PreparedStatement pstm = null;
 				ResultSet rs = null;
@@ -139,14 +142,15 @@ public class QnaDao extends JDBCTemplate{
 						dto.setQano(rs.getInt(1));
 						dto.setQagpno(rs.getInt(2));
 						dto.setQagpsq(rs.getInt(3));
-						dto.setUserid(rs.getString(4));
-						dto.setUserno(rs.getInt(5));
-						dto.setQatype(rs.getString(6));
-						dto.setQatitle(rs.getString(7));
-						dto.setQacontent(rs.getString(8));
-						dto.setQafaq(rs.getString(9));
-						dto.setQareg(rs.getDate(10));
-						dto.setQastatus(rs.getString(11));
+						dto.setTitletab(rs.getInt(4));
+						dto.setUserid(rs.getString(5));
+						dto.setUserno(rs.getInt(6));
+						dto.setQatype(rs.getString(7));
+						dto.setQatitle(rs.getString(8));
+						dto.setQacontent(rs.getString(9));
+						dto.setQafaq(rs.getString(10));
+						dto.setQareg(rs.getDate(11));
+						dto.setQastatus(rs.getString(12));
 						
 						list.add(dto);
 					}
@@ -161,6 +165,8 @@ public class QnaDao extends JDBCTemplate{
 				}
 				return list;
 			}
+			
+			
 			
 			public List<QnaDto> selectType(String qatype) {
 				Connection con = getConnection();
@@ -203,14 +209,15 @@ public class QnaDao extends JDBCTemplate{
 						dto.setQano(rs.getInt(1));
 						dto.setQagpno(rs.getInt(2));
 						dto.setQagpsq(rs.getInt(3));
-						dto.setUserid(rs.getString(4));
-						dto.setUserno(rs.getInt(5));
-						dto.setQatype(rs.getString(6));
-						dto.setQatitle(rs.getString(7));
-						dto.setQacontent(rs.getString(8));
-						dto.setQafaq(rs.getString(9));
-						dto.setQareg(rs.getDate(10));
-						dto.setQastatus(rs.getString(11));
+						dto.setTitletab(rs.getInt(4));
+						dto.setUserid(rs.getString(5));
+						dto.setUserno(rs.getInt(6));
+						dto.setQatype(rs.getString(7));
+						dto.setQatitle(rs.getString(8));
+						dto.setQacontent(rs.getString(9));
+						dto.setQafaq(rs.getString(10));
+						dto.setQareg(rs.getDate(11));
+						dto.setQastatus(rs.getString(12));
 						
 						res.add(dto);
 					}
@@ -246,14 +253,15 @@ public class QnaDao extends JDBCTemplate{
 						dto.setQano(rs.getInt(1));
 						dto.setQagpno(rs.getInt(2));
 						dto.setQagpsq(rs.getInt(3));
-						dto.setUserid(rs.getString(4));
-						dto.setUserno(rs.getInt(5));
-						dto.setQatype(rs.getString(6));
-						dto.setQatitle(rs.getString(7));
-						dto.setQacontent(rs.getString(8));
-						dto.setQafaq(rs.getString(9));
-						dto.setQareg(rs.getDate(10));
-						dto.setQastatus(rs.getString(11));
+						dto.setTitletab(rs.getInt(4));
+						dto.setUserid(rs.getString(5));
+						dto.setUserno(rs.getInt(6));
+						dto.setQatype(rs.getString(7));
+						dto.setQatitle(rs.getString(8));
+						dto.setQacontent(rs.getString(9));
+						dto.setQafaq(rs.getString(10));
+						dto.setQareg(rs.getDate(11));
+						dto.setQastatus(rs.getString(12));
 						
 						res.add(dto);
 					}
@@ -275,18 +283,19 @@ public class QnaDao extends JDBCTemplate{
 				PreparedStatement pstm = null;
 				int res = 0;
 				
-				String sql = " INSERT INTO QNA VALUES(QA_NOSQ.NEXTVAL,QA_GPNOSQ.NEXTVAL,?,?,?,?,?,?,'N',SYSDATE,'N') ";
+				String sql = " INSERT INTO QNA VALUES(QA_NOSQ.NEXTVAL,QA_GPNOSQ.NEXTVAL,?,?,?,?,?,?,?,'N',SYSDATE,'N') ";
 				
 						
 				try {
 					pstm = con.prepareStatement(sql);
 					
 					pstm.setInt(1, dto.getQagpsq());
-					pstm.setString(2, dto.getUserid());
-					pstm.setInt(3, dto.getUserno());
-					pstm.setString(4, dto.getQatype());
-					pstm.setString(5,dto.getQatitle());
-					pstm.setString(6, dto.getQacontent());
+					pstm.setInt(2, dto.getTitletab());
+					pstm.setString(3, dto.getUserid());
+					pstm.setInt(4, dto.getUserno());
+					pstm.setString(5, dto.getQatype());
+					pstm.setString(6,dto.getQatitle());
+					pstm.setString(7, dto.getQacontent());
 					//pstm.setString(8, dto.getQafaq());
 					//pstm.setString(9, dto.getQastatus());
 					System.out.println("03.query 준비: " + sql);

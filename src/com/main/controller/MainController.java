@@ -20,6 +20,8 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.qna.dao.QnaDao;
 import com.qna.dto.QnaDto;
+import com.reply.dao.ReplyDao;
+import com.reply.dto.ReplyDto;
 import com.user.dao.UserDao;
 import com.user.dto.UserDto;
 
@@ -37,6 +39,7 @@ public class MainController extends HttpServlet {
 		
 		UserDao dao = new UserDao();
 		QnaDao udao = new QnaDao();
+		ReplyDao rdao = new ReplyDao();
 			
 		if(command.equals("updatestart")) {
 			int userno = Integer.parseInt(request.getParameter("userno"));
@@ -189,37 +192,82 @@ public class MainController extends HttpServlet {
 				dispatch("MainController?command=detail&qano="+qano, request, response);
 			}
 			
+		}else if(command.equals("answerdelete")) {
+			int qareno = Integer.parseInt(request.getParameter("qareno"));
+			
+			ReplyDto rdto = new ReplyDto();
+			
+			int res = rdao.delete(qareno);
+			
+			// 성공 시 qna 페이지로 이동, 실패 시 상세페이지로 이동
+			if(res>0) {
+				dispatch("MainController?command=qna", request, response);
+			}else {
+				dispatch("MainController?command=detail&qareno="+qareno, request, response);
+			}
+			
 		}else if(command.equals("answerform")) {
 			int qano = Integer.parseInt(request.getParameter("qano"));
 			
 			QnaDto dto = udao.selectOne(qano);
 			request.setAttribute("dto", dto);
 			
-			RequestDispatcher dis = request.getRequestDispatcher("question_board_answerwrite.jsp");
+			RequestDispatcher dis = request.getRequestDispatcher("reply_answer_write.jsp");
 			dis.forward(request, response);
 			
+		}else if(command.equals("answerupdateform")) {
+			int qareno = Integer.parseInt(request.getParameter("qareno"));
+			
+			ReplyDto rdto = rdao.selectOne(qareno);
+			request.setAttribute("rdto", rdto);
+			dispatch("reply_answer_update.jsp", request, response);
+		
 		}else if(command.equals("answerwrite")) {	
 			int qano = Integer.parseInt(request.getParameter("qano"));
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
+			int titletab = Integer.parseInt(request.getParameter("titletab"));
 			//String photo = request.getParameter("photo");
 			
-			QnaDto parent = udao.selectOne(qano);
 			
-			int gpno = parent.getQagpno();
-			int gpsq = parent.getQagpsq();
-			int titletab = parent.getTitletab();
+			ReplyDto rdto = new ReplyDto();
 			
-			QnaDto dto = new QnaDto(0, gpno, gpsq, titletab, title, content, null);
+			rdto.setQano(qano);
+			rdto.setTitletab(titletab);
+			rdto.setRetitle(title);
+			rdto.setContent(content);
 			
-			boolean res = new QnaDao().answerLogic(dto);
-			if(res) {
-				response.sendRedirect("MainController?command=qna");
+			int res = rdao.insert(rdto);
+			
+			if(res>0) {
+				dispatch("MainController?command=qna",request,response);
 			}else {
-				response.sendRedirect("MainController?command=selectone&qano="+qano);
+				dispatch("MainController?command=answerform",request,response);
 			}
 			
 			
+		}else if(command.equals("answerupdate")) {
+			int qareno = Integer.parseInt(request.getParameter("qareno"));
+			
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			
+			ReplyDto rdto = new ReplyDto();
+			
+			
+			rdto.setRetitle(title);
+			rdto.setContent(content);
+			rdto.setQareno(qareno);
+			
+			int res = rdao.update(rdto);
+			 
+			if(res>0) {
+				dispatch("MainController?command=qna",request,response);
+			}else {
+				dispatch("MainController?command=answerwrite&qareno="+qareno,request,response);
+			}
+			
+		
 			
 		}else if(command.equals("deleteinfo")) {
 			int userno = Integer.parseInt(request.getParameter("userno"));

@@ -184,7 +184,7 @@ public class UserController extends HttpServlet {
 			}
 			response.setContentType("application/x-json; charset=utf-8");
 			response.getWriter().print(jarr);
-		}else if(command.equals("admin_mypage")) {
+		}else if(command.equals("admin_userinfo")) {
 			
 			int userno = Integer.parseInt(request.getParameter("userno"));
 			
@@ -195,7 +195,7 @@ public class UserController extends HttpServlet {
 			if(usedlist != null) {
 				request.setAttribute("usedlist", usedlist);
 			}
-			dispatch("admin_mypage.jsp",request,response);
+			dispatch("admin_userinfo.jsp",request,response);
 		}else if(command.equals("findpw")) {
 			String mybirth = request.getParameter("mybirthyy")+"/"+request.getParameter("mybirthmm")+"/"+request.getParameter("mybirthdd");
 	    	String myphone = request.getParameter("myphone");

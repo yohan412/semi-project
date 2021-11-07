@@ -243,10 +243,8 @@ public class UserController extends HttpServlet {
 			String[] usernolist = request.getParameterValues("chk");
 			String[] rolelist = request.getParameterValues("role");
 			String[] enabledlist = request.getParameterValues("enabled");
-			System.out.println(usernolist.length);
-			System.out.println(rolelist.length);
-			if(usernolist==null || usernolist.length==0){
-				jsResponse("하나 이상 체크해주세요!", "admin_main.jsp", response);
+			if(usernolist == null || usernolist.length == 0){
+				jsResponse("하나 이상 체크해주세요!", "MainController?command=adminpage&act=user", response);
 			}else {
 				
 				List<UserDto> userlist = dao.selectAll();
@@ -266,9 +264,9 @@ public class UserController extends HttpServlet {
 				int res= dao.multiUpdate(updatelist);
 				
 				if(res>0) {
-					jsResponse("변경되었습니다", "admin_main.jsp", response);
+					jsResponse("변경되었습니다", "MainController?command=adminpage&act=user", response);
 				}else {
-					jsResponse("변경 중 오류가 발생하였습니다", "admin_main.jsp", response);
+					jsResponse("변경 중 오류가 발생하였습니다", "MainController?command=adminpage&act=user", response);
 				}
 			}
 		}else if(command.equals("business")) {
@@ -437,12 +435,16 @@ public class UserController extends HttpServlet {
 			
 			String[] biznoList = request.getParameterValues("chk");
 			
+			if(biznoList == null || biznoList.length==0) {
+				jsResponse("하나 이상 체크해주세요!", "MainController?command=adminpage&act=biz", response);
+			}else {
 			int res = bdao.multiDelete(biznoList);
 			
 			if(res>0) {
-				jsResponse("선택한 게시글(들)이 삭제되었습니다.","admin_main.jsp",response);
+				jsResponse("선택한 게시글(들)이 삭제되었습니다.","MainController?command=adminpage&act=biz",response);
 			} else {
-				jsResponse("선택한 게시글(들) 삭제 실패하였습니다.\n 다시 시도해주세요.","admin_main.jsp",response);
+				jsResponse("선택한 게시글(들) 삭제 실패하였습니다.\n 다시 시도해주세요.","MainController?command=adminpage&act=biz",response);
+			}
 			}
 		}
    }

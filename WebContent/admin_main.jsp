@@ -228,6 +228,7 @@ table tbody tr{
 		});
 		
 		$("#checked_change").submit(function(){
+			alert("실행");
 			if($("#checked_change input:checked").length==0){
 				alert("하나 이상 체크해 주세요");
 				return false;

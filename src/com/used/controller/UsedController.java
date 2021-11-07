@@ -381,12 +381,17 @@ public class UsedController extends HttpServlet {
 			
 			String[] usednoList = request.getParameterValues("chk");
 			
+			if(usednoList == null || usednoList.length==0) {
+				jsResponse("하나 이상 체크해주세요!", "MainController?command=adminpage&act=used", response);
+			}
+			else {
 			int res = usedDao.multiDelete(usednoList);
 			
 			if(res>0) {
-				jsResponse("선택한 게시글(들)이 삭제되었습니다.","admin_main.jsp",response);
+				jsResponse("선택한 게시글(들)이 삭제되었습니다.","MainController?command=adminpage&act=used",response);
 			} else {
-				jsResponse("선택한 게시글(들) 삭제 실패하였습니다.\n 다시 시도해주세요.","admin_main.jsp",response);
+				jsResponse("선택한 게시글(들) 삭제 실패하였습니다.\n 다시 시도해주세요.","MainController?command=adminpage&act=used",response);
+			}
 			}
 		}
 	}

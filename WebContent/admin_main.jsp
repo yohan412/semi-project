@@ -587,7 +587,7 @@ table tbody tr{
 		for(var i = 0 ; i<list.length;i++){
 			$("tbody").append(
 				"<tr>"
-				+"<td>"+list[i].no+"</td>"+"<td><a href='usercontroller?command=admin_mypage&userno="+list[i].no+"'>"+list[i].id+"</a></td>"+"<td>"+list[i].name+"</td>"+"<td>"+list[i].email+"</td>"+"<td>"+role_select(list[i].role)+"</td>"+"<td>"+enabled_select(list[i].enable)+"</td>"+"<td>"+list[i].reg+"</td>"
+				+"<td>"+list[i].no+"</td>"+"<td><a href='usercontroller?command=admin_userinfo&userno="+list[i].no+"'>"+list[i].id+"</a></td>"+"<td>"+list[i].name+"</td>"+"<td>"+list[i].email+"</td>"+"<td>"+role_select(list[i].role)+"</td>"+"<td>"+enabled_select(list[i].enable)+"</td>"+"<td>"+list[i].reg+"</td>"
 				+"<td align='center'><input type='checkbox' name='chk' value='"+list[i].no+"'></td>"
 				+"</tr>"
 			);

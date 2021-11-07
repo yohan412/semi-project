@@ -206,22 +206,6 @@ console.log(Kakao.isInitialized());
 			<input type="submit" value="로그인">
 			</div>
 			
-			<div class="sns_login">
-				<a id="kakao-login-btn" href="javascript:kakaoLogin();"><img src="./img/login_kakao.png" width="250" height="40px"></a>
-				<%
-				    String clientId = "R52cjVAcV9TOlMU10ITC";//애플리케이션 클라이언트 아이디값";
-				    String redirectURI = URLEncoder.encode("http://localhost:8787/Semiproject/callback.jsp", "UTF-8");
-				    SecureRandom random = new SecureRandom();
-				    String state = new BigInteger(130, random).toString();
-				    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-				    apiURL += "&client_id=" + clientId;
-				    apiURL += "&redirect_uri=" + redirectURI;
-				    apiURL += "&state=" + state;
-				    session.setAttribute("state", state);
-				 %>
-				<a href="<%=apiURL%>"><img src="./img/login_naver.png" width="250" height="40px"></a>
-
-			</div>
 		</div>
 		
 		<div class="push">

@@ -96,7 +96,7 @@
 	<div id="body">
 		<br><br><br><br><br><br>
         <div id="search">
-            <img src="img/icon_search.png" width ="60px" height="60px" a href ="main.jsp">
+            <img src="img/icon_search.png" width ="60px" height="60px" href ="main.jsp">
             <input type="text" placeholder="     ex)서울시 성북구">
         </div>
         <br><br><br>

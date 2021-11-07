@@ -113,6 +113,23 @@
 input[type=checkbox]:checked + .check-icon{
 	background-image:url('img/heart.png');
 }
+
+input.button-add {
+    background-image: url(./img/emt_heart.png); /* 16px x 16px */
+    background-color: transparent; /* make the button transparent */
+    background-repeat: no-repeat;  /* make the background image appear only once */
+    background-position: 0px 0px;  /* equivalent to 'top left' */
+    border: none;           /* assuming we don't want any borders */
+    cursor: pointer;        /* make the cursor like hovering over an <a> element */
+    height: 16px;           /* make this the size of your image */
+    padding-left: 16px;     /* make text start to the right of the image */
+    vertical-align: middle; /* align the text vertically centered */
+    position : relative;
+    transform : rotate(0deg);
+    width :24px;
+    height : 24px;
+}
+
 /*찜 버튼 구현 끝*/
 #numbers{
 	list-style: none;
@@ -165,6 +182,12 @@ input[type=button]{
 
 <script type="text/javascript">
 	$(function(){
+		
+		 // 찜 설정이 된 경우 채워진 하트 이미지 표시
+	     if($("#wish").val() == "1"){
+	      $(".button-add").css({"background":"url(./img/heart.png)"});
+	     }
+	      
 		
 		var centerAddr = "${usedDto.usedaddr}";		
 		
@@ -403,6 +426,49 @@ input[type=button]{
 			displayRows(index);
 		});
 	}
+	
+	   //찜 버튼 클릭 시 
+	   function clickLike(){
+	      /* 1. ajax 로 USED_WISH 테이블에 데이터 넣기
+	      2. 빈하트 -> 채워진 하트로 배경이미지를 변경 */
+
+	      var param = {
+	         "login_id" : $("#login_id").val(),
+	         "title_no" : $("#used_no").val(),
+	         "type" : "U"
+	      }
+	      
+	      console.log(param);
+	      
+	      
+	      // 찜을 설정한 경우
+	      if($("#wish").val() == "1"){
+	         // 찜 해제 필요
+	         param.wish_data = "1";
+	      
+	      } else {
+	         //찜 설정
+	         param.wish_data = "0";
+	      }
+	      
+	      
+	      $.ajax({             
+	         url : "usedcontroller?command=wish"  ,   //어디로 요청을 보낼지
+	         dataType : "json",                   //서버로부터 받을 데이터 타입
+	         data : param,
+	         success:function(msg){               //성공시 실행
+	            console.log(msg);
+	            $(".button-add").css({"background":"url(./img/heart.png)"});  
+	            location.reload();
+	            //console.log(msg);
+	         },
+	         error:function(){                  //실패시 실행
+	            alert("실패ㅠㅠ");
+	         }
+	      })
+	      
+	   }
+
 </script>
 </head>
 <body>
@@ -415,12 +481,16 @@ input[type=button]{
 				<div class="title">
 					<span id="category">[${usedDto.usedcategory}]</span>
 					<span id="title">${usedDto.usedtitle}</span>
-					<label class='checkbox-wrap'><input type='checkbox' name='wish_list' id='center_no1'><i class='check-icon'></i></label>
+					<!-- <label class='checkbox-wrap'><input type='checkbox' name='wish_list' id='center_no1'><i class='check-icon'></i></label> -->
+					<input type="button" onclick="clickLike()" class="button-add" />
 				</div>
 				
 				<div class="write_info">
 					<a>${usedDto.userid}</a>
 					<a>${usedDto.usedreg}</a>
+					<input type="hidden" id = "login_id" value="<%=loginUser.getUserid() %>">
+               		<input type="hidden" id = "used_no" value="<%=request.getParameter("usedno") %>">
+               		<input type="hidden" id = "wish" value="${wish}">
 				</div>
 				<br><hr>
 			</div>
@@ -431,7 +501,7 @@ input[type=button]{
 						
 				<div class="content_info">
 					<p>가격:${usedDto.usedprice}</p>
-					<p>사업장명:${usedDto.usedcenternm}</p>
+					<p id ="center_nm">사업장명:${usedDto.usedcenternm}</p>
 					<p>주소:${usedDto.usedaddr}</p>
 					<p>관련 정보:${usedDto.usedcontent}</p>
 				</div>

@@ -22,6 +22,8 @@ import com.used.dao.UsedDao;
 import com.used.dto.UsedDto;
 import com.usedask.dao.UsedaskDao;
 import com.usedask.dto.UsedaskDto;
+import com.user.dto.UserDto;
+import com.wish.dto.WishDto;
 
 @WebServlet("/usedcontroller")
 public class UsedController extends HttpServlet {
@@ -37,7 +39,45 @@ public class UsedController extends HttpServlet {
 		UsedDao usedDao = new UsedDao();
 		UsedaskDao uskDao = new UsedaskDao();
 		
-		if(command.equals("usedlist")) {
+		if (command.equals("wish")) {
+
+			String login_id = request.getParameter("login_id");
+			String title = request.getParameter("title_no");
+			String useyn = request.getParameter("wish_data");
+			String type = request.getParameter("type");
+			
+			WishDto wish = new WishDto();
+			wish.setLogin_id(login_id);
+			wish.setTitle_no(Integer.parseInt(title));
+			wish.setUse_yn(useyn); 
+			wish.setType(type);
+			
+			int res = 0;
+			
+			if(useyn.equals("1")) {
+				// use_yn = N (db에 찜을 변경 해주는 용도)
+				res = usedDao.updateWish(wish);
+			}else {
+				// 찜 insert (db에 찜을 추가 해주는 용도) 'Y'
+				res = usedDao.insertWish(wish);
+			}
+
+			// return type은 json으로
+			JSONObject obj = new JSONObject();
+			
+			if(res>0) {
+				obj.put("result", "ok");
+			}else {
+				obj.put("result", "no");
+			}
+			
+			//쿼리가 제대로 올바르게 실행된 경우와 그렇지 않은 경우 판별.
+			response.setContentType("application/json; charset=UTF-8");
+			response.getWriter().print(obj);
+			
+		}
+		
+		else if(command.equals("usedlist")) {
 			
 			List<UsedDto> usedList = usedDao.selectAll();
 			List<PicDto> piclist =usedDao.selectAllPic();
@@ -57,6 +97,31 @@ public class UsedController extends HttpServlet {
 			List<PicDto> piclist = usedDao.selectPics(usedno);
 			UsedDto usedDto = usedDao.selectOne(usedno);
 			List<UsedaskDto> usklist = uskDao.selectAll(usedno);
+
+			//1. WISH 테이블에 login_id & used_no 로 조회했을 때 
+			// 데이터 O ->  request.setAttribute("wish", 1);
+			// 데이터 X ->  request.setAttribute("wish", 0);
+			
+			UserDto loginUser = (UserDto)request.getSession().getAttribute("loginUser");
+			
+			String login_id = loginUser.getUserid();
+			String used_no = request.getParameter("usedno");
+			String type = "U";
+			
+			  WishDto WishDto = usedDao.selectOne(login_id, used_no, type);
+			  
+			  //if(login_id != null) {
+			  System.out.println(WishDto.getLogin_id());
+			  
+			  //1. WISH 테이블에 login_id & used_no 로 조회했을 때 
+				// 데이터 O ->  request.setAttribute("wish", 1);
+				// 데이터 X ->  request.setAttribute("wish", 0);
+			  
+				if (WishDto.getLogin_id() != null) {
+					request.setAttribute("wish", 1);
+				} else {
+					request.setAttribute("wish", 0);
+				}
 			
 			request.setAttribute("piclist", piclist);
 			request.setAttribute("usklist", usklist);
@@ -151,6 +216,17 @@ public class UsedController extends HttpServlet {
 			List<UsedDto> mypagelist = usedDao.selectAll();
 			request.setAttribute("mypagelist", mypagelist);
 			
+			UserDto loginUser = (UserDto)request.getSession().getAttribute("loginUser");
+			
+			
+			String login_ids = loginUser.getUserid();
+			
+			List<WishDto> mywish = usedDao.selectWishAll(login_ids);
+			List<WishDto> centerwish = usedDao.selectCenterWishAll(login_ids);
+			
+			request.setAttribute("mywish", mywish);
+			request.setAttribute("centerwish", centerwish);
+
 			dispatch("mypage.jsp",request,response);
 			
 		} else if(command.equals("usedwriteform")) {
@@ -305,12 +381,17 @@ public class UsedController extends HttpServlet {
 			
 			String[] usednoList = request.getParameterValues("chk");
 			
+			if(usednoList == null || usednoList.length==0) {
+				jsResponse("하나 이상 체크해주세요!", "MainController?command=adminpage&act=used", response);
+			}
+			else {
 			int res = usedDao.multiDelete(usednoList);
 			
 			if(res>0) {
-				jsResponse("선택한 게시글(들)이 삭제되었습니다.","admin_main.jsp",response);
+				jsResponse("선택한 게시글(들)이 삭제되었습니다.","MainController?command=adminpage&act=used",response);
 			} else {
-				jsResponse("선택한 게시글(들) 삭제 실패하였습니다.\n 다시 시도해주세요.","admin_main.jsp",response);
+				jsResponse("선택한 게시글(들) 삭제 실패하였습니다.\n 다시 시도해주세요.","MainController?command=adminpage&act=used",response);
+			}
 			}
 		}
 	}

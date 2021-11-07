@@ -34,7 +34,7 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 </head>
 <body>
 <header><%@ include file="./form/header.jsp" %></header>
-<h2 class="information">마이 페이지</h2>
+<h2 class="information">사용자 정보</h2>
 	<hr>
 	<table class="mylist">
 		<col width="150px"><col width="300px">
@@ -59,7 +59,7 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 			<td><input type="text" value="${userDto.useraddr}" readonly></td>
 		</tr>
 		<tr>
-			<th id="list">내가 쓴 글 목록</th>
+			<th id="list">작성한 글 목록</th>
 			<td>
 				<table border="1" width="100%" height="100px">
 					<thead>

@@ -40,6 +40,7 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 <header><%@ include file="./form/header.jsp" %></header>
 <% List<UsedDto> mypagelist = (List<UsedDto>)request.getAttribute("mypagelist"); %>
 <% List<WishDto> mywish = (List<WishDto>)request.getAttribute("mywish"); %>
+<% List<WishDto> centerwish = (List<WishDto>)request.getAttribute("centerwish"); %>
 <h2 class="information">마이 페이지</h2>
 	<hr>
 	<table class="mylist">
@@ -83,7 +84,7 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 							<tr>
 								<td>${writer.usedno }</td>
 								<td>${writer.userid }</td>
-								<td><a href="usedcontroller?command=useddetail&usedno=${writer.usedno }">${writer.usedtitle }</a></td>
+								<td><a href="used_list.jsp">${writer.usedtitle }</a></td>
 								<td>${writer.usedcontent }</td> 
 								<td>${writer.usedreg }</td>
 							</tr>
@@ -99,19 +100,24 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 				<table border="1" width="100%" height="100px">
 				<thead>
 					<tr>
-						<th>로그인ID</th>
-						<th>회원권 제목</th>
-						<th>회원권 작성자</th>
+						<th>게시글번호</th>
+						<th>유형</th>
 						<th>회원권 센터이름</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${mywish }" var="wish">
 					<tr>
-						<td>${wish.loginid }</td>
-						<td><a href="usedcontroller?command=useddetail&usedno=${wish.usedno}">${wish.usedtitle }</a></td>
-						<td>${wish.userid }</td>
-						<td>${wish.usercenternm }</td>
+						<td>${wish.title_no }</td>
+						<td>${wish.type }</td>
+						<td><a href="usedcontroller?command=useddetail&usedno=${wish.title_no}">${wish.used_title }</a></td>
+					</tr>
+					</c:forEach>
+					<c:forEach items="${centerwish }" var="centerwish">
+					<tr>
+						<td>${centerwish.title_no }</td>
+						<td>${centerwish.type }</td>
+						<td><a href="CenterController?command=centerdetail&centerno=${centerwish.title_no}">${centerwish.used_title }</a></td>
 					</tr>
 					</c:forEach>
 				</tbody>

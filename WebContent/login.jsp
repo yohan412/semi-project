@@ -61,8 +61,8 @@ a{
 }
 
 .login_id input{
-	width: 300px;
-	height: 35px;
+	width: 270px;
+	height: 40px;
 	padding: 0px 15px;
 	border-radius: 5px;
 	border: 1px solid lightgrey;
@@ -74,8 +74,8 @@ a{
 }
 
 .login_pw input{
-	width: 300px;
-	height: 35px;
+	width: 270px;
+	height: 40px;
 	padding: 0px 15px;
 	border-radius: 5px;
 	border: 1px solid lightgrey;
@@ -116,63 +116,10 @@ footer{
 		width: 100%;
 }
 
+
 </style>
-<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 <script src="./js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-  function unlinkApp() {
-    Kakao.API.request({
-      url: '/v1/user/unlink',
-      success: function(res) {
-        alert('success: ' + JSON.stringify(res))
-      },
-      fail: function(err) {
-        alert('fail: ' + JSON.stringify(err))
-      },
-    })
-  }
-</script>
-<script type="text/javascript">
-Kakao.init('1b471de92ae8dad2d4bedd8c3a06ea59');
-console.log(Kakao.isInitialized());
- 
-  Kakao.Auth.createLoginButton({
-    container: '#kakao-login-btn',
-    success: function(authObj) {
-      Kakao.API.request({
-        url: '/v2/user/me',
-        success: function(result) {
-          $('#result').append(result);
-          id = result.id
-          connected_at = result.connected_at
-          kakao_account = result.kakao_account
-          $('#result').append(kakao_account);
-          resultdiv="<h2>로그인 성공 !!"
-          resultdiv += '<h4>id: '+id+'<h4>'
-          resultdiv += '<h4>connected_at: '+connected_at+'<h4>'
-          email ="";
-          gender = "";
-          if(typeof kakao_account != 'undefined'){
-        	  email = kakao_account.email;
-        	  gender = kakao_account.gender;
-          }
-          resultdiv += '<h4>email: '+email+'<h4>'
-          resultdiv += '<h4>gender: '+gender+'<h4>'
-          $('#result').append(resultdiv);
-          
-        },
-        fail: function(error) {
-          alert(
-            'login success, but failed to request user information: ' +
-              JSON.stringify(error)
-          )
-        },
-      })
-    },
-    fail: function(err) {
-      alert('failed to login: ' + JSON.stringify(err))
-    },
-  })
 </script>
 </head>
 <body>
@@ -206,22 +153,6 @@ console.log(Kakao.isInitialized());
 			<input type="submit" value="로그인">
 			</div>
 			
-			<div class="sns_login">
-				<a id="kakao-login-btn" href="javascript:kakaoLogin();"><img src="./img/login_kakao.png" width="250" height="40px"></a>
-				<%
-				    String clientId = "R52cjVAcV9TOlMU10ITC";//애플리케이션 클라이언트 아이디값";
-				    String redirectURI = URLEncoder.encode("http://localhost:8787/Semiproject/callback.jsp", "UTF-8");
-				    SecureRandom random = new SecureRandom();
-				    String state = new BigInteger(130, random).toString();
-				    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-				    apiURL += "&client_id=" + clientId;
-				    apiURL += "&redirect_uri=" + redirectURI;
-				    apiURL += "&state=" + state;
-				    session.setAttribute("state", state);
-				 %>
-				<a href="<%=apiURL%>"><img src="./img/login_naver.png" width="250" height="40px"></a>
-
-			</div>
 		</div>
 		
 		<div class="push">

@@ -27,7 +27,8 @@ import com.review.dao.ReviewDao;
 import com.review.dto.ReviewDto;
 import com.user.dao.UserDao;
 import com.user.dto.UserDto;
-
+import com.used.dao.UsedDao;
+import com.wish.dto.WishDto;
 
 @WebServlet("/CenterController")
 public class CenterController extends HttpServlet {
@@ -61,7 +62,8 @@ public class CenterController extends HttpServlet {
 			CenterDto dto = dao.selectOne(centerno);
 			List<ReviewDto> reviewList = rdao.selectAll(centerno);
 			List<PicDto> piclist = dao.selectPics(centerno);
-			
+			UsedDao DAO = new UsedDao();
+
 			request.setAttribute("centerDto", dto);
 			//리뷰 있는지 확인
 			if(reviewList !=null) {
@@ -71,6 +73,29 @@ public class CenterController extends HttpServlet {
 			if(piclist != null) {
 				request.setAttribute("piclist", piclist);
 			}
+
+			UserDto loginUser = (UserDto) request.getSession().getAttribute("loginUser");
+
+			String login_id = loginUser.getUserid();
+			String type = "C";
+			String center_no = request.getParameter("centerno");
+			
+			WishDto WishDto = DAO.selectOne(login_id, center_no, type);
+			
+			
+			// if(login_id != null && used_no != null) {
+			System.out.println(WishDto.getLogin_id());
+
+			// 1. WISH 테이블에 login_id & used_no 로 조회했을 때
+			// 데이터 O -> request.setAttribute("wish", 1);
+			// 데이터 X -> request.setAttribute("wish", 0);
+
+			if (WishDto.getLogin_id() != null) {
+				request.setAttribute("wish", 1);
+			} else {
+				request.setAttribute("wish", 0);
+			}
+
 			RequestDispatcher dispatch = request.getRequestDispatcher("center_detail.jsp");
 			dispatch.forward(request, response);
 			
@@ -314,12 +339,17 @@ public class CenterController extends HttpServlet {
 			
 			String[] centernoList = request.getParameterValues("chk");
 			
+			if(centernoList == null || centernoList.length == 0) {
+				jsResponse("하나 이상 체크해주세요!", "MainController?command=adminpage&act=center", response);
+			}
+			else {
 			int res = dao.multiDelete(centernoList);
 			
 			if(res>0) {
-				jsResponse("선택한 게시글(들)이 삭제되었습니다.","admin_main.jsp",response);
+				jsResponse("선택한 게시글(들)이 삭제되었습니다.","MainController?command=adminpage&act=center",response);
 			} else {
-				jsResponse("선택한 게시글(들) 삭제 실패하였습니다.\n 다시 시도해주세요.","admin_main.jsp",response);
+				jsResponse("선택한 게시글(들) 삭제 실패하였습니다.\n 다시 시도해주세요.","MainController?command=adminpage&act=center",response);
+			}
 			}
 		}
 	}

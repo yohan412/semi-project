@@ -12,6 +12,7 @@ public class ReplyDto {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	public ReplyDto(int qareno, int qano, int titletab, String retitle, String content) {
 		super();
 		this.qareno = qareno;

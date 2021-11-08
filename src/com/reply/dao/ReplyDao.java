@@ -68,6 +68,7 @@ public class ReplyDao extends JDBCTemplate{
 			rs = pstm.executeQuery();
 			System.out.println("04.query 실행 및 리턴");
 			
+			
 			while(rs.next()) {
 				ReplyDto rdto = new ReplyDto();
 				rdto.setQareno(rs.getInt(1));

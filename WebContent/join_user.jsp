@@ -39,6 +39,7 @@
 	#reset{
 		cursor:pointer;
 		border-radius: 5px;
+		border: 1px solid gray;
 	}
 	#birth{
 		size : 180px;

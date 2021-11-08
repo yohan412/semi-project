@@ -38,9 +38,14 @@
 	.button input{
 		width: 200px;
 		height: 40px;
-		font-size: 20px;
+		font-size: 15px;
+		font-weight:200;
+		color: white;
+		margin: 5px;
 		background-color:rgb(75, 161, 231);
-		border-radius: 10px;
+		cursor: pointer;
+		border-radius: 5px;
+		border: 0;
 	}
 	input{
 		margin: 5px;

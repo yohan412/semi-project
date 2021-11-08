@@ -28,6 +28,7 @@ import com.review.dto.ReviewDto;
 import com.user.dao.UserDao;
 import com.user.dto.UserDto;
 import com.used.dao.UsedDao;
+import com.used.dto.UsedDto;
 import com.wish.dto.WishDto;
 
 @WebServlet("/CenterController")
@@ -76,6 +77,12 @@ public class CenterController extends HttpServlet {
 
 			UserDto loginUser = (UserDto) request.getSession().getAttribute("loginUser");
 
+			if(loginUser == null) {
+				UsedDto usedDTO = DAO.selectOne(centerno); 
+				request.setAttribute("usedDTO", usedDTO);
+				
+			}else {
+
 			String login_id = loginUser.getUserid();
 			String type = "C";
 			String center_no = request.getParameter("centerno");
@@ -94,6 +101,7 @@ public class CenterController extends HttpServlet {
 				request.setAttribute("wish", 1);
 			} else {
 				request.setAttribute("wish", 0);
+				}
 			}
 
 			RequestDispatcher dispatch = request.getRequestDispatcher("center_detail.jsp");

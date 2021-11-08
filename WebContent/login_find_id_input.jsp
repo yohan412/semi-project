@@ -126,7 +126,6 @@ select {
 	color: white;
 	border: 3px solid white;
 	padding: 18px 0 15px;
-	
 	font-size:13px;
 	width: 100%;	
 }
@@ -136,7 +135,7 @@ select {
 	border: 0;
 	cursor: pointer;
 	color: white;
-	background-color: #00AAFF;
+	background-color:rgb(75, 161, 231);
 	font-size: 20px;
 	font-weight: 200;
 	border-radius: 10px;

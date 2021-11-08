@@ -498,9 +498,13 @@ input.button-add {
                     </span> (${centerDto.centergrade})
                     </span>
                     	<input type="button" onclick="clickLike()" class="button-add" />
+					<c:choose>
+                    <c:when test="${loginUser !=null }">
 						<input type="hidden" id="login_id" value="<%=loginUser.getUserid()%>"> 
 						<input type="hidden" id="center_no" value="<%=request.getParameter("centerno")%>">
 						<input type="hidden" id="wish" value="${wish}">
+					</c:when>
+					</c:choose>
                 </div>
             </div>
             <hr>

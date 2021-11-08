@@ -526,9 +526,13 @@ table{
 				<div class="write_info">
 					<a>${usedDto.userid}</a>
 					<a>${usedDto.usedreg}</a>
+					<c:choose>
+					<c:when test="${loginUser !=null }">
 					<input type="hidden" id = "login_id" value="<%=loginUser.getUserid() %>">
                		<input type="hidden" id = "used_no" value="<%=request.getParameter("usedno") %>">
-               		<input type="hidden" id = "wish" value="${wish}">
+               		<input type="hidden" id = "wish" value="${wish}"> 
+					</c:when>
+					</c:choose>
 				</div>
 				<br><hr>
 			</div>

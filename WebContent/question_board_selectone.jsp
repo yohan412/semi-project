@@ -28,6 +28,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style type="text/css">
 	table{
 		text-align: center;
@@ -125,9 +126,11 @@
 	}	
 	
 	if(uid=="USER7" || uid==qid){
-		
+		if(uid=="USER7"){
+			$('#submit').hide();
+		}
 	}else{
-		alert("관리자가 아닙니다."); location.href="login.jsp";
+		alert("게시글 조회 권한이 없습니다."); location.href="login.jsp";
 		
 		exit;
 	}

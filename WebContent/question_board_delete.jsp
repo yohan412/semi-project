@@ -28,7 +28,7 @@
 	}else{
 %>
 	<script type="text/javascript">
-		alert("글 삭제 실패");
+		alert("삭제를 실패하였습니다.");
 		location.href="question_board_selectone.jsp?qano="+qano;
 	</script>
 <%

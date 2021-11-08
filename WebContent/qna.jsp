@@ -17,6 +17,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">	
+	h1{
+		background-color:#9EB9CE;
+		border-radius: 10px;
+	}
+	.tabs li a:hover{
+    color: #9EB9CE;
+    }
+    .qna td a:hover{
+     color: #9EB9CE;
+    }
 	.tabs{
 		list-style-type:none;
 		height : 30px;
@@ -124,8 +134,8 @@ function login_chk(){
 <input type="hidden" id="session_id" value="${loginUser.userid}">
 	<div class="qna">
 		<div class="faq">
-		<h3 align="center">F A Q</h3>
-			<div name="qna_category" id="tab_container" style="width:97%; padding:10px 10px 10px 10px;">
+		<h1 align="center">F A Q</h1>
+			<div name="qna_category" id="tab_container" style="width:97%; padding:5px 5px 5px 5px;">
 				<ul class="tabs">
 				<!-- 탭 메뉴 영역 -->
 					<li><a href="MainController?command=qna">전체</a></li>
@@ -177,12 +187,12 @@ function login_chk(){
 		
 		
 	<div class="qna_list">
-		<h3 align="center">Q & A</h3>
+		<h1 align="center">Q & A</h1>
 			<table class="qna_table" border="1">
 				<tr>
 					<th style="width:50px;">NO.</th>
 					<th>제목</th>
-					<th style="width:70px;">답변여부</th>
+					<th style="width:80px;">답변 여부</th>
 				</tr>
 <%
 	for(int i = 0; i<list.size(); i++){
@@ -215,7 +225,7 @@ function login_chk(){
 			<br>
 	</div>
 </div>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br>
 <footer><%@ include file="form/footer.jsp" %></footer>
 </body>
 </html>

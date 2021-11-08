@@ -16,6 +16,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">	
+	h1{
+		background-color:#9EB9CE;
+		border-radius: 10px;
+	}
+	.tabs li a:hover{
+    color: #9EB9CE;
+    }
+    .qna td a:hover{
+     color: #9EB9CE;
+    }
 	.tabs{
 		list-style-type:none;
 		height : 30px;
@@ -144,7 +154,7 @@ function sort_by_price(){
 	<input type="hidden" name="qatype" value="<%=dto.getQatype()%>">
 	<div class="qna">
 		<div class="faq">
-		<h3 align="center">F A Q</h3>
+		<h1 align="center">F A Q</h1>
 
 			<div id="category" style="width:97%; padding:10px 10px 10px 10px;">
 				<ul class="tabs">

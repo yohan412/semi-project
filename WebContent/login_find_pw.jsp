@@ -36,9 +36,11 @@
 		height:40px;
 	}
 	.button input{
-		width: 170px;
+		width: 200px;
 		height: 40px;
 		font-size: 20px;
+		background-color:rgb(75, 161, 231);
+		border-radius: 10px;
 	}
 	input{
 		margin: 5px;
@@ -77,7 +79,10 @@
 	</div>
 	
 	<div class="button">
+	<br>
 		<input type="submit" value="확인">
+		<br>
+		<input type="button" value="취소" style="background-color: gray;" onclick="location.href='usercontroller?command=loginform'">
 	</div>
 	</form>
 	<footer><%@ include file="form/login_footer.jsp" %></footer>

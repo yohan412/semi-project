@@ -137,6 +137,7 @@ select {
 	cursor: pointer;
 	color: white;
 	background-color: #00AAFF;
+	border-radius: 10px;
 	font-size: 20px;
 	font-weight: 200;
 }
@@ -344,7 +345,7 @@ select {
 					<span>확인</span>
 				</button>
 				<br><br>
-				<button type="button" onclick="location.href='usercontroller?command=loginform'" id="button2">
+				<button type="button" style="background-color: gray;" onclick="location.href='usercontroller?command=loginform'" id="button2">
 					<span>취소</span>
 				</button>
 			</div>

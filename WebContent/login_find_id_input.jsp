@@ -139,6 +139,7 @@ select {
 	background-color: #00AAFF;
 	font-size: 20px;
 	font-weight: 200;
+	border-radius: 10px;
 }
 </style>
 <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
@@ -336,7 +337,7 @@ select {
 					<span>확인</span>
 				</button>
 				<br><br>
-				<button type="button" onclick="location.href='usercontroller?command=loginform'" id="button2">
+				<button type="button" onclick="location.href='usercontroller?command=loginform'" id="button2" style="background-color: gray;">
 					<span>취소</span>
 				</button>
 			</div>

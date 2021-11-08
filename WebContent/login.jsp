@@ -95,7 +95,15 @@ a{
 	width: 250px;
 	height: 40px;
 	border: 0;
-	background: grey;
+	background-color:rgb(75, 161, 231);
+	color: white;
+	border-radius: 7px;
+}
+.cancel button{
+	width: 250px;
+	height: 40px;
+	border: 0;
+	background-color: gray;
 	color: white;
 	border-radius: 7px;
 }
@@ -153,7 +161,9 @@ footer{
 			<button type="submit">
 				<span>로그인</span>
 			</button>
-			<br><br>
+			</div>
+			<div class="cancel">
+			<br>
 			<button type="button" onclick="location.href='main.jsp'">
 				<span>취소</span>
 			</button>

@@ -27,10 +27,10 @@
 <body>
 	<div>
 		<br><br>
-		<h2><a href="">아이디 비밀번호 찾기</a></h2>
+		<h2><a href="">&nbsp;아이디 비밀번호 찾기</a></h2>
 		<br><br>
-		<a href="usercontroller?command=findidform" class="fd">아이디 찾기</a>&nbsp;
-		<a href="usercontroller?command=findpwform" class="fd">비밀번호 찾기</a>
+		<a href="usercontroller?command=findidform" class="fd">&nbsp; 아이디 찾기</a>&nbsp;
+		<a href="usercontroller?command=findpwform" class="fd"> 비밀번호 찾기</a>
 		<hr>
 	</div>
 </body>

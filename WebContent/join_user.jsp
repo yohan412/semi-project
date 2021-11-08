@@ -38,6 +38,7 @@
 	}
 	#reset{
 		cursor:pointer;
+		border-radius: 5px;
 	}
 	#birth{
 		size : 180px;

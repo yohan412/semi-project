@@ -1,3 +1,4 @@
+<%@page import="com.center.dto.CenterDto"%>
 <%@page import="com.wish.dto.WishDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -36,6 +37,7 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 }
 td {
 	text-align : center;
+	
 }
 </style>
 </head>
@@ -44,6 +46,7 @@ td {
 <% List<UsedDto> mypagelist = (List<UsedDto>)request.getAttribute("mypagelist"); %>
 <% List<WishDto> mywish = (List<WishDto>)request.getAttribute("mywish"); %>
 <% List<WishDto> centerwish = (List<WishDto>)request.getAttribute("centerwish"); %>
+<% List<CenterDto> centerlist = (List<CenterDto>)request.getAttribute("center"); %>
 <h2 class="information">마이 페이지</h2>
 	<hr>
 	<table class="mylist">
@@ -77,7 +80,6 @@ td {
 							<th>게시글번호</th>
 							<th>제목</th>
 							<th>카페고리</th>
-							<th>거래상태</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -87,10 +89,18 @@ td {
 								<td>${writer.usedno }</td>
 								<td><a href="usedcontroller?command=useddetail&usedno=${writer.usedno }">${writer.usedtitle }</a></td>
 								<td>${writer.usedcategory }</td>
-								<td>${writer.usedstatus }</td>
 							</tr>
 						</c:if>
 						</c:forEach>
+						<c:forEach items="${centerlist }" var="centerlist">
+						<c:if test="${centerlist.userid eq loginUser.userid }"> 
+							<tr>
+								<td>${centerlist.centerno }</td>
+								<td><a href="CenterController?command=centerdetail&centerno=${centerlist.centerno}">${centerlist.centername }</a></td>
+								<td>${centerlist.centercategory }</td>
+							</tr>
+						</c:if>
+						</c:forEach> 
 					</tbody>
 				</table>
 			</td>

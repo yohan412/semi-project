@@ -103,6 +103,12 @@ public class UsedController extends HttpServlet {
 			// 데이터 X ->  request.setAttribute("wish", 0);
 			
 			UserDto loginUser = (UserDto)request.getSession().getAttribute("loginUser");
+
+			if(loginUser == null) { 
+				UsedDto usedDTO = usedDao.selectOne(usedno); 
+				request.setAttribute("usedDTO", usedDTO);
+				
+			}else {
 			
 			String login_id = loginUser.getUserid();
 			String used_no = request.getParameter("usedno");
@@ -122,6 +128,7 @@ public class UsedController extends HttpServlet {
 				} else {
 					request.setAttribute("wish", 0);
 				}
+			}
 			
 			request.setAttribute("piclist", piclist);
 			request.setAttribute("usklist", usklist);

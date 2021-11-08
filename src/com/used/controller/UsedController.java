@@ -47,9 +47,9 @@ public class UsedController extends HttpServlet {
 			String type = request.getParameter("type");
 			
 			WishDto wish = new WishDto();
-			wish.setLogin_id(login_id);
-			wish.setTitle_no(Integer.parseInt(title));
-			wish.setUse_yn(useyn); 
+			wish.setLoginid(login_id);
+			wish.setTitleno(Integer.parseInt(title));
+			wish.setUseyn(useyn); 
 			wish.setType(type);
 			
 			int res = 0;
@@ -111,13 +111,13 @@ public class UsedController extends HttpServlet {
 			  WishDto WishDto = usedDao.selectOne(login_id, used_no, type);
 			  
 			  //if(login_id != null) {
-			  System.out.println(WishDto.getLogin_id());
+			  System.out.println(WishDto.getLoginid());
 			  
 			  //1. WISH 테이블에 login_id & used_no 로 조회했을 때 
 				// 데이터 O ->  request.setAttribute("wish", 1);
 				// 데이터 X ->  request.setAttribute("wish", 0);
 			  
-				if (WishDto.getLogin_id() != null) {
+				if (WishDto.getLoginid() != null) {
 					request.setAttribute("wish", 1);
 				} else {
 					request.setAttribute("wish", 0);

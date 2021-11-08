@@ -37,19 +37,23 @@
         #title{
             background-color:white;
         }
-         .button1{
+        .button1{
 			background-color : #00AAFF;
 			color : white;
 			float : right;
-			border:3px solid white;
-			
-	}
-		.button2{
+			border:1px solid white;
+			width: 100px;
+			height: 30px;
+			cursor: pointer;
+		}
+        .button2{
 			background-color : #00AAFF;
 			color : white;
 			float: right;
-			border:3px solid white
-			
+			border:1px solid white;
+			width: 100px;
+			height: 30px;
+			cursor: pointer;
 		}
 		.input{
 			width: 370px;
@@ -57,6 +61,11 @@
 		th{
 			text-align: center;
 		}
+		input[type="text"]{
+			width: 440px;
+			height: 25px;
+		}
+		
     </style>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -150,7 +159,7 @@
 						<input type="hidden" id="address1" name="myaddr1" placeholder="주소를 입력하세요" readonly>
 						<span id="guide" style="color:#999;display:none"></span>
 						<input type="hidden" id="address2" name="myaddr2" size="45" placeholder="상세 주소를 입력하세요">
-						<input type="text" id="sample4_roadAddress" name="bizaddr" placeholder="사업장 주소를 작성해주세요" style="width: 290px">
+						<input type="text" id="sample4_roadAddress" name="bizaddr" placeholder="사업장 주소를 작성해주세요" style="width: 360px">
 						<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
 						<input type="hidden" class="input" id="zipcode" name="myzipcode" size="7" placeholder="우편번호" readonly required>&nbsp;&nbsp;
 						
@@ -169,7 +178,7 @@
                 <tr>
                     <th id="BIZ_CONTENT">기타</th>
                     <td>
-						<textarea cols="50" rows="10" name="bizcontent" style="resize: none;" placeholder="기타내용을 입력해주세요"></textarea>
+						<textarea cols="60" rows="10" name="bizcontent" style="resize: none;" placeholder="기타내용을 입력해주세요"></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -182,9 +191,8 @@
          
         
         	<div class = "button">
-					<input type="submit" value="사업자 등록" class="button1">	
-					<p>
-					<input type="button" value="취소" class="button2">
+        		<input type="button" value="취소" class="button2">
+				<input type="submit" value="사업자 등록" class="button1">	
 			</div>
 		</form>
         

@@ -114,11 +114,8 @@ function goBack(){
 </div>	
 </body>
 <script>
-
 	var uid = "${loginUser.userid}";
-	
 	console.log(uid);
-	
 	
 	if(uid==""){
 		alert("로그인 후 이용가능합니다."); history.back();

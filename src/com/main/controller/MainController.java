@@ -72,6 +72,7 @@ public class MainController extends HttpServlet {
 				jsResponse("회원 수정 실패","MainController?command=update",response);
 			}
 			
+			
 		}else if(command.equals("qna")) {
 			String qatype = request.getParameter("qatype");
 			
@@ -89,15 +90,10 @@ public class MainController extends HttpServlet {
 			
 		}else if(command.equals("selectone")) {
 			int qano = Integer.parseInt(request.getParameter("qano"));
-			//int userno = Integer.parseInt(request.getParameter("userno"));
-			
-			//UserDto loginUser = dao.selectOne(userno);
 			
 			QnaDto dto = udao.selectOne(qano);
 			
 			request.setAttribute("dto", dto);
-			//HttpSession session = request.getSession();
-			//session.setAttribute("loginUser",loginUser);
 			RequestDispatcher dis = request.getRequestDispatcher("question_board_selectone.jsp");
 			dis.forward(request, response);
 			
@@ -106,15 +102,9 @@ public class MainController extends HttpServlet {
 
 			List<QnaDto> getlist = udao.selectType(qatype);
 			
-			
-			
-			//JSONObject obj = new JSONObject();
-			
 			request.setAttribute("getlist", getlist);
 			RequestDispatcher disp = request.getRequestDispatcher("faq_qa_type.jsp");
 			disp.forward(request, response);
-			
-			
 			
 		}else if(command.equals("writeform")) {
 			response.sendRedirect("question_board_write.jsp");
@@ -126,22 +116,14 @@ public class MainController extends HttpServlet {
 			String qatitle = request.getParameter("title");
 			String qacontent = request.getParameter("content");
 			String qatype = request.getParameter("qa_type");
-			//String qafaq = request.getParameter("qa_faq");
-			//String qastatus = request.getParameter("qa_status");
-			//String photo = request.getParameter("photo");
-			
 			
 			QnaDto dto = new QnaDto();
-			
 			dto.setQagpsq(qagpsq);
 			dto.setUserid(qauserid);
 			dto.setUserno(qauserno);
 			dto.setQatitle(qatitle);
 			dto.setQacontent(qacontent);
 			dto.setQatype(qatype);
-			//dto.setQafaq(qafaq);
-			//dto.setQastatus(qastatus);
-			//dto.setQapic(photo);
 			
 			int res = udao.insert(dto);
 			if(res>0) {
@@ -162,15 +144,12 @@ public class MainController extends HttpServlet {
 			
 			String qatitle = request.getParameter("qatitle");
 			String qacontent = request.getParameter("qacontent");
-			//String photo = request.getParameter("photo");
 			
 			QnaDto dto = new QnaDto();
-			
 			
 			dto.setQatitle(qatitle);
 			dto.setQacontent(qacontent);
 			dto.setQano(qano);
-			//dto.setQapic(photo);
 			
 			int res = udao.update(dto);
 			 
@@ -185,7 +164,6 @@ public class MainController extends HttpServlet {
 			
 			int res = udao.delete(qano);
 			
-			// 성공 시 qna 페이지로 이동, 실패 시 상세페이지로 이동
 			if(res>0) {
 				dispatch("MainController?command=qna", request, response);
 			}else {
@@ -199,7 +177,6 @@ public class MainController extends HttpServlet {
 			
 			int res = rdao.delete(qareno);
 			
-			// 성공 시 qna 페이지로 이동, 실패 시 상세페이지로 이동
 			if(res>0) {
 				dispatch("MainController?command=qna", request, response);
 			}else {
@@ -227,11 +204,8 @@ public class MainController extends HttpServlet {
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			int titletab = Integer.parseInt(request.getParameter("titletab"));
-			//String photo = request.getParameter("photo");
-			
 			
 			ReplyDto rdto = new ReplyDto();
-			
 			rdto.setQano(qano);
 			rdto.setTitletab(titletab);
 			rdto.setRetitle(title);
@@ -240,11 +214,20 @@ public class MainController extends HttpServlet {
 			int res = rdao.insert(rdto);
 			
 			if(res>0) {
-				dispatch("MainController?command=qna",request,response);
+				
+				QnaDto dto = new QnaDto();
+				dto.setQano(qano);
+				
+				int res2 = udao.updatefaq(dto);
+				
+				if(res>0) {
+					dispatch("MainController?command=qna",request,response);
+				}else {
+					dispatch("MainController?command=answerform",request,response);
+				}
 			}else {
 				dispatch("MainController?command=answerform",request,response);
 			}
-			
 			
 		}else if(command.equals("answerupdate")) {
 			int qareno = Integer.parseInt(request.getParameter("qareno"));
@@ -253,8 +236,6 @@ public class MainController extends HttpServlet {
 			String content = request.getParameter("content");
 			
 			ReplyDto rdto = new ReplyDto();
-			
-			
 			rdto.setRetitle(title);
 			rdto.setContent(content);
 			rdto.setQareno(qareno);

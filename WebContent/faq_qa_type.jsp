@@ -167,7 +167,7 @@ function sort_by_price(){
 			<table class="faq_table" border="1">
 				<tr>
 					<th style="width:80px;">유형</th>	
-					<th style="width:400px;">자주 묻는 질문</th>
+					<th style="width:400px;">자주하는 질문</th>
 				</tr>	
 				<tr>
 				<%

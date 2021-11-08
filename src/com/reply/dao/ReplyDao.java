@@ -13,6 +13,7 @@ import com.reply.dto.ReplyDto;
 import common.JDBCTemplate;
 
 public class ReplyDao extends JDBCTemplate{
+	
 	public List<ReplyDto> selectAll(){
 		Connection con = getConnection();
 		PreparedStatement pstm = null;
@@ -33,7 +34,8 @@ public class ReplyDao extends JDBCTemplate{
 				dto.setQareno(rs.getInt(1));
 				dto.setQano(rs.getInt(2));
 				dto.setTitletab(rs.getInt(3));
-				dto.setContent(rs.getString(4));
+				dto.setRetitle(rs.getString(4));
+				dto.setContent(rs.getString(5));
 				
 				res.add(dto);
 			}
@@ -77,13 +79,16 @@ public class ReplyDao extends JDBCTemplate{
 				rdto.setContent(rs.getString(4));
 				rdto.setRetitle(rs.getString(5));
 				
+				
 				res.add(rdto);
 			}
 			
 		} catch (SQLException e) {
 			System.out.println("3/4 단계 에러");
 			e.printStackTrace();
+			
 		}finally {
+			close(rs);
 			close(pstm);
 			close(con);
 			System.out.println("05.db 종료\n");
@@ -111,8 +116,8 @@ public class ReplyDao extends JDBCTemplate{
 				res.setQareno(rs.getInt(1));
 				res.setQano(rs.getInt(2));
 				res.setTitletab(rs.getInt(3));
-				res.setRetitle(rs.getString(5));
 				res.setContent(rs.getString(4));
+				res.setRetitle(rs.getString(5));
 			}
 			
 		} catch (SQLException e) {

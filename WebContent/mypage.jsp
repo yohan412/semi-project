@@ -30,9 +30,12 @@
 	letter-spacing : 15px;
 }
 td input[type="text"], input[type="email"], input[type="tel"] {
-	width: 450px; height: 30px;
+	width: 480px; height: 30px;
     font-size: 0.8rem;
     border: 1px solid #d1d1d1;
+}
+td {
+	text-align : center;
 }
 </style>
 </head>
@@ -71,11 +74,10 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 				<table border="1" width="100%" height="100px">
 					<thead>
 						<tr>
-							<th>번호</th>
-							<th>작성자</th>
+							<th>게시글번호</th>
 							<th>제목</th>
-							<th>내용</th>
-							<th>날짜</th>
+							<th>카페고리</th>
+							<th>거래상태</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -83,10 +85,9 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 						<c:if test="${writer.userno eq loginUser.userno }">
 							<tr>
 								<td>${writer.usedno }</td>
-								<td>${writer.userid }</td>
-								<td><a href="used_list.jsp">${writer.usedtitle }</a></td>
-								<td>${writer.usedcontent }</td> 
-								<td>${writer.usedreg }</td>
+								<td><a href="usedcontroller?command=useddetail&usedno=${writer.usedno }">${writer.usedtitle }</a></td>
+								<td>${writer.usedcategory }</td>
+								<td>${writer.usedstatus }</td>
 							</tr>
 						</c:if>
 						</c:forEach>
@@ -102,22 +103,22 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 					<tr>
 						<th>게시글번호</th>
 						<th>유형</th>
-						<th>회원권 센터이름</th>
+						<th>회원권 및 센터이름</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${mywish }" var="wish">
 					<tr>
-						<td>${wish.title_no }</td>
+						<td>${wish.titleno }</td>
 						<td>${wish.type }</td>
-						<td><a href="usedcontroller?command=useddetail&usedno=${wish.title_no}">${wish.used_title }</a></td>
+						<td><a href="usedcontroller?command=useddetail&usedno=${wish.titleno}">${wish.usedtitle }</a></td>
 					</tr>
 					</c:forEach>
 					<c:forEach items="${centerwish }" var="centerwish">
 					<tr>
-						<td>${centerwish.title_no }</td>
+						<td>${centerwish.titleno }</td>
 						<td>${centerwish.type }</td>
-						<td><a href="CenterController?command=centerdetail&centerno=${centerwish.title_no}">${centerwish.used_title }</a></td>
+						<td><a href="CenterController?command=centerdetail&centerno=${centerwish.titleno}">${centerwish.usedtitle }</a></td>
 					</tr>
 					</c:forEach>
 				</tbody>

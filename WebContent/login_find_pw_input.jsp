@@ -343,6 +343,10 @@ select {
 				<button type="submit" id="button2">
 					<span>확인</span>
 				</button>
+				<br><br>
+				<button type="button" onclick="location.href='usercontroller?command=loginform'" id="button2">
+					<span>취소</span>
+				</button>
 			</div>
 		</form>
 

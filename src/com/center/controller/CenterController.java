@@ -84,13 +84,13 @@ public class CenterController extends HttpServlet {
 			
 			
 			// if(login_id != null && used_no != null) {
-			System.out.println(WishDto.getLogin_id());
+			System.out.println(WishDto.getLoginid());
 
 			// 1. WISH 테이블에 login_id & used_no 로 조회했을 때
 			// 데이터 O -> request.setAttribute("wish", 1);
 			// 데이터 X -> request.setAttribute("wish", 0);
 
-			if (WishDto.getLogin_id() != null) {
+			if (WishDto.getLoginid() != null) {
 				request.setAttribute("wish", 1);
 			} else {
 				request.setAttribute("wish", 0);

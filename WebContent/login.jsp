@@ -91,8 +91,8 @@ a{
 	margin-top: 20px;
 }
 
-.submit input{
-	width: 300px;
+.submit button{
+	width: 250px;
 	height: 40px;
 	border: 0;
 	background: grey;
@@ -150,7 +150,13 @@ footer{
 			</div>
 			
 			<div class="submit">
-			<input type="submit" value="로그인">
+			<button type="submit">
+				<span>로그인</span>
+			</button>
+			<br><br>
+			<button type="button" onclick="location.href='main.jsp'">
+				<span>취소</span>
+			</button>
 			</div>
 			
 		</div>

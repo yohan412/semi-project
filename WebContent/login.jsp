@@ -156,7 +156,7 @@ footer{
 				&nbsp;&nbsp;
 				<a href="usercontroller?command=findpwform">비밀번호 찾기</a>
 			</div>
-			
+			<br>
 			<div class="submit">
 			<button type="submit">
 				<span>로그인</span>

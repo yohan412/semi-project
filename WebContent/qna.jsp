@@ -211,7 +211,7 @@ function login_chk(){
 				
 
 <%
-	}
+	} 
 %>	
 
 			</table>

@@ -24,7 +24,7 @@
 					<div class="useStplatCn">
 						<ul>
 							<li>
-								<textarea id="useStplatCn2" cols="109" rows="17" class="agreement_contents" style="resize: none; font-size: 20px;">
+								<textarea id="useStplatCn" cols="100" rows="17" class="agreement_contents" style="resize: none; font-size: 15px;">
 								
 개인정보보호법 제22조 제4항에 의해 선택정보 사항에 대해서는 기재하지 않으셔도 서비스를 이용하실 수 있습니다.
 

@@ -24,7 +24,7 @@
 					<div class="useStplatCn">
 						<ul>
 							<li>
-								<textarea id="useStplatCn2" cols="109" rows="17" class="agreement_contents" style="resize: none; font-size: 20px;">
+								<textarea id="useStplatCn" cols="100" rows="17" class="agreement_contents" style="resize: none; font-size: 15px;">
 								
 제1조 (목적)
 본 약관은 회원(위치기반서비스 이용약관에 동의한 자를 말합니다. 이하 “회원”이라고 합니다)이 주식회사 아바티(이하 “회사”라고 합니다.)가 제공하는 위치기반서비스(이하 “서비스”라고 합니다)를 이용함에 있어 회사와 회원의 권리·의무 및 책임사항을 규정함을 목적으로 합니다.

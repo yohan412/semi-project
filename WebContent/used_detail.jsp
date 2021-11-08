@@ -176,6 +176,27 @@ input[type=button]{
 	display:inline-block;
 	width:600px;
 }
+
+.ask_contents{
+	display:inline-block;
+	width:200px;
+	overflow:hidden;
+	/*텍스트가 설정한 범위 넘을경우 ...로 표시*/
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+
+table{
+  border-collapse: collapse;
+}
+table tr{
+}
+table th{
+	border-bottom: 3px solid #036;
+}
+table tbody tr{
+	border-bottom: 1px solid #ccc;
+}
 </style>
 <script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cf6a0311e8ff428c0d13bd95e775d7f3&libraries=services"></script>
 <script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -356,7 +377,7 @@ input[type=button]{
 				+"<td>"
 				+(i+1)+"</td>"
 				+"<td>"+list[i].writer+"</td>"
-				+"<td align='left'><a onclick='ask_detail("+list[i].no+",\""+list[i].writer+"\")'>"+list[i].title+"</a></td>"
+				+"<td align='left'><span class='ask_contents'><a onclick='ask_detail("+list[i].no+",\""+list[i].writer+"\")'>"+list[i].title+"</a></span></td>"
 				+"<td>"+status+"</td>"
 				+"<td>"+list[i].reg+"</td>"
 				+"</tr>"		

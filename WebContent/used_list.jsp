@@ -93,6 +93,7 @@ input[type=button]{
 	border-radius: 25px;
 	min-width: 600px;
 	text-align:left;
+	box-sizing: border-box;
 }
 .used_brief > span{
 	margin-top:10px;
@@ -109,7 +110,9 @@ input[type=button]{
 #search_result{
 	color : blue;
 }
-
+tbody tr{
+	height:215px;
+}
 tfoot input{
 	margin-top:15px;
 	width: 85px;
@@ -139,7 +142,8 @@ tfoot input{
 .brief_category{
 	text-align:center;
 	font-weight:bold;
-	width:80px;
+	width:90px;
+	font-size:18px;
 	display:inline-block;
 }
 .brief_title{
@@ -490,7 +494,7 @@ a{
 	<hr>
 	<br><br>
 		<div id="search">
-            <img src="img/icon_search.png" width ="40px" height="40px" onclick="searchAddr()"><input type="text" name="address" placeholder="ex)서울시 성북구" style="width:40%;height:40px;font-size:16px;" onkeyup="if(window.event.keyCode==13){searchAddr()}">&nbsp;&nbsp;
+            <img src="img/icon_search.png" width ="40px" height="40px" onclick="searchAddr()"><input type="text" name="address" placeholder="ex)서울시 성북구" style="width:40%;height:37px;font-size:16px;" onkeyup="if(window.event.keyCode==13){searchAddr()}">&nbsp;&nbsp;
         	<div class="sorting_sub">
         	센터종류&nbsp; <select name="center_category" onchange="sort_by_category()">
         		<option value="all">전체</option>

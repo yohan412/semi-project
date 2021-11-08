@@ -510,11 +510,10 @@ tbody a {
 	height: 25px;
 	font-size:16px;
 }
-
 #centerboard_list img {
 	border-radius:10px;
-	width: 210px;
-	height: 210px;
+	width: 200px;
+	height: 200px;
 }
 
 .center_brief {
@@ -525,6 +524,7 @@ tbody a {
 	border-radius: 25px;
 	min-width: 600px;
 	text-align:left;
+	box-sizing: border-box;
 }
 .center_brief > span{
 	margin-top:10px;
@@ -597,7 +597,9 @@ input[type=checkbox]:checked+.check-icon {
 	line-height:0;
 	vertical-align:top;
 }
-
+tbody tr{
+	height:215px;
+}
 tfoot input{
 	margin-top:15px;
 	width: 85px;
@@ -632,7 +634,7 @@ tfoot input{
 		<div id="search">
 			<!-- 엔터치거나 검색버튼 클릭시 검색함수 -->
 			<img id="searchicon" alt="searchicon" src="img/icon_search.png"	width="40px" height="40px" onclick="movePosition();"> 
-			<input	type="text" name="address" placeholder="서울시 성북구"	onkeyup="if(window.event.keyCode==13){movePosition()}" style="width: 500px; height: 40px; font-size: 16px;">
+			<input	type="text" name="address" placeholder="서울시 성북구"	onkeyup="if(window.event.keyCode==13){movePosition()}" style="width: 500px; height: 37px; font-size: 16px;">
 			<div class="sorting_sub">
 				센터종류&nbsp; <select name="center_category" onchange="sort_by_category()">
 					<option value="all">전체</option>

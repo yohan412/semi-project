@@ -131,12 +131,12 @@
 			$("tbody").append(
 				"<tr><td>"
 				+"<div class='review_content'>"
-				+"<span class='review_writer'>&nbsp;&nbsp; 작성자 : "+list[i].writer+"</span></a>"+"<br><hr>"
+				+"<span class='review_writer'>&nbsp;&nbsp; <b>작성자 :</b> "+list[i].writer+"</span></a>"+"<br><hr>"
 				+"<span class='review_grade'>&nbsp;&nbsp; " 
-				+"평점 : <span class='star-rating'><span style='width:"+(list[i].grade*20)+"%'></span>"
+				+"<b>평점 :</b> <span class='star-rating'><span style='width:"+(list[i].grade*20)+"%'></span>"
                 +"</span> ("+list[i].grade+")</span>"+"<br>"
-				+"<span class='review_contents'>&nbsp;&nbsp; 내용 : <a href='#' onclick='reviewdetail_chk("+list[i].no+")'>"+list[i].content+"</a></span>"+"<br>"
-				+"<span class='review_reg'>&nbsp;&nbsp; 등록일 : "+list[i].reg+"</span>"+"<br>"
+				+"<span class='review_contents'>&nbsp;&nbsp; <b>내용 :</b> <a href='#' onclick='reviewdetail_chk("+list[i].no+")'>"+list[i].content+"</a></span>"+"<br>"
+				+"<span class='review_reg'>&nbsp;&nbsp; <b>등록일 :</b> "+list[i].reg+"</span>"+"<br>"
 				+"</div></td>"
 				+"</tr>"		
 			);
@@ -227,7 +227,7 @@
 		} else{
 			var popupX = window.screen.width/2;
 			var popupY = window.screen.height/2;
-			var option="top="+popupY+",left="+popupX+",width=515,height=650, status=no,menubar=no,toolbar=no,resizable=no";
+			var option="top=300,left=200,width=510px ,height=615px , status=no,menubar=no,toolbar=no,resizable=no";
 			window.open('CenterController?command=review_detail&loginid=${loginUser.userid}&reviewno='+no,"리뷰 상세보기",option);
 		}
 	}

@@ -20,7 +20,7 @@
 }
 
 h1{
-	text-align:center;
+	text-align:left;
 }
 #wrap{
 	width:80%;
@@ -32,6 +32,8 @@ h1{
 	align-items: center;
 	font-size: 15px;
 	font-weight: bold;
+	padding:10px;
+	background:#9EB9CE;
 }
 .sorting_sub{
 	width:180px;
@@ -39,8 +41,8 @@ h1{
 	text-align:center;
 }
 #search select {
-	width: 100px;
-	height: 20px;
+	height: 25px;
+	font-size:16px;
 }
 #usedboard_list img{
 	border-radius: 30%;
@@ -481,12 +483,14 @@ a{
 </head>
 <body>
 	<header><%@ include file="./form/header.jsp" %></header>
+	
+	<div id="wrap">
+	<br>
 	<h1>중고거래 게시판</h1>
 	<hr>
 	<br><br>
-	<div id="wrap">
 		<div id="search">
-            <img src="img/icon_search.png" width ="40px" height="40px" onclick="searchAddr()"><input type="text" name="address" placeholder="ex)서울시 성북구" style="width:40%;height:40px;font-size:12px;" onkeyup="if(window.event.keyCode==13){searchAddr()}">&nbsp;&nbsp;
+            <img src="img/icon_search.png" width ="40px" height="40px" onclick="searchAddr()"><input type="text" name="address" placeholder="ex)서울시 성북구" style="width:40%;height:40px;font-size:16px;" onkeyup="if(window.event.keyCode==13){searchAddr()}">&nbsp;&nbsp;
         	<div class="sorting_sub">
         	센터종류&nbsp; <select name="center_category" onchange="sort_by_category()">
         		<option value="all">전체</option>

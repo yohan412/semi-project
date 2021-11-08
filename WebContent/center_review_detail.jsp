@@ -14,12 +14,12 @@
 	padding: 0px;
 }
 #title{
-	width:100%;
+	width:465px;
 	margin-top:30px;
 	padding:25px;
 }
 .wrap{
-	width: 100%;
+	width:515px;
 	height: 500px;
 	display: flex;
 	align-items: center;

@@ -462,9 +462,6 @@ response.setContentType("text/html; charset=UTF-8");
     font-weight: normal;
     font-style: normal;
 }
-h1 {
-	text-align: center;
-}
 tbody a {
 	text-decoration: none;
 	color:black;
@@ -476,15 +473,19 @@ tbody a {
 }
 
 #map {
-	width: 600px;
-	height: 300px;
+	width: 700px;
+	height: 400px;
 	display: inline-block;
+	
+	border-radius: 20px;
 }
 
 #search {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	padding:10px;
+	background:#9EB9CE;
 }
 
 #searchicon {
@@ -502,11 +503,12 @@ tbody a {
 .sorting_sub {
 	width: 180px;
 	height: 30px;
+	font-weight:bold;
 }
 
-#sorting select {
-	width: 100px;
-	height: 20px;
+#search select {
+	height: 25px;
+	font-size:16px;
 }
 
 #centerboard_list img {
@@ -608,6 +610,9 @@ tfoot input{
 .brief_distance{
 	color:blue;
 }
+#title{
+	text-align:left;
+}
 </style>
 
 </head>
@@ -615,19 +620,19 @@ tfoot input{
 	<header>
 		<%@ include file="./form/header.jsp"%>
 	</header>
-	<h1>내 주변 센터 목록</h1>
+	
+	<div id="wrap">
+		<div id="title">
+		<br><br>
+			<h1 >내 주변 센터 목록</h1>
+		</div>
 	<hr>
 	<br>
-	<div id="wrap">
-		<div id="map"></div>
-		<br><br><br>
+		<br><br>
 		<div id="search">
 			<!-- 엔터치거나 검색버튼 클릭시 검색함수 -->
-			<img id="searchicon" alt="searchicon" src="img/icon_search.png"	width="60px" height="60px" onclick="movePosition();"> 
-			<input	type="text" name="address" placeholder="서울시 성북구"	onkeyup="if(window.event.keyCode==13){movePosition()}" style="width: 500px; height: 60px; font-size: 15px;">
-		</div>
-		<br>
-		<div id="sorting">
+			<img id="searchicon" alt="searchicon" src="img/icon_search.png"	width="40px" height="40px" onclick="movePosition();"> 
+			<input	type="text" name="address" placeholder="서울시 성북구"	onkeyup="if(window.event.keyCode==13){movePosition()}" style="width: 500px; height: 40px; font-size: 16px;">
 			<div class="sorting_sub">
 				센터종류&nbsp; <select name="center_category" onchange="sort_by_category()">
 					<option value="all">전체</option>
@@ -651,6 +656,10 @@ tfoot input{
 				</select>
 			</div>
 		</div>
+		<br><br>
+		<div id="map"></div>
+		<br>
+		<br>
 		<br>
 		<div id="search_result"></div>
 		<br>

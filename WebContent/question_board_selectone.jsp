@@ -19,6 +19,8 @@
 	QnaDao dao = new QnaDao();
 	QnaDto dto = dao.selectOne(qano);
 	
+	System.out.println(dto.getUserid());
+	
 %>
 
 <!DOCTYPE html>
@@ -26,6 +28,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style type="text/css">
 	table{
 		text-align: center;
@@ -111,24 +114,26 @@
 </div>		
 </body>
 <script>
-
-	//$(document).ready(function() {
-	//	if(${loginUser} == null){
-	//		alert("111");
-	//	}else{
-	//		alert("222");
-	//	}
-	//});
-	
 	var uid = "${loginUser.userid}";
-		
+	var qid = "<%=dto.getUserid()%>";
 	console.log(uid);
-	
+	console.log(qid);
 	
 	if(uid==""){
 		alert("로그인 후 이용가능합니다."); location.href="login.jsp";
+		
+		exit;
 	}	
 	
+	if(uid=="USER7" || uid==qid){
+		if(uid=="USER7"){
+			$('#submit').hide();
+		}
+	}else{
+		alert("게시글 조회 권한이 없습니다."); location.href="login.jsp";
+		
+		exit;
+	}
 	
 	function del_btn(qano){
 		if (confirm("삭제하시겠습니까?") == true){    //확인
@@ -137,7 +142,5 @@
 		    return;
 		}
 	}
-	
-	
 </script>
 </html>

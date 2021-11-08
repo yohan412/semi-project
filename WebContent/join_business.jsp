@@ -37,23 +37,15 @@
         #title{
             background-color:white;
         }
-        .button1{
-			background-color : #00AAFF;
+        .button input{
+			background-color:rgb(75, 161, 231);
 			color : white;
 			float : right;
 			border:1px solid white;
-			width: 100px;
+			width: 90px;
 			height: 30px;
 			cursor: pointer;
-		}
-        .button2{
-			background-color : #00AAFF;
-			color : white;
-			float: right;
-			border:1px solid white;
-			width: 100px;
-			height: 30px;
-			cursor: pointer;
+			padding-right: 10px;
 		}
 		.input{
 			width: 370px;
@@ -61,8 +53,8 @@
 		th{
 			text-align: center;
 		}
-		input[type="text"]{
-			width: 440px;
+		#table input[type="text"]{
+			width: 510px;
 			height: 25px;
 		}
 		
@@ -139,11 +131,11 @@
         <br>
         
          <form action="usercontroller?command=join_biz&userno=${dto.userno }" method="post" enctype="multipart/form-data">
-            <table>
+            <table id="table">
                 <tr>
                     <th id="USER_NAME">사업자명</th>
                     <td>
-						<input type="text" class="input" name="usernm" id="USER_NAME" value="${ dto.username }">
+						<input type="text" class="input" name="usernm" id="USER_NAME" placeholder="사업자명을 작성해주세요" value="${ dto.username }">
 					</td>
                 </tr>
                 <tr>
@@ -159,7 +151,7 @@
 						<input type="hidden" id="address1" name="myaddr1" placeholder="주소를 입력하세요" readonly>
 						<span id="guide" style="color:#999;display:none"></span>
 						<input type="hidden" id="address2" name="myaddr2" size="45" placeholder="상세 주소를 입력하세요">
-						<input type="text" id="sample4_roadAddress" name="bizaddr" placeholder="사업장 주소를 작성해주세요" style="width: 360px">
+						<input type="text" id="sample4_roadAddress" name="bizaddr" placeholder="사업장 주소를 작성해주세요" style="width: 430px">
 						<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
 						<input type="hidden" class="input" id="zipcode" name="myzipcode" size="7" placeholder="우편번호" readonly required>&nbsp;&nbsp;
 						
@@ -178,7 +170,7 @@
                 <tr>
                     <th id="BIZ_CONTENT">기타</th>
                     <td>
-						<textarea cols="60" rows="10" name="bizcontent" style="resize: none;" placeholder="기타내용을 입력해주세요"></textarea>
+						<textarea cols="70" rows="10" name="bizcontent" style="resize: none;" placeholder="기타내용을 입력해주세요"></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -190,7 +182,7 @@
              </table>
          
         
-        	<div class = "button">
+        	<div class = "button" style="width: 97%;">
         		<input type="button" value="취소" class="button2">
 				<input type="submit" value="사업자 등록" class="button1">	
 			</div>

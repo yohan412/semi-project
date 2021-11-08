@@ -4,8 +4,8 @@ public class ReplyDto {
 	private int qareno;
 	private int qano;
 	private int titletab;
-	private String retitle;
 	private String content;
+	private String retitle;
 	
 	public ReplyDto() {
 		super();
@@ -61,6 +61,7 @@ public class ReplyDto {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	
 	
 }

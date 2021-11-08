@@ -17,6 +17,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">	
+	h1{
+		background-color:#9EB9CE;
+		border-radius: 10px;
+	}
+	.tabs li a:hover{
+    color: #9EB9CE;
+    }
+    .qna td a:hover{
+     color: #9EB9CE;
+    }
 	.tabs{
 		list-style-type:none;
 		height : 30px;
@@ -119,14 +129,13 @@ function login_chk(){
 	
 %>
 <body>
-
-	<header><%@ include file="form/header.jsp" %></header>
-	<br>
-	<input type="hidden" id="session_id" value="${loginUser.userid}">
+<header><%@ include file="form/header.jsp" %></header>
+<br>
+<input type="hidden" id="session_id" value="${loginUser.userid}">
 	<div class="qna">
 		<div class="faq">
-		<h3 align="center">F A Q</h3>
-			<div name="qna_category" id="tab_container" style="width:97%; padding:10px 10px 10px 10px;">
+		<h1 align="center">F A Q</h1>
+			<div name="qna_category" id="tab_container" style="width:97%; padding:5px 5px 5px 5px;">
 				<ul class="tabs">
 				<!-- 탭 메뉴 영역 -->
 					<li><a href="MainController?command=qna">전체</a></li>
@@ -160,12 +169,9 @@ function login_chk(){
 				<%
 					for(int i = 0; i<faqlist.size(); i++){
 				%>				
-
 				<tr>
-					<c:if test="${userid eq QnaDto.userid }">
 						<td><%=faqlist.get(i).getQatype()%></td>
 						<td><a href="question_board_selectone.jsp?qano=<%=faqlist.get(i).getQano()%>" onclick="user_Chk();"><%=faqlist.get(i).getQatitle() %></a></td>
-					</c:if>
 				</tr>
 
 				<%
@@ -174,54 +180,52 @@ function login_chk(){
 			</table>
 		</div>
 		
+		
+		
 		<br><br><br><br>
 		
-		<div class="qna_list">
-		<h3 align="center">Q & A</h3>
+		
+		
+	<div class="qna_list">
+		<h1 align="center">Q & A</h1>
 			<table class="qna_table" border="1">
 				<tr>
 					<th style="width:50px;">NO.</th>
 					<th>제목</th>
-					<th style="width:70px;">답변여부</th>
+					<th style="width:80px;">답변 여부</th>
 				</tr>
 <%
 	for(int i = 0; i<list.size(); i++){
 %>				
-
 				<tr>
 					<td><%=list.get(i).getQano() %></td>
-					<td><a href="question_board_selectone.jsp?qano=<%=list.get(i).getQano()%>&userid=<%=list.get(i).getUserid() %>&seid=${loginUser.userid}"><%=list.get(i).getQatitle() %></a></td>
+					<td align="left"><a href="question_board_selectone.jsp?qano=<%=list.get(i).getQano()%>&userid=<%=list.get(i).getUserid() %>&seid=${loginUser.userid}"><%=list.get(i).getQatitle() %></a></td>
 					<td><%=list.get(i).getQastatus() %></td>
 				</tr>
 <%
-
 	List<ReplyDto> relist = rdao.reList(list.get(i).getQano());
 	for(int j = 0; j<relist.size(); j++){
 		System.out.print(relist.get(j).getRetitle());
-		
 %>
 				<tr>
 					<td>└</td>
-					<td><a href="question_board_answerwrite.jsp?qareno=<%=relist.get(j).getQareno()%>&qano=<%=list.get(i).getQano()%>&userid=<%=list.get(i).getUserid() %>&seid=${loginUser.userid}"><%=relist.get(j).getRetitle() %></a></td>
+					<td align="left"><a href="question_board_answerwrite.jsp?qareno=<%=relist.get(j).getQareno()%>&qano=<%=list.get(i).getQano()%>&userid=<%=list.get(i).getUserid() %>&seid=${loginUser.userid}"><%=relist.get(j).getRetitle() %></a></td>
 					<td>-</td>
 				</tr>
 <%
 	}
 %>
-				
-
 <%
 	} 
 %>	
-
 			</table>
 			<div style="text-align: right; width: 500px; display: inline-block;">
 				<input type="button" value="1 : 1 문의" class="qna_button" onclick="login_chk();">
 			</div>
 			<br>
-		</div>
 	</div>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<footer><%@ include file="form/footer.jsp" %></footer>
+</div>
+<br><br><br><br><br><br><br>
+<footer><%@ include file="form/footer.jsp" %></footer>
 </body>
 </html>

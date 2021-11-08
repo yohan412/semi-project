@@ -16,6 +16,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">	
+	h1{
+		background-color:#9EB9CE;
+		border-radius: 10px;
+	}
+	.tabs li a:hover{
+    color: #9EB9CE;
+    }
+    .qna td a:hover{
+     color: #9EB9CE;
+    }
 	.tabs{
 		list-style-type:none;
 		height : 30px;
@@ -144,7 +154,7 @@ function sort_by_price(){
 	<input type="hidden" name="qatype" value="<%=dto.getQatype()%>">
 	<div class="qna">
 		<div class="faq">
-		<h3 align="center">F A Q</h3>
+		<h1 align="center">F A Q</h1>
 
 			<div id="category" style="width:97%; padding:10px 10px 10px 10px;">
 				<ul class="tabs">
@@ -167,7 +177,7 @@ function sort_by_price(){
 			<table class="faq_table" border="1">
 				<tr>
 					<th style="width:80px;">유형</th>	
-					<th style="width:400px;">자주 묻는 질문</th>
+					<th style="width:400px;">자주하는 질문</th>
 				</tr>	
 				<tr>
 				<%

@@ -19,6 +19,8 @@
 	QnaDao dao = new QnaDao();
 	QnaDto dto = dao.selectOne(qano);
 	
+	System.out.println(dto.getUserid());
+	
 %>
 
 <!DOCTYPE html>
@@ -111,24 +113,24 @@
 </div>		
 </body>
 <script>
-
-	//$(document).ready(function() {
-	//	if(${loginUser} == null){
-	//		alert("111");
-	//	}else{
-	//		alert("222");
-	//	}
-	//});
-	
 	var uid = "${loginUser.userid}";
-		
+	var qid = "<%=dto.getUserid()%>";
 	console.log(uid);
-	
+	console.log(qid);
 	
 	if(uid==""){
 		alert("로그인 후 이용가능합니다."); location.href="login.jsp";
+		
+		exit;
 	}	
 	
+	if(uid=="USER7" || uid==qid){
+		
+	}else{
+		alert("관리자가 아닙니다."); location.href="login.jsp";
+		
+		exit;
+	}
 	
 	function del_btn(qano){
 		if (confirm("삭제하시겠습니까?") == true){    //확인
@@ -137,7 +139,5 @@
 		    return;
 		}
 	}
-	
-	
 </script>
 </html>

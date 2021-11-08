@@ -28,12 +28,13 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	background: #DCDCDC;
+	background: #cdd0dd;
 	width: 800px;
 }
 .headline{
 	margin: 15px;
-	width: 700px;
+	width: 650px;
+	text-align:left;
 }
 .title span{
 	font-weight: bold;
@@ -48,7 +49,7 @@
 .content{
 	width: 700px;
 	background: white;
-	margin: 20px;
+	margin: 50px;
 	text-align: center;
 }
 #map{
@@ -126,7 +127,10 @@ input.button-add {
     width :24px;
     height : 24px;
 }
-
+.headline hr{
+	height:3px;
+	background-color:#036;
+}
 /*찜 버튼 구현 끝*/
 #numbers{
 	list-style: none;
@@ -172,9 +176,11 @@ input[type=button]{
 }
 #title{
 	display:inline-block;
-	width:550px;
+	width:500px;
 }
-
+.write_info{
+	padding-left:10px;
+}
 .ask_contents{
 	display:inline-block;
 	width:230px;
@@ -533,6 +539,9 @@ table{
 	<br><br><br><br>
 	<div class="wrap">
 		<div class="used_detail">
+			
+			
+			<div class="content">
 			<div class="headline">
 				<div class="title">
 					<span id="category">[${usedDto.usedcategory}]</span>
@@ -554,8 +563,6 @@ table{
 				</div>
 				<br><hr>
 			</div>
-			
-			<div class="content">
 				<div id="map">					
 				</div>		
 						

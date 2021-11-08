@@ -34,7 +34,7 @@ response.setContentType("text/html; charset=UTF-8");
 		var container = document.getElementById('map'); //지도를 표시할 div
 		var options = {
 			center : new kakao.maps.LatLng(37.498095, 127.027610), //지도의 중심 좌표
-			level : 5
+			level : 6
 		//지도 확대 레벨
 		};
 
@@ -126,6 +126,7 @@ response.setContentType("text/html; charset=UTF-8");
 						map : map,
 						position : coords
 					});
+					map.setLevel(4);
 					//마크 클러스트에 마커 추가
 					clusterer.addMarker(marker);
 
@@ -280,7 +281,7 @@ response.setContentType("text/html; charset=UTF-8");
 					makeCenterList(nearCenterlist,true);
 					
 					$("#search_result").empty();
-					$("#search_result").append("총 "+nearCenterlist.length+"개의 검색 결과가 있습니다.")
+					$("#search_result").append("1.5km 반경내의 센터, 총 "+nearCenterlist.length+"개의 검색되었습니다.")
 				},
 				error : function(e) {
 					console.log(e);

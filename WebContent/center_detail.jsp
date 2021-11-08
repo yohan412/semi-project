@@ -127,7 +127,14 @@
 		
 		//list에 들어있는 center 정보 추가
 		for(var i = 0 ; i < list.length ; i++){
-			
+			var review_con;
+			if(list[i].content.length > 15){
+				review_con=list[i].content.substr(0,15);
+				review_con=review_con+"...";
+			}else{
+				review_con=list[i].content;
+			}
+				
 			$("tbody").append(
 				"<tr><td>"
 				+"<div class='review_content'>"
@@ -135,7 +142,7 @@
 				+"<span class='review_grade'>&nbsp;&nbsp; " 
 				+"<b>평점 :</b> <span class='star-rating'><span style='width:"+(list[i].grade*20)+"%'></span>"
                 +"</span> ("+list[i].grade+")</span>"+"<br>"
-				+"<span class='review_contents'>&nbsp;&nbsp; <b>내용 :</b> <a href='#' onclick='reviewdetail_chk("+list[i].no+")'>"+list[i].content+"</a></span>"+"<br>"
+				+"<span class='review_contents'>&nbsp;&nbsp; <b>내용 :</b> <a href='#' onclick='reviewdetail_chk("+list[i].no+")'>"+review_con+"</a></span>"+"<br>"
 				+"<span class='review_reg'>&nbsp;&nbsp; <b>등록일 :</b> "+list[i].reg+"</span>"+"<br>"
 				+"</div></td>"
 				+"</tr>"		
@@ -448,14 +455,7 @@ hr{
 #numbers li a.active {
 	color:blue;
 }
-.review_contents{
-	display:inline-block;
-	width:400px;
-	overflow:hidden;
-	/*텍스트가 설정한 범위 넘을경우 ...로 표시*/
-	text-overflow:ellipsis;
-	white-space:nowrap;
-}
+
 .ip_button{
 	margin-top:10px;
 	margin-left:10px;

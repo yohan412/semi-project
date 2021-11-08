@@ -17,25 +17,23 @@
 }
 	
 .wrap{
-	width: 100%;
-	height: 1000px;
 	display: flex;
+	flex-direction:column;
 	align-items: center;
-	justify-content: center;
-	margin: 0 0 100px 0;
+	width: 80%;
+	margin: 0 auto;
 }
 .used_detail{
 	display: flex;
-	position: absolute;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	background: rgb(234, 234, 234);
+	background: #DCDCDC;
 	width: 800px;
 }
 .headline{
 	margin: 15px;
-	width: 750px;
+	width: 700px;
 }
 .title span{
 	font-weight: bold;
@@ -49,7 +47,6 @@
 }
 .content{
 	width: 700px;
-	height: 850px;
 	background: white;
 	margin: 20px;
 	text-align: center;
@@ -63,7 +60,7 @@
 .pic{
 	display:inline-block;
 	margin-top: 40px;
-	width:500px;
+	width:600px;
 	text-align:left;
 }
 .pic img{
@@ -73,13 +70,13 @@
 .content_info,.ask_list{
 	display:inline-block;
 	margin-top: 40px;
-	width:500px;
+	width:600px;
 }
 .content_info p{
 	text-align: left;
 }
 .regist{
-	margin-top: 1100px;
+	
 }
 .regist input, .status input{
 	width: 85px;
@@ -171,15 +168,16 @@ input[type=button]{
 #category{
 	display:inline-block;
 	width:100px;
+	text-align:center;	
 }
 #title{
 	display:inline-block;
-	width:600px;
+	width:550px;
 }
 
 .ask_contents{
 	display:inline-block;
-	width:200px;
+	width:230px;
 	overflow:hidden;
 	/*텍스트가 설정한 범위 넘을경우 ...로 표시*/
 	text-overflow:ellipsis;
@@ -189,13 +187,32 @@ input[type=button]{
 table{
   border-collapse: collapse;
 }
-table tr{
+.ask_list table tr{
 }
-table th{
+.ask_list table th{
 	border-bottom: 3px solid #036;
 }
-table tbody tr{
+.ask_list table tbody tr{
 	border-bottom: 1px solid #ccc;
+}
+.content table{
+	border-collapse: separate;
+	border-spacing: 0 20px;
+}
+.content_info table th{
+	border-right: 3px solid #036;
+}
+.content_info tr{
+	line-height:30px;
+}
+.content_info td{
+	text-align:left;
+	padding-left:20px;
+}
+
+.regist input[type=button], .status input[type=button]{
+	margin-top:30px;
+	margin-bottom:30px;
 }
 </style>
 <script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cf6a0311e8ff428c0d13bd95e775d7f3&libraries=services"></script>
@@ -357,7 +374,7 @@ table tbody tr{
 	//table에 리스트 요소를 만드는 함수
 	function makeBoardList(list,reset_bl){
 		//tbody의 자식 요소 초기화
-		$("tbody").empty();
+		$(".ask_list tbody").empty();
 		
 		//boardlist 초기화 여부 판단
 		if(reset_bl){
@@ -372,7 +389,7 @@ table tbody tr{
 			} else{
 				status="답변완료";
 			}
-			$("tbody").append(
+			$(".ask_list tbody").append(
 				"<tr>"
 				+"<td>"
 				+(i+1)+"</td>"
@@ -495,7 +512,7 @@ table tbody tr{
 <body>
 
 	<header><%@ include file="form\header.jsp" %></header>
-	
+	<br><br><br><br>
 	<div class="wrap">
 		<div class="used_detail">
 			<div class="headline">
@@ -521,13 +538,30 @@ table tbody tr{
 				</div>		
 						
 				<div class="content_info">
-					<p>가격:${usedDto.usedprice}</p>
-					<p id ="center_nm">사업장명:${usedDto.usedcenternm}</p>
-					<p>주소:${usedDto.usedaddr}</p>
-					<p>관련 정보:${usedDto.usedcontent}</p>
+					<table width="100%">
+						<col width="20%">
+						<col width="80%">
+						<tr>
+							<th>가격</th>
+							<td>${usedDto.usedprice}</td>
+						</tr>
+						<tr>
+							<th>사업자명</th>
+							<td>${usedDto.usedcenternm}</td>
+						</tr>
+						<tr>
+							<th>주소</th>
+							<td>${usedDto.usedaddr}</td>
+						</tr>
+						<tr>
+							<th>상세정보</th>
+							<td>${usedDto.usedcontent}</td>
+						</tr>
+					</table>
 				</div>
 				
 				<div class="pic">
+					<h3 align="left">이미지</h3><br>
 					<img src="./img/no_photo.png">
 				</div>
 				

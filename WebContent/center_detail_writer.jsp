@@ -159,11 +159,13 @@ h1, p{
 	margin-left:5%;
 	justify-content:center;
 	align-items: center;
+	margin-bottom:25px;
 }
 .cont_head{
 	min-width:200px;
 	height:50px;
 	width:20%;
+	border-right: 3px solid #036;
 }
 .cont_info{
 	width:80%;
@@ -197,13 +199,24 @@ textarea{
 	width:100%;
 	resize:none;
 }
+table{
+	border-collapse: separate;
+	border-spacing: 0 20px;
+}
+table th{
+	border-right: 3px solid #036;
+}
+table td{
+	padding-left:20px;
+}
 </style>
 </head>
 <body>
 <header><%@ include file = "./form/header.jsp" %></header>
 	<div id="main">
-		<h1 align="center">센터 등록</h1>
-		<hr>
+		<br><br>
+		<h1 align="left">센터 등록</h1><br>
+		<hr><br>
 		<form action="CenterController?command=centerdetail_writer" method="post" enctype="multipart/form-data"> 
 			<input type="hidden" name="userid" value="${loginUser.userid}">     
 	            <div class="text_cont">
@@ -219,10 +232,7 @@ textarea{
 	                    <div class="cont_head">
 	                        <h3 id="a">센터위치</h3>
 	                    </div>
-	                    <div class="cont_button">
-							<input type="hidden" id="zipcode" name="myzipcode" size="7" placeholder="우편번호" readonly>&nbsp;&nbsp;
-							<input type="button" id="zip_chk" value="주소 검색" onclick="zipChk()">
-						</div>
+	   
 	                    <div class="cont_info">
 	                    	<input type="hidden" id="address1" name="myaddr1" placeholder="주소를 입력하세요" readonly>
 							<span id="guide" style="color:#999;display:none"></span>
@@ -230,6 +240,10 @@ textarea{
 	                    	<input type="text" name="centeraddr" id="sample4_roadAddress" readonly onclick="zipChk()">
 	                    	<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
 	                    </div>
+	                    <div class="cont_button">
+							<input type="hidden" id="zipcode" name="myzipcode" size="7" placeholder="우편번호" readonly>&nbsp;&nbsp;
+							<input type="button" id="zip_chk" value="주소 검색" onclick="zipChk()">
+						</div>
 	                </div>
 	                <div class="cont">
 	                    <div class="cont_head">

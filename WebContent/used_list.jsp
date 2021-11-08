@@ -489,7 +489,7 @@ a{
 	<header><%@ include file="./form/header.jsp" %></header>
 	
 	<div id="wrap">
-	<br>
+	<br><br>
 	<h1>중고거래 게시판</h1>
 	<hr>
 	<br><br>

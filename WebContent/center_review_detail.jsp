@@ -15,12 +15,12 @@
 }
 #title{
 	width:465px;
-	margin-top:30px;
 	padding:25px;
+	box-sizing: border-box;
 }
 .wrap{
-	width:515px;
-	height: 500px;
+	width:510px;
+	height: 475px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -30,6 +30,7 @@
 	border: 2px solid rgb(93, 93, 93);
 	padding: 20px;
 	border-radius: 10px;
+	box-sizing: border-box;
 }
 .headline a{
 	align-items: left;

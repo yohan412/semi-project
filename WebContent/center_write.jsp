@@ -107,6 +107,10 @@
 header, section, article, aside, main, nav, footer{
     display: block;
 }
+#title hr{
+	height:3px;
+	background-color:#036;
+}
 h1, p{
     margin: 0;
 }
@@ -167,9 +171,20 @@ h1, p{
 	width:20%;
 	border-right: 3px solid #036;
 }
+.cont_head2{
+	min-width:200px;
+	height:50px;
+	width:20%;
+}
 .cont_info{
 	width:80%;
 	padding:8px;
+}
+
+.cont_info2{
+	width:80%;
+	padding:8px;
+	border-left: 3px solid #036;
 }
 .cont_button{
 	align-self: center;
@@ -209,14 +224,28 @@ table th{
 table td{
 	padding-left:20px;
 }
+.ip_button{
+	margin-top:10px;
+	margin-left:10px;
+	background: rgb(00,68,137);
+	font-weight:bold;
+	color : white;
+	width:80px;
+	height:30px;
+	border-radius: 5px;
+	cursor:pointer;
+	outline:none;
+	box-shadow:none;
+	border:none;
+}
 </style>
 </head>
 <body>
 <header><%@ include file = "./form/header.jsp" %></header>
 	<div id="main">
-		<br><br>
-		<h1 align="left">센터 등록</h1><br>
-		<hr><br>
+		<div id="title"><br><br>
+		<h1 align="left">센터 등록</h1><br><hr>
+		</div><br>
 		<form action="CenterController?command=centerdetail_writer" method="post" enctype="multipart/form-data"> 
 			<input type="hidden" name="userid" value="${loginUser.userid}">     
 	            <div class="text_cont">
@@ -266,34 +295,34 @@ table td{
 	                    </div>
 	                </div>
 	                <div class="cont">
-	                    <div class="cont_head">
+	                    <div class="cont_head2">
 	                        <h3 id="a">센터소개</h3>
 	                    </div>
-	                    <div class="cont_info">
+	                    <div class="cont_info2">
 	                    	<textarea rows="10" name="centerintro"></textarea>
 	                    </div>
 	                </div>
 	                <div class="cont">
-	                	<div class="cont_head">
+	                	<div class="cont_head2">
 	                		<h3 id="b">이용정보</h3>
 	                	</div>
-	                    <div class="cont_info">
+	                    <div class="cont_info2">
 	                    	<textarea rows="10" name="centercontent"></textarea>
 	                    </div>
 	                </div>
 	                <div class="cont">
-	                	<div class="cont_head">
+	                	<div class="cont_head2">
 	                		<h3 id="c">운영시간</h3>
 	                	</div>
-	                    <div class="cont_info">
+	                    <div class="cont_info2">
 	                    	<textarea rows="10" name="centerophour"></textarea>
 	                    </div>
 	                </div>
 	                <div class="cont">
-	                	<div class="cont_head">
+	                	<div class="cont_head2">
 	                		<h3 id="d">프로그램</h3>
 	                	</div>
-	                    <div class="cont_info">
+	                    <div class="cont_info2">
 	                    	<textarea rows="10" name="centerpro"></textarea>
 	                    </div>
 	                </div>
@@ -311,9 +340,9 @@ table td{
 	                </div>
 	            	</div>
 	            </div>
-	            <div class="submit_btn" align="right">
-	            	<input type="submit" value="등록">	
-					<input type="button" value="취소" onclick="location.href='CenterController?command=centerlist'">
+	            <div class="submit_btn" align="center">
+	            	<input class="ip_button" type="submit" value="등록">	
+					<input class="ip_button" type="button" value="취소" onclick="location.href='CenterController?command=centerlist'">
 	       		</div>
       	</form>
 	</div>

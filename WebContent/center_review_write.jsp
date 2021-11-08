@@ -79,12 +79,13 @@
 #submit{
 	background: rgb(75, 161, 231);
 	color: white;
-
+	cursor:pointer;
 }
 
 #close{
 	background: grey;
 	color: white;
+	cursor:pointer;
 }
 
 #textarea_review{

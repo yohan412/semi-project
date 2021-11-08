@@ -140,7 +140,7 @@ public class CenterController extends HttpServlet {
 			}
 	
 		}else if(command.equals("centerwriteform")){
-			response.sendRedirect("center_detail_writer.jsp");
+			response.sendRedirect("center_write.jsp");
 		}
 		else if(command.equals("centerdetail_writer")) {			
 			

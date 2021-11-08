@@ -466,6 +466,10 @@ tbody a {
 	text-decoration: none;
 	color:black;
 }
+#title hr{
+	height:3px;
+	background-color:#036;
+}
 #wrap {
 	width: 80%;
 	margin: 0 auto;
@@ -476,7 +480,7 @@ tbody a {
 	width: 700px;
 	height: 400px;
 	display: inline-block;
-	
+	border: 1px solid black;
 	border-radius: 20px;
 }
 
@@ -520,7 +524,7 @@ tbody a {
 	width: 100%;
 	height: 200px;
 	padding:10px;
-	border: 1px solid black;
+	border: 2px solid black;
 	border-radius: 25px;
 	min-width: 600px;
 	text-align:left;
@@ -601,13 +605,19 @@ tbody tr{
 	height:215px;
 }
 tfoot input{
-	margin-top:15px;
-	width: 85px;
-	height: 35px;
+	margin-top:10px;
+	margin-left:10px;
+	background: rgb(00,68,137);
+	font-weight:600;
+	color : white;
+	width:100px;
+	height:40px;
+	font-size:18px;
 	border-radius: 5px;
-	border: none;
-	font-weight: bold;
 	cursor:pointer;
+	outline:none;
+	box-shadow:none;
+	border:none;
 }
 .brief_distance{
 	color:blue;
@@ -615,6 +625,7 @@ tfoot input{
 #title{
 	text-align:left;
 }
+
 </style>
 
 </head>
@@ -626,9 +637,9 @@ tfoot input{
 	<div id="wrap">
 		<div id="title">
 		<br><br>
-			<h1 >내 주변 센터 목록</h1>
+			<h1 >내 주변 센터 목록</h1><hr>
 		</div>
-	<hr>
+	
 	<br>
 		<br><br>
 		<div id="search">
@@ -674,7 +685,7 @@ tfoot input{
 				<tfoot>
 					<tr>
 					<td colspan="2" align="right">
-					<input type="button" onclick="login_chk()" value="글 등 록">
+					<input class="ip_button" type="button" onclick="login_chk()" value="글 등 록">
 					</td>
 					</tr>
 				</tfoot>

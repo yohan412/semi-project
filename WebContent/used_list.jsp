@@ -18,7 +18,10 @@
     font-weight: normal;
     font-style: normal;
 }
-
+#title hr{
+	height:3px;
+	background-color:#036;
+}
 h1{
 	text-align:left;
 }
@@ -49,13 +52,6 @@ h1{
 	width:200px;
 	height:200px;
 }
-.used_brief{
-	width:100%;
-	height:200px;
-	min-width:600px;
-	border:1px solid black;
-	border-radius: 25px;
-}
 /*찜 버튼 구현 시작*/
 .checkbox-wrap{
 	cursor:pointer;
@@ -76,10 +72,21 @@ input[type=checkbox]:checked + .check-icon{
 /*찜 버튼 구현 끝*/
 
 input[type=button]{
-	width:150px;
+
+	margin-top:10px;
+	margin-left:10px;
+	background: rgb(00,68,137);
+	font-weight:600;
+	color : white;
+	width:100px;
 	height:40px;
-	font-size:20px;
-	font-weight:bold;
+	font-size:18px;
+	border-radius: 5px;
+	cursor:pointer;
+	outline:none;
+	box-shadow:none;
+	border:none;
+
 }
 .used_brief a{
 	text-decoration: none;
@@ -89,7 +96,7 @@ input[type=button]{
 	width: 100%;
 	height: 200px;
 	padding:10px;
-	border: 1px solid black;
+	border: 2px solid black;
 	border-radius: 25px;
 	min-width: 600px;
 	text-align:left;
@@ -489,9 +496,10 @@ a{
 	<header><%@ include file="./form/header.jsp" %></header>
 	
 	<div id="wrap">
-	<br><br>
-	<h1>중고거래 게시판</h1>
-	<hr>
+	<div id="title">
+		<br><br>
+			<h1 >내 주변 센터 목록</h1><hr>
+		</div>
 	<br><br>
 		<div id="search">
             <img src="img/icon_search.png" width ="40px" height="40px" onclick="searchAddr()"><input type="text" name="address" placeholder="ex)서울시 성북구" style="width:40%;height:37px;font-size:16px;" onkeyup="if(window.event.keyCode==13){searchAddr()}">&nbsp;&nbsp;
@@ -529,7 +537,7 @@ a{
 				<tfoot>
 					<tr>
 					<td colspan="2" align="right">
-					<input type="button" onclick="login_chk()" value="글 쓰 기">
+					<input type="button" onclick="login_chk()" value="글 등 록">
 					</td>
 					</tr>
 				</tfoot>

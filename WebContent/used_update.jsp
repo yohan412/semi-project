@@ -10,7 +10,9 @@
 <meta charset="UTF-8">
 <title>중고거래 게시글 수정</title>
 <style type="text/css">
-h1{text-align:center;}
+h1{text-align:left;
+	padding-left:70px;
+}
 #wrap{
 	width:80%;
 	margin: 0 auto;
@@ -44,12 +46,28 @@ input[type=button], input[type=submit]{
 	font-size:16px;
 	font-weight:bold;
 }
+input[type=text]{
+	height:30px;
+}
+table{
+	border-collapse: separate;
+	border-spacing: 0 20px;
+}
+table th{
+	border-right: 3px solid #036;
+}
+table td{
+	padding-left:20px;
+}
 </style>
 </head>
 <body>
 	<header><%@ include file="./form/header.jsp" %></header>
-	<h1>중고거래 게시글 수정</h1>
+	
 	<div id="wrap">
+	<br><br>
+	<h1>중고거래 게시글 수정</h1>
+	<br><hr>
 	<form action="usedcontroller?command=usedupdate" method="post">
 		<input type="hidden" name="usedno" value="${useddto.usedno }">
 		<table width="100%">

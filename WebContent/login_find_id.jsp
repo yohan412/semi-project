@@ -21,8 +21,14 @@
 	.button input{
 		width: 170px;
 		height: 40px;
-		font-size: 20px;
+		font-size: 15px;
+		font-weight:200;
+		color: white;
 		margin: 5px;
+		background-color:rgb(75, 161, 231);
+		cursor: pointer;
+		border-radius: 5px;
+		border: 0;
 	}
 	.notice{
 		position: relative;
@@ -47,7 +53,7 @@
 	<br><br><br><br><br><br>
 	<div class="button">
 		<input type="button" id="login" value="로그인 하기"><br>
-		<input type="button" id="find_pw" value="비밀번호 찾기">
+		<input type="button" style="background-color: grey;" id="find_pw" value="비밀번호 찾기">
 	</div>
 	<footer><%@ include file="form/login_footer.jsp" %></footer>
 </body>

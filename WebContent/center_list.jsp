@@ -25,7 +25,7 @@ response.setContentType("text/html; charset=UTF-8");
 	var map;
 	var centerlist;
 	var piclist;
-	
+	var locmarker;
 	//실제로 CenterBoard에 표현되는 리스트들
 	var boardlist;
 	
@@ -171,6 +171,8 @@ response.setContentType("text/html; charset=UTF-8");
 		if(reset_bl){
 			boardlist=list;
 		}
+		
+		
 		//list에 들어있는 center 정보 추가
 		for(var i = 0 ; i < list.length ; i++){
 			//center 정보중 pic가 null,공백 일 경우 default 이미지를 넣음
@@ -184,6 +186,15 @@ response.setContentType("text/html; charset=UTF-8");
 			}else{
 				imgtag="<img src='/download/"+tmppic[0].path+"'alt ='"+tmppic[0].name+"'>";
 			}
+			
+			var distanceinfo;
+			
+			if(list[i].distance != null){
+				distanceinfo="<br><span class='brief_distance'>&nbsp;&nbsp; 거리 : "+Math.round(list[i].distance)+"m</span><br>";
+			} else{
+				distanceinfo="";
+			}
+			
 			$("tbody").append(
 				"<tr>"
 				+"<td>"
@@ -199,7 +210,7 @@ response.setContentType("text/html; charset=UTF-8");
 				+"<span class='brief_price'>&nbsp;&nbsp; 가격 : "+list[i].price+"</span>"+"<br>"
 				+"<span class='brief_grade'>&nbsp;&nbsp; " 
 				+"평점 : <span class='star-rating'><span style='width:"+(list[i].grade*20)+"%'></span>"
-                +"</span> ("+list[i].grade+")</span>"+"<br>"
+                +"</span> ("+list[i].grade+")</span>"+"<br>"+distanceinfo
 				+"</div></td>"
 				+"</tr>"		
 			);
@@ -227,6 +238,26 @@ response.setContentType("text/html; charset=UTF-8");
 					// 이동할 위도 경도 위치를 생성합니다 
 					var moveLatLon = new kakao.maps.LatLng(data.documents[0].y, data.documents[0].x);
 
+					var imageSrc = 'img/placeholder.png', // 마커이미지의 주소입니다    
+				    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+				    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+				    
+				    if(locmarker != null){
+				    	locmarker.setMap(null);
+				    }				    
+				    
+					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+				    	markerPosition = new kakao.maps.LatLng(data.documents[0].y, data.documents[0].x); // 마커가 표시될 위치입니다
+
+					// 마커를 생성합니다
+					locmarker = new kakao.maps.Marker({
+				    	position: markerPosition, 
+				    	image: markerImage // 마커이미지 설정 
+					});
+
+					// 마커가 지도 위에 표시되도록 설정합니다
+					locmarker.setMap(map);  
 					// 지도 중심을 부드럽게 이동, 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
 					map.panTo(moveLatLon);
 					
@@ -431,9 +462,6 @@ response.setContentType("text/html; charset=UTF-8");
     font-weight: normal;
     font-style: normal;
 }
-h1 {
-	text-align: center;
-}
 tbody a {
 	text-decoration: none;
 	color:black;
@@ -445,15 +473,19 @@ tbody a {
 }
 
 #map {
-	width: 600px;
-	height: 300px;
+	width: 700px;
+	height: 400px;
 	display: inline-block;
+	
+	border-radius: 20px;
 }
 
 #search {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	padding:10px;
+	background:#9EB9CE;
 }
 
 #searchicon {
@@ -471,17 +503,17 @@ tbody a {
 .sorting_sub {
 	width: 180px;
 	height: 30px;
+	font-weight:bold;
 }
 
-#sorting select {
-	width: 100px;
-	height: 20px;
+#search select {
+	height: 25px;
+	font-size:16px;
 }
-
 #centerboard_list img {
 	border-radius:10px;
-	width: 210px;
-	height: 210px;
+	width: 200px;
+	height: 200px;
 }
 
 .center_brief {
@@ -492,6 +524,7 @@ tbody a {
 	border-radius: 25px;
 	min-width: 600px;
 	text-align:left;
+	box-sizing: border-box;
 }
 .center_brief > span{
 	margin-top:10px;
@@ -564,7 +597,9 @@ input[type=checkbox]:checked+.check-icon {
 	line-height:0;
 	vertical-align:top;
 }
-
+tbody tr{
+	height:215px;
+}
 tfoot input{
 	margin-top:15px;
 	width: 85px;
@@ -574,6 +609,12 @@ tfoot input{
 	font-weight: bold;
 	cursor:pointer;
 }
+.brief_distance{
+	color:blue;
+}
+#title{
+	text-align:left;
+}
 </style>
 
 </head>
@@ -581,19 +622,19 @@ tfoot input{
 	<header>
 		<%@ include file="./form/header.jsp"%>
 	</header>
-	<h1>내 주변 센터 목록</h1>
+	
+	<div id="wrap">
+		<div id="title">
+		<br><br>
+			<h1 >내 주변 센터 목록</h1>
+		</div>
 	<hr>
 	<br>
-	<div id="wrap">
-		<div id="map"></div>
-		<br><br><br>
+		<br><br>
 		<div id="search">
 			<!-- 엔터치거나 검색버튼 클릭시 검색함수 -->
-			<img id="searchicon" alt="searchicon" src="img/icon_search.png"	width="60px" height="60px" onclick="movePosition();"> 
-			<input	type="text" name="address" placeholder="서울시 성북구"	onkeyup="if(window.event.keyCode==13){movePosition()}" style="width: 500px; height: 60px; font-size: 15px;">
-		</div>
-		<br>
-		<div id="sorting">
+			<img id="searchicon" alt="searchicon" src="img/icon_search.png"	width="40px" height="40px" onclick="movePosition();"> 
+			<input	type="text" name="address" placeholder="서울시 성북구"	onkeyup="if(window.event.keyCode==13){movePosition()}" style="width: 500px; height: 37px; font-size: 16px;">
 			<div class="sorting_sub">
 				센터종류&nbsp; <select name="center_category" onchange="sort_by_category()">
 					<option value="all">전체</option>
@@ -617,6 +658,10 @@ tfoot input{
 				</select>
 			</div>
 		</div>
+		<br><br>
+		<div id="map"></div>
+		<br>
+		<br>
 		<br>
 		<div id="search_result"></div>
 		<br>

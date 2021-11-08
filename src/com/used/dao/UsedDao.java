@@ -393,8 +393,8 @@ public int insertWish(WishDto dto) {
 
 		try {
 			pstm = con.prepareStatement(sql);
-			pstm.setString(1, dto.getLogin_id());
-			pstm.setInt(2, dto.getTitle_no());
+			pstm.setString(1, dto.getLoginid());
+			pstm.setInt(2, dto.getTitleno());
 			pstm.setString(3, dto.getType());
 			System.out.println("03. query 준비 : " + sql);
 
@@ -441,10 +441,10 @@ public int insertWish(WishDto dto) {
 			while (rs.next()) {
 				WishDto dto = new WishDto();
 
-				dto.setTitle_no(rs.getInt(1));
-				dto.setLogin_id(rs.getString(2));
+				dto.setTitleno(rs.getInt(1));
+				dto.setLoginid(rs.getString(2));
 				dto.setType(rs.getString(3));
-				dto.setUsed_title(rs.getString(4));
+				dto.setUsedtitle(rs.getString(4));
 				res.add(dto);
 			}
 		} catch (SQLException e) {
@@ -481,10 +481,10 @@ public int insertWish(WishDto dto) {
 			while (rs.next()) {
 				WishDto dto = new WishDto();
 
-				dto.setTitle_no(rs.getInt(1));
-				dto.setLogin_id(rs.getString(2));
+				dto.setTitleno(rs.getInt(1));
+				dto.setLoginid(rs.getString(2));
 				dto.setType(rs.getString(3));
-				dto.setUsed_title(rs.getString(4));
+				dto.setUsedtitle(rs.getString(4));
 				res.add(dto);
 			}
 		} catch (SQLException e) {
@@ -519,8 +519,8 @@ public int insertWish(WishDto dto) {
 
 			while (rs.next()) {
 
-				res.setLogin_id(rs.getString(1));
-				res.setTitle_no(rs.getInt(2));
+				res.setLoginid(rs.getString(1));
+				res.setTitleno(rs.getInt(2));
 
 			}
 		} catch (SQLException e) {
@@ -544,8 +544,8 @@ public int insertWish(WishDto dto) {
 
 		try {
 			pstm = con.prepareStatement(sql);
-			pstm.setString(1, wish.getLogin_id());
-			pstm.setInt(2, wish.getTitle_no());
+			pstm.setString(1, wish.getLoginid());
+			pstm.setInt(2, wish.getTitleno());
 			pstm.setString(3, wish.getType());
 			System.out.println("03. query 준비 : " + sql);
 

@@ -91,11 +91,19 @@ a{
 	margin-top: 20px;
 }
 
-.submit input{
-	width: 300px;
+.submit button{
+	width: 250px;
 	height: 40px;
 	border: 0;
-	background: grey;
+	background-color:rgb(75, 161, 231);
+	color: white;
+	border-radius: 7px;
+}
+.cancel button{
+	width: 250px;
+	height: 40px;
+	border: 0;
+	background-color: gray;
 	color: white;
 	border-radius: 7px;
 }
@@ -150,7 +158,15 @@ footer{
 			</div>
 			
 			<div class="submit">
-			<input type="submit" value="로그인">
+			<button type="submit">
+				<span>로그인</span>
+			</button>
+			</div>
+			<div class="cancel">
+			<br>
+			<button type="button" onclick="location.href='main.jsp'">
+				<span>취소</span>
+			</button>
 			</div>
 			
 		</div>

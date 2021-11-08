@@ -38,6 +38,8 @@
 	}
 	#reset{
 		cursor:pointer;
+		border-radius: 5px;
+		border: 1px solid gray;
 	}
 	#birth{
 		size : 180px;
@@ -129,6 +131,22 @@
 			document.getElementsByName("myid")[0].focus();
 			return false;
 		}
+	}
+	function provision1(){
+		var target = "join_user_provision1.jsp";
+		open(target,"","width=900,height=500");
+	}
+	function provision2(){
+		var target = "join_user_provision1.jsp";
+		open(target,"","width=900,height=500");
+	}
+	function provision3(){
+		var target = "join_user_provision1.jsp";
+		open(target,"","width=900,height=500");
+	}
+	function provision4(){
+		var target = "join_user_provision1.jsp";
+		open(target,"","width=900,height=500");
 	}
 </script>
 </head>
@@ -508,10 +526,10 @@
 				</tr>
 				<tr>
 					<td style="font-size:15px;">
-						<input type="checkbox" id="chkbox" required><span><a href="">서비스 이용약관 및 운영원칙</a>에 동의합니다.</span><br>
-						<input type="checkbox" id="chkbox" required><span><a href="">개인정보 수집 이용</a>에 동의합니다.</span><br>
-						<input type="checkbox" id="chkbox" required><span><a href="">위치정보 이용약관</a>에 동의합니다.</span><br>
-						<input type="checkbox" id="chkbox" required><span><a href="">프로모션 정보 수신</a>에 동의합니다.</span>
+						<input type="checkbox" id="chkbox" required><span><a href="javascript:void(0);" onclick="javascript:provision1();">서비스 이용약관 및 운영원칙</a>에 동의합니다.</span><br>
+						<input type="checkbox" id="chkbox" required><span><a href="javascript:void(0);" onclick="javascript:provision2();">개인정보 수집 이용</a>에 동의합니다.</span><br>
+						<input type="checkbox" id="chkbox" required><span><a href="javascript:void(0);" onclick="javascript:provision3();">위치정보 이용약관</a>에 동의합니다.</span><br>
+						<input type="checkbox" id="chkbox" required><span><a href="javascript:void(0);" onclick="javascript:provision3();">프로모션 정보 수신</a>에 동의합니다.</span>
 					</td>
 					<td></td><td></td>
 					<br><br><br><br>

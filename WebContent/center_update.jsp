@@ -124,6 +124,15 @@ textarea{
 	box-shadow:none;
 	border:none;
 }
+
+table{
+	border-collapse: separate;
+	border-spacing: 0 20px;
+}
+table th{
+	border-right: 3px solid #036;
+}
+
 </style>
 </head>
 <body>

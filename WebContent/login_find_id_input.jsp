@@ -126,7 +126,6 @@ select {
 	color: white;
 	border: 3px solid white;
 	padding: 18px 0 15px;
-	
 	font-size:13px;
 	width: 100%;	
 }
@@ -136,9 +135,10 @@ select {
 	border: 0;
 	cursor: pointer;
 	color: white;
-	background-color: #00AAFF;
+	background-color:rgb(75, 161, 231);
 	font-size: 20px;
 	font-weight: 200;
+	border-radius: 10px;
 }
 </style>
 <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
@@ -334,6 +334,10 @@ select {
 			<div class="btn_area">
 				<button type="submit" id="button2">
 					<span>확인</span>
+				</button>
+				<br><br>
+				<button type="button" onclick="location.href='usercontroller?command=loginform'" id="button2" style="background-color: gray;">
+					<span>취소</span>
 				</button>
 			</div>
 		</form>

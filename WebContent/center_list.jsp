@@ -235,47 +235,39 @@ response.setContentType("text/html; charset=UTF-8");
 				type : 'GET',
 				headers : {	'Authorization' : 'KakaoAK f897ab2bc89e5486a5355b613e9fd8a7'},
 				success : function(data) {
-					console.log(data);
+					
 					// 이동할 위도 경도 위치를 생성합니다 
 					var moveLatLon = new kakao.maps.LatLng(data.documents[0].y, data.documents[0].x);
-
-					var imageSrc = 'img/placeholder.png', // 마커이미지의 주소입니다    
-				    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-				    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+					// 지도 중심을 이동
+					map.panTo(moveLatLon);
+					
+					//검색한곳을 표시할 마커의 옵션설정
+					var imageSrc = 'img/placeholder.png',  
+				    imageSize = new kakao.maps.Size(64, 69), 
+				    imageOption = {offset: new kakao.maps.Point(27, 69)};
 				    
+					//이미 검색한 마커가 있을경우 마커 초기화
 				    if(locmarker != null){
 				    	locmarker.setMap(null);
 				    }				    
 				    
-					// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+					// 설정한 마커옵션과 마커가 들어갈 위치를 지정
 					var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-				    	markerPosition = new kakao.maps.LatLng(data.documents[0].y, data.documents[0].x); // 마커가 표시될 위치입니다
+				    	markerPosition = new kakao.maps.LatLng(data.documents[0].y, data.documents[0].x);
 
 					// 마커를 생성합니다
 					locmarker = new kakao.maps.Marker({
 				    	position: markerPosition, 
-				    	image: markerImage // 마커이미지 설정 
+				    	image: markerImage
 					});
 
-					// 마커가 지도 위에 표시되도록 설정합니다
+					// 마커가 지도 위에 표시되도록 설정
 					locmarker.setMap(map);  
-					// 지도 중심을 부드럽게 이동, 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-					map.panTo(moveLatLon);
+					
 					
 					var nearCenterlist = nearCenterfinder(data.documents[0].y, data.documents[0].x);
-										
-					/*nearCenterlist.sort(function(a,b){
-						
-						if(a.distance>b.distance){
-							return 1;
-						}						
-						if(a.distance<b.distance){
-							return -1;
-						}						
-						// a와 b의 거리가 같을경우
-						return 0;
-					});*/
-					//distance 기준으로 오름차순정렬(위의 코드 한줄로 표현)
+					
+					//distance 기준으로 오름차순정렬
 					nearCenterlist.sort((a,b) => a.distance-b.distance);
 					
 					makeCenterList(nearCenterlist,true);

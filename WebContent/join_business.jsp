@@ -125,7 +125,7 @@
 <body>
 	<header><%@ include file = "form/header.jsp" %></header>
     <div id="wrap">
-        <h2>사업장 등록</h2>
+        <h2>사업자 등록</h2>
         <hr>
         <br>
         <br>

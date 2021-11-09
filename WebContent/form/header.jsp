@@ -113,7 +113,7 @@
 				<a href="CenterController?command=centerlist">스포츠 센터</a>
 			</div>
 			<div class="sub_menu">
-				<a href="#" onclick="javascript:enrollment();">사업장 등록</a>
+				<a href="#" onclick="javascript:enrollment();">사업자 등록</a>
 			</div>
 			<div class="sub_menu">
 				<a href="usedcontroller?command=usedlist">중고거래</a>

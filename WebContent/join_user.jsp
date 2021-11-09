@@ -148,6 +148,18 @@
 		var target = "join_user_provision4.jsp";
 		open(target,"","width=900,height=500");
 	}
+	
+	function pwchk(){
+		var pw1 = document.getElementsByName("mypw")[0].value;
+		var pw2 = document.getElementsByName("mypw")[1].value;
+		
+		if(pw1!=pw2){
+			alert("비밀번호 입력 오류");
+			return false;
+		}
+			
+		return true;
+	}
 </script>
 </head>
 <body>
@@ -157,7 +169,7 @@
 	<br><br>
 	<hr>
 	<div id="wrap" align="center">
-		<form action="usercontroller?command=insertuser" method="post">
+		<form action="usercontroller?command=insertuser" method="post" onsubmit="return pwchk()">
 			<table align="center" method="post" cellpadding="3">
 				<tr>
 					<th>I D</th>
@@ -170,7 +182,7 @@
 					<th>Password</th>
 					<td>
 						<input type="password" id="pw" name="mypw" size="20" placeholder="비밀번호를 입력하세요" required><br><br>
-						<input type="password" id="pw" size="20" placeholder="비밀번호 재확인" required>
+						<input type="password" id="pw" name="mypw" size="20" placeholder="비밀번호 재확인" required>
 					</td>
 				</tr>
 				<tr>

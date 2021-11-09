@@ -98,9 +98,6 @@
 		margin: 20px 10px 0px;
 		width:480px;
 	}
-	.qna_button{
-		display: in
-	}
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -171,8 +168,20 @@ function login_chk(){
 				%>				
 				<tr>
 						<td><%=faqlist.get(i).getQatype()%></td>
-						<td><a href="question_board_selectone.jsp?qano=<%=faqlist.get(i).getQano()%>" onclick="user_Chk();"><%=faqlist.get(i).getQatitle() %></a></td>
+						<td align="left"><a href="question_board_selectone.jsp?qano=<%=faqlist.get(i).getQano()%>" onclick="user_Chk();"><%=faqlist.get(i).getQatitle() %></a></td>
 				</tr>
+				<%
+					List<ReplyDto> relist = rdao.reList(list.get(i).getQano());
+					for(int j = 0; j<relist.size(); j++){
+						System.out.print(relist.get(j).getRetitle());
+				%>
+								<tr>
+									<td>└</td>
+									<td align="left"><a href="question_board_answerwrite.jsp?qareno=<%=relist.get(j).getQareno()%>&qano=<%=list.get(i).getQano()%>&userid=<%=list.get(i).getUserid() %>&seid=${loginUser.userid}"><%=relist.get(j).getRetitle() %></a></td>
+								</tr>
+				<%
+					}
+				%>
 
 				<%
 					}

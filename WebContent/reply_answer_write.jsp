@@ -15,7 +15,6 @@
 	String qatitle = request.getParameter("qatitle");
 	String qacontent = request.getParameter("qacontent");
 	
-	
 	QnaDao dao = new QnaDao();
 	QnaDto dto = dao.selectOne(qano);
 	
@@ -68,10 +67,21 @@
 		border-radius: 5px;
 	}
 </style>
-<script type="text/javascript">
-function goBack(){
-	history.back();
-}
+<script>
+var uid = "${loginUser.userid}";
+var qid = "<%=dto.getUserid()%>";
+console.log(uid);
+console.log(qid);
+
+
+if(uid==""){
+	alert("로그인 후 이용가능합니다."); location.href="login.jsp";
+	
+	exit;
+}	
+
+
+
 </script>
 </head>
 <header><%@ include file="form/header.jsp" %></header>
@@ -91,12 +101,12 @@ function goBack(){
 			</tr>
 			<tr id="content">
 				<th>내 용</th>
-				<td><textarea rows="10" cols="60" name="content"></textarea></td>
+				<td><textarea rows="10" cols="60" name="content" required></textarea></td>
 			</tr>
 			<tr>
 				<td colspan="3">
 					<input type="submit" id="submit" value="작 성" >&nbsp;&nbsp;
-					<input type="button" id="reset" value="취 소" onclick="goBack();">
+					<input type="button" id="reset" value="취 소" onclick="history.back()">
 				</td>
 			</tr>
 		</table>

@@ -74,6 +74,7 @@
 		border-radius: 5px;
 	}
 </style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 function goBack(){
 	history.back();
@@ -115,11 +116,23 @@ function goBack(){
 </body>
 <script>
 	var uid = "${loginUser.userid}";
+	var adm = "${loginUser.role}";
 	console.log(uid);
+	var qid = "<%=dto.getUserid()%>";
+	console.log(qid);
 	
 	if(uid==""){
-		alert("로그인 후 이용가능합니다."); history.back();
-		location.href="login.jsp";
+		alert("로그인 후 이용가능합니다."); location.href="login.jsp";
+	}
+	
+	if(uid!=qid){
+		$('#submit').hide();
+		$('#delete').hide();
+	}
+	
+	if(adm=="M"){
+		$('#submit').show();
+		$('#delete').show();
 	}
 
 function del_btn(qareno){

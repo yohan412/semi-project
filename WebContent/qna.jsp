@@ -193,14 +193,13 @@ function login_chk(){
 		
 		<br><br><br><br>
 		
-		
-		
+			
 	<div class="qna_list">
 		<h1 align="center">Q & A</h1>
 			<table class="qna_table" border="1">
 				<tr>
 					<th style="width:50px;">NO.</th>
-					<th>제목</th>
+					<th>제 목</th>
 					<th style="width:80px;">답변 여부</th>
 				</tr>
 <%

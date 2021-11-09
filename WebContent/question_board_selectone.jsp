@@ -116,6 +116,7 @@
 <script>
 	var uid = "${loginUser.userid}";
 	var qid = "<%=dto.getUserid()%>";
+	var adm = "${loginUser.role}";
 	
 	console.log(uid);
 	console.log(qid);
@@ -130,6 +131,12 @@
 		$('#submit').hide();
 		$('#reset').hide();
 		$('#reply').hide();
+	}
+	
+	if(adm=="M"){
+		$('#submit').show();
+		$('#reset').show();
+		$('#reply').show();
 	}
 	
 	function del_btn(qano){

@@ -13,7 +13,7 @@
     		text-align:center;
     	}
         #wrap{
-            width:100%;
+            width:1000px;
             margin:auto;
             margin-left:auto; 
             margin-right:auto;
@@ -27,12 +27,23 @@
         	text-align:center;
         }
         table{
-            border:1px solid white;
-        }
-        
-        td{
-            border:1px solid white;
-        }
+  			border-collapse: separate;
+			border-spacing: 0 20px;
+ 		 font-size:18px;
+  		width:1000px;
+		}
+table tr{
+	line-height:50px;
+}
+table th{
+	border-right: 3px solid #036;
+}
+table td{
+	padding-left:10px;
+}
+table tbody tr{
+	border-bottom: 1px solid #ccc;
+}
         
         #title{
             background-color:white;
@@ -54,10 +65,16 @@
 			text-align: center;
 		}
 		#table input[type="text"]{
-			width: 510px;
-			height: 25px;
+			width: 100%;
+			line-height: 30px;
 		}
-		
+		#title2 hr{
+		height:3px;
+		background-color:#036;
+		}
+		h1{
+			text-align:left;
+		}
     </style>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -125,9 +142,10 @@
 <body>
 	<header><%@ include file = "form/header.jsp" %></header>
     <div id="wrap">
-        <h2>사업자 등록</h2>
-        <hr>
-        <br>
+       <div id="title2">
+		<br><br>
+			<h1>사업자 등록</h1><hr>
+		</div>
         <br>
         
          <form action="usercontroller?command=join_biz&userno=${dto.userno }" method="post" enctype="multipart/form-data">
@@ -151,7 +169,7 @@
 						<input type="hidden" id="address1" name="myaddr1" placeholder="주소를 입력하세요" readonly>
 						<span id="guide" style="color:#999;display:none"></span>
 						<input type="hidden" id="address2" name="myaddr2" size="45" placeholder="상세 주소를 입력하세요">
-						<input type="text" id="sample4_roadAddress" name="bizaddr" placeholder="사업장 주소를 작성해주세요" style="width: 430px">
+						<input type="text" id="sample4_roadAddress" name="bizaddr" placeholder="사업장 주소를 작성해주세요" style="width: 100%">
 						<input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
 						<input type="hidden" class="input" id="zipcode" name="myzipcode" size="7" placeholder="우편번호" readonly required>&nbsp;&nbsp;
 						
@@ -170,7 +188,7 @@
                 <tr>
                     <th id="BIZ_CONTENT">기타</th>
                     <td>
-						<textarea cols="70" rows="10" name="bizcontent" style="resize: none;" placeholder="기타내용을 입력해주세요"></textarea>
+						<textarea  rows="10" name="bizcontent" style="resize: none; width:100%" placeholder="기타내용을 입력해주세요"></textarea>
                     </td>
                 </tr>
                 <tr>

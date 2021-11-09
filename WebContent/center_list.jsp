@@ -34,7 +34,7 @@ response.setContentType("text/html; charset=UTF-8");
 		var container = document.getElementById('map'); //지도를 표시할 div
 		var options = {
 			center : new kakao.maps.LatLng(37.498095, 127.027610), //지도의 중심 좌표
-			level : 6
+			level : 7
 		//지도 확대 레벨
 		};
 

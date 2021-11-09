@@ -575,7 +575,7 @@ table{
 							<td>${usedDto.usedprice}</td>
 						</tr>
 						<tr>
-							<th>사업자명</th>
+							<th>센터명</th>
 							<td>${usedDto.usedcenternm}</td>
 						</tr>
 						<tr>

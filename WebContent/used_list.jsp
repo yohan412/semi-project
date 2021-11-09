@@ -161,6 +161,26 @@ tfoot input{
 a{
 	cursor:pointer;
 }
+.waiting{
+	text-align:center;
+	width:80px;
+	display:inline-block;
+	background:rgb(15, 82, 186);
+	color:white;
+	font-weight:bold;
+	font-size:16px;
+	border-radius:5px;
+}
+.done{
+	text-align:center;
+	width:80px;
+	display:inline-block;
+	background:gray;
+	color:white;
+	font-weight:bold;
+	font-size:16px;
+	border-radius:5px;
+}
 </style>
 
 <script type="text/javascript"	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -264,9 +284,9 @@ a{
 			
 			var status;
 			if(list[i].status == 'N'){
-				status="거래중";
+				status="<span class='waiting'>거래중</span>";
 			} else{
-				status="거래완료";
+				status="<span class='done'>거래완료</span>";
 			}
 			$("tbody").append(
 				"<tr>"
@@ -367,7 +387,7 @@ a{
 					makeBoardList(nearCenterlist,true);
 					
 					$("#search_result").empty();
-					$("#search_result").append("총 "+nearCenterlist.length+"개의 검색 결과가 있습니다.")
+					$("#search_result").append("2km내 기준 게시글 중, 총 "+nearCenterlist.length+"개의 검색 결과가 있습니다.")
 				},
 				error : function(e) {
 					console.log(e);
@@ -498,7 +518,7 @@ a{
 	<div id="wrap">
 	<div id="title">
 		<br><br>
-			<h1 >내 주변 센터 목록</h1><hr>
+			<h1 >회원권 중고거래</h1><hr>
 		</div>
 	<br><br>
 		<div id="search">

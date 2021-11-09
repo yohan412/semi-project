@@ -166,7 +166,7 @@ td{
 
 	function fn_addFile(){ 
 		var str = "<tr><th></th><td><input type='file' id=file name='file_"+(gfv_count++)+"'><a href='#this' class='btn' name='delete'>삭제</a></td></tr>"; 
-		$("#fileDiv").append(str); 
+		$("#fileDiv tbody").append(str); 
 		$("a[name='delete']").on("click", function(e){ //삭제 버튼 
 			e.preventDefault(); 
 		fn_deleteFile($(this)); 
@@ -192,6 +192,7 @@ td{
 				<col width="20%">
 				<col width="80%">
 			</colgroup>
+			<tbody>
 			<tr>
 				<th>제목</th>
 				<td><input type="text" name="title" placeholder="제목을 입력해주세요" required></td>
@@ -244,12 +245,15 @@ td{
 	                <a href="#this" class="btn" id="delete" name="delete">삭제</a> 
 				</td>
 			</tr>
+			</tbody>
+			<tfoot>
 			<tr>
 			<td colspan="2" style="text-align:center;"><br><br>
 				<input class="ip_button" type="submit" value="등록">
 				<input class="ip_button" type="button" value="취소" onclick="location.href='usedcontroller?command=usedlist'">
 			</td>
-		</tr>	
+			</tr>	
+			</tfoot>
 		</table>
 		
 	</form>

@@ -8,6 +8,35 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	div{
+		text-align: center;
+	}
+	body{
+		background-color:#036;
+		
+	}
+	
+	td{
+		color: black;
+	}
+	table{
+		display:inline-block;
+		border: 1px solid black;
+		border-radius: 10px;
+		padding:10px;
+		background-color:white;
+	}
+	#id{
+		width: 100px; 
+		height: 20px; 
+		text-align: center; 
+		border:0 solid black;
+	}
+	input{
+		margin: 5px;
+	}
+</style>
 <script type="text/javascript">
 	window.onload=function(){
 		var id = opener.document.getElementsByName("myid")[0].value;
@@ -30,9 +59,10 @@
 	String idnotused = request.getParameter("idnotused");
 %>
 <body>
-	<table border="1">
+<div>
+	<table>
 		<tr>
-			<td><input type="text" name="id"></td>
+			<td><input type="text" id="id" name="id"></td>
 		</tr>
 		<tr>
 			<td><%= idnotused.equals("true")?"아이디 생성 가능":"중복아이디 존재" %></td>
@@ -43,5 +73,6 @@
 			</td>
 		</tr>
 	</table>
+	</div>
 </body>
 </html>

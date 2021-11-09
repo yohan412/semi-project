@@ -121,7 +121,7 @@
 			alert("아이디를 입력해 주세요.");
 		}else{
 			var target = "usercontroller?command=idChk&id="+doc.value.trim();
-			open(target,"","width=200,height=200");
+			open(target,"","width=200,height=150");
 		}
 	}
 	function idChkConfirm(){

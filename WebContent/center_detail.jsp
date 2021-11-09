@@ -540,12 +540,12 @@ input.button-add {
             </div>
             <hr>
             <div class="information">
-                <a href="#a">센터소개</a>
-                <a href="#b">이용정보</a>
-                <a href="#c">운영시간</a>
-                <a href="#d">프로그램</a>
-                <a href="#e">사진</a>
-                <a href="#f">이용후기</a>
+                <a href="#">센터소개</a>
+                <a href="#a">이용정보</a>
+                <a href="#b">운영시간</a>
+                <a href="#c">프로그램</a>
+                <a href="#d">사진</a>
+                <a href="#e">이용후기</a>
             </div>
             <hr><br><br>
             <div class="text_cont">

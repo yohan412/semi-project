@@ -80,6 +80,9 @@ button{
 	box-shadow:none;
 	border:none;
 }
+#admin{
+	font-size:11px;
+}
 </style>
 <script type="text/javascript">
 	function enrollment(){
@@ -117,7 +120,7 @@ button{
 				<button onclick="location.href='usercontroller?command=logout'">로그아웃</button>
 				<c:choose>
 				<c:when test="${loginUser.role eq 'M' || loginUser.role eq 'DM'}">
-				<button onclick="location.href='MainController?command=adminpage&act=user'">관리자페이지</button>
+				<button id="admin" onclick="location.href='MainController?command=adminpage&act=user'">관리자페이지</button>
 				</c:when>
 				<c:otherwise>
 				<button onclick="location.href='usedcontroller?command=mypage'">마이페이지</button>

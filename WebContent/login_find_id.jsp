@@ -52,8 +52,8 @@
 	</div>
 	<br><br><br><br><br><br>
 	<div class="button">
-		<input type="button" id="login" value="로그인 하기"><br>
-		<input type="button" style="background-color: grey;" id="find_pw" value="비밀번호 찾기">
+		<input type="button" id="login" value="로그인 하기" onclick="location.href='usercontroller?command=loginform'"><br>
+		<input type="button" style="background-color: grey;" onclick="location.href='usercontroller?command=findpwform'" id="find_pw" value="비밀번호 찾기" >
 	</div>
 	<footer><%@ include file="form/login_footer.jsp" %></footer>
 </body>

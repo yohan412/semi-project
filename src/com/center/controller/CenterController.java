@@ -125,6 +125,7 @@ public class CenterController extends HttpServlet {
 			String writer = loginUser.getUserid();
 			double grade = Double.parseDouble(request.getParameter("star_range"));
 			String content = request.getParameter("reviewcontent");
+			content = content.replace("\r\n","<br>");
 			
 			rdto.setCenterno(centerno);
 			rdto.setReviewwriter(writer);
@@ -140,7 +141,7 @@ public class CenterController extends HttpServlet {
 			}
 	
 		}else if(command.equals("centerwriteform")){
-			response.sendRedirect("center_detail_writer.jsp");
+			response.sendRedirect("center_write.jsp");
 		}
 		else if(command.equals("centerdetail_writer")) {			
 			

@@ -127,7 +127,14 @@
 		
 		//list에 들어있는 center 정보 추가
 		for(var i = 0 ; i < list.length ; i++){
-			
+			var review_con;
+			if(list[i].content.length > 15){
+				review_con=list[i].content.substr(0,15);
+				review_con=review_con+"...";
+			}else{
+				review_con=list[i].content;
+			}
+				
 			$("tbody").append(
 				"<tr><td>"
 				+"<div class='review_content'>"
@@ -135,7 +142,7 @@
 				+"<span class='review_grade'>&nbsp;&nbsp; " 
 				+"<b>평점 :</b> <span class='star-rating'><span style='width:"+(list[i].grade*20)+"%'></span>"
                 +"</span> ("+list[i].grade+")</span>"+"<br>"
-				+"<span class='review_contents'>&nbsp;&nbsp; <b>내용 :</b> <a href='#' onclick='reviewdetail_chk("+list[i].no+")'>"+list[i].content+"</a></span>"+"<br>"
+				+"<span class='review_contents'>&nbsp;&nbsp; <b>내용 :</b> <a href='#' onclick='reviewdetail_chk("+list[i].no+")'>"+review_con+"</a></span>"+"<br>"
 				+"<span class='review_reg'>&nbsp;&nbsp; <b>등록일 :</b> "+list[i].reg+"</span>"+"<br>"
 				+"</div></td>"
 				+"</tr>"		
@@ -227,7 +234,7 @@
 		} else{
 			var popupX = window.screen.width/2;
 			var popupY = window.screen.height/2;
-			var option="top=300,left=200,width=510px ,height=615px , status=no,menubar=no,toolbar=no,resizable=no";
+			var option="top=300,left=200,width=510px ,height=575px , status=no,menubar=no,toolbar=no,resizable=no";
 			window.open('CenterController?command=review_detail&loginid=${loginUser.userid}&reviewno='+no,"리뷰 상세보기",option);
 		}
 	}
@@ -281,6 +288,10 @@ header, section, article, aside, main, nav, footer{
 h1, p{
     margin: 0;
 }
+hr{
+	height:2px;
+	background-color:black;
+}
 .information a{
     text-decoration: none;
     color:black;
@@ -329,36 +340,62 @@ h1, p{
 	width:500px;
 	height:260px;
 }
-#center_intro,#center_info,#center_time,#center_program,#center_location{
+.center_cont{
+	margin-bottom:30px;
 	display:flex;
-	width:90%;
-	margin-left:5%;
+	justify-content: center;
+	align-items: center;
+	width:100%;
 }
 .cont_head{
+	display:flex;
+	align-content: center;
+    align-items: center;
+    justify-content: center;
 	min-width:200px;
 	height:200px;
 	width:20%;
+	border-right: 3px solid #036;
 }
 .cont_info{
 	width:80%;
 	padding:8px;
+	padding-left:30px;
+	height:200px;
+	display:flex;
+	align-content: center;
+    align-items: center;
+    justify-content: left;
 }
 .img_cont, .review_cont{
 	width:90%;
 	margin-left:5%;
+	margin-top:30px;
 	height: auto;
+}
+.img_cont{
+	margin-top:60px;
 }
 .cont_images img{
 	width:300px;
 	height:200px;
+	border-radius: 5px;
 	margin:5px;
 }
 .review_content,.empty_review{
 	height:150px;
-	border: 1px solid black;
+	border: 2px solid black;
 	border-radius: 5px;
 	min-width:600px;
 	margin-top:10px;
+}
+.review_content{
+	padding:10px;
+	box-sizing: border-box;
+}
+.review_content hr{
+	height:1px;
+	background-color:black;
 }
 .review_content a{
 	text-decoration:none;
@@ -418,14 +455,7 @@ h1, p{
 #numbers li a.active {
 	color:blue;
 }
-.review_contents{
-	display:inline-block;
-	width:400px;
-	overflow:hidden;
-	/*텍스트가 설정한 범위 넘을경우 ...로 표시*/
-	text-overflow:ellipsis;
-	white-space:nowrap;
-}
+
 .ip_button{
 	margin-top:10px;
 	margin-left:10px;
@@ -483,7 +513,8 @@ input.button-add {
 <div id="main">
         <div class="wrap">
             <div class="main_title">
-                <h2>${centerDto.centername}</h2>
+            <br><br>
+                <h1>${centerDto.centername}</h1><br>
             </div>
             <hr>
             <div class="top_cont">
@@ -491,8 +522,8 @@ input.button-add {
                     <img src="./img/center_default.png">            
                 </div>
                 <div class="txt_part">
-                    <p>${centerDto.centeraddr}</p>
-                    평점 : <span>
+                    <p><b>${centerDto.centeraddr}</b></p>
+                    <b>평점 : </b><span>
                     <span class="star-rating">
                     	<span style="width:${centerDto.centergrade*20}%"></span>
                     </span> (${centerDto.centergrade})
@@ -518,7 +549,7 @@ input.button-add {
             </div>
             <hr><br><br>
             <div class="text_cont">
-                <div id="center_intro">
+                <div class="center_cont">
                     <div class="cont_head">
                         <h2 id="a">센터소개</h2>
                     </div>
@@ -526,7 +557,7 @@ input.button-add {
                     	${centerDto.centerintro}
                     </div>
                 </div>
-                <div id="center_info">
+                <div class="center_cont">
                 	<div class="cont_head">
                 		<h2 id="b">이용정보</h2>
                 	</div>
@@ -534,7 +565,7 @@ input.button-add {
                     	${centerDto.centercontent}
                     </div>
                 </div>
-                <div id="center_time">
+                <div class="center_cont">
                 	<div class="cont_head">
                 		<h2 id="c">운영시간</h2>
                 	</div>
@@ -542,7 +573,7 @@ input.button-add {
                     	${centerDto.centerophour }
                     </div>
                 </div>
-                <div id="center_program">
+                <div class="center_cont">
                 	<div class="cont_head">
                 		<h2 id="d">프로그램</h2>
                 	</div>
@@ -550,7 +581,7 @@ input.button-add {
                      	${centerDto.centerpro}
                     </div>
                 </div>
-                <div id="center_location">
+                <div class="center_cont">
                 	<div class="cont_head">
                 		<h2 id="f">위치</h2>
                 	</div>
@@ -564,7 +595,7 @@ input.button-add {
                     <h2 id="f">사진</h2>
                 </div>
                 <div class="cont_images">
-                    <img src="./img/no_photo.png">
+                    <img src="./img/no_photo_big.png">
                 </div>
             </div>
              <div class="review_cont">

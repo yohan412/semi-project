@@ -10,6 +10,14 @@
 <meta charset="UTF-8">
 <title>유저페이지(관리자)</title>
 <style type="text/css">
+#wrap{
+	width: 80%;
+	margin: 0 auto;
+}
+hr{
+	height:3px;
+	background-color:#036;
+}
 .information{
 	text-align:center;
 }
@@ -30,10 +38,37 @@ td input[type="text"], input[type="email"], input[type="tel"] {
     font-size: 0.8rem;
     border: 1px solid #d1d1d1;
 }
+#writed_list table{
+	border-collapse: collapse;
+}
+#writed_list table th{
+	border-bottom: 3px solid #036;
+}
+#writed_list a{
+	text-decoration:none;
+	color:black;
+	font-weight:bold;
+}
+.ip_button{
+	margin-top:10px;
+	margin-left:10px;
+	background: rgb(00,68,137);
+	font-weight:bold;
+	color : white;
+	width:80px;
+	height:30px;
+	border-radius: 5px;
+	cursor:pointer;
+	outline:none;
+	box-shadow:none;
+	border:none;
+}
 </style>
 </head>
 <body>
 <header><%@ include file="./form/header.jsp" %></header>
+<div id="wrap">
+<br><br>
 <h2 class="information">사용자 정보</h2>
 	<hr>
 	<table class="mylist">
@@ -61,6 +96,7 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 		<tr>
 			<th id="list">작성한 글 목록</th>
 			<td>
+				<div id="writed_list">
 				<table border="1" width="100%" height="100px">
 					<thead>
 						<tr>
@@ -74,25 +110,27 @@ td input[type="text"], input[type="email"], input[type="tel"] {
 						<c:when test="${!empty usedlist }">
 						<c:forEach items="${usedlist}" var = "used">
 							<tr>
-								<td>${used.usedno }</td>
+								<td align="center">${used.usedno }</td>
 								<td><a href="usedcontroller?command=useddetail&usedno=${used.usedno}">${used.usedtitle }</a></td>
-								<td>${used.usedreg }</td>
+								<td align="center">${used.usedreg }</td>
 							</tr>
 						</c:forEach>
 						</c:when>
 						</c:choose>
 					</tbody>
 				</table>
+				</div>
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2" class="function">
-			<input type="button" value="수정" onclick="location.href='MainController?command=updatestart&userno=${userDto.userno}'">
-			<input type="button" value="탈퇴" onclick="location.href='MainController?command=deleteinfo&userno=${userDto.userno}'">
-			<input type="button" value="목록" onclick="location.href='MainController?command=adminpage&act=user'">
+			<input class="ip_button" type="button" value="수정" onclick="location.href='MainController?command=updatestart&userno=${userDto.userno}'">
+			<input class="ip_button" type="button" value="탈퇴" onclick="location.href='MainController?command=deleteinfo&userno=${userDto.userno}'">
+			<input class="ip_button" type="button" value="목록" onclick="location.href='MainController?command=adminpage&act=user'">
 			</td>
 		</tr>
 	</table>
+</div>
 <footer><%@ include file="./form/footer.jsp" %></footer>
 </body>
 </html>

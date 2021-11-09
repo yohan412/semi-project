@@ -20,18 +20,25 @@
 	align-items: center;
     justify-content: center;
 }
+#title hr{
+	height:3px;
+	background-color:#036;
+}
 .empty_space{
 	width:10%;
 }
 .biz_info{
 	display:flex;
+	margin-bottom:50px;
+	margin-top:50px;
 }
 .cont_head{
 	display: flex;
     align-items: center;
     justify-content: center;
-	width:150px;
-	height:150px;
+	width:200px;
+	height:100px;
+	border-right: 2px solid #036;
 }
 .cont_info{
 	width:100%;
@@ -54,6 +61,24 @@
 	outline:none;
 	box-shadow:none;
 	border:none;
+}
+.status_active{
+	width:100px;
+	display:inline-block;
+	background:rgb(15, 82, 186);
+	color:white;
+	font-weight:bold;
+	font-size:20px;
+	border-radius:10px;
+}
+.status_dis{
+	width:100px;
+	display:inline-block;
+	background:gray;
+	color:white;
+	font-weight:bold;
+	font-size:20px;
+	border-radius:10px;
 }
 </style>
 <script type="text/javascript">
@@ -79,8 +104,9 @@
 	<div class="empty_space"></div>
 	<div id="wrap">
 		<div id="title">
-			<h1>사업장 등록 요청</h1>
-		</div><hr>
+			<br><br>
+			<h1>사업장 등록 요청</h1><hr>
+		</div>
 		<div id="contents">
 			<div class="biz_info">
                 <div class="cont_head">
@@ -144,13 +170,13 @@
                 <div class="cont_info">
                 	<c:choose>
                 		<c:when test="${bizDto.bizstatus eq 'Y'}">
-                			<a>승인수락</a>
+                			<span class="status_dis">승인수락</span>
                 		</c:when>
                 		<c:when test="${bizDto.bizstatus eq 'N'}">
-                			<a>승인대기</a>
+                			<span class="status_active">승인대기</span>
                 		</c:when>
                 		<c:when test="${bizDto.bizstatus eq 'D'}">
-                			<a>승인거절</a>
+                			<span class="status_ids">승인거절</span>
                 		</c:when>
                 	</c:choose>
                 	

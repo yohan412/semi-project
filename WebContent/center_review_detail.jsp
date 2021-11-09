@@ -15,12 +15,12 @@
 }
 #title{
 	width:465px;
-	margin-top:30px;
 	padding:25px;
+	box-sizing: border-box;
 }
 .wrap{
-	width:515px;
-	height: 500px;
+	width:510px;
+	height: 475px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -30,6 +30,7 @@
 	border: 2px solid rgb(93, 93, 93);
 	padding: 20px;
 	border-radius: 10px;
+	box-sizing: border-box;
 }
 .headline a{
 	align-items: left;
@@ -52,13 +53,14 @@
 	box-shadow:none;
 	border:none;
 }
-textarea{
+#cont_text{
 	width:400px;
 	height:300px;
 	margin-top:15px;
 	padding:10px;
 	resize:none;
 	border-radius: 10px;
+	border:1px solid black;
 }
 /*별점 구현*/
 .star-rating{
@@ -116,7 +118,7 @@ textarea{
                 </span>&nbsp;(${reviewDto.reviewgrade}점)</span><br></a>
 		</div>				
 		<div class="review_content">
-			<textarea readonly="readonly">${reviewDto.reviewcontent}</textarea>
+			<div id="cont_text">${reviewDto.reviewcontent}</div>
 		</div>
 		<div id="review_button" align="right">
 			<input class="ip_button" type="button" value="닫기" onclick="reload()">

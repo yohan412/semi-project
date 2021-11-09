@@ -23,6 +23,10 @@ header, section, article, aside, main, nav, footer{
 h1, p{
     margin: 0;
 }
+#title hr{
+	height:3px;
+	background-color:#036;
+}
 .information a{
     text-decoration: none;
     color:black;
@@ -72,8 +76,15 @@ h1, p{
 	margin-left:5%;
 	justify-content:center;
 	align-items: center;
+	margin-bottom:25px;
 }
 .cont_head{
+	min-width:200px;
+	height:50px;
+	width:20%;
+	border-right: 3px solid #036;
+}
+.cont_head2{
 	min-width:200px;
 	height:50px;
 	width:20%;
@@ -81,6 +92,12 @@ h1, p{
 .cont_info{
 	width:80%;
 	padding:8px;
+}
+
+.cont_info2{
+	width:80%;
+	padding:8px;
+	border-left: 3px solid #036;
 }
 .cont_button{
 	align-self: center;
@@ -104,7 +121,7 @@ h1, p{
 }
 input[type=text]{
 	width:100%;
-	height:20px;
+	height:30px;
 }
 textarea{
 	width:100%;
@@ -138,8 +155,11 @@ table th{
 <body>
 <header><%@ include file = "./form/header.jsp" %></header>
 	<div id="main">
-		<h1 align="center">센터 정보 수정</h1>
-		<hr>
+		<div id="title">
+		<br><br>
+		<h1 align="left">센터 정보 수정</h1><br><hr>
+		</div>
+		<br>
 		<form action="CenterController?command=centerupdate" method="post">    
 			<input type="hidden" name="centerno" value="${centerDto.centerno}">
 	            <div class="text_cont">
@@ -180,34 +200,34 @@ table th{
 	                    </div>
 	                </div>
 	                <div class="cont">
-	                    <div class="cont_head">
+	                    <div class="cont_head2">
 	                        <h3 id="a">센터소개</h3>
 	                    </div>
-	                    <div class="cont_info">
+	                    <div class="cont_info2">
 	                    	<textarea rows="10" name="centerintro" >${centerDto.centerintro}</textarea>
 	                    </div>
 	                </div>
 	                <div class="cont">
-	                	<div class="cont_head">
+	                	<div class="cont_head2">
 	                		<h3 id="b">이용정보</h3>
 	                	</div>
-	                    <div class="cont_info">
+	                    <div class="cont_info2">
 	                    	<textarea rows="10" name="centercontent">${centerDto.centercontent}</textarea>
 	                    </div>
 	                </div>
 	                <div class="cont">
-	                	<div class="cont_head">
+	                	<div class="cont_head2">
 	                		<h3 id="c">운영시간</h3>
 	                	</div>
-	                    <div class="cont_info">
+	                    <div class="cont_info2">
 	                    	<textarea rows="10" name="centerophour">${centerDto.centerophour}</textarea>
 	                    </div>
 	                </div>
 	                <div class="cont">
-	                	<div class="cont_head">
+	                	<div class="cont_head2">
 	                		<h3 id="d">프로그램</h3>
 	                	</div>
-	                    <div class="cont_info">
+	                    <div class="cont_info2">
 	                    	<textarea rows="10" name="centerpro">${centerDto.centerpro}</textarea>
 	                    </div>
 	                </div>

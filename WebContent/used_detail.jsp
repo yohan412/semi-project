@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>중고거래 상세페이지</title>
 <style type="text/css">
 *{
 	margin: 0px;
@@ -28,12 +28,13 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	background: #DCDCDC;
+	background: #cdd0dd;
 	width: 800px;
 }
 .headline{
 	margin: 15px;
-	width: 700px;
+	width: 650px;
+	text-align:left;
 }
 .title span{
 	font-weight: bold;
@@ -48,7 +49,7 @@
 .content{
 	width: 700px;
 	background: white;
-	margin: 20px;
+	margin: 50px;
 	text-align: center;
 }
 #map{
@@ -126,7 +127,10 @@ input.button-add {
     width :24px;
     height : 24px;
 }
-
+.headline hr{
+	height:3px;
+	background-color:#036;
+}
 /*찜 버튼 구현 끝*/
 #numbers{
 	list-style: none;
@@ -172,9 +176,11 @@ input[type=button]{
 }
 #title{
 	display:inline-block;
-	width:550px;
+	width:500px;
 }
-
+.write_info{
+	padding-left:10px;
+}
 .ask_contents{
 	display:inline-block;
 	width:230px;
@@ -195,7 +201,7 @@ table{
 .ask_list table tbody tr{
 	border-bottom: 1px solid #ccc;
 }
-.content table{
+.content_info table{
 	border-collapse: separate;
 	border-spacing: 0 20px;
 }
@@ -213,6 +219,24 @@ table{
 .regist input[type=button], .status input[type=button]{
 	margin-top:30px;
 	margin-bottom:30px;
+}
+.waiting{
+	width:60px;
+	display:inline-block;
+	background:rgb(15, 82, 186);
+	color:white;
+	font-weight:bold;
+	font-size:12px;
+	border-radius:5px;
+}
+.done{
+	width:60px;
+	display:inline-block;
+	background:gray;
+	color:white;
+	font-weight:bold;
+	font-size:12px;
+	border-radius:5px;
 }
 </style>
 <script type="text/javascript"	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cf6a0311e8ff428c0d13bd95e775d7f3&libraries=services"></script>
@@ -346,7 +370,7 @@ table{
 	}
 	
 	function question1On1(){
-		var option="top=10,left=10,width=430,height=440, status=no,menubar=no,toolbar=no,resizable=no";
+		var option="top=10,left=10,width=430,height=455, status=no,menubar=no,toolbar=no,resizable=no";
 		window.open("usedcontroller?command=askwriteform&usedno=${usedDto.usedno}&writer=${loginUser.userid}","1:1 문의하기",option);
 	}
 	
@@ -385,16 +409,16 @@ table{
 			
 			var status;
 			if(list[i].status == 'N'){
-				status="대기중";
+				status="<span class='waiting'>대기중</span>";
 			} else{
-				status="답변완료";
+				status="<span class='done'>답변완료</span>";
 			}
 			$(".ask_list tbody").append(
 				"<tr>"
 				+"<td>"
 				+(i+1)+"</td>"
 				+"<td>"+list[i].writer+"</td>"
-				+"<td align='left'><span class='ask_contents'><a onclick='ask_detail("+list[i].no+",\""+list[i].writer+"\")'>"+list[i].title+"</a></span></td>"
+				+"<td align='left'><span class='ask_contents'><a onclick='ask_detail("+list[i].no+",\""+list[i].writer+"\")'><b>"+list[i].title+"</b></a></span></td>"
 				+"<td>"+status+"</td>"
 				+"<td>"+list[i].reg+"</td>"
 				+"</tr>"		
@@ -515,6 +539,9 @@ table{
 	<br><br><br><br>
 	<div class="wrap">
 		<div class="used_detail">
+			
+			
+			<div class="content">
 			<div class="headline">
 				<div class="title">
 					<span id="category">[${usedDto.usedcategory}]</span>
@@ -536,8 +563,6 @@ table{
 				</div>
 				<br><hr>
 			</div>
-			
-			<div class="content">
 				<div id="map">					
 				</div>		
 						

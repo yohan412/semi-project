@@ -10,7 +10,13 @@
 <meta charset="UTF-8">
 <title>중고거래 게시글 작성</title>
 <style type="text/css">
-h1{text-align:center;}
+#title hr{
+	height:3px;
+	background-color:#036;
+}
+h1{
+	align:left;
+}
 #wrap{
 	width:80%;
 	margin: 0 auto;
@@ -66,6 +72,20 @@ select {
 	outline:none;
 	box-shadow:none;
 	border:none;
+}
+table{
+	border-collapse: separate;
+	border-spacing: 0 20px;
+}
+table th{
+	border-right: 3px solid #036;
+}
+tr{
+	line-height:30px;
+}
+td{
+	text-align:left;
+	padding-left:20px;
 }
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -159,8 +179,11 @@ select {
 </head>
 <body>
 	<header><%@ include file="./form/header.jsp" %></header>
-	<h1>중고거래 게시글 작성</h1>
+	
 	<div id="wrap">
+	<div id="title"><br><br>
+		<h1 align="left">중고거래 게시글 등록</h1><hr>
+		</div><br>
 	<form action="usedcontroller?command=usedwrite" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="logonid" value="${loginUser.userid}">
 		<input type="hidden" name="logonno" value="${loginUser.userno}">

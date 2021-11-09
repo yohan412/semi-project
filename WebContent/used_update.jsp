@@ -11,7 +11,10 @@
 <title>중고거래 게시글 수정</title>
 <style type="text/css">
 h1{text-align:left;
-	padding-left:70px;
+}
+#title hr{
+	height:3px;
+	background-color:#036;
 }
 #wrap{
 	width:80%;
@@ -65,9 +68,11 @@ table td{
 	<header><%@ include file="./form/header.jsp" %></header>
 	
 	<div id="wrap">
+	<div id="title">
 	<br><br>
 	<h1>중고거래 게시글 수정</h1>
-	<br><hr>
+	<hr></div>
+	<br>
 	<form action="usedcontroller?command=usedupdate" method="post">
 		<input type="hidden" name="usedno" value="${useddto.usedno }">
 		<table width="100%">

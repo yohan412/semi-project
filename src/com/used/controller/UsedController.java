@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.center.dao.CenterDao;
+import com.center.dto.CenterDto;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.pic.dto.PicDto;
@@ -38,7 +40,8 @@ public class UsedController extends HttpServlet {
 		
 		UsedDao usedDao = new UsedDao();
 		UsedaskDao uskDao = new UsedaskDao();
-		
+		CenterDao centerDao = new CenterDao();
+
 		if (command.equals("wish")) {
 
 			String login_id = request.getParameter("login_id");
@@ -222,6 +225,9 @@ public class UsedController extends HttpServlet {
 		}else if(command.equals("mypage")) {
 			List<UsedDto> mypagelist = usedDao.selectAll();
 			request.setAttribute("mypagelist", mypagelist);
+			List<CenterDto> center = centerDao.selectAll(); 
+			request.setAttribute("centerlist", center);
+
 			
 			UserDto loginUser = (UserDto)request.getSession().getAttribute("loginUser");
 			

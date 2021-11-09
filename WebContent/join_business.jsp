@@ -183,7 +183,7 @@
          
         
         	<div class = "button" style="width: 97%;">
-        		<input type="button" value="취소" class="button2">
+        		<input type="button" value="취소" class="button2" onclick="location.href='main.jsp'">
 				<input type="submit" value="사업자 등록" class="button1">	
 			</div>
 		</form>

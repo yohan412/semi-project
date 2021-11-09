@@ -68,7 +68,7 @@
 </style>
 </head>
 <body>
-
+<header><%@ include file="form/header.jsp" %></header>
 <h2 align="center">1 : 1 문의</h2>
 
 <div id="wrap">

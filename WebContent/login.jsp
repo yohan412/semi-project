@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>로그인</title>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <style type="text/css">
 *{
@@ -123,7 +123,9 @@ footer{
 		bottom:0;
 		width: 100%;
 }
-
+button{
+	cursor:pointer;
+}
 
 </style>
 <script src="./js/jquery-3.6.0.min.js"></script>

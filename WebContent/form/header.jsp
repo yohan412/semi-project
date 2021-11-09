@@ -36,6 +36,11 @@
 #logout, #login{
 	width: 200px;
 	align-self:flex-end;
+	text-align:left;
+}
+#logout label{
+	padding-left:10px;
+	font-weight:bold;
 }
 #nav {
 	margin-top:10px;
@@ -60,6 +65,20 @@
 
 #nav .sub_menu a:hover{
 	color:skyblue;
+}
+button{
+	margin-top:10px;
+	margin-left:10px;
+	background: black;
+	font-weight:bold;
+	color : white;
+	width:80px;
+	height:30px;
+	border-radius: 5px;
+	cursor:pointer;
+	outline:none;
+	box-shadow:none;
+	border:none;
 }
 </style>
 <script type="text/javascript">
@@ -94,7 +113,7 @@
 			</c:when>
 			<c:when test="${loginUser !=null }">
 				<div id="logout">
-				<label>${loginUser.username }님(회원등급 : ${loginUser.role }) 방문을 환영합니다.</label><br>
+				<label>${loginUser.username }님</label><br><label>(회원등급 : ${loginUser.role })</label><br>
 				<button onclick="location.href='usercontroller?command=logout'">로그아웃</button>
 				<c:choose>
 				<c:when test="${loginUser.role eq 'M' || loginUser.role eq 'DM'}">

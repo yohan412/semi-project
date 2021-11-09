@@ -284,6 +284,18 @@ select {
 			</div>
 			<br>
 			<br>
+			
+			<div>
+				<h3 class="join_title">
+					<label for="USER_EMAIL">E-Mail</label>
+				</h3>
+				<span class="box int_email">
+				 <input type="text" id="email"
+					class="int" maxlength="100" name="myemail" placeholder="이메일 주소 입력">
+				</span>
+			</div>
+			<br>
+			<br>
 			<div>
 				<h3 class="USER_PHONE">
 					<label for="USER_PHONE">휴대전화번호</label>
@@ -320,17 +332,6 @@ select {
 			<br>
 			<br>
 
-			<div>
-				<h3 class="join_title">
-					<label for="USER_EMAIL">E-Mail</label>
-				</h3>
-				<span class="box int_email">
-				 <input type="text" id="email"
-					class="int" maxlength="100" name="myemail" placeholder="이메일 주소 입력">
-				</span>
-			</div>
-			<br>
-			<br>
 			<div class="btn_area">
 				<button type="submit" id="button2">
 					<span>확인</span>

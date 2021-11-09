@@ -116,6 +116,7 @@
 <script>
 	var uid = "${loginUser.userid}";
 	var qid = "<%=dto.getUserid()%>";
+	
 	console.log(uid);
 	console.log(qid);
 	
@@ -125,14 +126,10 @@
 		exit;
 	}	
 	
-	if(uid=="USER7" || uid==qid){
-		if(uid=="USER7"){
-			$('#submit').hide();
-		}
-	}else{
-		alert("게시글 조회 권한이 없습니다."); location.href="login.jsp";
-		
-		exit;
+	if(uid!=qid){
+		$('#submit').hide();
+		$('#reset').hide();
+		$('#reply').hide();
 	}
 	
 	function del_btn(qano){

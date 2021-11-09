@@ -12,11 +12,12 @@
 <%@ page import="java.io.PrintWriter" %>
 
 <% 
-	
+	int qano = Integer.parseInt(request.getParameter("qano"));
 	int qareno = Integer.parseInt(request.getParameter("qareno"));
 
+	QnaDao dao = new QnaDao();
+	QnaDto dto = dao.selectOne(qano);
 	ReplyDao rdao = new ReplyDao();
-	
 	ReplyDto rdto = rdao.selectOne(qareno);
 	
 %>
@@ -68,11 +69,22 @@
 		border-radius: 5px;
 	}
 </style>
-<script type="text/javascript">
-function goBack(){
-	history.back();
-}
+
+
+<script>
+var uid = "${loginUser.userid}";
+var qid = "<%=dto.getUserid()%>";
+console.log(uid);
+console.log(qid);
+
+if(uid==""){
+	alert("로그인 후 이용가능합니다."); location.href="login.jsp";
+	
+	exit;
+}	
+
 </script>
+
 </head>
 <header><%@ include file="form/header.jsp" %></header>
 <body>
@@ -95,7 +107,7 @@ function goBack(){
 			<tr>
 				<td colspan="3">
 					<input type="submit" id="submit" value="수 정" >&nbsp;&nbsp;
-					<input type="button" id="reset" value="취 소" onclick="goBack();">
+					<input type="button" id="reset" value="취 소" onclick="history.back()">
 
 				</td>
 			</tr>

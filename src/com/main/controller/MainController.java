@@ -220,7 +220,7 @@ public class MainController extends HttpServlet {
 				
 				int res2 = udao.updatefaq(dto);
 				
-				if(res>0) {
+				if(res2>0) {
 					dispatch("MainController?command=qna",request,response);
 				}else {
 					dispatch("MainController?command=answerform",request,response);

@@ -448,7 +448,12 @@ response.setContentType("text/html; charset=UTF-8");
 				
 			}
 		} else{
+			if(${loginUser.role eq 'GU'}){
+				alert("BU등급 이상의 유저만 센터등록이 가능합니다.");
+			}
+			else{
 			location.href="CenterController?command=centerwriteform";
+			}
 		}
 	}
 </script>

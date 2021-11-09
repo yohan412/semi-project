@@ -134,7 +134,7 @@ input[name=star_range]{
 	<div class="wrap">
 	<div class="review">
 	<div class="review_title">
-		<h1>Review 작성</h1>
+		<h1>이용후기 작성</h1>
 		<br>
 		<hr>
 	</div>

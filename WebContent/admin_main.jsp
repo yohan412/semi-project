@@ -768,7 +768,6 @@ table tbody tr{
 				<ul class="sub">
 					<li><a href="#" onclick="center_list()">센터 게시판</a></li>
 					<li><a href="#" onclick="used_list()">회원권 게시판</a></li>
-					<li><a href="#" onclick="qna_list()">QnA 게시판</a></li>
 				</ul>
 			</li>
 		</ul>

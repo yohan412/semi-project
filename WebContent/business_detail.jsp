@@ -80,6 +80,16 @@
 	font-size:20px;
 	border-radius:10px;
 }
+.cont_info img{
+	width:280px;
+	height:425px;
+}
+.cont_info img{
+		transition:all 02.x linear;
+	}
+.cont_info img:hover{
+		transform:scale(2);
+}
 </style>
 <script type="text/javascript">
  
@@ -96,6 +106,7 @@
 		}
 	}
  }
+ 
 </script>
 </head>
 <body>
